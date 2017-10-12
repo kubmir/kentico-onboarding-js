@@ -15,6 +15,7 @@ export class List extends PureComponent {
     this.addNewNote = this.addNewNote.bind(this);
     this.updateNewNote = this.updateNewNote.bind(this);
     this.handleEnterPress = this.handleEnterPress.bind(this);
+    this.handleDeleteNotes = this.handleDeleteNotes.bind(this);
   }
 
   addNewNote() {
@@ -34,6 +35,12 @@ export class List extends PureComponent {
     }
   }
 
+  handleDeleteNotes(note) {
+    this.setState({
+      notes: this.state.notes.filter(arrayNote => arrayNote !== note),
+    });
+  }
+
   render() {
     return (
       <div className="row">
@@ -50,7 +57,7 @@ export class List extends PureComponent {
 
         <ul className="list-group">
           {this.state.notes.map((note, i) =>
-            <ListMember note={note} number={i + 1} key={generateUid()} />
+            <ListMember note={note} number={i + 1} key={generateUid()} handleDeleteNotes={this.handleDeleteNotes} />
           )}
           <li className="list-group-item">
             <input type="text" className="form-control" onChange={this.updateNewNote} value={this.state.noteToBeAdded} onKeyPress={this.handleEnterPress} />
