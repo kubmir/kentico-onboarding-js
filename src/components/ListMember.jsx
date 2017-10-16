@@ -1,24 +1,39 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { ListMemberEditMode } from './ListMemberEditMode';
 
 export class ListMember extends PureComponent {
-  constructor() {
+
+  constructor(props) {
     super();
     this.state = {
-      editable: false,
+      editable: props.note.edit,
     };
-    this.handleChangeModeStart = this.handleChangeModeStart.bind(this);
-    this.handleCancelClick = this.handleCancelClick.bind(this);
+
+    this.handleExitingEdit = this.handleExitingEdit.bind(this);
+    this.handleStartEdit = this.handleStartEdit.bind(this);
+    this.handleSave = this.handleSave.bind(this);
   }
-  handleChangeModeStart() {
+
+  handleStartEdit() {
+    this.props.handleEditModeChanges(true, this.props.note);
     this.setState({
       editable: true,
     });
   }
-  handleCancelClick() {
+
+  handleExitingEdit() {
+    this.props.handleEditModeChanges(false, this.props.note);
     this.setState({
       editable: false,
     });
+  }
+
+  handleSave(prevNote, newNote) {
+    this.setState({
+      editable: false,
+    });
+    this.props.handleSaveEdit(prevNote, newNote);
   }
 
   render() {
@@ -26,21 +41,25 @@ export class ListMember extends PureComponent {
       <li className="list-group-item">
         {
           this.state.editable ?
-            <div>
-              <input defaultValue={this.props.number + '. ' + this.props.note} />
-              <button type="button" className="btn btn-primary">Save</button>
-              <button type="button" className="btn btn-dark" onClick={this.handleCancelClick}>Cancel</button>
-              <button type="button" className="btn btn-danger" onClick={() => this.props.handleDeleteNotes(this.props.note)}>Delete</button>
-            </div> :
-            <p onClick={this.handleChangeModeStart}>{this.props.number + '. ' + this.props.note}</p>
+            <ListMemberEditMode
+              note={this.props.note}
+              number={this.props.number}
+              handleDeleteNotes={this.props.handleDeleteNotes}
+              handleSaveEdit={this.handleSave}
+              handleCancelClick={this.handleExitingEdit}
+            />
+             :
+            <p onClick={this.handleStartEdit}>{this.props.number + '. ' + this.props.note.text}</p>
         }
       </li>
-  );
+    );
   }
 }
 
 ListMember.propTypes = {
-  note: PropTypes.string,
+  note: PropTypes.object,
   number: PropTypes.number,
   handleDeleteNotes: PropTypes.func.isRequired,
+  handleSaveEdit: PropTypes.func.isRequired,
+  handleEditModeChanges: PropTypes.func.isRequired,
 };
