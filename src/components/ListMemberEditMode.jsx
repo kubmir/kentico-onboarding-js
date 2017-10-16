@@ -20,11 +20,17 @@ export class ListMemberEditMode extends PureComponent {
     });
   }
 
+  componentDidMount() {
+    const length = this.refs.input.value.length;
+    this.refs.input.focus();
+    this.refs.input.setSelectionRange(length, length);
+  }
+
   render() {
     return (
       <div className="input-group input-width-bigger">
         <span className="input-group-addon">{this.props.number + '.'}</span>
-        <input defaultValue={this.props.note.text} className="form-control" onChange={this.handleNoteEditing} />
+        <input ref="input" defaultValue={this.props.note.text} className="form-control" onChange={this.handleNoteEditing} />
         <span className="input-group-btn">
           <button type="button" className="btn btn-primary" onClick={() => this.props.handleSaveEdit(this.props.note, this.state.changesOnNote)}>Save</button>
           <button type="button" className="btn btn-dark" onClick={this.props.handleCancelClick}>Cancel</button>
