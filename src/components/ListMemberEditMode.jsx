@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import './../inputStyle.css';
+
 
 export class ListMemberEditMode extends PureComponent {
 
@@ -20,12 +22,14 @@ export class ListMemberEditMode extends PureComponent {
 
   render() {
     return (
-      <div>
-        <p>{this.props.number + '.'}</p>
-        <input defaultValue={this.props.note.text} onChange={this.handleNoteEditing} />
-        <button type="button" className="btn btn-primary" onClick={() => this.props.handleSaveEdit(this.props.note, this.state.changesOnNote)}>Save</button>
-        <button type="button" className="btn btn-dark" onClick={this.props.handleCancelClick}>Cancel</button>
-        <button type="button" className="btn btn-danger" onClick={() => this.props.handleDeleteNotes(this.props.note)}>Delete</button>
+      <div className="input-group input-width-bigger">
+        <span className="input-group-addon">{this.props.number + '.'}</span>
+        <input defaultValue={this.props.note.text} className="form-control" onChange={this.handleNoteEditing} />
+        <span className="input-group-btn">
+          <button type="button" className="btn btn-primary" onClick={() => this.props.handleSaveEdit(this.props.note, this.state.changesOnNote)}>Save</button>
+          <button type="button" className="btn btn-dark" onClick={this.props.handleCancelClick}>Cancel</button>
+          <button type="button" className="btn btn-danger" onClick={() => this.props.handleDeleteNotes(this.props.note)}>Delete</button>
+        </span>
       </div>);
   }
 }

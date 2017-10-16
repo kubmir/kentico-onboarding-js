@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import './../inputStyle.css';
 
 export class AddLine extends PureComponent {
 
@@ -38,8 +39,12 @@ export class AddLine extends PureComponent {
   render() {
     return (
       <li className="list-group-item">
-        <input type="text" className="form-control" onChange={this.updateNewNote} value={this.state.noteToBeAdded} onKeyPress={this.handleEnterPress} />
-        <button type="button" className="btn btn-outline-dark" onClick={() => this.handleAddNewNote()}>Add</button>
+        <div className="input-group input-width-smaller">
+          <input type="text" className="form-control" onChange={this.updateNewNote} value={this.state.noteToBeAdded} onKeyPress={this.handleEnterPress} />
+          <span className="input-group-btn">
+            <button type="button" className="btn btn-outline-dark" onClick={() => this.handleAddNewNote()}>Add</button>
+          </span>
+        </div>
       </li>
     );
   }
