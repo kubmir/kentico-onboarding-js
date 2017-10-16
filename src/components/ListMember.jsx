@@ -4,10 +4,10 @@ import { ListMemberEditMode } from './ListMemberEditMode';
 
 export class ListMember extends PureComponent {
 
-  constructor(props) {
+  constructor() {
     super();
     this.state = {
-      editable: props.note.edit,
+      editable: false,
     };
 
     this.handleExitingEdit = this.handleExitingEdit.bind(this);
@@ -29,11 +29,11 @@ export class ListMember extends PureComponent {
     });
   }
 
-  handleSave(prevNote, newNote) {
+  handleSave(prevNote, changes) {
     this.setState({
       editable: false,
     });
-    this.props.handleSaveEdit(prevNote, newNote);
+    this.props.handleSaveEdit(prevNote, changes);
   }
 
   render() {

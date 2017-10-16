@@ -29,8 +29,6 @@ export class AddLine extends PureComponent {
   handleAddNewNote() {
     this.props.addNewNote({
       text: this.state.noteToBeAdded,
-      edit: false,
-      changes: '',
     });
     this.setState({
       noteToBeAdded: '',

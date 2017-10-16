@@ -20,10 +20,9 @@ export class List extends PureComponent {
   handleAddNewNote(noteToBeAdded) {
     const addNote = {
       text: noteToBeAdded.text,
-      edit: noteToBeAdded.edit,
-      changes: noteToBeAdded.changes,
       uid: generateUid(),
     };
+
     this.setState({
       notes: [...this.state.notes, addNote],
     });
@@ -35,15 +34,15 @@ export class List extends PureComponent {
     });
   }
 
-  handleNoteUpdate(prevNote, newNote) {
+  handleNoteUpdate(prevNote, changes) {
     const prevNoteIndex = this.state.notes.indexOf(prevNote);
     const copy = JSON.parse(JSON.stringify(this.state.notes));
+
     copy[prevNoteIndex] = {
-      text: newNote.changes ? newNote.changes : prevNote.text,
-      edit: newNote.edit,
-      changes: '',
+      text: changes !== '' ? changes : prevNote.text,
       uid: prevNote.uid,
     };
+
     this.setState({
       notes: copy,
     });
@@ -53,6 +52,7 @@ export class List extends PureComponent {
     const index = this.state.notes.indexOf(note);
     const copy = JSON.parse(JSON.stringify(this.state.notes));
     copy[index].edit = newEditMode;
+
     this.setState({
       notes: copy,
     });
