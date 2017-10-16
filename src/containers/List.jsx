@@ -14,7 +14,6 @@ export class List extends PureComponent {
     this.handleAddNewNote = this.handleAddNewNote.bind(this);
     this.handleDeleteNotes = this.handleDeleteNotes.bind(this);
     this.handleNoteUpdate = this.handleNoteUpdate.bind(this);
-    this.handleEditModeChanges = this.handleEditModeChanges.bind(this);
   }
 
   handleAddNewNote(noteToBeAdded) {
@@ -48,16 +47,6 @@ export class List extends PureComponent {
     });
   }
 
-  handleEditModeChanges(newEditMode, note) {
-    const index = this.state.notes.indexOf(note);
-    const copy = JSON.parse(JSON.stringify(this.state.notes));
-    copy[index].edit = newEditMode;
-
-    this.setState({
-      notes: copy,
-    });
-  }
-
   render() {
     return (
       <div className="row">
@@ -69,8 +58,6 @@ export class List extends PureComponent {
               key={note.uid}
               handleDeleteNotes={this.handleDeleteNotes}
               handleSaveEdit={this.handleNoteUpdate}
-              handleEditModeChanges={this.handleEditModeChanges}
-              handleChanges={this.handleChanges}
             />
           )
           }

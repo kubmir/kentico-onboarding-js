@@ -16,23 +16,19 @@ export class ListMember extends PureComponent {
   }
 
   handleStartEdit() {
-    this.props.handleEditModeChanges(true, this.props.note);
     this.setState({
       editable: true,
     });
   }
 
   handleExitingEdit() {
-    this.props.handleEditModeChanges(false, this.props.note);
     this.setState({
       editable: false,
     });
   }
 
   handleSave(prevNote, changes) {
-    this.setState({
-      editable: false,
-    });
+    this.handleExitingEdit();
     this.props.handleSaveEdit(prevNote, changes);
   }
 
@@ -61,5 +57,4 @@ ListMember.propTypes = {
   number: PropTypes.number,
   handleDeleteNotes: PropTypes.func.isRequired,
   handleSaveEdit: PropTypes.func.isRequired,
-  handleEditModeChanges: PropTypes.func.isRequired,
 };
