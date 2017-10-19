@@ -1,49 +1,87 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import './../inputStyle.css';
-
 
 export class ListMemberEditMode extends PureComponent {
 
   constructor() {
     super();
     this.state = {
-      changesOnNote: '',
+      noteChanges: '',
     };
-
-    this.handleNoteEditing = this.handleNoteEditing.bind(this);
   }
 
-  handleNoteEditing(event) {
+  handleNoteEditing = (event) => {
     this.setState({
-      changesOnNote: event.target.value,
+      noteChanges: event.target.value,
     });
-  }
+  };
+
+  handleDeleteClick = () => {
+    this.props.onDeleteClick(this.props.note);
+  };
+
+  handleSaveClick = () => {
+    this.props.onSaveClick(this.props.note, this.state.noteChanges);
+  };
+
+  handleCancelClick = () => {
+    this.props.onEditModeChanges(this.props.note, false);
+  };
 
   componentDidMount() {
-    const length = this.refs.input.value.length;
-    this.refs.input.focus();
-    this.refs.input.setSelectionRange(length, length);
+    const length = this.textInput.value.length;
+    this.textInput.focus();
+    this.textInput.setSelectionRange(length, length);
   }
 
   render() {
     return (
-      <div className="input-group input-width-bigger">
-        <span className="input-group-addon">{this.props.number + '.'}</span>
-        <input ref="input" defaultValue={this.props.note.text} className="form-control" onChange={this.handleNoteEditing} />
-        <span className="input-group-btn">
-          <button type="button" className="btn btn-primary" onClick={() => this.props.handleSaveEdit(this.props.note, this.state.changesOnNote)}>Save</button>
-          <button type="button" className="btn btn-dark" onClick={this.props.handleCancelClick}>Cancel</button>
-          <button type="button" className="btn btn-danger" onClick={() => this.props.handleDeleteNotes(this.props.note)}>Delete</button>
-        </span>
-      </div>);
+      <div className="row">
+        <div className="col-md-4">
+          <div className="input-group">
+            <span className="input-group-addon">{this.props.number + '.'}</span>
+            <input
+              ref={(input) => {
+                this.textInput = input;
+              }}
+              defaultValue={this.props.note.text}
+              className="form-control"
+              onChange={this.handleNoteEditing}
+            />
+          </div>
+        </div>
+        <div className="col-md-4">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={this.handleSaveClick}
+          >Save
+          </button>
+          <button
+            type="button"
+            className="btn btn-dark"
+            onClick={this.handleCancelClick}
+          >Cancel
+          </button>
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={this.handleDeleteClick}
+          >Delete
+          </button>
+        </div>
+      </div>
+    );
   }
 }
 
 ListMemberEditMode.propTypes = {
-  note: PropTypes.object,
-  number: PropTypes.number,
-  handleDeleteNotes: PropTypes.func.isRequired,
-  handleSaveEdit: PropTypes.func.isRequired,
-  handleCancelClick: PropTypes.func.isRequired,
+  note: PropTypes.shape({
+    text: PropTypes.string.isRequired,
+    isEditActive: PropTypes.bool.isRequired,
+  }).isRequired,
+  number: PropTypes.number.isRequired,
+  onDeleteClick: PropTypes.func.isRequired,
+  onSaveClick: PropTypes.func.isRequired,
+  onEditModeChanges: PropTypes.func.isRequired,
 };
