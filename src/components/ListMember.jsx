@@ -21,15 +21,9 @@ const ListMember = (props) => {
     />
   );
 
-  return (
-    <li className="list-group-item">
-      {
-        props.note.isEditActive
-          ? memberEditor
-          : memberViewer
-      }
-    </li>
-  );
+  return props.note.isEditActive
+    ? memberEditor
+    : memberViewer;
 };
 
 ListMember.propTypes = {

@@ -80,14 +80,19 @@ export class List extends PureComponent {
       .state
       .notes
       .map((note, i) => (
-        <ListMember
-          note={note}
-          number={i + 1}
-          key={note.uid}
-          onDeleteClick={this.deleteNote}
-          onSaveClick={this.updateNoteText}
-          onEditModeChanges={this.updateNoteEditMode}
-        />
+        <li
+          className="list-group-item"
+          key={i}
+        >
+          <ListMember
+            note={note}
+            number={i + 1}
+            key={note.uid}
+            onDeleteClick={this.deleteNote}
+            onSaveClick={this.updateNoteText}
+            onEditModeChanges={this.updateNoteEditMode}
+          />
+        </li>
       ));
 
     return (
