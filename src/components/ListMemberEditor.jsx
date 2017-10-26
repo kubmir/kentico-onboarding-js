@@ -14,16 +14,16 @@ export class ListMemberEditMode extends PureComponent {
     onEditModeChanges: PropTypes.func.isRequired,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      noteChanges: '',
+      currentNoteText: props.note.text,
     };
   }
 
   onNoteEditing = (event) => {
     this.setState({
-      noteChanges: event.target.value,
+      currentNoteText: event.target.value,
     });
   };
 
@@ -32,7 +32,7 @@ export class ListMemberEditMode extends PureComponent {
   };
 
   onSaveClick = () => {
-    this.props.onSaveClick(this.props.note, this.state.noteChanges);
+    this.props.onSaveClick(this.props.note, this.state.currentNoteText);
   };
 
   onCancelClick = () => {
@@ -55,7 +55,7 @@ export class ListMemberEditMode extends PureComponent {
               ref={(input) => {
                 this.textInput = input;
               }}
-              defaultValue={this.props.note.text}
+              defaultValue={this.state.currentNoteText}
               className="form-control"
               onChange={this.onNoteEditing}
             />

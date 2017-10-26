@@ -39,14 +39,14 @@ export class List extends PureComponent {
     });
   };
 
-  updateNoteText = (previousNote, changes) => {
+  updateNoteText = (previousNote, newNoteText) => {
     this.setState((previousState) => {
       const previousNoteIndex = previousState.notes.indexOf(previousNote);
       const copy = [...previousState.notes];
 
       copy[previousNoteIndex] = {
-        text: changes !== ''
-          ? changes
+        text: newNoteText !== ''
+          ? newNoteText
           : previousNote.text,
         uid: previousNote.uid,
         isEditActive: false,
