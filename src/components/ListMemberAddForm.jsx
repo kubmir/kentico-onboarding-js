@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 
 export class AddLine extends PureComponent {
 
+  static propTypes = {
+    onAddClick: PropTypes.func.isRequired,
+  };
+
   constructor() {
     super();
     this.state = {
@@ -14,20 +18,20 @@ export class AddLine extends PureComponent {
     this.setState({
       insertedText: event.target.value,
     });
-  }
+  };
 
-  handleEnterPress = (event) => {
+  onEnterPress = (event) => {
     if (event.key === 'Enter') {
       this.addInsertedText();
     }
-  }
+  };
 
   addInsertedText = () => {
     this.props.onAddClick(this.state.insertedText);
     this.setState({
       insertedText: '',
     });
-  }
+  };
 
   render() {
     return (
@@ -39,7 +43,7 @@ export class AddLine extends PureComponent {
               className="form-control"
               onChange={this.updateInsertedText}
               value={this.state.insertedText}
-              onKeyPress={this.handleEnterPress}
+              onKeyPress={this.onEnterPress}
             />
           </div>
           <div className="col-md-2">
@@ -47,7 +51,8 @@ export class AddLine extends PureComponent {
               type="button"
               className="btn btn-outline-dark"
               onClick={this.addInsertedText}
-            >Add
+            >
+              Add
             </button>
           </div>
         </div>
@@ -55,7 +60,3 @@ export class AddLine extends PureComponent {
     );
   }
 }
-
-AddLine.PropTypes = {
-  onAddClick: PropTypes.func.isRequired,
-};

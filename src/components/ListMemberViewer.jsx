@@ -3,9 +3,18 @@ import PropTypes from 'prop-types';
 
 export class ListMemberViewMode extends PureComponent {
 
+  static propTypes = {
+    note: PropTypes.shape({
+      text: PropTypes.string.isRequired,
+      isEditActive: PropTypes.bool.isRequired,
+    }),
+    number: PropTypes.number.isRequired,
+    onEditModeChanges: PropTypes.func.isRequired,
+  };
+
   onTextClick = () => {
     this.props.onEditModeChanges(this.props.note, true);
-  }
+  };
 
   render() {
     return (
@@ -13,12 +22,3 @@ export class ListMemberViewMode extends PureComponent {
     );
   }
 }
-
-ListMemberViewMode.PropTypes = {
-  note: PropTypes.shape({
-    text: PropTypes.string.isRequired,
-    isEditActive: PropTypes.bool.isRequired,
-  }),
-  number: PropTypes.number.isRequired,
-  onEditModeChanges: PropTypes.func.isRequired,
-};
