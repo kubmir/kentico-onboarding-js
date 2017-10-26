@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { AddLine } from './AddLine';
-import { ListMember } from './ListMember';
+import { AddLine } from './ListMemberAddForm';
+import ListMember from './ListMember';
 import { v4 } from 'uuid';
 
 export class List extends PureComponent {
@@ -19,51 +19,61 @@ export class List extends PureComponent {
       isEditActive: false,
     };
 
-    this.setState({
-      notes: [...this.state.notes, addNote],
+    this.setState((previousState) => {
+      return {
+        notes: [
+          ...previousState.notes,
+          addNote,
+        ],
+      };
     });
-  }
+  };
 
   deleteNote = (note) => {
-    this.setState({
-      notes: this
-        .state
-        .notes
-        .filter(arrayNote => arrayNote !== note),
+    this.setState((previousState) => {
+      return {
+        notes: previousState
+          .notes
+          .filter(arrayNote => arrayNote !== note),
+      };
     });
-  }
+  };
 
   updateNoteText = (previousNote, changes) => {
-    const previousNoteIndex = this.state.notes.indexOf(previousNote);
-    const copy = [...this.state.notes];
+    this.setState((previousState) => {
+      const previousNoteIndex = previousState.notes.indexOf(previousNote);
+      const copy = [...previousState.notes];
 
-    copy[previousNoteIndex] = {
-      text: changes !== ''
-        ? changes
-        : previousNote.text,
-      uid: previousNote.uid,
-      isEditActive: false,
-    };
+      copy[previousNoteIndex] = {
+        text: changes !== ''
+          ? changes
+          : previousNote.text,
+        uid: previousNote.uid,
+        isEditActive: false,
+      };
 
-    this.setState({
-      notes: copy,
+      return {
+        notes: copy,
+      };
     });
-  }
+  };
 
   updateNoteEditMode = (note, isEditActive) => {
-    const previousNoteIndex = this.state.notes.indexOf(note);
-    const copy = [...this.state.notes];
+    this.setState((previousState) => {
+      const previousNoteIndex = previousState.notes.indexOf(note);
+      const copy = [...previousState.notes];
 
-    copy[previousNoteIndex] = {
-      text: note.text,
-      uid: note.uid,
-      isEditActive,
-    };
+      copy[previousNoteIndex] = {
+        text: note.text,
+        uid: note.uid,
+        isEditActive,
+      };
 
-    this.setState({
-      notes: copy,
+      return {
+        notes: copy,
+      };
     });
-  }
+  };
 
   render() {
     const members = this
