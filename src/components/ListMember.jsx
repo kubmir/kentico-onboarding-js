@@ -1,39 +1,36 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { ListMemberEditMode } from './ListMemberEditMode';
-import { ListMemberViewMode } from './ListMemberViewMode';
+import { ListMemberEditMode } from './ListMemberEditor';
+import { ListMemberViewMode } from './ListMemberViewer';
 
-export class ListMember extends PureComponent {
+const ListMember = (props) => {
+  const memberEditor = (
+    <ListMemberEditMode
+      note={props.note}
+      number={props.number}
+      onDeleteClick={props.onDeleteClick}
+      onSaveClick={props.onSaveClick}
+      onEditModeChanges={props.onEditModeChanges}
+    />);
 
-  render() {
-    const memberEditMode = (
-      <ListMemberEditMode
-        note={this.props.note}
-        number={this.props.number}
-        onDeleteClick={this.props.onDeleteClick}
-        onSaveClick={this.props.onSaveClick}
-        onEditModeChanges={this.props.onEditModeChanges}
-      />);
+  const memberViewer = (
+    <ListMemberViewMode
+      note={props.note}
+      number={props.number}
+      onEditModeChanges={props.onEditModeChanges}
+    />
+  );
 
-    const memberViewMode = (
-      <ListMemberViewMode
-        note={this.props.note}
-        number={this.props.number}
-        onEditModeChanges={this.props.onEditModeChanges}
-      />
-    );
-
-    return (
-      <li className="list-group-item">
-        {
-          this.props.note.isEditActive
-            ? memberEditMode
-            : memberViewMode
-        }
-      </li>
-    );
-  }
-}
+  return (
+    <li className="list-group-item">
+      {
+        props.note.isEditActive
+          ? memberEditor
+          : memberViewer
+      }
+    </li>
+  );
+};
 
 ListMember.propTypes = {
   note: PropTypes.shape({
@@ -45,3 +42,5 @@ ListMember.propTypes = {
   onSaveClick: PropTypes.func.isRequired,
   onEditModeChanges: PropTypes.func.isRequired,
 };
+
+export default ListMember;
