@@ -40,37 +40,37 @@ export class List extends PureComponent {
   };
 
   updateNoteText = (previousNote, newNoteText) => {
-    this.setState((previousState) => {
-      const previousNoteIndex = previousState.notes.indexOf(previousNote);
-      const copy = [...previousState.notes];
+    const newNote = {
+      text: newNoteText !== ''
+        ? newNoteText
+        : previousNote.text,
+      uid: previousNote.uid,
+      isEditActive: false,
+    };
 
-      copy[previousNoteIndex] = {
-        text: newNoteText !== ''
-          ? newNoteText
-          : previousNote.text,
-        uid: previousNote.uid,
-        isEditActive: false,
-      };
-
-      return {
-        notes: copy,
-      };
-    });
+    this.updateNote(previousNote, newNote);
   };
 
-  updateNoteEditMode = (note, isEditActive) => {
-    this.setState((previousState) => {
-      const previousNoteIndex = previousState.notes.indexOf(note);
-      const copy = [...previousState.notes];
+  updateNoteEditMode = (previousNote, isEditActive) => {
+    const newNote = {
+      text: previousNote.text,
+      uid: previousNote.uid,
+      isEditActive,
+    };
 
-      copy[previousNoteIndex] = {
-        text: note.text,
-        uid: note.uid,
-        isEditActive,
-      };
+    this.updateNote(previousNote, newNote);
+  };
+
+  updateNote = (previousNote, newNote) => {
+    this.setState((previousState) => {
+      const newNotes = previousState.notes.map(note => {
+        return note === previousNote
+          ? newNote
+          : note;
+      });
 
       return {
-        notes: copy,
+        notes: newNotes,
       };
     });
   };
