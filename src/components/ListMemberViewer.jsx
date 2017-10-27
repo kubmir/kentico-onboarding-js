@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-export class ListMemberViewMode extends PureComponent {
+export class ListMemberViewer extends PureComponent {
 
   static propTypes = {
     note: PropTypes.shape({

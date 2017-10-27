@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { NonEmptyInput } from './NonEmptyInput';
 
-export class AddLine extends PureComponent {
+export class AddListMember extends PureComponent {
 
   static propTypes = {
     onAddClick: PropTypes.func.isRequired,
@@ -20,12 +21,6 @@ export class AddLine extends PureComponent {
     });
   };
 
-  onEnterPress = (event) => {
-    if (event.key === 'Enter') {
-      this.addInsertedText();
-    }
-  };
-
   addInsertedText = () => {
     this.props.onAddClick(this.state.insertedText);
     this.setState({
@@ -34,29 +29,32 @@ export class AddLine extends PureComponent {
   };
 
   render() {
+    const isNoteValid = this.state.insertedText.length > 0;
+
     return (
-      <li className="list-group-item">
-        <div className="row">
-          <div className="col-md-4">
-            <input
-              type="text"
-              className="form-control"
-              onChange={this.updateInsertedText}
-              value={this.state.insertedText}
-              onKeyPress={this.onEnterPress}
-            />
-          </div>
-          <div className="col-md-2">
+      <div>
+        <div className="input-group">
+          <NonEmptyInput
+            text={this.state.insertedText}
+            updateInsertedText={this.updateInsertedText}
+            addInsertedText={this.addInsertedText}
+          />
+          <div className="input-group-btn">
             <button
               type="button"
-              className="btn btn-outline-dark"
+              disabled={!isNoteValid}
+              className="btn btn-default"
               onClick={this.addInsertedText}
+              data-toggle="tooltip"
+              title={this.state.insertedText === ''
+                ? 'You cannot add empty note'
+                : 'Add new note'}
             >
               Add
             </button>
           </div>
         </div>
-      </li>
+      </div>
     );
   }
 }

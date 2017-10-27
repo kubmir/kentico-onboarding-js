@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { AddLine } from './ListMemberAddForm';
+import { AddListMember } from './AddListMember';
 import ListMember from './ListMember';
 import generateUid from '../utils/UidGenerator';
 
@@ -41,9 +41,7 @@ export class List extends PureComponent {
 
   updateNoteText = (previousNote, newNoteText) => {
     const newNote = {
-      text: newNoteText !== ''
-        ? newNoteText
-        : previousNote.text,
+      text: newNoteText,
       uid: previousNote.uid,
       isEditActive: false,
     };
@@ -82,12 +80,11 @@ export class List extends PureComponent {
       .map((note, i) => (
         <li
           className="list-group-item"
-          key={i}
+          key={note.uid}
         >
           <ListMember
             note={note}
             number={i + 1}
-            key={note.uid}
             onDeleteClick={this.deleteNote}
             onSaveClick={this.updateNoteText}
             onEditModeChanges={this.updateNoteEditMode}
@@ -97,10 +94,14 @@ export class List extends PureComponent {
 
     return (
       <div className="row">
-        <ul className="list-group">
-          {members}
-          <AddLine onAddClick={this.addNewNote} />
-        </ul>
+        <div className="col-sm-12 col-md-offset-1 col-md-10">
+          <ul className="list-group">
+            {members}
+            <li className="list-group-item">
+              <AddListMember onAddClick={this.addNewNote} />
+            </li>
+          </ul>
+        </div>
       </div>
     );
   }

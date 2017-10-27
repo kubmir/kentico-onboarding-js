@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListMemberEditMode } from './ListMemberEditor';
-import { ListMemberViewMode } from './ListMemberViewer';
+import { ListMemberEditor } from './ListMemberEditor';
+import { ListMemberViewer } from './ListMemberViewer';
 
 const ListMember = (props) => {
   const memberEditor = (
-    <ListMemberEditMode
+    <ListMemberEditor
       note={props.note}
       number={props.number}
       onDeleteClick={props.onDeleteClick}
@@ -14,7 +14,7 @@ const ListMember = (props) => {
     />);
 
   const memberViewer = (
-    <ListMemberViewMode
+    <ListMemberViewer
       note={props.note}
       number={props.number}
       onEditModeChanges={props.onEditModeChanges}

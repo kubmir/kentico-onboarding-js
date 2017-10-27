@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { NonEmptyInput } from './NonEmptyInput';
 
-export class ListMemberEditMode extends PureComponent {
+export class ListMemberEditor extends PureComponent {
 
   static propTypes = {
     note: PropTypes.shape({
@@ -18,12 +19,14 @@ export class ListMemberEditMode extends PureComponent {
     super(props);
     this.state = {
       currentNoteText: props.note.text,
+      isError: false,
     };
   }
 
   onNoteEditing = (event) => {
     this.setState({
       currentNoteText: event.target.value,
+      isError: event.target.value === '',
     });
   };
 
@@ -39,51 +42,49 @@ export class ListMemberEditMode extends PureComponent {
     this.props.onEditModeChanges(this.props.note, false);
   };
 
-  componentDidMount() {
-    const length = this.textInput.value.length;
-    this.textInput.focus();
-    this.textInput.setSelectionRange(length, length);
-  }
-
   render() {
+    const isNoteValid = this.state.currentNoteText.length > 0;
+    const error = (
+      <span className="text-danger">Invalid note. Note cannot be empty.</span>
+    );
+
     return (
-      <div className="row">
-        <div className="col-md-4">
-          <div className="input-group">
-            <span className="input-group-addon">{this.props.number + '.'}</span>
-            <input
-              ref={(input) => {
-                this.textInput = input;
-              }}
-              defaultValue={this.state.currentNoteText}
-              className="form-control"
-              onChange={this.onNoteEditing}
-            />
+      <div>
+        <div className="input-group">
+          <div className="input-group-addon">
+            <label>{this.props.number + '.'}</label>
+          </div>
+          <NonEmptyInput
+            text={this.state.currentNoteText}
+            addInsertedText={this.onSaveClick}
+            updateInsertedText={this.onNoteEditing}
+          />
+          <div className="input-group-btn">
+            <button
+              type="button"
+              disabled={!isNoteValid}
+              className="btn btn-primary"
+              onClick={this.onSaveClick}
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              className="btn btn-dark"
+              onClick={this.onCancelClick}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={this.onDeleteClick}
+            >
+              Delete
+            </button>
           </div>
         </div>
-        <div className="col-md-4">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={this.onSaveClick}
-          >
-            Save
-          </button>
-          <button
-            type="button"
-            className="btn btn-dark"
-            onClick={this.onCancelClick}
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={this.onDeleteClick}
-          >
-            Delete
-          </button>
-        </div>
+        {this.state.isError && error}
       </div>
     );
   }
