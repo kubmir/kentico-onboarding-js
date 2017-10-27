@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { AddLine } from './ListMemberAddForm';
 import ListMember from './ListMember';
-import { v4 } from 'uuid';
+import generateUid from '../utils/UidGenerator';
 
 export class List extends PureComponent {
 
@@ -15,7 +15,7 @@ export class List extends PureComponent {
   addNewNote = (newNoteText) => {
     const addNote = {
       text: newNoteText,
-      uid: v4(),
+      uid: generateUid(),
       isEditActive: false,
     };
 
