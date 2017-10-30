@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { NonEmptyInput } from './NonEmptyInput';
+import { ErrorMessageListMember } from './ErrorMessageListMember';
 
 export class AddListMember extends PureComponent {
 
@@ -12,12 +13,14 @@ export class AddListMember extends PureComponent {
     super();
     this.state = {
       insertedText: '',
+      isEditing: false,
     };
   }
 
   updateInsertedText = (event) => {
     this.setState({
       insertedText: event.target.value,
+      isEditing: true,
     });
   };
 
@@ -25,6 +28,13 @@ export class AddListMember extends PureComponent {
     this.props.onAddClick(this.state.insertedText);
     this.setState({
       insertedText: '',
+      isEditing: false,
+    });
+  };
+
+  isEditingSet = (isInputEditing) => {
+    this.setState({
+      isEditing: isInputEditing,
     });
   };
 
@@ -38,6 +48,7 @@ export class AddListMember extends PureComponent {
             text={this.state.insertedText}
             updateInsertedText={this.updateInsertedText}
             addInsertedText={this.addInsertedText}
+            checkIsEditing={this.isEditingSet}
           />
           <div className="input-group-btn">
             <button
@@ -45,15 +56,15 @@ export class AddListMember extends PureComponent {
               disabled={!isNoteValid}
               className="btn btn-default"
               onClick={this.addInsertedText}
-              data-toggle="tooltip"
-              title={this.state.insertedText === ''
-                ? 'You cannot add empty note'
-                : 'Add new note'}
             >
               Add
             </button>
           </div>
         </div>
+        <ErrorMessageListMember
+          insertedText={this.state.insertedText}
+          isEditing={this.state.isEditing}
+        />
       </div>
     );
   }

@@ -8,26 +8,34 @@ export class NonEmptyInput extends PureComponent {
     text: PropTypes.string.isRequired,
     updateInsertedText: PropTypes.func.isRequired,
     addInsertedText: PropTypes.func.isRequired,
+    checkIsEditing: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
     this.state = {
       isEditingText: false,
-    }
-    ;
+    };
   }
 
   onInputClick = () => {
     this.setState({
       isEditingText: true,
     });
+
+    if (this.props.checkIsEditing !== undefined) {
+      this.props.checkIsEditing(true);
+    }
   };
 
   onExitingInput = () => {
     this.setState({
       isEditingText: false,
     });
+
+    if (this.props.checkIsEditing !== undefined) {
+      this.props.checkIsEditing(false);
+    }
   };
 
   onInputChange = (e) => {
@@ -44,10 +52,17 @@ export class NonEmptyInput extends PureComponent {
     this.textInput.blur();
   };
 
+  onEnterClick = () => {
+    if (this.props.text) {
+      this.textInput.blur();
+      this.props.addInsertedText();
+    }
+  };
+
   render() {
     const handlers = {
       'cancelEditing': () => this.cancelFocusOfInput(),
-      'saveChanges': () => this.props.text && this.props.addInsertedText(),
+      'saveChanges': () => this.onEnterClick(),
     };
 
     const isEditingText = this.state.isEditingText;

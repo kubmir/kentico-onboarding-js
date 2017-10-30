@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { NonEmptyInput } from './NonEmptyInput';
+import { ErrorMessageListMember } from './ErrorMessageListMember';
 
 export class ListMemberEditor extends PureComponent {
 
@@ -19,14 +20,14 @@ export class ListMemberEditor extends PureComponent {
     super(props);
     this.state = {
       currentNoteText: props.note.text,
-      isError: false,
+      isEditing: false,
     };
   }
 
   onNoteEditing = (event) => {
     this.setState({
       currentNoteText: event.target.value,
-      isError: event.target.value === '',
+      isEditing: true,
     });
   };
 
@@ -35,6 +36,9 @@ export class ListMemberEditor extends PureComponent {
   };
 
   onSaveClick = () => {
+    this.setState({
+      isEditing: false,
+    });
     this.props.onSaveClick(this.props.note, this.state.currentNoteText);
   };
 
@@ -42,11 +46,14 @@ export class ListMemberEditor extends PureComponent {
     this.props.onEditModeChanges(this.props.note, false);
   };
 
+  isEditingSet = (isInputEditing) => {
+    this.setState({
+      isEditing: isInputEditing,
+    });
+  };
+
   render() {
     const isNoteValid = this.state.currentNoteText.length > 0;
-    const error = (
-      <span className="text-danger">Invalid note. Note cannot be empty.</span>
-    );
 
     return (
       <div>
@@ -58,6 +65,7 @@ export class ListMemberEditor extends PureComponent {
             text={this.state.currentNoteText}
             addInsertedText={this.onSaveClick}
             updateInsertedText={this.onNoteEditing}
+            checkIsEditing={this.isEditingSet}
           />
           <div className="input-group-btn">
             <button
@@ -84,7 +92,10 @@ export class ListMemberEditor extends PureComponent {
             </button>
           </div>
         </div>
-        {this.state.isError && error}
+        <ErrorMessageListMember
+          insertedText={this.state.currentNoteText}
+          isEditing={this.state.isEditing}
+        />
       </div>
     );
   }
