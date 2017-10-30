@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { AddListMember } from './AddListMember';
 import ListMember from './ListMember';
-import generateUid from '../utils/UidGenerator';
+import generateUid from '../utils/uidGenerator';
 
 export class List extends PureComponent {
 
@@ -9,6 +9,7 @@ export class List extends PureComponent {
     super();
     this.state = {
       notes: [],
+      isAddListMemberTouched: false,
     };
   }
 
@@ -25,6 +26,7 @@ export class List extends PureComponent {
           ...previousState.notes,
           addNote,
         ],
+        isAddListMemberTouched: false,
       };
     });
   };
@@ -73,6 +75,12 @@ export class List extends PureComponent {
     });
   };
 
+  changeIsAddListMemberTouched = (isTouched) => {
+    this.setState({
+      isAddListMemberTouched: isTouched,
+    });
+  };
+
   render() {
     const members = this
       .state
@@ -98,7 +106,11 @@ export class List extends PureComponent {
           <ul className="list-group">
             {members}
             <li className="list-group-item">
-              <AddListMember onAddClick={this.addNewNote} />
+              <AddListMember
+                onAddClick={this.addNewNote}
+                onInputTouch={this.changeIsAddListMemberTouched}
+                isInputTouched={this.state.isAddListMemberTouched}
+              />
             </li>
           </ul>
         </div>

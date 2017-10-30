@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { NonEmptyInput } from './NonEmptyInput';
 import { ErrorMessageListMember } from './ErrorMessageListMember';
+import isNoteValid from '../utils/noteValidator';
 
 export class ListMemberEditor extends PureComponent {
 
@@ -20,14 +21,12 @@ export class ListMemberEditor extends PureComponent {
     super(props);
     this.state = {
       currentNoteText: props.note.text,
-      isEditing: false,
     };
   }
 
   onNoteEditing = (event) => {
     this.setState({
       currentNoteText: event.target.value,
-      isEditing: true,
     });
   };
 
@@ -36,9 +35,6 @@ export class ListMemberEditor extends PureComponent {
   };
 
   onSaveClick = () => {
-    this.setState({
-      isEditing: false,
-    });
     this.props.onSaveClick(this.props.note, this.state.currentNoteText);
   };
 
@@ -46,14 +42,9 @@ export class ListMemberEditor extends PureComponent {
     this.props.onEditModeChanges(this.props.note, false);
   };
 
-  isEditingSet = (isInputEditing) => {
-    this.setState({
-      isEditing: isInputEditing,
-    });
-  };
-
   render() {
-    const isNoteValid = this.state.currentNoteText.length > 0;
+    const isValid = isNoteValid(this.state.currentNoteText);
+    const isError = !isValid && this.props.note.isEditActive;
 
     return (
       <div>
@@ -65,7 +56,7 @@ export class ListMemberEditor extends PureComponent {
             text={this.state.currentNoteText}
             addInsertedText={this.onSaveClick}
             updateInsertedText={this.onNoteEditing}
-            checkIsEditing={this.isEditingSet}
+            isError={isError}
           />
           <div className="input-group-btn">
             <button
@@ -93,8 +84,7 @@ export class ListMemberEditor extends PureComponent {
           </div>
         </div>
         <ErrorMessageListMember
-          insertedText={this.state.currentNoteText}
-          isEditing={this.state.isEditing}
+          isError={isError}
         />
       </div>
     );

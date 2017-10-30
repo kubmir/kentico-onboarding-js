@@ -2,25 +2,26 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { NonEmptyInput } from './NonEmptyInput';
 import { ErrorMessageListMember } from './ErrorMessageListMember';
+import isNoteValid from '../utils/noteValidator';
 
 export class AddListMember extends PureComponent {
 
   static propTypes = {
     onAddClick: PropTypes.func.isRequired,
+    onInputTouch: PropTypes.func.isRequired,
+    isInputTouched: PropTypes.bool.isRequired,
   };
 
   constructor() {
     super();
     this.state = {
       insertedText: '',
-      isEditing: false,
     };
   }
 
   updateInsertedText = (event) => {
     this.setState({
       insertedText: event.target.value,
-      isEditing: true,
     });
   };
 
@@ -28,18 +29,12 @@ export class AddListMember extends PureComponent {
     this.props.onAddClick(this.state.insertedText);
     this.setState({
       insertedText: '',
-      isEditing: false,
-    });
-  };
-
-  isEditingSet = (isInputEditing) => {
-    this.setState({
-      isEditing: isInputEditing,
     });
   };
 
   render() {
-    const isNoteValid = this.state.insertedText.length > 0;
+    const isValid = isNoteValid(this.state.insertedText);
+    const isError = !isValid && this.props.isInputTouched;
 
     return (
       <div>
@@ -48,12 +43,13 @@ export class AddListMember extends PureComponent {
             text={this.state.insertedText}
             updateInsertedText={this.updateInsertedText}
             addInsertedText={this.addInsertedText}
-            checkIsEditing={this.isEditingSet}
+            checkIsTouched={this.props.onInputTouch}
+            isError={isError}
           />
           <div className="input-group-btn">
             <button
               type="button"
-              disabled={!isNoteValid}
+              disabled={!isValid}
               className="btn btn-default"
               onClick={this.addInsertedText}
             >
@@ -62,8 +58,7 @@ export class AddListMember extends PureComponent {
           </div>
         </div>
         <ErrorMessageListMember
-          insertedText={this.state.insertedText}
-          isEditing={this.state.isEditing}
+          isError={isError}
         />
       </div>
     );

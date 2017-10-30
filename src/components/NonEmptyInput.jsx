@@ -8,33 +8,19 @@ export class NonEmptyInput extends PureComponent {
     text: PropTypes.string.isRequired,
     updateInsertedText: PropTypes.func.isRequired,
     addInsertedText: PropTypes.func.isRequired,
-    checkIsEditing: PropTypes.func.isRequired,
+    isError: PropTypes.bool.isRequired,
+    checkIsTouched: PropTypes.func,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      isEditingText: false,
-    };
-  }
-
   onInputClick = () => {
-    this.setState({
-      isEditingText: true,
-    });
-
-    if (this.props.checkIsEditing !== undefined) {
-      this.props.checkIsEditing(true);
+    if (this.props.checkIsTouched !== undefined) {
+      this.props.checkIsTouched(true);
     }
   };
 
   onExitingInput = () => {
-    this.setState({
-      isEditingText: false,
-    });
-
-    if (this.props.checkIsEditing !== undefined) {
-      this.props.checkIsEditing(false);
+    if (this.props.checkIsTouched !== undefined) {
+      this.props.checkIsTouched(false);
     }
   };
 
@@ -65,10 +51,8 @@ export class NonEmptyInput extends PureComponent {
       'saveChanges': () => this.onEnterClick(),
     };
 
-    const isEditingText = this.state.isEditingText;
-    const isNoteValid = this.props.text.length > 0;
 
-    const inputErrorStyle = !isNoteValid && isEditingText
+    const inputErrorStyle = this.props.isError
       ? 'has-error'
       : '';
 
