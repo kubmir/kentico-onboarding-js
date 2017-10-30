@@ -61,7 +61,7 @@ export class ListMemberEditor extends PureComponent {
           <div className="input-group-btn">
             <button
               type="button"
-              disabled={!isNoteValid}
+              disabled={isError}
               className="btn btn-primary"
               onClick={this.onSaveClick}
             >
