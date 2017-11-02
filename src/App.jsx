@@ -21,8 +21,8 @@ export class App extends PureComponent {
             <h1>JS onboarding</h1>
             <p className="lead">
               We will implement simple task using
-              <a href="https://facebook.github.io/react/docs/hello-world.html">ReactJS</a> and later move on to refactor our app to use
-              <a href="https://facebook.github.io/immutable-js/">Immutable</a> and <a href="http://redux.js.org/">Redux</a>.
+              <a href="https://facebook.github.io/react/docs/hello-world.html"> ReactJS</a> and later move on to refactor our app to use
+              <a href="https://facebook.github.io/immutable-js/"> Immutable</a> and <a href="http://redux.js.org/"> Redux</a>.
             </p>
             <p>You can find all the relevant info in git repository.</p>
             <p>
@@ -30,7 +30,9 @@ export class App extends PureComponent {
                 className="btn btn-lg btn-success"
                 href="https://github.com/Suzii/kentico-onboarding-js"
                 role="button"
-              >Fork me on GitHub</a>
+              >
+                Fork me on GitHub
+              </a>
             </p>
           </div>
 

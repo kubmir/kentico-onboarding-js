@@ -10,14 +10,14 @@ const ListMember = (props) => {
       number={props.number}
       onDeleteClick={props.onDeleteClick}
       onSaveClick={props.onSaveClick}
-      onEditModeChanges={props.onEditModeChanges}
+      cancelNoteEditor={props.cancelNoteEditor}
     />);
 
   const memberViewer = (
     <ListMemberViewer
       note={props.note}
       number={props.number}
-      onEditModeChanges={props.onEditModeChanges}
+      startNoteEditor={props.startNoteEditor}
     />
   );
 
@@ -34,7 +34,8 @@ ListMember.propTypes = {
   number: PropTypes.number.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
   onSaveClick: PropTypes.func.isRequired,
-  onEditModeChanges: PropTypes.func.isRequired,
+  cancelNoteEditor: PropTypes.func.isRequired,
+  startNoteEditor: PropTypes.func.isRequired,
 };
 
 export default ListMember;

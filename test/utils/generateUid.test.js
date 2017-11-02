@@ -1,4 +1,4 @@
-import generateUid from '../../src/utils/uidGenerator';
+import { generateUid } from '../../src/utils/generateUid';
 
 describe('UID generator', () => {
   it('returns uid matching conditions for uuid4', () => {

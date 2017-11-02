@@ -9,11 +9,11 @@ export class ListMemberViewer extends PureComponent {
       isEditActive: PropTypes.bool.isRequired,
     }),
     number: PropTypes.number.isRequired,
-    onEditModeChanges: PropTypes.func.isRequired,
+    startNoteEditor: PropTypes.func.isRequired,
   };
 
   onTextClick = () => {
-    this.props.onEditModeChanges(this.props.note, true);
+    this.props.startNoteEditor(this.props.note);
   };
 
   render() {

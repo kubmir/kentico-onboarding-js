@@ -9,23 +9,25 @@ export class NonEmptyInput extends PureComponent {
     updateInsertedText: PropTypes.func.isRequired,
     addInsertedText: PropTypes.func.isRequired,
     isError: PropTypes.bool.isRequired,
-    checkIsTouched: PropTypes.func,
+    inputClassName: PropTypes.string.isRequired,
+    checkIsFocused: PropTypes.func,
+    onCancelEditing: PropTypes.func,
   };
 
-  onInputClick = () => {
-    if (this.props.checkIsTouched !== undefined) {
-      this.props.checkIsTouched(true);
+  onInputFocus = () => {
+    if (this.props.checkIsFocused !== undefined) {
+      this.props.checkIsFocused(true);
     }
   };
 
   onExitingInput = () => {
-    if (this.props.checkIsTouched !== undefined) {
-      this.props.checkIsTouched(false);
+    if (this.props.checkIsFocused !== undefined) {
+      this.props.checkIsFocused(false);
     }
   };
 
-  onInputChange = (e) => {
-    this.props.updateInsertedText(e);
+  onInputChange = (event) => {
+    this.props.updateInsertedText(event.target.value);
   };
 
   componentDidMount() {
@@ -34,11 +36,16 @@ export class NonEmptyInput extends PureComponent {
     this.textInput.setSelectionRange(length, length);
   }
 
-  cancelFocusOfInput = () => {
-    this.textInput.blur();
+  onCancelFocusOfInput = () => {
+    if (this.props.onCancelEditing !== undefined) {
+      this.props.onCancelEditing();
+    }
+    else {
+      this.textInput.blur();
+    }
   };
 
-  onEnterClick = () => {
+  onSaveChanges = () => {
     if (this.props.text) {
       this.textInput.blur();
       this.props.addInsertedText();
@@ -47,28 +54,26 @@ export class NonEmptyInput extends PureComponent {
 
   render() {
     const handlers = {
-      'cancelEditing': () => this.cancelFocusOfInput(),
-      'saveChanges': () => this.onEnterClick(),
+      'cancelEditing': () => this.onCancelFocusOfInput(),
+      'saveChanges': () => this.onSaveChanges(),
     };
 
-
-    const inputErrorStyle = this.props.isError
+    const inputErrorCssClass = this.props.isError
       ? 'has-error'
       : '';
 
     return (
-      <div className={inputErrorStyle}>
+      <div className={inputErrorCssClass}>
         <HotKeys handlers={handlers}>
           <input
             type="text"
             ref={(input) => {
               this.textInput = input;
             }}
-            className="form-control"
+            className={this.props.inputClassName}
             onChange={this.onInputChange}
             value={this.props.text}
-            onKeyPress={this.onEnterPress}
-            onClick={this.onInputClick}
+            onFocus={this.onInputFocus}
             onBlur={this.onExitingInput}
           />
         </HotKeys>

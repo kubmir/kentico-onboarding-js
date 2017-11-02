@@ -2,26 +2,26 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { NonEmptyInput } from './NonEmptyInput';
 import { ErrorMessageListMember } from './ErrorMessageListMember';
-import isNoteValid from '../utils/noteValidator';
+import { isNoteValid } from '../utils/isNoteValid';
 
 export class AddListMember extends PureComponent {
 
   static propTypes = {
     onAddClick: PropTypes.func.isRequired,
-    onInputTouch: PropTypes.func.isRequired,
-    isInputTouched: PropTypes.bool.isRequired,
+    onInputFocus: PropTypes.func.isRequired,
+    isInputFocused: PropTypes.bool.isRequired,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       insertedText: '',
     };
   }
 
-  updateInsertedText = (event) => {
+  updateInsertedText = (newText) => {
     this.setState({
-      insertedText: event.target.value,
+      insertedText: newText,
     });
   };
 
@@ -34,7 +34,8 @@ export class AddListMember extends PureComponent {
 
   render() {
     const isValid = isNoteValid(this.state.insertedText);
-    const isError = !isValid && this.props.isInputTouched;
+    const isError = !isValid && this.props.isInputFocused;
+    const errorMessage = 'Invalid note. You cannot add an empty note to list of notes.';
 
     return (
       <div>
@@ -43,7 +44,8 @@ export class AddListMember extends PureComponent {
             text={this.state.insertedText}
             updateInsertedText={this.updateInsertedText}
             addInsertedText={this.addInsertedText}
-            checkIsTouched={this.props.onInputTouch}
+            checkIsFocused={this.props.onInputFocus}
+            inputClassName="form-control"
             isError={isError}
           />
           <div className="input-group-btn">
@@ -59,6 +61,7 @@ export class AddListMember extends PureComponent {
         </div>
         <ErrorMessageListMember
           isError={isError}
+          errorMessage={errorMessage}
         />
       </div>
     );

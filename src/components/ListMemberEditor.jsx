@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { NonEmptyInput } from './NonEmptyInput';
 import { ErrorMessageListMember } from './ErrorMessageListMember';
-import isNoteValid from '../utils/noteValidator';
+import { isNoteValid } from '../utils/isNoteValid';
 
 export class ListMemberEditor extends PureComponent {
 
@@ -14,7 +14,7 @@ export class ListMemberEditor extends PureComponent {
     number: PropTypes.number.isRequired,
     onDeleteClick: PropTypes.func.isRequired,
     onSaveClick: PropTypes.func.isRequired,
-    onEditModeChanges: PropTypes.func.isRequired,
+    cancelNoteEditor: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -24,9 +24,9 @@ export class ListMemberEditor extends PureComponent {
     };
   }
 
-  onNoteEditing = (event) => {
+  onNoteEditing = (newText) => {
     this.setState({
-      currentNoteText: event.target.value,
+      currentNoteText: newText,
     });
   };
 
@@ -38,13 +38,14 @@ export class ListMemberEditor extends PureComponent {
     this.props.onSaveClick(this.props.note, this.state.currentNoteText);
   };
 
-  onCancelClick = () => {
-    this.props.onEditModeChanges(this.props.note, false);
+  onCancelEditor = () => {
+    this.props.cancelNoteEditor(this.props.note);
   };
 
   render() {
     const isValid = isNoteValid(this.state.currentNoteText);
     const isError = !isValid && this.props.note.isEditActive;
+    const errorMessage = 'Invalid note. You cannot change note\'s text to empty.';
 
     return (
       <div>
@@ -57,6 +58,8 @@ export class ListMemberEditor extends PureComponent {
             addInsertedText={this.onSaveClick}
             updateInsertedText={this.onNoteEditing}
             isError={isError}
+            inputClassName="form-control"
+            onCancelEditing={this.onCancelEditor}
           />
           <div className="input-group-btn">
             <button
@@ -70,7 +73,7 @@ export class ListMemberEditor extends PureComponent {
             <button
               type="button"
               className="btn btn-dark"
-              onClick={this.onCancelClick}
+              onClick={this.onCancelEditor}
             >
               Cancel
             </button>
@@ -85,6 +88,7 @@ export class ListMemberEditor extends PureComponent {
         </div>
         <ErrorMessageListMember
           isError={isError}
+          errorMessage={errorMessage}
         />
       </div>
     );

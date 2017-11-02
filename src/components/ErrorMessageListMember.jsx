@@ -5,11 +5,12 @@ export class ErrorMessageListMember extends PureComponent {
 
   static propTypes = {
     isError: PropTypes.bool.isRequired,
+    errorMessage: PropTypes.string.isRequired,
   };
 
   render() {
     const error = (
-      <span className="text-danger">Invalid note. Note cannot be empty.</span>
+      <span className="text-danger">{this.props.errorMessage}</span>
     );
 
     return this.props.isError && error;

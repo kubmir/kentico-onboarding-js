@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { AddListMember } from './AddListMember';
 import ListMember from './ListMember';
-import generateUid from '../utils/uidGenerator';
+import { generateUid } from '../utils/generateUid';
 
 export class List extends PureComponent {
 
@@ -9,7 +9,7 @@ export class List extends PureComponent {
     super();
     this.state = {
       notes: [],
-      isAddListMemberTouched: false,
+      isAddListMemberFocused: false,
     };
   }
 
@@ -26,7 +26,7 @@ export class List extends PureComponent {
           ...previousState.notes,
           addNote,
         ],
-        isAddListMemberTouched: false,
+        isAddListMemberFocused: false,
       };
     });
   };
@@ -48,7 +48,15 @@ export class List extends PureComponent {
       isEditActive: false,
     };
 
-    this.updateNote(previousNote, newNote);
+    this.updateNote(newNote);
+  };
+
+  startNoteEditor = (previousNote) => {
+    this.updateNoteEditMode(previousNote, true);
+  };
+
+  cancelNoteEditor = (previousNote) => {
+    this.updateNoteEditMode(previousNote, false);
   };
 
   updateNoteEditMode = (previousNote, isEditActive) => {
@@ -58,13 +66,13 @@ export class List extends PureComponent {
       isEditActive,
     };
 
-    this.updateNote(previousNote, newNote);
+    this.updateNote(newNote);
   };
 
-  updateNote = (previousNote, newNote) => {
+  updateNote = (newNote) => {
     this.setState((previousState) => {
       const newNotes = previousState.notes.map(note => {
-        return note === previousNote
+        return note.uid === newNote.uid
           ? newNote
           : note;
       });
@@ -77,7 +85,7 @@ export class List extends PureComponent {
 
   changeIsAddListMemberTouched = (isTouched) => {
     this.setState({
-      isAddListMemberTouched: isTouched,
+      isAddListMemberFocused: isTouched,
     });
   };
 
@@ -95,7 +103,8 @@ export class List extends PureComponent {
             number={i + 1}
             onDeleteClick={this.deleteNote}
             onSaveClick={this.updateNoteText}
-            onEditModeChanges={this.updateNoteEditMode}
+            startNoteEditor={this.startNoteEditor}
+            cancelNoteEditor={this.cancelNoteEditor}
           />
         </li>
       ));
@@ -108,8 +117,8 @@ export class List extends PureComponent {
             <li className="list-group-item">
               <AddListMember
                 onAddClick={this.addNewNote}
-                onInputTouch={this.changeIsAddListMemberTouched}
-                isInputTouched={this.state.isAddListMemberTouched}
+                onInputFocus={this.changeIsAddListMemberTouched}
+                isInputFocused={this.state.isAddListMemberFocused}
               />
             </li>
           </ul>
