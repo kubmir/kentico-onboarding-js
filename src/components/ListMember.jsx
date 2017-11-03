@@ -25,4 +25,4 @@ ListMember.propTypes = {
   number: PropTypes.number.isRequired,
 };
 
-export default ListMember;
+export { ListMember };
