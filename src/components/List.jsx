@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { AddListMember } from './AddListMember';
-import ListMember from './ListMember';
+import { ListMember } from './ListMember';
 import { generateUid } from '../utils/generateUid';
 import { OrderedMap } from 'immutable';
 
