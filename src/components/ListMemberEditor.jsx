@@ -35,7 +35,7 @@ export class ListMemberEditor extends PureComponent {
   };
 
   onSaveClick = () => {
-    this.props.onSaveClick(this.props.note, this.state.currentNoteText);
+    this.props.onSaveClick(this.state.currentNoteText, this.props.note.uid);
   };
 
   onCancelEditor = () => {

@@ -10,19 +10,20 @@ export class NonEmptyInput extends PureComponent {
     addInsertedText: PropTypes.func.isRequired,
     isError: PropTypes.bool.isRequired,
     inputClassName: PropTypes.string.isRequired,
-    checkIsFocused: PropTypes.func,
+    onStartEditing: PropTypes.func,
     onCancelEditing: PropTypes.func,
+    onClickOutOfInput: PropTypes.func,
   };
 
   onInputFocus = () => {
-    if (this.props.checkIsFocused !== undefined) {
-      this.props.checkIsFocused(true);
+    if (this.props.onStartEditing !== undefined) {
+      this.props.onStartEditing();
     }
   };
 
   onExitingInput = () => {
-    if (this.props.checkIsFocused !== undefined) {
-      this.props.checkIsFocused(false);
+    if (this.props.onClickOutOfInput !== undefined) {
+      this.props.onClickOutOfInput();
     }
   };
 

@@ -1,4 +1,4 @@
-import notesInitialState from '../utils/notesInitialState';
+import { notesInitialState } from '../utils/notesInitialState';
 
 export const notes = (state = notesInitialState(), action) => {
   switch (action.type) {
@@ -33,23 +33,16 @@ const addNewNote = (state, action) => {
 };
 
 const updateNote = (state, action) => {
-  const updates = action.payload;
-  const previousNote = state
-    .notes
-    .get(updates.uid);
-
   const updatedNote = {
-    text: updates.text !== previousNote.text
-      ? updates.text
-      : previousNote.text,
-    uid: updates.uid,
-    isEditActive: updates.isEditActive,
+    text: action.payload.text,
+    uid: action.payload.uid,
+    isEditActive: action.payload.isEditActive,
   };
 
   return Object.assign({}, state, {
     notes: state
       .notes
-      .set(updates.uid, updatedNote),
+      .set(action.payload.uid, updatedNote),
   });
 };
 

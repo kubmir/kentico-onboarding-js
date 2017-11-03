@@ -25,7 +25,7 @@ describe('Reducer notesList tests', () => {
 
   it('should return previous state if action for another reducer is dispatched', () => {
     const addNoteAction = {
-      type: 'START_TOUCH_ADD_LIST_MEMBER_INPUT',
+      type: 'START_FOCUS_ADD_LIST_MEMBER_INPUT',
       payload: {
         isAddListMemberTouched: true,
       },

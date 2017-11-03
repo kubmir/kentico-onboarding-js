@@ -1,29 +1,29 @@
 import * as types from '../../src/constants/actionTypes';
 import * as actionCreators from '../../src/actions/addListMemberActionCreators';
 
-describe('notesActionCreators', () => {
-  it('should create an action START_TOUCH_ADD_LIST_MEMBER_INPUT', () => {
+describe('addListMemberActionCreators', () => {
+  it('should create an action START_FOCUS_ADD_LIST_MEMBER_INPUT', () => {
     const expectedAction = {
-      type: types.START_TOUCH_ADD_LIST_MEMBER_INPUT,
+      type: types.START_FOCUS_ADD_LIST_MEMBER_INPUT,
       payload: {
-        isAddListMemberTouched: true,
+        isAddListMemberFocused: true,
       },
     };
 
-    const returnedAction = actionCreators.startTouchingAddListMember();
+    const returnedAction = actionCreators.startFocusingAddListMember();
 
     expect(returnedAction).toEqual(expectedAction);
   });
 
-  it('should create an action STOP_TOUCH_ADD_LIST_MEMBER_INPUT', () => {
+  it('should create an action STOP_FOCUS_ADD_LIST_MEMBER_INPUT', () => {
     const expectedAction = {
-      type: types.STOP_TOUCH_ADD_LIST_MEMBER_INPUT,
+      type: types.STOP_FOCUS_ADD_LIST_MEMBER_INPUT,
       payload: {
-        isAddListMemberTouched: false,
+        isAddListMemberFocused: false,
       },
     };
 
-    const returnedAction = actionCreators.stopTouchingAddListMember();
+    const returnedAction = actionCreators.stopFocusingAddListMember();
 
     expect(returnedAction).toEqual(expectedAction);
   });

@@ -1,24 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListMemberEditor } from './ListMemberEditor';
-import { ListMemberViewer } from './ListMemberViewer';
+import { ListMemberEditorContainer } from '../containers-redux/ListMemberEditor';
+import { ListMemberViewerContainer } from '../containers-redux/ListMemberViewer';
 
 const ListMember = (props) => {
   const memberEditor = (
-    <ListMemberEditor
-      note={props.note}
-      number={props.number}
-      onDeleteClick={props.onDeleteClick}
-      onSaveClick={props.onSaveClick}
-      cancelNoteEditor={props.cancelNoteEditor}
-    />);
+    <ListMemberEditorContainer {...props} />
+  );
 
   const memberViewer = (
-    <ListMemberViewer
-      note={props.note}
-      number={props.number}
-      startNoteEditor={props.startNoteEditor}
-    />
+    <ListMemberViewerContainer {...props} />
   );
 
   return props.note.isEditActive
@@ -32,10 +23,6 @@ ListMember.propTypes = {
     isEditActive: PropTypes.bool.isRequired,
   }),
   number: PropTypes.number.isRequired,
-  onDeleteClick: PropTypes.func.isRequired,
-  onSaveClick: PropTypes.func.isRequired,
-  cancelNoteEditor: PropTypes.func.isRequired,
-  startNoteEditor: PropTypes.func.isRequired,
 };
 
 export default ListMember;

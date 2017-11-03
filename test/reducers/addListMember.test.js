@@ -4,7 +4,7 @@ import {
   prepareNoteObject,
 } from './reducerTestUtils';
 
-describe('Reducer notesApplication tests', () => {
+describe('Reducer addListMember tests', () => {
   let initialState;
 
   beforeEach(() => {
@@ -35,23 +35,23 @@ describe('Reducer notesApplication tests', () => {
     expect(actualState).toEqual(initialState);
   });
 
-  it('should set isAddListMemberTouched to true when START_TOUCH_ADD_LIST_MEMBER_INPUT is dispatched', () => {
+  it('should set isAddListMemberFocused to true when START_FOCUS_ADD_LIST_MEMBER_INPUT is dispatched', () => {
     const startTouchAction = {
-      type: 'START_TOUCH_ADD_LIST_MEMBER_INPUT',
+      type: 'START_FOCUS_ADD_LIST_MEMBER_INPUT',
       payload: {
-        isAddListMemberTouched: true,
+        isAddListMemberFocused: true,
       },
     };
 
     const actualState = addListMember(initialState, startTouchAction);
 
     expect(actualState.notes).toEqual(initialState.notes);
-    expect(actualState.isAddListMemberTouched).toBeTruthy();
+    expect(actualState.isAddListMemberFocused).toBeTruthy();
   });
 
-  it('should set isAddListMemberTouched to false when STOP_TOUCH_ADD_LIST_MEMBER_INPUT is dispatched', () => {
+  it('should set isAddListMemberTouched to false when STOP_FOCUS_ADD_LIST_MEMBER_INPUT is dispatched', () => {
     const startTouchAction = {
-      type: 'STOP_TOUCH_ADD_LIST_MEMBER_INPUT',
+      type: 'STOP_FOCUS_ADD_LIST_MEMBER_INPUT',
       payload: {
         isAddListMemberTouched: false,
       },

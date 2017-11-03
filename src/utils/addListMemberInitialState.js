@@ -1,3 +1,4 @@
 export const addListMemberInitialState = () => ({
-  isAddListMemberTouched: false,
+  isAddListMemberFocused: false,
 });
+

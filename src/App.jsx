@@ -1,7 +1,7 @@
 import './sticky-footer.css';
 import React, { PureComponent } from 'react';
-import { List } from './components/List';
 import { HotKeys } from 'react-hotkeys';
+import { ListContainer } from './containers-redux/List';
 
 const keyMap = {
   'cancelEditing': ['esc'],
@@ -39,7 +39,7 @@ export class App extends PureComponent {
           <section id="app-content">
             <div className="container">
               <HotKeys keyMap={keyMap}>
-                <List />
+                <ListContainer />
               </HotKeys>
             </div>
           </section>

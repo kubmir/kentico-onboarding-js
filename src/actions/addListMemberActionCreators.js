@@ -1,14 +1,14 @@
-export const startTouchingAddListMember = () => ({
-  type: 'START_TOUCH_ADD_LIST_MEMBER_INPUT',
+export const startFocusingAddListMember = () => ({
+  type: 'START_FOCUS_ADD_LIST_MEMBER_INPUT',
   payload: {
-    isAddListMemberTouched: true,
+    isAddListMemberFocused: true,
   },
 });
 
-export const stopTouchingAddListMember = () => ({
-  type: 'STOP_TOUCH_ADD_LIST_MEMBER_INPUT',
+export const stopFocusingAddListMember = () => ({
+  type: 'STOP_FOCUS_ADD_LIST_MEMBER_INPUT',
   payload: {
-    isAddListMemberTouched: false,
+    isAddListMemberFocused: false,
   },
 });
 
