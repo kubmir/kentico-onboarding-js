@@ -38,4 +38,4 @@ ListMember.propTypes = {
   startNoteEditor: PropTypes.func.isRequired,
 };
 
-export default ListMember;
+export { ListMember };
