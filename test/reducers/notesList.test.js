@@ -5,7 +5,7 @@ import {
   prepareNoteObject,
 } from './reducerTestUtils';
 
-describe('Reducer notesApplication tests', () => {
+describe('Reducer notesList tests', () => {
   let initialState;
 
   beforeEach(() => {
