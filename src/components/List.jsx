@@ -2,13 +2,14 @@ import React, { PureComponent } from 'react';
 import { AddListMember } from './AddListMember';
 import ListMember from './ListMember';
 import { generateUid } from '../utils/generateUid';
+import { OrderedMap } from 'immutable';
 
 export class List extends PureComponent {
 
   constructor() {
     super();
     this.state = {
-      notes: [],
+      notes: OrderedMap(),
       isAddListMemberFocused: false,
     };
   }
@@ -22,10 +23,9 @@ export class List extends PureComponent {
 
     this.setState((previousState) => {
       return {
-        notes: [
-          ...previousState.notes,
-          addNote,
-        ],
+        notes: previousState
+          .notes
+          .set(addNote.uid, addNote),
         isAddListMemberFocused: false,
       };
     });
@@ -36,7 +36,7 @@ export class List extends PureComponent {
       return {
         notes: previousState
           .notes
-          .filter(arrayNote => arrayNote !== note),
+          .delete(note.uid),
       };
     });
   };
@@ -71,11 +71,9 @@ export class List extends PureComponent {
 
   updateNote = (newNote) => {
     this.setState((previousState) => {
-      const newNotes = previousState.notes.map(note => {
-        return note.uid === newNote.uid
-          ? newNote
-          : note;
-      });
+      const newNotes = previousState
+        .notes
+        .set(newNote.uid, newNote);
 
       return {
         notes: newNotes,
@@ -93,6 +91,7 @@ export class List extends PureComponent {
     const members = this
       .state
       .notes
+      .valueSeq()
       .map((note, i) => (
         <li
           className="list-group-item"
