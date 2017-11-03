@@ -12,7 +12,7 @@ export class NonEmptyInput extends PureComponent {
     inputClassName: PropTypes.string.isRequired,
     onStartEditing: PropTypes.func,
     onCancelEditing: PropTypes.func,
-    onClickOutOfInput: PropTypes.func,
+    onFocusOutOfInput: PropTypes.func,
   };
 
   onInputFocus = () => {
@@ -22,8 +22,8 @@ export class NonEmptyInput extends PureComponent {
   };
 
   onExitingInput = () => {
-    if (this.props.onClickOutOfInput !== undefined) {
-      this.props.onClickOutOfInput();
+    if (this.props.onFocusOutOfInput !== undefined) {
+      this.props.onFocusOutOfInput();
     }
   };
 

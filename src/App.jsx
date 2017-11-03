@@ -2,6 +2,7 @@ import './sticky-footer.css';
 import React, { PureComponent } from 'react';
 import { HotKeys } from 'react-hotkeys';
 import { ListContainer } from './containers-redux/List';
+import { AddListMemberContainer } from './containers-redux/AddListMember';
 
 const keyMap = {
   'cancelEditing': ['esc'],
@@ -39,7 +40,16 @@ export class App extends PureComponent {
           <section id="app-content">
             <div className="container">
               <HotKeys keyMap={keyMap}>
-                <ListContainer />
+                <div className="row">
+                  <div className="col-sm-12 col-md-offset-1 col-md-10">
+                    <ul className="list-group">
+                      <ListContainer />
+                      <li className="list-group-item">
+                        <AddListMemberContainer />
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </HotKeys>
             </div>
           </section>

@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { AddListMemberContainer } from '../containers-redux/AddListMember';
 import ListMember from './ListMember';
 
 export class List extends PureComponent {
@@ -34,16 +33,10 @@ export class List extends PureComponent {
       ));
 
     return (
-      <div className="row">
-        <div className="col-sm-12 col-md-offset-1 col-md-10">
-          <ul className="list-group">
-            {members}
-            <li className="list-group-item">
-              <AddListMemberContainer />
-            </li>
-          </ul>
-        </div>
+      <div>
+        {members}
       </div>
     );
   }
 }
+

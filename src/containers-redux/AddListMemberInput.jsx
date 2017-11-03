@@ -14,13 +14,13 @@ const mapDispatchToProps = (dispatch) => {
     onStartEditing: () => {
       dispatch(startFocusingAddListMember());
     },
-    onClickOutOfInput: () => {
+    onFocusOutOfInput: () => {
       dispatch(stopFocusingAddListMember());
     },
   };
 };
 
-export const NonEmptyInputContainer = connect(
+export const AddListMemberInputContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(NonEmptyInput);
