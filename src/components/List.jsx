@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import ListMember from './ListMember';
+import { ListMember } from './ListMember';
 
 export class List extends PureComponent {
   static propTypes = {
