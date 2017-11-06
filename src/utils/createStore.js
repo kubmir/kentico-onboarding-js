@@ -22,7 +22,7 @@ export const createApplicationStore = () => {
         notes: OrderedMap(persistedNotes),
       },
       addListMember: {
-        isAddListMemberFocused: true,
+        isAddListMemberFocused: false,
       },
     };
   }

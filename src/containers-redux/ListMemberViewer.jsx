@@ -8,7 +8,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    startNoteEditor: note => {
+    onTextClick: note => {
       dispatch(startEditingNote(note.uid));
     },
   };

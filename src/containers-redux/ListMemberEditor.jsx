@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch) => {
     onSaveClick: (textChanges, note) => {
       dispatch(updateNote(textChanges, note.uid));
     },
-    cancelNoteEditor: note => {
+    onCancelClick: note => {
       dispatch(cancelEditingNote(note.uid));
     },
   };

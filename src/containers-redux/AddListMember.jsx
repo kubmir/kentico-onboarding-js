@@ -2,7 +2,10 @@ import { connect } from 'react-redux';
 import { addNewNote } from '../actions/notesActionCreators';
 import { AddListMember } from '../components/AddListMember';
 import { generateUid } from '../utils/generateUid';
-import { startFocusingAddListMember } from '../actions/addListMemberActionCreators';
+import {
+  startFocusingAddListMember,
+  stopFocusingAddListMember,
+} from '../actions/addListMemberActionCreators';
 
 const mapStateToProps = (state) => {
   return {
@@ -17,6 +20,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onInputFocus: () => {
       dispatch(startFocusingAddListMember());
+    },
+    onInputBlur: () => {
+      dispatch(stopFocusingAddListMember());
     },
   };
 };

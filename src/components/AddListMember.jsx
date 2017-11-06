@@ -48,6 +48,8 @@ export class AddListMember extends PureComponent {
             inputClassName="form-control"
             isError={isError}
             enableAutoFocus={false}
+            onInputBlur={this.props.onInputBlur}
+            onInputFocus={this.props.onInputFocus}
           />
           <div className="input-group-btn">
             <button
