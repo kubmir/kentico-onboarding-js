@@ -10,21 +10,11 @@ const mapStateToProps = (state, ownProps) => {
   return ownProps;
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onDeleteClick: note => {
-      dispatch(deleteNote(note.uid));
-    },
-    onSaveClick: (textChanges, note) => {
-      dispatch(updateNote(textChanges, note.uid));
-    },
-    onCancelClick: note => {
-      dispatch(cancelEditingNote(note.uid));
-    },
-  };
-};
-
 export const ListMemberEditorContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  {
+    onDeleteClick: deleteNote,
+    onSaveClick: updateNote,
+    onCancelClick: cancelEditingNote,
+  }
 )(ListMemberEditor);

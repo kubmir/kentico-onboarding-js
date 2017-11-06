@@ -31,15 +31,15 @@ export class ListMemberEditor extends PureComponent {
   };
 
   onDeleteClick = () => {
-    this.props.onDeleteClick(this.props.note);
+    this.props.onDeleteClick(this.props.note.uid);
   };
 
   onSaveClick = () => {
-    this.props.onSaveClick(this.state.currentNoteText, this.props.note);
+    this.props.onSaveClick(this.state.currentNoteText, this.props.note.uid);
   };
 
   onCancelEditor = () => {
-    this.props.onCancelClick(this.props.note);
+    this.props.onCancelClick(this.props.note.uid);
   };
 
   render() {

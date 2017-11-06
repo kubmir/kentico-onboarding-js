@@ -6,15 +6,7 @@ const mapStateToProps = (state, ownProps) => {
   return ownProps;
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onTextClick: note => {
-      dispatch(startEditingNote(note.uid));
-    },
-  };
-};
-
 export const ListMemberViewerContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  { onTextClick: startEditingNote }
 )(ListMemberViewer);
