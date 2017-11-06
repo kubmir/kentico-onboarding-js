@@ -10,19 +10,21 @@ export class NonEmptyInput extends PureComponent {
     addInsertedText: PropTypes.func.isRequired,
     isError: PropTypes.bool.isRequired,
     inputClassName: PropTypes.string.isRequired,
-    checkIsFocused: PropTypes.func,
+    enableAutoFocus: PropTypes.bool.isRequired,
+    onInputFocus: PropTypes.func,
+    onInputBlur: PropTypes.func,
     onCancelEditing: PropTypes.func,
   };
 
   onInputFocus = () => {
-    if (this.props.checkIsFocused !== undefined) {
-      this.props.checkIsFocused(true);
+    if (this.props.onInputFocus !== undefined) {
+      this.props.onInputFocus();
     }
   };
 
   onExitingInput = () => {
-    if (this.props.checkIsFocused !== undefined) {
-      this.props.checkIsFocused(false);
+    if (this.props.onInputBlur !== undefined) {
+      this.props.onInputBlur();
     }
   };
 
@@ -31,9 +33,11 @@ export class NonEmptyInput extends PureComponent {
   };
 
   componentDidMount() {
-    const length = this.textInput.value.length;
-    this.textInput.focus();
-    this.textInput.setSelectionRange(length, length);
+    if (this.props.enableAutoFocus) {
+      const length = this.textInput.value.length;
+      this.textInput.focus();
+      this.textInput.setSelectionRange(length, length);
+    }
   }
 
   onCancelFocusOfInput = () => {

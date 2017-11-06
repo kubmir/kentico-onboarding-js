@@ -9,6 +9,7 @@ export class AddListMember extends PureComponent {
   static propTypes = {
     onAddClick: PropTypes.func.isRequired,
     onInputFocus: PropTypes.func.isRequired,
+    onInputBlur: PropTypes.func.isRequired,
     isInputFocused: PropTypes.bool.isRequired,
   };
 
@@ -44,9 +45,11 @@ export class AddListMember extends PureComponent {
             text={this.state.insertedText}
             updateInsertedText={this.updateInsertedText}
             addInsertedText={this.addInsertedText}
-            checkIsFocused={this.props.onInputFocus}
+            onInputFocus={this.props.onInputFocus}
+            onInputBlur={this.props.onInputBlur}
             inputClassName="form-control"
             isError={isError}
+            enableAutoFocus={false}
           />
           <div className="input-group-btn">
             <button

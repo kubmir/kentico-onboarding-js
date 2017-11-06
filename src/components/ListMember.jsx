@@ -10,14 +10,14 @@ const ListMember = (props) => {
       number={props.number}
       onDeleteClick={props.onDeleteClick}
       onSaveClick={props.onSaveClick}
-      cancelNoteEditor={props.cancelNoteEditor}
+      onCancelClick={props.cancelNoteEditor}
     />);
 
   const memberViewer = (
     <ListMemberViewer
       note={props.note}
       number={props.number}
-      startNoteEditor={props.startNoteEditor}
+      onTextClick={props.startNoteEditor}
     />
   );
 
