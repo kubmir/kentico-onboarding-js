@@ -14,7 +14,7 @@ export class List extends PureComponent {
   }
 
   addNewNote = (newNoteText) => {
-    const addNote = {
+    const noteToAdd = {
       text: newNoteText,
       uid: generateUid(),
       isEditActive: false,
@@ -24,7 +24,7 @@ export class List extends PureComponent {
       return {
         notes: [
           ...previousState.notes,
-          addNote,
+          noteToAdd,
         ],
         isAddListMemberFocused: false,
       };
@@ -42,13 +42,13 @@ export class List extends PureComponent {
   };
 
   updateNoteText = (previousNote, newNoteText) => {
-    const newNote = {
+    const updatedNote = {
       text: newNoteText,
       uid: previousNote.uid,
       isEditActive: false,
     };
 
-    this.updateNote(newNote);
+    this.updateNote(updatedNote);
   };
 
   startNoteEditor = (previousNote) => {
@@ -60,32 +60,37 @@ export class List extends PureComponent {
   };
 
   updateNoteEditMode = (previousNote, isEditActive) => {
-    const newNote = {
-      text: previousNote.text,
-      uid: previousNote.uid,
+    const updatedNote = {
+      ...previousNote,
       isEditActive,
     };
 
-    this.updateNote(newNote);
+    this.updateNote(updatedNote);
   };
 
-  updateNote = (newNote) => {
+  updateNote = (updatedNote) => {
     this.setState((previousState) => {
-      const newNotes = previousState.notes.map(note => {
-        return note.uid === newNote.uid
-          ? newNote
+      const updatedNotes = previousState.notes.map(note => {
+        return note.uid === updatedNote.uid
+          ? updatedNote
           : note;
       });
 
       return {
-        notes: newNotes,
+        notes: updatedNotes,
       };
     });
   };
 
-  changeIsAddListMemberTouched = (isTouched) => {
+  onIsAddListMemberFocus = () => {
     this.setState({
-      isAddListMemberFocused: isTouched,
+      isAddListMemberFocused: true,
+    });
+  };
+
+  onIsAddListMemberBlur = () => {
+    this.setState({
+      isAddListMemberFocused: false,
     });
   };
 
@@ -117,7 +122,8 @@ export class List extends PureComponent {
             <li className="list-group-item">
               <AddListMember
                 onAddClick={this.addNewNote}
-                onInputFocus={this.changeIsAddListMemberTouched}
+                onInputFocus={this.onIsAddListMemberFocus}
+                onInputBlur={this.onIsAddListMemberBlur}
                 isInputFocused={this.state.isAddListMemberFocused}
               />
             </li>
