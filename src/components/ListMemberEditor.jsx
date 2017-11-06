@@ -14,7 +14,7 @@ export class ListMemberEditor extends PureComponent {
     number: PropTypes.number.isRequired,
     onDeleteClick: PropTypes.func.isRequired,
     onSaveClick: PropTypes.func.isRequired,
-    cancelNoteEditor: PropTypes.func.isRequired,
+    onCancelClick: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -39,7 +39,7 @@ export class ListMemberEditor extends PureComponent {
   };
 
   onCancelEditor = () => {
-    this.props.cancelNoteEditor(this.props.note);
+    this.props.onCancelClick(this.props.note);
   };
 
   render() {
@@ -60,6 +60,7 @@ export class ListMemberEditor extends PureComponent {
             isError={isError}
             inputClassName="form-control"
             onCancelEditing={this.onCancelEditor}
+            enableAutoFocus={true}
           />
           <div className="input-group-btn">
             <button
