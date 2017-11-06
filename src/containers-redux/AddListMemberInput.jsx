@@ -9,18 +9,10 @@ const mapStateToProps = (state, ownProps) => {
   return ownProps;
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onStartEditing: () => {
-      dispatch(startFocusingAddListMember());
-    },
-    onFocusOutOfInput: () => {
-      dispatch(stopFocusingAddListMember());
-    },
-  };
-};
-
 export const AddListMemberInputContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  {
+    onInputFocus: startFocusingAddListMember,
+    onInputBlur: stopFocusingAddListMember,
+  }
 )(NonEmptyInput);
