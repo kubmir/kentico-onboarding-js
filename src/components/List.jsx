@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { AddListMember } from './AddListMember';
 import { ListMember } from './ListMember';
-import { generateUid } from '../utils/generateUid';
+import { generateId } from '../utils/generateId';
 import { OrderedMap } from 'immutable';
 import { NoteRecord } from '../utils/noteRecord';
 
@@ -18,7 +18,7 @@ export class List extends PureComponent {
   addNewNote = (newNoteText) => {
     const noteToAdd = NoteRecord({
       text: newNoteText,
-      uid: generateUid(),
+      id: generateId(),
       isEditActive: false,
     });
 
@@ -26,7 +26,7 @@ export class List extends PureComponent {
       return {
         notes: previousState
           .notes
-          .set(noteToAdd.uid, noteToAdd),
+          .set(noteToAdd.id, noteToAdd),
         isAddListMemberFocused: false,
       };
     });
@@ -37,7 +37,7 @@ export class List extends PureComponent {
       return {
         notes: previousState
           .notes
-          .delete(note.uid),
+          .delete(note.id),
       };
     });
   };
@@ -45,7 +45,7 @@ export class List extends PureComponent {
   updateNoteText = (previousNote, newNoteText) => {
     const updatedNote = NoteRecord({
       text: newNoteText,
-      uid: previousNote.uid,
+      id: previousNote.id,
       isEditActive: false,
     });
     this.updateStateNotes(updatedNote);
@@ -65,7 +65,7 @@ export class List extends PureComponent {
     this.setState((previousState) => ({
       notes: previousState
         .notes
-        .set(updatedNote.uid, updatedNote),
+        .set(updatedNote.id, updatedNote),
     }));
   };
 
@@ -89,7 +89,7 @@ export class List extends PureComponent {
       .map((note, i) => (
         <li
           className="list-group-item"
-          key={note.get('uid')}
+          key={note.get('id')}
         >
           <ListMember
             note={note}

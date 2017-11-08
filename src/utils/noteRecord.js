@@ -2,6 +2,6 @@ import { Record } from 'immutable';
 
 export const NoteRecord = new Record({
   text: '',
-  uid: undefined,
+  id: undefined,
   isEditActive: false,
 });
