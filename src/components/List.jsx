@@ -3,7 +3,7 @@ import { AddListMember } from './AddListMember';
 import { ListMember } from './ListMember';
 import { generateId } from '../utils/generateId';
 import { OrderedMap } from 'immutable';
-import { NoteRecord } from '../utils/noteRecord';
+import { NoteRecord } from '../models/NoteRecord';
 
 export class List extends PureComponent {
 
@@ -43,21 +43,20 @@ export class List extends PureComponent {
   };
 
   updateNoteText = (previousNote, newNoteText) => {
-    const updatedNote = NoteRecord({
-      text: newNoteText,
-      id: previousNote.id,
+    const updatedNote = previousNote.merge({
       isEditActive: false,
+      text: newNoteText,
     });
     this.updateStateNotes(updatedNote);
   };
 
   startNoteEditor = (previousNote) => {
-    const updatedNote = previousNote.set('isEditActive', true);
+    const updatedNote = previousNote.merge({ isEditActive: true });
     this.updateStateNotes(updatedNote);
   };
 
   cancelNoteEditor = (previousNote) => {
-    const updatedNote = previousNote.set('isEditActive', false);
+    const updatedNote = previousNote.merge({ isEditActive: false });
     this.updateStateNotes(updatedNote);
   };
 
@@ -89,7 +88,7 @@ export class List extends PureComponent {
       .map((note, i) => (
         <li
           className="list-group-item"
-          key={note.get('id')}
+          key={note.id}
         >
           <ListMember
             note={note}
