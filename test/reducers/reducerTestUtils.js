@@ -1,28 +1,35 @@
 import { OrderedMap } from 'immutable';
+import { NoteRecord } from '../../src/models/NoteRecord';
 
-export const prepareActionWithUidPayload = (type, uid) => {
+export const prepareActionWithUidPayload = (type, id) => {
   return {
     type,
     payload: {
-      uid,
+      id,
     },
   };
 };
 
-export const prepareNoteObject = (text, uid, isEditActive) => {
-  return {
+export const prepareNoteRecord = (text, id, isEditActive) => {
+  return NoteRecord({
     text,
-    uid,
+    id,
     isEditActive,
-  };
+  });
 };
+
+export const prepareNotePayload = (text, id, isEditActive) => ({
+  text,
+  id,
+  isEditActive,
+});
 
 export const prepareInitialState = () => {
   return {
     notes: OrderedMap(
       [
-        [1, prepareNoteObject('First test note', 1, false)],
-        [2, prepareNoteObject('Second test note', 2, false)],
+        [1, prepareNoteRecord('First test note', 1, false)],
+        [2, prepareNoteRecord('Second test note', 2, false)],
       ],
     ),
     isAddListMemberTouched: false,

@@ -13,7 +13,7 @@ export class ListMemberViewer extends PureComponent {
   };
 
   onTextClick = () => {
-    this.props.onTextClick(this.props.note.uid);
+    this.props.onTextClick(this.props.note.id);
   };
 
   render() {

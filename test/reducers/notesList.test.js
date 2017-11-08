@@ -2,7 +2,8 @@ import { notes } from '../../src/reducers/notesList';
 import {
   prepareInitialState,
   prepareActionWithUidPayload,
-  prepareNoteObject,
+  prepareNoteRecord,
+  prepareNotePayload,
 } from './reducerTestUtils';
 
 describe('Reducer notesList tests', () => {
@@ -37,29 +38,29 @@ describe('Reducer notesList tests', () => {
   });
 
   it('should add new note to state notes when ADD_NEW_NOTE action is dispatched', () => {
-    const newNote = prepareNoteObject('Third test note - added', 3, false);
+    const newNotePayload = prepareNotePayload('Third test note - added', 3, false);
 
     const addNoteAction = {
       type: 'ADD_NEW_NOTE',
-      payload: newNote,
+      payload: newNotePayload,
     };
 
     const actualState = notes(initialState, addNoteAction);
     const actualNote = actualState
       .notes
-      .get(newNote.uid);
+      .get(newNotePayload.id);
 
     expect(actualState.notes.size).toEqual(3);
-    expect(actualNote).toEqual(newNote);
+    deepNoteEqual(newNotePayload, actualNote);
   });
 
-  it('action UPDATE_NOTE should update note with specific uid when dispatched', () => {
+  it('action UPDATE_NOTE should update note with specific id when dispatched', () => {
     const uidOfUpdatedNote = 1;
     const updateText = 'Updated text';
-    const updatedNote = prepareNoteObject(updateText, uidOfUpdatedNote, false);
+    const updatedNotePayload = prepareNotePayload(updateText, uidOfUpdatedNote, false);
     const updateAction = {
       type: 'UPDATE_NOTE',
-      payload: updatedNote,
+      payload: updatedNotePayload,
     };
 
     const actualState = notes(initialState, updateAction);
@@ -69,27 +70,29 @@ describe('Reducer notesList tests', () => {
 
     expect(actualNote.isEditActive).toEqual(false);
     expect(actualNote.text).toEqual(updateText);
-    expect(actualNote.uid).toEqual(uidOfUpdatedNote);
+    expect(actualNote.id).toEqual(uidOfUpdatedNote);
     expect(actualState.notes.size).toEqual(2);
   });
 
   it('text of note should not be changed if no changes are made when UPDATE_NOTE is dispatched', () => {
-    const uidOfUpdatedNote = 1;
+    const idOfUpdatedNote = 1;
     const expectedNote = initialState
       .notes
-      .get(uidOfUpdatedNote);
-    const updatedNote = prepareNoteObject(expectedNote.text, uidOfUpdatedNote, false);
+      .get(idOfUpdatedNote);
+    const updatedNotePayload = prepareNotePayload(expectedNote.text, idOfUpdatedNote, false);
     const updateAction = {
       type: 'UPDATE_NOTE',
-      payload: updatedNote,
+      payload: {
+        ...updatedNotePayload,
+      },
     };
 
     const actualState = notes(initialState, updateAction);
     const actualNote = actualState
       .notes
-      .get(uidOfUpdatedNote);
+      .get(idOfUpdatedNote);
 
-    expect(actualNote).toEqual(expectedNote);
+    deepNoteEqual(updatedNotePayload, actualNote);
   });
 
   it('should delete note from state notes when DELETE_NOTE action is dispatched', () => {
@@ -103,7 +106,7 @@ describe('Reducer notesList tests', () => {
 
   it('action DELETE_NOTE should not affect another notes', () => {
     const deleteAction = prepareActionWithUidPayload('DELETE_NOTE', 1);
-    const notAffectedNote = prepareNoteObject('Second test note', 2, false);
+    const notAffectedNote = prepareNoteRecord('Second test note', 2, false);
 
     const actualState = notes(initialState, deleteAction);
 
@@ -130,7 +133,7 @@ describe('Reducer notesList tests', () => {
 
   it('action CANCEL_EDITING_NOTE should cancel edit mode of defined note when dispatched', () => {
     const state = {
-      notes: initialState.notes.set(1, prepareNoteObject('First test note', 1, true)),
+      notes: initialState.notes.set(1, prepareNoteRecord('First test note', 1, true)),
     };
     const cancelEditAction = prepareActionWithUidPayload('CANCEL_EDITING_NOTE', 1);
 
@@ -150,3 +153,9 @@ describe('Reducer notesList tests', () => {
     expect(actualState.notes.get(1).isEditActive).toEqual(false);
   });
 });
+
+const deepNoteEqual = (expectedNote, actualNote) => {
+  expect(actualNote.text).toEqual(expectedNote.text);
+  expect(actualNote.id).toEqual(expectedNote.id);
+  expect(actualNote.isEditActive).toEqual(expectedNote.isEditActive);
+};

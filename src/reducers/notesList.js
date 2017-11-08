@@ -1,4 +1,5 @@
 import { notesInitialState } from '../utils/notesInitialState';
+import { NoteRecord } from '../models/NoteRecord';
 
 export const notes = (state = notesInitialState(), action) => {
   switch (action.type) {
@@ -19,30 +20,23 @@ export const notes = (state = notesInitialState(), action) => {
 
 const addNewNote = (state, action) => {
   const payload = action.payload;
-  const addNote = {
-    text: payload.text,
-    uid: payload.uid,
-    isEditActive: payload.isEditActive,
-  };
+  const addNote = NoteRecord({ ...payload });
 
   return Object.assign({}, state, {
     notes: state
       .notes
-      .set(payload.uid, addNote),
+      .set(payload.id, addNote),
   });
 };
 
 const updateNote = (state, action) => {
-  const updatedNote = {
-    text: action.payload.text,
-    uid: action.payload.uid,
-    isEditActive: action.payload.isEditActive,
-  };
+  const payload = action.payload;
+  const updatedNote = NoteRecord({ ...payload });
 
   return Object.assign({}, state, {
     notes: state
       .notes
-      .set(action.payload.uid, updatedNote),
+      .set(action.payload.id, updatedNote),
   });
 };
 
@@ -50,24 +44,21 @@ const deleteNote = (state, action) => {
   return Object.assign({}, state, {
     notes: state
       .notes
-      .delete(action.payload.uid),
+      .delete(action.payload.id),
   });
 };
 
 const changeEditingMode = (state, action, newEditingMode) => {
-  const uid = action.payload.uid;
+  const id = action.payload.id;
   const changeNote = state
     .notes
-    .get(uid);
-  const updatedNote = {
-    text: changeNote.text,
-    uid,
-    isEditActive: newEditingMode,
-  };
+    .get(id);
+
+  const updatedNote = changeNote.merge({ isEditActive: newEditingMode });
 
   return Object.assign({}, state, {
     notes: state
       .notes
-      .set(uid, updatedNote),
+      .set(id, updatedNote),
   });
 };

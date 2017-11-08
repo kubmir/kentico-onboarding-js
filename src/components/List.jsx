@@ -8,7 +8,7 @@ export class List extends PureComponent {
     notes: ImmutablePropTypes.orderedMapOf(
       PropTypes.shape({
         text: PropTypes.string.isRequired,
-        uid: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
         isEditActive: PropTypes.bool.isRequired,
       }),
       PropTypes.string.isRequired,

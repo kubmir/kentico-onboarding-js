@@ -1,7 +1,7 @@
 import { addListMember } from '../../src/reducers/addListMember';
 import {
   prepareInitialState,
-  prepareNoteObject,
+  prepareNoteRecord,
 } from './reducerTestUtils';
 
 describe('Reducer addListMember tests', () => {
@@ -23,7 +23,7 @@ describe('Reducer addListMember tests', () => {
   });
 
   it('should return previous state if action for another reducer is dispatched', () => {
-    const newNote = prepareNoteObject('Third test note - added', 3, false);
+    const newNote = prepareNoteRecord('Third test note - added', 3, false);
 
     const updateNoteAction = {
       type: 'UPDATE_NOTE',

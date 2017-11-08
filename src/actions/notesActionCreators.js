@@ -1,38 +1,38 @@
-export const addNewNote = (noteText, generateUidFunction) => ({
+export const addNewNote = (noteText, generateIdFunction) => ({
   type: 'ADD_NEW_NOTE',
   payload: {
     text: noteText,
     isEditActive: false,
-    uid: generateUidFunction(),
+    id: generateIdFunction(),
   },
 });
 
-export const updateNote = (textChanges, uid) => ({
+export const updateNote = (textChanges, id) => ({
   type: 'UPDATE_NOTE',
   payload: {
     text: textChanges,
-    uid,
+    id,
     isEditActive: false,
   },
 });
 
-export const deleteNote = (uid) => ({
+export const deleteNote = (id) => ({
   type: 'DELETE_NOTE',
   payload: {
-    uid,
+    id,
   },
 });
 
-export const startEditingNote = (uid) => ({
+export const startEditingNote = (id) => ({
   type: 'START_EDITING_NOTE',
   payload: {
-    uid,
+    id,
   },
 });
 
-export const cancelEditingNote = (uid) => ({
+export const cancelEditingNote = (id) => ({
   type: 'CANCEL_EDITING_NOTE',
   payload: {
-    uid,
+    id,
   },
 });

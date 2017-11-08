@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { addNewNote } from '../actions/notesActionCreators';
 import { AddListMember } from '../components/AddListMember';
-import { generateUid } from '../utils/generateUid';
+import { generateId } from '../utils/generateId';
 
 const mapStateToProps = (state) => {
   return {
@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onAddClick: insertedText => {
-      dispatch(addNewNote(insertedText, generateUid));
+      dispatch(addNewNote(insertedText, generateId));
     },
   };
 };

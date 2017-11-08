@@ -2,18 +2,18 @@ import * as actionCreators from '../../src/actions/notesActionCreators';
 import * as types from '../../src/constants/actionTypes';
 
 describe('notesActionCreators', () => {
-  let fakeNoteUid;
+  let fakeNoteId;
   let isNotInEditMode;
 
   beforeEach(() => {
-    fakeNoteUid = 1;
+    fakeNoteId = 1;
     isNotInEditMode = false;
   });
 
-  it('should create an action ADD_NEW_NOTE with correct text, isEditActive and generated uid', () => {
+  it('should create an action ADD_NEW_NOTE with correct text, isEditActive and generated id', () => {
     const noteText = 'New note add test';
-    const generateUID = () => {
-      return fakeNoteUid;
+    const generateId = () => {
+      return fakeNoteId;
     };
 
     const expectedAction = {
@@ -21,11 +21,11 @@ describe('notesActionCreators', () => {
       payload: {
         text: noteText,
         isEditActive: isNotInEditMode,
-        uid: fakeNoteUid,
+        id: fakeNoteId,
       },
     };
 
-    const returnedAction = actionCreators.addNewNote(noteText, generateUID);
+    const returnedAction = actionCreators.addNewNote(noteText, generateId);
 
     expect(returnedAction).toEqual(expectedAction);
   });
@@ -36,51 +36,51 @@ describe('notesActionCreators', () => {
       type: types.UPDATE_NOTE,
       payload: {
         text: textChanges,
-        uid: fakeNoteUid,
+        id: fakeNoteId,
         isEditActive: isNotInEditMode,
       },
     };
 
-    const returnedAction = actionCreators.updateNote(textChanges, fakeNoteUid);
+    const returnedAction = actionCreators.updateNote(textChanges, fakeNoteId);
 
     expect(returnedAction).toEqual(expectedAction);
   });
 
-  it('should create an action DELETE_NOTE with correct uid', () => {
+  it('should create an action DELETE_NOTE with correct id', () => {
     const expectedAction = {
       type: types.DELETE_NOTE,
       payload: {
-        uid: fakeNoteUid,
+        id: fakeNoteId,
       },
     };
 
-    const returnedAction = actionCreators.deleteNote(fakeNoteUid);
+    const returnedAction = actionCreators.deleteNote(fakeNoteId);
 
     expect(returnedAction).toEqual(expectedAction);
   });
 
-  it('should create an action START_EDITING_NOTE with correct UID', () => {
+  it('should create an action START_EDITING_NOTE with correct ID', () => {
     const expectedAction = {
       type: types.START_EDITING_NOTE,
       payload: {
-        uid: fakeNoteUid,
+        id: fakeNoteId,
       },
     };
 
-    const returnedAction = actionCreators.startEditingNote(fakeNoteUid);
+    const returnedAction = actionCreators.startEditingNote(fakeNoteId);
 
     expect(returnedAction).toEqual(expectedAction);
   });
 
-  it('should create an action CANCEL_EDITING_NOTE with correct UID', () => {
+  it('should create an action CANCEL_EDITING_NOTE with correct ID', () => {
     const expectedAction = {
       type: types.CANCEL_EDITING_NOTE,
       payload: {
-        uid: fakeNoteUid,
+        id: fakeNoteId,
       },
     };
 
-    const returnedAction = actionCreators.cancelEditingNote(fakeNoteUid);
+    const returnedAction = actionCreators.cancelEditingNote(fakeNoteId);
 
     expect(returnedAction).toEqual(expectedAction);
   });

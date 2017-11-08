@@ -31,14 +31,14 @@ const prepareNotesForStoring = (notes) => {
     .valueSeq()
     .map(note => ({
       text: note.text,
-      uid: note.uid,
+      id: note.id,
     }));
 };
 
 const prepareNotesForApplication = (notes) => {
   return notes
     .map(note => {
-      return [note.uid,
+      return [note.id,
         {
           ...note,
           isEditActive: false,
