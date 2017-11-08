@@ -23,7 +23,7 @@ export class List extends PureComponent {
       .map((note, i) => (
         <li
           className="list-group-item"
-          key={note.uid}
+          key={note.id}
         >
           <ListMember
             note={note}
@@ -39,4 +39,3 @@ export class List extends PureComponent {
     );
   }
 }
-
