@@ -3,6 +3,7 @@ import { AddListMember } from './AddListMember';
 import { ListMember } from './ListMember';
 import { generateUid } from '../utils/generateUid';
 import { OrderedMap } from 'immutable';
+import { NoteRecord } from '../utils/noteRecord';
 
 export class List extends PureComponent {
 
@@ -15,11 +16,11 @@ export class List extends PureComponent {
   }
 
   addNewNote = (newNoteText) => {
-    const noteToAdd = {
+    const noteToAdd = NoteRecord({
       text: newNoteText,
       uid: generateUid(),
       isEditActive: false,
-    };
+    });
 
     this.setState((previousState) => {
       return {
@@ -42,42 +43,30 @@ export class List extends PureComponent {
   };
 
   updateNoteText = (previousNote, newNoteText) => {
-    const updatedNote = {
+    const updatedNote = NoteRecord({
       text: newNoteText,
       uid: previousNote.uid,
       isEditActive: false,
-    };
-
-    this.updateNote(updatedNote);
+    });
+    this.updateStateNotes(updatedNote);
   };
 
   startNoteEditor = (previousNote) => {
-    this.updateNoteEditMode(previousNote, true);
+    const updatedNote = previousNote.set('isEditActive', true);
+    this.updateStateNotes(updatedNote);
   };
 
   cancelNoteEditor = (previousNote) => {
-    this.updateNoteEditMode(previousNote, false);
+    const updatedNote = previousNote.set('isEditActive', false);
+    this.updateStateNotes(updatedNote);
   };
 
-  updateNoteEditMode = (previousNote, isEditActive) => {
-    const updatedNote = {
-      ...previousNote,
-      isEditActive,
-    };
-
-    this.updateNote(updatedNote);
-  };
-
-  updateNote = (updatedNote) => {
-    this.setState((previousState) => {
-      const updatedNotes = previousState
+  updateStateNotes = (updatedNote) => {
+    this.setState((previousState) => ({
+      notes: previousState
         .notes
-        .set(updatedNote.uid, updatedNote);
-
-      return {
-        notes: updatedNotes,
-      };
-    });
+        .set(updatedNote.uid, updatedNote),
+    }));
   };
 
   onIsAddListMemberFocus = () => {
@@ -100,7 +89,7 @@ export class List extends PureComponent {
       .map((note, i) => (
         <li
           className="list-group-item"
-          key={note.uid}
+          key={note.get('uid')}
         >
           <ListMember
             note={note}
