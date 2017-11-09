@@ -1,4 +1,4 @@
-import { notes } from '../../src/reducers/notesList';
+import { listOfNotes } from '../../src/reducers/listOfNotes';
 import {
   prepareInitialState,
   prepareActionWithUidPayload,
@@ -6,7 +6,7 @@ import {
   prepareNotePayload,
 } from './reducerTestUtils';
 
-describe('Reducer notesList tests', () => {
+describe('Reducer listOfNotes tests', () => {
   let initialState;
 
   beforeEach(() => {
@@ -19,7 +19,7 @@ describe('Reducer notesList tests', () => {
       payload: {},
     };
 
-    const actualState = notes(initialState, unknownAction);
+    const actualState = listOfNotes(initialState, unknownAction);
 
     expect(actualState).toEqual(initialState);
   });
@@ -32,12 +32,12 @@ describe('Reducer notesList tests', () => {
       },
     };
 
-    const actualState = notes(initialState, addNoteAction);
+    const actualState = listOfNotes(initialState, addNoteAction);
 
     expect(actualState).toEqual(initialState);
   });
 
-  it('should add new note to state notes when ADD_NEW_NOTE action is dispatched', () => {
+  it('should add new note to state listOfNotes when ADD_NEW_NOTE action is dispatched', () => {
     const newNotePayload = prepareNotePayload('Third test note - added', 3, false);
 
     const addNoteAction = {
@@ -45,7 +45,7 @@ describe('Reducer notesList tests', () => {
       payload: newNotePayload,
     };
 
-    const actualState = notes(initialState, addNoteAction);
+    const actualState = listOfNotes(initialState, addNoteAction);
     const actualNote = actualState
       .notes
       .get(newNotePayload.id);
@@ -63,7 +63,7 @@ describe('Reducer notesList tests', () => {
       payload: updatedNotePayload,
     };
 
-    const actualState = notes(initialState, updateAction);
+    const actualState = listOfNotes(initialState, updateAction);
     const actualNote = actualState
       .notes
       .get(uidOfUpdatedNote);
@@ -87,7 +87,7 @@ describe('Reducer notesList tests', () => {
       },
     };
 
-    const actualState = notes(initialState, updateAction);
+    const actualState = listOfNotes(initialState, updateAction);
     const actualNote = actualState
       .notes
       .get(idOfUpdatedNote);
@@ -95,20 +95,20 @@ describe('Reducer notesList tests', () => {
     deepNoteEqual(updatedNotePayload, actualNote);
   });
 
-  it('should delete note from state notes when DELETE_NOTE action is dispatched', () => {
+  it('should delete note from state listOfNotes when DELETE_NOTE action is dispatched', () => {
     const deleteAction = prepareActionWithUidPayload('DELETE_NOTE', 1);
 
-    const actualState = notes(initialState, deleteAction);
+    const actualState = listOfNotes(initialState, deleteAction);
 
     expect(actualState.notes.size).toEqual(1);
     expect(actualState.notes.get(1)).toBe(undefined);
   });
 
-  it('action DELETE_NOTE should not affect another notes', () => {
+  it('action DELETE_NOTE should not affect another listOfNotes', () => {
     const deleteAction = prepareActionWithUidPayload('DELETE_NOTE', 1);
     const notAffectedNote = prepareNoteRecord('Second test note', 2, false);
 
-    const actualState = notes(initialState, deleteAction);
+    const actualState = listOfNotes(initialState, deleteAction);
 
     expect(actualState.notes.get(2)).toEqual(notAffectedNote);
   });
@@ -116,16 +116,16 @@ describe('Reducer notesList tests', () => {
   it('action START_EDITING_NOTE should start edit mode of defined note when dispatched', () => {
     const startEditAction = prepareActionWithUidPayload('START_EDITING_NOTE', 1);
 
-    const actualState = notes(initialState, startEditAction);
+    const actualState = listOfNotes(initialState, startEditAction);
 
     expect(actualState.notes.size).toEqual(2);
     expect(actualState.notes.get(1).isEditActive).toEqual(true);
   });
 
-  it('action START_EDITING_NOTE should not affect another notes in state when dispatched', () => {
+  it('action START_EDITING_NOTE should not affect another listOfNotes in state when dispatched', () => {
     const startEditAction = prepareActionWithUidPayload('START_EDITING_NOTE', 1);
 
-    const actualState = notes(initialState, startEditAction);
+    const actualState = listOfNotes(initialState, startEditAction);
 
     expect(actualState.notes.size).toEqual(2);
     expect(actualState.notes.get(2).isEditActive).toEqual(false);
@@ -137,7 +137,7 @@ describe('Reducer notesList tests', () => {
     };
     const cancelEditAction = prepareActionWithUidPayload('CANCEL_EDITING_NOTE', 1);
 
-    const actualState = notes(state, cancelEditAction);
+    const actualState = listOfNotes(state, cancelEditAction);
 
     expect(actualState.notes.size).toEqual(2);
     expect(actualState.notes.get(1).isEditActive).toEqual(false);
@@ -147,7 +147,7 @@ describe('Reducer notesList tests', () => {
   it('action CANCEL_EDITING_NOTE should have not effect on note not in edit mode when dispatched', () => {
     const cancelEditAction = prepareActionWithUidPayload('CANCEL_EDITING_NOTE', 1);
 
-    const actualState = notes(initialState, cancelEditAction);
+    const actualState = listOfNotes(initialState, cancelEditAction);
 
     expect(actualState.notes.size).toEqual(2);
     expect(actualState.notes.get(1).isEditActive).toEqual(false);

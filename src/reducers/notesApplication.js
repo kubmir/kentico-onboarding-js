@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import { addListMember } from './addListMember';
-import { notes } from './notesList';
+import { listOfNotes } from './listOfNotes';
 
 export const notesApplication = combineReducers({
   addListMember,
-  notes,
+  notes: listOfNotes,
 });
