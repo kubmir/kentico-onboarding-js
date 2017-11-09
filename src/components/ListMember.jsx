@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ListMemberEditorContainer } from '../containers-redux/ListMemberEditor';
 import { ListMemberViewerContainer } from '../containers-redux/ListMemberViewer';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 const ListMember = (props) => {
   const memberEditor = (
@@ -18,7 +19,7 @@ const ListMember = (props) => {
 };
 
 ListMember.propTypes = {
-  note: PropTypes.shape({
+  note: ImmutablePropTypes.recordOf({
     text: PropTypes.string.isRequired,
     isEditActive: PropTypes.bool.isRequired,
   }),

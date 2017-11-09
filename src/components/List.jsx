@@ -6,7 +6,7 @@ import { ListMember } from './ListMember';
 export class List extends PureComponent {
   static propTypes = {
     notes: ImmutablePropTypes.orderedMapOf(
-      PropTypes.shape({
+      ImmutablePropTypes.recordOf({
         text: PropTypes.string.isRequired,
         id: PropTypes.string.isRequired,
         isEditActive: PropTypes.bool.isRequired,

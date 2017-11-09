@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import { NonEmptyInput } from './NonEmptyInput';
 import { ErrorMessageListMember } from './ErrorMessageListMember';
@@ -7,7 +8,7 @@ import { isNoteValid } from '../utils/isNoteValid';
 export class ListMemberEditor extends PureComponent {
 
   static propTypes = {
-    note: PropTypes.shape({
+    note: ImmutablePropTypes.recordOf({
       text: PropTypes.string.isRequired,
       isEditActive: PropTypes.bool.isRequired,
     }).isRequired,
