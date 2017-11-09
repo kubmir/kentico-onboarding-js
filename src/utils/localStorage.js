@@ -1,4 +1,4 @@
-import { Note } from '../models/Note';
+import { ListItem } from '../models/ListItem';
 
 export const saveNotesData = (state) => {
   const notes = state.notes;
@@ -44,7 +44,7 @@ const prepareNotesForApplication = (notes) => {
     .map(note => {
       return [
         note.id,
-        Note({
+        new ListItem({
           ...note,
           isEditActive: false,
         }),
