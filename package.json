@@ -55,13 +55,14 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "immutable": "^3.8.2",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "ts-jest": "^19.0.14",
-    "uuid": "^3.1.0",
     "react-hotkeys": "^0.10.0",
-    "immutable": "^3.8.2"
+    "react-immutable-proptypes": "^2.1.0",
+    "ts-jest": "^19.0.14",
+    "uuid": "^3.1.0"
   },
   "scripts": {
     "start": "node scripts/start.js",
