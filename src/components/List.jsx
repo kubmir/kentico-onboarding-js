@@ -17,7 +17,7 @@ export class List extends PureComponent {
 
   addNewNote = (newNoteText) =>
     this.setState((previousState) => {
-      const noteToAdd = Note({
+      const noteToAdd = new Note({
         text: newNoteText,
         id: generateId(),
         isEditActive: false,
