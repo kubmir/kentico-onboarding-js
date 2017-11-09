@@ -25,7 +25,7 @@ const setNoteToState = (state, action) => {
   const newNotes = state
     .notes
     .set(payload.id, addNote);
-  
+
   return Object.assign({}, state, { notes: newNotes });
 };
 
