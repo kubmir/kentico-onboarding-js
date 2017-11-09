@@ -18,11 +18,10 @@ export class AddListMember extends PureComponent {
     };
   }
 
-  updateInsertedText = (newText) => {
+  updateInsertedText = (newText) =>
     this.setState({
       insertedText: newText,
     });
-  };
 
   addInsertedText = () => {
     this.props.onAddClick(this.state.insertedText);

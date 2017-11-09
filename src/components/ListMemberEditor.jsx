@@ -24,23 +24,19 @@ export class ListMemberEditor extends PureComponent {
     };
   }
 
-  onNoteEditing = (newText) => {
+  onNoteEditing = (newText) =>
     this.setState({
       currentNoteText: newText,
     });
-  };
 
-  onDeleteClick = () => {
+  onDeleteClick = () =>
     this.props.onDeleteClick(this.props.note.id);
-  };
 
-  onSaveClick = () => {
+  onSaveClick = () =>
     this.props.onSaveClick(this.state.currentNoteText, this.props.note.id);
-  };
 
-  onCancelEditor = () => {
+  onCancelEditor = () =>
     this.props.onCancelClick(this.props.note.id);
-  };
 
   render() {
     const isValid = isNoteValid(this.state.currentNoteText);
