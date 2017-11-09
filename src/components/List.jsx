@@ -3,7 +3,7 @@ import { AddListMember } from './AddListMember';
 import { ListMember } from './ListMember';
 import { generateId } from '../utils/generateId';
 import { OrderedMap } from 'immutable';
-import { Note } from '../models/Note';
+import { ListItem } from '../models/ListItem';
 
 export class List extends PureComponent {
 
@@ -17,7 +17,7 @@ export class List extends PureComponent {
 
   addNewNote = (newNoteText) =>
     this.setState((previousState) => {
-      const noteToAdd = new Note({
+      const noteToAdd = new ListItem({
         text: newNoteText,
         id: generateId(),
         isEditActive: false,
