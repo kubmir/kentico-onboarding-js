@@ -3,7 +3,7 @@ import { AddListMember } from './AddListMember';
 import { ListMember } from './ListMember';
 import { generateId } from '../utils/generateId';
 import { OrderedMap } from 'immutable';
-import { NoteRecord } from '../models/NoteRecord';
+import { Note } from '../models/Note';
 
 export class List extends PureComponent {
 
@@ -15,32 +15,32 @@ export class List extends PureComponent {
     };
   }
 
-  addNewNote = (newNoteText) => {
-    const noteToAdd = NoteRecord({
-      text: newNoteText,
-      id: generateId(),
-      isEditActive: false,
-    });
-
+  addNewNote = (newNoteText) =>
     this.setState((previousState) => {
+      const noteToAdd = Note({
+        text: newNoteText,
+        id: generateId(),
+        isEditActive: false,
+      });
+
+      const notes = previousState
+        .notes
+        .set(noteToAdd.id, noteToAdd);
+
       return {
-        notes: previousState
-          .notes
-          .set(noteToAdd.id, noteToAdd),
+        notes,
         isAddListMemberFocused: false,
       };
     });
-  };
 
-  deleteNote = (note) => {
+  deleteNote = (note) =>
     this.setState((previousState) => {
-      return {
-        notes: previousState
-          .notes
-          .delete(note.id),
-      };
+      const notes = previousState
+        .notes
+        .delete(note.id);
+
+      return { notes };
     });
-  };
 
   updateNoteText = (previousNote, newNoteText) => {
     const updatedNote = previousNote.merge({
@@ -60,25 +60,24 @@ export class List extends PureComponent {
     this.updateStateNotes(updatedNote);
   };
 
-  updateStateNotes = (updatedNote) => {
-    this.setState((previousState) => ({
-      notes: previousState
+  updateStateNotes = (updatedNote) =>
+    this.setState((previousState) => {
+      const notes = previousState
         .notes
-        .set(updatedNote.id, updatedNote),
-    }));
-  };
+        .set(updatedNote.id, updatedNote);
 
-  onIsAddListMemberFocus = () => {
+      return { notes };
+    });
+
+  onIsAddListMemberFocus = () =>
     this.setState({
       isAddListMemberFocused: true,
     });
-  };
 
-  onIsAddListMemberBlur = () => {
+  onIsAddListMemberBlur = () =>
     this.setState({
       isAddListMemberFocused: false,
     });
-  };
 
   render() {
     const members = this

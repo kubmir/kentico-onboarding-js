@@ -1,6 +1,6 @@
 import { Record } from 'immutable';
 
-export const NoteRecord = new Record({
+export const Note = new Record({
   text: '',
   id: undefined,
   isEditActive: false,
