@@ -1,3 +1,5 @@
+import { Note } from '../models/Note';
+
 export const saveNotesData = (state) => {
   const notes = state.notes;
 
@@ -6,6 +8,7 @@ export const saveNotesData = (state) => {
     localStorage.setItem('notes', serializedNotes);
   }
   catch (err) {
+    // eslint-disable-next-line no-console
     console.error('Error while storing data to local storage!');
   }
 };
@@ -21,6 +24,7 @@ export const getSavedNotes = () => {
     return prepareNotesForApplication(JSON.parse(serializedNotes));
   }
   catch (err) {
+    // eslint-disable-next-line no-console
     console.error('Error while retrieving data from local storage!' + err.message);
     return undefined;
   }
@@ -38,11 +42,12 @@ const prepareNotesForStoring = (notes) => {
 const prepareNotesForApplication = (notes) => {
   return notes
     .map(note => {
-      return [note.id,
-        {
+      return [
+        note.id,
+        Note({
           ...note,
           isEditActive: false,
-        },
+        }),
       ];
     });
 };
