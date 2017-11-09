@@ -1,5 +1,5 @@
 import { notesInitialState } from '../utils/notesInitialState';
-import { NoteRecord } from '../models/NoteRecord';
+import { Note } from '../models/Note';
 
 export const notes = (state = notesInitialState(), action) => {
   switch (action.type) {
@@ -20,7 +20,7 @@ export const notes = (state = notesInitialState(), action) => {
 
 const addNewNote = (state, action) => {
   const payload = action.payload;
-  const addNote = NoteRecord({ ...payload });
+  const addNote = Note({ ...payload });
 
   return Object.assign({}, state, {
     notes: state
@@ -31,7 +31,7 @@ const addNewNote = (state, action) => {
 
 const updateNote = (state, action) => {
   const payload = action.payload;
-  const updatedNote = NoteRecord({ ...payload });
+  const updatedNote = Note({ ...payload });
 
   return Object.assign({}, state, {
     notes: state
