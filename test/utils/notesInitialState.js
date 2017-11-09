@@ -2,7 +2,7 @@ import { OrderedMap } from 'immutable';
 import { notesInitialState } from '../../src/utils/notesInitialState';
 
 describe('notesInitialState tests', () => {
-  it('returns initial state consisted of empty notes', () => {
+  it('returns initial state consisting of empty notes ordered map', () => {
     const expectedInitialState = {
       notes: OrderedMap(),
     };

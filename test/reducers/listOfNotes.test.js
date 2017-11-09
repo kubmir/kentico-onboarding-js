@@ -37,7 +37,7 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(initialState);
   });
 
-  it('should add new note to state listOfNotes when ADD_NEW_NOTE action is dispatched', () => {
+  it('should add new note to state notes when ADD_NEW_NOTE action is dispatched', () => {
     const newNotePayload = prepareNotePayload('Third test note - added', 3, false);
 
     const addNoteAction = {
@@ -95,7 +95,7 @@ describe('Reducer listOfNotes tests', () => {
     deepNoteEqual(updatedNotePayload, actualNote);
   });
 
-  it('should delete note from state listOfNotes when DELETE_NOTE action is dispatched', () => {
+  it('should delete note from state notes when DELETE_NOTE action is dispatched', () => {
     const deleteAction = prepareActionWithUidPayload('DELETE_NOTE', 1);
 
     const actualState = listOfNotes(initialState, deleteAction);
@@ -122,7 +122,7 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState.notes.get(1).isEditActive).toEqual(true);
   });
 
-  it('action START_EDITING_NOTE should not affect another listOfNotes in state when dispatched', () => {
+  it('action START_EDITING_NOTE should not affect another notes in state when dispatched', () => {
     const startEditAction = prepareActionWithUidPayload('START_EDITING_NOTE', 1);
 
     const actualState = listOfNotes(initialState, startEditAction);

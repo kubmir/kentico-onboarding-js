@@ -1,7 +1,7 @@
 import { addListMemberInitialState } from '../../src/utils/addListMemberInitialState';
 
 describe('addListMemberInitialState tests', () => {
-  it('returns initial state consisted of empty notes and isAddListMemberTouched set to false', () => {
+  it('returns initial state consisting of isAddListMemberTouched set to false', () => {
     const expectedInitialState = {
       isAddListMemberFocused: false,
     };
