@@ -1,5 +1,5 @@
 import { OrderedMap } from 'immutable';
-import { Note } from '../../src/models/Note';
+import { ListItem } from '../../src/models/ListItem';
 
 export const prepareActionWithUidPayload = (type, id) => {
   return {
@@ -11,7 +11,7 @@ export const prepareActionWithUidPayload = (type, id) => {
 };
 
 export const prepareNoteRecord = (text, id, isEditActive) => {
-  return Note({
+  return new ListItem({
     text,
     id,
     isEditActive,
