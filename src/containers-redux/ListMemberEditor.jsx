@@ -6,9 +6,7 @@ import {
 } from '../actions/notesActionCreators';
 import { ListMemberEditor } from '../components/ListMemberEditor';
 
-const mapStateToProps = (state, ownProps) => {
-  return ownProps;
-};
+const mapStateToProps = (state, ownProps) => ownProps;
 
 export const ListMemberEditorContainer = connect(
   mapStateToProps,

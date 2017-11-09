@@ -5,9 +5,7 @@ import {
   stopFocusingAddListMember,
 } from '../actions/addListMemberActionCreators';
 
-const mapStateToProps = (state, ownProps) => {
-  return ownProps;
-};
+const mapStateToProps = (state, ownProps) => ownProps;
 
 export const AddListMemberInputContainer = connect(
   mapStateToProps,

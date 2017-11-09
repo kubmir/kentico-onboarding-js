@@ -11,9 +11,9 @@ export const addListMember = (state = addListMemberInitialState(), action) => {
   }
 };
 
-const changeIsAddListMemberFocused = (state, action) => {
-  return Object.assign({}, state, {
+const changeIsAddListMemberFocused = (state, action) => (
+  Object.assign({}, state, {
     isAddListMemberFocused: action.payload.isAddListMemberFocused,
-  });
-};
+  })
+);
 
