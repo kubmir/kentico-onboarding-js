@@ -1,4 +1,5 @@
 import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import { ListMemberEditor } from './ListMemberEditor';
 import { ListMemberViewer } from './ListMemberViewer';
@@ -27,7 +28,7 @@ const ListMember = (props) => {
 };
 
 ListMember.propTypes = {
-  note: PropTypes.shape({
+  note: ImmutablePropTypes.recordOf({
     text: PropTypes.string.isRequired,
     isEditActive: PropTypes.bool.isRequired,
   }),

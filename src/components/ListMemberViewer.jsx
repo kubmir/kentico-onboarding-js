@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 export class ListMemberViewer extends PureComponent {
 
   static propTypes = {
-    note: PropTypes.shape({
+    note: ImmutablePropTypes.recordOf({
       text: PropTypes.string.isRequired,
       isEditActive: PropTypes.bool.isRequired,
     }),
@@ -12,9 +13,8 @@ export class ListMemberViewer extends PureComponent {
     onTextClick: PropTypes.func.isRequired,
   };
 
-  onTextClick = () => {
+  onTextClick = () =>
     this.props.onTextClick(this.props.note);
-  };
 
   render() {
     return (

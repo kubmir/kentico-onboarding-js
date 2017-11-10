@@ -1,107 +1,93 @@
 import React, { PureComponent } from 'react';
 import { AddListMember } from './AddListMember';
 import { ListMember } from './ListMember';
-import { generateUid } from '../utils/generateUid';
+import { generateId } from '../utils/generateId';
+import { OrderedMap } from 'immutable';
+import { ListItem } from '../models/ListItem';
 
 export class List extends PureComponent {
 
   constructor() {
     super();
     this.state = {
-      notes: [],
+      notes: OrderedMap(),
       isAddListMemberFocused: false,
     };
   }
 
-  addNewNote = (newNoteText) => {
-    const noteToAdd = {
-      text: newNoteText,
-      uid: generateUid(),
-      isEditActive: false,
-    };
-
+  addNewNote = (newNoteText) =>
     this.setState((previousState) => {
+      const noteToAdd = new ListItem({
+        text: newNoteText,
+        id: generateId(),
+        isEditActive: false,
+      });
+
+      const notes = previousState
+        .notes
+        .set(noteToAdd.id, noteToAdd);
+
       return {
-        notes: [
-          ...previousState.notes,
-          noteToAdd,
-        ],
+        notes,
         isAddListMemberFocused: false,
       };
     });
-  };
 
-  deleteNote = (note) => {
+  deleteNote = (note) =>
     this.setState((previousState) => {
-      return {
-        notes: previousState
-          .notes
-          .filter(arrayNote => arrayNote !== note),
-      };
+      const notes = previousState
+        .notes
+        .delete(note.id);
+
+      return { notes };
     });
-  };
 
   updateNoteText = (previousNote, newNoteText) => {
-    const updatedNote = {
-      text: newNoteText,
-      uid: previousNote.uid,
+    const updatedNote = previousNote.merge({
       isEditActive: false,
-    };
-
-    this.updateNote(updatedNote);
+      text: newNoteText,
+    });
+    this.updateStateNotes(updatedNote);
   };
 
   startNoteEditor = (previousNote) => {
-    this.updateNoteEditMode(previousNote, true);
+    const updatedNote = previousNote.merge({ isEditActive: true });
+    this.updateStateNotes(updatedNote);
   };
 
   cancelNoteEditor = (previousNote) => {
-    this.updateNoteEditMode(previousNote, false);
+    const updatedNote = previousNote.merge({ isEditActive: false });
+    this.updateStateNotes(updatedNote);
   };
 
-  updateNoteEditMode = (previousNote, isEditActive) => {
-    const updatedNote = {
-      ...previousNote,
-      isEditActive,
-    };
-
-    this.updateNote(updatedNote);
-  };
-
-  updateNote = (updatedNote) => {
+  updateStateNotes = (updatedNote) =>
     this.setState((previousState) => {
-      const updatedNotes = previousState.notes.map(note => {
-        return note.uid === updatedNote.uid
-          ? updatedNote
-          : note;
-      });
+      const notes = previousState
+        .notes
+        .set(updatedNote.id, updatedNote);
 
-      return {
-        notes: updatedNotes,
-      };
+      return { notes };
     });
-  };
 
-  onIsAddListMemberFocus = () => {
+  onIsAddListMemberFocus = () =>
     this.setState({
       isAddListMemberFocused: true,
     });
-  };
 
-  onIsAddListMemberBlur = () => {
+  onIsAddListMemberBlur = () =>
     this.setState({
       isAddListMemberFocused: false,
     });
-  };
 
   render() {
     const members = this
       .state
       .notes
+      .valueSeq()
       .map((note, i) => (
         <li
           className="list-group-item"
-          key={note.uid}
+          key={note.id}
         >
           <ListMember
             note={note}

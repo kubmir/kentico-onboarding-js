@@ -28,9 +28,8 @@ export class NonEmptyInput extends PureComponent {
     }
   };
 
-  onInputChange = (event) => {
+  onInputChange = (event) =>
     this.props.updateInsertedText(event.target.value);
-  };
 
   componentDidMount() {
     if (this.props.enableAutoFocus) {
