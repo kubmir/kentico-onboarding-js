@@ -1,16 +1,16 @@
 import { listOfNotes } from '../../src/reducers/listOfNotes';
 import {
-  prepareInitialState,
+  prepareNotesInitialState,
   prepareActionWithUidPayload,
-  prepareNoteRecord,
+  prepareListItem,
   prepareNotePayload,
-} from './reducerTestUtils';
+} from '../testUtils/prepareTestData';
 
 describe('Reducer listOfNotes tests', () => {
   let initialState;
 
   beforeEach(() => {
-    initialState = prepareInitialState();
+    initialState = prepareNotesInitialState();
   });
 
   it('should return previous state if unknown action is dispatched', () => {
@@ -106,7 +106,7 @@ describe('Reducer listOfNotes tests', () => {
 
   it('action DELETE_NOTE should not affect another listOfNotes', () => {
     const deleteAction = prepareActionWithUidPayload('DELETE_NOTE', 1);
-    const notAffectedNote = prepareNoteRecord('Second test note', 2, false);
+    const notAffectedNote = prepareListItem('Second test note', 2, false);
 
     const actualState = listOfNotes(initialState, deleteAction);
 
@@ -133,7 +133,7 @@ describe('Reducer listOfNotes tests', () => {
 
   it('action CANCEL_EDITING_NOTE should cancel edit mode of defined note when dispatched', () => {
     const state = {
-      notes: initialState.notes.set(1, prepareNoteRecord('First test note', 1, true)),
+      notes: initialState.notes.set(1, prepareListItem('First test note', 1, true)),
     };
     const cancelEditAction = prepareActionWithUidPayload('CANCEL_EDITING_NOTE', 1);
 

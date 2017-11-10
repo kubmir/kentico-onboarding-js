@@ -1,14 +1,14 @@
 import { addListMember } from '../../src/reducers/addListMember';
 import {
-  prepareInitialState,
-  prepareNoteRecord,
-} from './reducerTestUtils';
+  prepareNotesInitialState,
+  prepareListItem,
+} from '../testUtils/prepareTestData';
 
 describe('Reducer addListMember tests', () => {
   let initialState;
 
   beforeEach(() => {
-    initialState = prepareInitialState();
+    initialState = prepareNotesInitialState();
   });
 
   it('should return previous state if unknown action is dispatched', () => {
@@ -23,7 +23,7 @@ describe('Reducer addListMember tests', () => {
   });
 
   it('should return previous state if action for another reducer is dispatched', () => {
-    const newNote = prepareNoteRecord('Third test note - added', 3, false);
+    const newNote = prepareListItem('Third test note - added', 3, false);
 
     const updateNoteAction = {
       type: 'UPDATE_NOTE',

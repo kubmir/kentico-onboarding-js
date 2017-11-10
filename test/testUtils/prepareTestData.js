@@ -10,7 +10,7 @@ export const prepareActionWithUidPayload = (type, id) => {
   };
 };
 
-export const prepareNoteRecord = (text, id, isEditActive) => {
+export const prepareListItem = (text, id, isEditActive) => {
   return new ListItem({
     text,
     id,
@@ -24,14 +24,20 @@ export const prepareNotePayload = (text, id, isEditActive) => ({
   isEditActive,
 });
 
-export const prepareInitialState = () => {
+export const prepareNotesInitialState = () => {
   return {
     notes: OrderedMap(
       [
-        [1, prepareNoteRecord('First test note', 1, false)],
-        [2, prepareNoteRecord('Second test note', 2, false)],
+        [1, prepareListItem('First test note', 1, false)],
+        [2, prepareListItem('Second test note', 2, false)],
       ],
     ),
-    isAddListMemberTouched: false,
   };
 };
+
+export const prepareApplicationInitialState = () => ({
+  notes: prepareNotesInitialState(),
+  addListMember: {
+    isAddListMemberFocused: false,
+  },
+});
