@@ -4,5 +4,5 @@ import { listOfNotes } from './listOfNotes';
 
 export const notesApplication = combineReducers({
   addListMember,
-  notes: listOfNotes,
+  listOfNotes,
 });

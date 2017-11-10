@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { List } from '../components/List';
 
 const mapStateToProps = (state) => ({
-  notes: state.notes.notes,
+  notes: state.listOfNotes.notes,
 });
 
 export const ListContainer = connect(

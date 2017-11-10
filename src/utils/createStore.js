@@ -13,7 +13,7 @@ export const createApplicationStore = (getSavedNotes, saveNotesData) => {
 
   if (persistedNotes !== undefined) {
     initialState = {
-      notes: {
+      listOfNotes: {
         notes: OrderedMap(persistedNotes),
       },
       addListMember: {
@@ -29,7 +29,7 @@ export const createApplicationStore = (getSavedNotes, saveNotesData) => {
   );
 
   store.subscribe(throttle(() => {
-    saveNotesData(store.getState().notes);
+    saveNotesData(store.getState().listOfNotes);
   }, 1000));
 
   return store;

@@ -15,7 +15,7 @@ describe('Create store tests', () => {
     const actualStore = createApplicationStore(getSavedNotes, storeSavedData);
     const actualStoreState = actualStore.getState();
 
-    expect(actualStoreState.notes).toEqual(expectedStoreStore.notes);
+    expect(actualStoreState.listOfNotes).toEqual(expectedStoreStore.listOfNotes);
     expect(actualStoreState.addListMember).toEqual(expectedStoreStore.addListMember);
   });
 

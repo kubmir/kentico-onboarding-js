@@ -31,7 +31,7 @@ export const prepareNotesInitialState = () => ({
 });
 
 export const prepareApplicationInitialState = () => ({
-  notes: prepareNotesInitialState(),
+  listOfNotes: prepareNotesInitialState(),
   addListMember: {
     isAddListMemberFocused: false,
   },
