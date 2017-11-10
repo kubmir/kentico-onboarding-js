@@ -5,6 +5,7 @@ import {
   prepareListItem,
   prepareNotePayload,
 } from '../testUtils/prepareTestData';
+import { deepNoteEqual } from '../testUtils/deepEquals';
 
 describe('Reducer listOfNotes tests', () => {
   let initialState;
@@ -153,9 +154,3 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState.notes.get(1).isEditActive).toEqual(false);
   });
 });
-
-const deepNoteEqual = (expectedNote, actualNote) => {
-  expect(actualNote.text).toEqual(expectedNote.text);
-  expect(actualNote.id).toEqual(expectedNote.id);
-  expect(actualNote.isEditActive).toEqual(expectedNote.isEditActive);
-};
