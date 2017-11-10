@@ -1,22 +1,19 @@
 import { OrderedMap } from 'immutable';
 import { ListItem } from '../../src/models/ListItem';
 
-export const prepareActionWithUidPayload = (type, id) => {
-  return {
-    type,
-    payload: {
-      id,
-    },
-  };
-};
+export const prepareActionWithUidPayload = (type, id) => ({
+  type,
+  payload: {
+    id,
+  },
+});
 
-export const prepareListItem = (text, id, isEditActive) => {
-  return new ListItem({
+export const prepareListItem = (text, id, isEditActive) =>
+  new ListItem({
     text,
     id,
     isEditActive,
   });
-};
 
 export const prepareNotePayload = (text, id, isEditActive) => ({
   text,
@@ -24,16 +21,14 @@ export const prepareNotePayload = (text, id, isEditActive) => ({
   isEditActive,
 });
 
-export const prepareNotesInitialState = () => {
-  return {
-    notes: OrderedMap(
-      [
-        [1, prepareListItem('First test note', 1, false)],
-        [2, prepareListItem('Second test note', 2, false)],
-      ],
-    ),
-  };
-};
+export const prepareNotesInitialState = () => ({
+  notes: OrderedMap(
+    [
+      [1, prepareListItem('First test note', 1, false)],
+      [2, prepareListItem('Second test note', 2, false)],
+    ],
+  ),
+});
 
 export const prepareApplicationInitialState = () => ({
   notes: prepareNotesInitialState(),
