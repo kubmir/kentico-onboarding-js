@@ -4,15 +4,10 @@ import {
 } from 'redux';
 import { notesApplication } from '../reducers/notesApplication';
 import logger from 'redux-logger';
-
-import {
-  getSavedNotes,
-  saveNotesData,
-} from './localStorage';
 import { OrderedMap } from 'immutable';
 import throttle from 'lodash/throttle';
 
-export const createApplicationStore = () => {
+export const createApplicationStore = (getSavedNotes, saveNotesData) => {
   const persistedNotes = getSavedNotes();
   let initialState = undefined;
 
