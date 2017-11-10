@@ -49,17 +49,17 @@ describe('Reducer addListMember tests', () => {
     expect(actualState.isAddListMemberFocused).toBeTruthy();
   });
 
-  it('should set isAddListMemberTouched to false when STOP_FOCUS_ADD_LIST_MEMBER_INPUT is dispatched', () => {
+  it('should set isAddListMemberFocused to false when STOP_FOCUS_ADD_LIST_MEMBER_INPUT is dispatched', () => {
     const startTouchAction = {
       type: 'STOP_FOCUS_ADD_LIST_MEMBER_INPUT',
       payload: {
-        isAddListMemberTouched: false,
+        isAddListMemberFocused: false,
       },
     };
 
     const actualState = addListMember(initialState, startTouchAction);
 
     expect(actualState.notes).toEqual(initialState.notes);
-    expect(actualState.isAddListMemberTouched).toBeFalsy();
+    expect(actualState.isAddListMemberFocused).toBeFalsy();
   });
 });

@@ -28,7 +28,7 @@ describe('Reducer listOfNotes tests', () => {
     const addNoteAction = {
       type: 'START_FOCUS_ADD_LIST_MEMBER_INPUT',
       payload: {
-        isAddListMemberTouched: true,
+        isAddListMemberFocused: true,
       },
     };
 
