@@ -8,7 +8,7 @@ import { OrderedMap } from 'immutable';
 import throttle from 'lodash/throttle';
 
 export const createApplicationStore = (getSavedNotes, saveNotesData) => {
-  const persistedNotes = getSavedNotes();
+  const persistedNotes = getSavedNotes('notes');
   let initialState = undefined;
 
   if (persistedNotes !== undefined) {
@@ -29,7 +29,12 @@ export const createApplicationStore = (getSavedNotes, saveNotesData) => {
   );
 
   store.subscribe(throttle(() => {
-    saveNotesData(store.getState().listOfNotes);
+    const stateNotes = store
+      .getState()
+      .listOfNotes
+      .notes;
+
+    saveNotesData('notes', stateNotes);
   }, 1000));
 
   return store;
