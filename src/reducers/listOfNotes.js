@@ -4,7 +4,6 @@ import { ListItem } from '../models/ListItem';
 export const listOfNotes = (state = notesInitialState(), action) => {
   switch (action.type) {
     case 'ADD_NEW_NOTE':
-      return setNoteToState(state, action);
     case 'UPDATE_NOTE':
       return setNoteToState(state, action);
     case 'DELETE_NOTE':
