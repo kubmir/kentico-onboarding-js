@@ -1,5 +1,8 @@
-export const deepNoteEqual = (expectedNote, actualNote) => {
-  expect(actualNote.text).toEqual(expectedNote.text);
-  expect(actualNote.id).toEqual(expectedNote.id);
-  expect(actualNote.isEditActive).toEqual(expectedNote.isEditActive);
+import { Record } from 'immutable';
+
+export const deepNoteEqual = (expectedNotePayload, actualNote) => {
+  expect(Record.isRecord(actualNote)).toBeTruthy();
+  expect(actualNote.text).toEqual(expectedNotePayload.text);
+  expect(actualNote.id).toEqual(expectedNotePayload.id);
+  expect(actualNote.isEditActive).toEqual(expectedNotePayload.isEditActive);
 };
