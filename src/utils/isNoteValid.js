@@ -1,4 +1,2 @@
-export const isNoteValid = (currentNoteText) => {
-  return currentNoteText && currentNoteText.length > 0;
-};
-
+export const isNoteValid = (currentNoteText) =>
+  currentNoteText && currentNoteText.length > 0;
