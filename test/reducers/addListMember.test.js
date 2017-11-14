@@ -1,14 +1,14 @@
 import { addListMember } from '../../src/reducers/addListMember';
 import {
-  prepareNotesInitialState,
-  prepareListItem,
+  prepareAddListMemberInitialState,
+  prepareActionWithPayload,
 } from '../testUtils/prepareTestData';
 
 describe('Reducer addListMember tests', () => {
   let initialState;
 
   beforeEach(() => {
-    initialState = prepareNotesInitialState();
+    initialState = prepareAddListMemberInitialState();
   });
 
   it('should return previous state if unknown action is dispatched', () => {
@@ -23,12 +23,7 @@ describe('Reducer addListMember tests', () => {
   });
 
   it('should return previous state if action for another reducer is dispatched', () => {
-    const newNote = prepareListItem('Third test note - added', 3, false);
-
-    const updateNoteAction = {
-      type: 'UPDATE_NOTE',
-      payload: newNote,
-    };
+    const updateNoteAction = prepareActionWithPayload('UPDATE_NOTE', 3, 'Test note', false);
 
     const actualState = addListMember(initialState, updateNoteAction);
 
@@ -45,7 +40,6 @@ describe('Reducer addListMember tests', () => {
 
     const actualState = addListMember(initialState, startTouchAction);
 
-    expect(actualState.notes).toEqual(initialState.notes);
     expect(actualState.isAddListMemberFocused).toBeTruthy();
   });
 
@@ -57,9 +51,12 @@ describe('Reducer addListMember tests', () => {
       },
     };
 
+    initialState = {
+      isAddListMemberFocused: true,
+    };
+
     const actualState = addListMember(initialState, startTouchAction);
 
-    expect(actualState.notes).toEqual(initialState.notes);
     expect(actualState.isAddListMemberFocused).toBeFalsy();
   });
 });
