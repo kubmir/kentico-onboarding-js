@@ -14,8 +14,6 @@ export const saveNotesDataFactory = (saveFunction) => (key, dataToStore) => {
   }
 };
 
-export const saveNotesData = saveNotesDataFactory((key, dataToStore) => localStorage.setItem(key, dataToStore));
-
 export const getSavedNotesFactory = (loadFunction) => (key) => {
   let serializedNotes;
 
@@ -27,9 +25,8 @@ export const getSavedNotesFactory = (loadFunction) => (key) => {
     console.error('Error while retrieving data from local storage! ' + error.message);
   }
 
-  return serializedNotes === undefined
-    ? undefined
-    : prepareNotesForApplication(JSON.parse(serializedNotes));
+  return serializedNotes && prepareNotesForApplication(JSON.parse(serializedNotes));
 };
 
 export const getSavedNotes = getSavedNotesFactory((key) => localStorage.getItem(key));
+export const saveNotesData = saveNotesDataFactory((key, dataToStore) => localStorage.setItem(key, dataToStore));
