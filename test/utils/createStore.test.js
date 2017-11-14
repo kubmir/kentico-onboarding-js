@@ -2,7 +2,7 @@ import { createApplicationStore } from '../../src/utils/createStore';
 import {
   prepareApplicationInitialState,
   prepareListItem,
-  prepareNotePayload
+  prepareNotePayload,
 } from '../testUtils/prepareTestData';
 import { OrderedMap } from 'immutable';
 import { deepNoteEqual } from '../testUtils/deepEquals';
@@ -10,13 +10,13 @@ import { deepNoteEqual } from '../testUtils/deepEquals';
 
 describe('Create store tests', () => {
   it('Create store with loaded state notes', () => {
-    const expectedStoreStore = prepareApplicationInitialState();
+    const expectedStoreState = prepareApplicationInitialState();
 
     const actualStore = createApplicationStore(getSavedNotes, storeSavedData);
     const actualStoreState = actualStore.getState();
 
-    expect(actualStoreState.listOfNotes).toEqual(expectedStoreStore.listOfNotes);
-    expect(actualStoreState.addListMember).toEqual(expectedStoreStore.addListMember);
+    expect(actualStoreState.listOfNotes).toEqual(expectedStoreState.listOfNotes);
+    expect(actualStoreState.addListMember).toEqual(expectedStoreState.addListMember);
   });
 
   it('Save added notes to stored data', () => {
@@ -26,16 +26,28 @@ describe('Create store tests', () => {
       payload: newNote,
     };
 
-    let savedData = { notes: OrderedMap() };
-    const saveData = (dataToSave) => {
-      savedData = dataToSave;
+    const savedData = {
+      key: '',
+      notes: OrderedMap(),
+    };
+
+    const saveData = (key, dataToSave) => {
+      savedData.key = key;
+      savedData.notes = dataToSave;
     };
 
 
     const actualStore = createApplicationStore(getEmptySavedData, saveData);
     actualStore.dispatch(addNewNoteAction);
-    const savedNote = savedData.notes.get('10');
 
+    const savedNote = savedData
+      .notes
+      .get('10');
+
+    const savedKey = savedData
+      .key;
+
+    expect(savedKey).toEqual('notes');
     deepNoteEqual(newNote, savedNote);
   });
 });

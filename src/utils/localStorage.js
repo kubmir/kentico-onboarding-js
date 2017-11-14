@@ -27,7 +27,7 @@ export const getSavedNotesFactory = (loadFunction) => (key) => {
     console.error('Error while retrieving data from local storage! ' + error.message);
   }
 
-  return serializedNotes === null
+  return serializedNotes === undefined
     ? undefined
     : prepareNotesForApplication(JSON.parse(serializedNotes));
 };
