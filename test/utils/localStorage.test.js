@@ -13,12 +13,10 @@ describe('Test local storage functionality', () => {
   it('saveNotesDataFactory test', () => {
     const key = 'testKey';
     const notes = prepareNotesInitialState().notes;
-
     const savedData = {
       key: '',
       notes: OrderedMap(),
     };
-
     const saveData = (saveKey, saveNotes) => {
       savedData.key = saveKey;
       savedData.notes = saveNotes;
@@ -32,7 +30,6 @@ describe('Test local storage functionality', () => {
 
   it('getSaveNotesFactory test', () => {
     const testStoringNotes = mockNotesForStoring();
-
     const getData = () => testStoringNotes;
 
     const loadedNotes = getSavedNotesFactory((key) => getData(key))('testKey');

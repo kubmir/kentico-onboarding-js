@@ -3,8 +3,15 @@ import { ListItem } from '../../src/models/ListItem';
 
 export const prepareActionWithUidPayload = (type, id) => ({
   type,
+  payload: { id },
+});
+
+export const prepareActionWithPayload = (type, id, text, isEditActive) => ({
+  type,
   payload: {
     id,
+    text,
+    isEditActive,
   },
 });
 
@@ -30,14 +37,16 @@ export const prepareNotesInitialState = () => ({
   ),
 });
 
-export const prepareApplicationInitialState = () => ({
-  listOfNotes: prepareNotesInitialState(),
-  addListMember: {
-    isAddListMemberFocused: false,
-  },
+export const prepareAddListMemberInitialState = () => ({
+  isAddListMemberFocused: false,
 });
 
-export const mockNotesForStoring = () => (
+export const prepareApplicationInitialState = () => ({
+  listOfNotes: prepareNotesInitialState(),
+  addListMember: prepareAddListMemberInitialState(),
+});
+
+export const mockNotesForStoring = () =>
   JSON.stringify([
     {
       text: 'First test note',
@@ -47,12 +56,24 @@ export const mockNotesForStoring = () => (
       text: 'Second test note',
       id: 2,
     },
-  ])
-);
+  ]);
 
-export const mockNotesForApplication = () => (
+export const mockNotesForApplication = () =>
   [
-    [1, new ListItem({ text: 'First test note', id: 1, isEditActive: false })],
-    [2, new ListItem({ text: 'Second test note', id: 2, isEditActive: false })],
-  ]
-);
+    [
+      1,
+      new ListItem({
+        text: 'First test note',
+        id: 1,
+        isEditActive: false,
+      }),
+    ],
+    [
+      2,
+      new ListItem({
+        text: 'Second test note',
+        id: 2,
+        isEditActive: false,
+      }),
+    ],
+  ];

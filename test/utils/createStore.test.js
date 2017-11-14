@@ -1,7 +1,7 @@
 import { createApplicationStore } from '../../src/utils/createStore';
 import {
   prepareApplicationInitialState,
-  prepareListItem,
+  prepareNotesInitialState,
   prepareNotePayload,
 } from '../testUtils/prepareTestData';
 import { OrderedMap } from 'immutable';
@@ -20,46 +20,36 @@ describe('Create store tests', () => {
   });
 
   it('Save added notes to stored data', () => {
-    const newNote = prepareNotePayload('New note', '10', false);
+    const newNotePayload = prepareNotePayload('New note', 10, false);
     const addNewNoteAction = {
       type: 'ADD_NEW_NOTE',
-      payload: newNote,
+      payload: newNotePayload,
     };
-
     const savedData = {
       key: '',
       notes: OrderedMap(),
     };
-
     const saveData = (key, dataToSave) => {
       savedData.key = key;
       savedData.notes = dataToSave;
     };
 
-
     const actualStore = createApplicationStore(getEmptySavedData, saveData);
     actualStore.dispatch(addNewNoteAction);
-
     const savedNote = savedData
       .notes
-      .get('10');
-
+      .get(10);
     const savedKey = savedData
       .key;
 
     expect(savedKey).toEqual('notes');
-    deepNoteEqual(newNote, savedNote);
+    deepNoteEqual(newNotePayload, savedNote);
   });
 });
 
 const getEmptySavedData = () => OrderedMap();
 
-const getSavedNotes = () => OrderedMap(
-  [
-    [1, prepareListItem('First test note', 1, false)],
-    [2, prepareListItem('Second test note', 2, false)],
-  ],
-);
+const getSavedNotes = () => prepareNotesInitialState().notes;
 
 const storeSavedData = (dataToStore) => dataToStore;
 
