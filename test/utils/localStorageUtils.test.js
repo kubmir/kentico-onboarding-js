@@ -11,13 +11,12 @@ import {
 describe('localStorageUtils tests', () => {
   it('prepareNotesForStoring', () => {
     const expectedNotes = mockNotesForStoring();
-    const notesForStoring = prepareNotesInitialState()
-      .notes;
+    const notesForStoring = prepareNotesInitialState();
 
     const preparedNotes = prepareNotesForStoring(notesForStoring);
-    const stringifiedPreparedNotes = JSON.stringify(preparedNotes);
+    const actualNotes = JSON.stringify(preparedNotes);
 
-    expect(stringifiedPreparedNotes).toEqual(expectedNotes);
+    expect(actualNotes).toEqual(expectedNotes);
   });
 
   it('prepareNotesForApplication tests', () => {
@@ -25,8 +24,8 @@ describe('localStorageUtils tests', () => {
     const notesFromStorage = mockNotesForStoring();
     const parsedStorageNotes = JSON.parse(notesFromStorage);
 
-    const preparedNotes = prepareNotesForApplication(parsedStorageNotes);
+    const actualNotes = prepareNotesForApplication(parsedStorageNotes);
 
-    expect(preparedNotes).toEqual(expectedNotes);
+    expect(actualNotes).toEqual(expectedNotes);
   });
 });

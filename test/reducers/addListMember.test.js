@@ -1,10 +1,13 @@
-import { addListMember } from '../../src/reducers/addListMember';
+import { isAddingNote } from '../../src/reducers/notes/list/isAddingNote';
 import {
   prepareAddListMemberInitialState,
-  prepareActionWithPayload,
 } from '../testUtils/prepareTestData';
+import {
+  startAddingNote,
+  stopAddingNote,
+} from '../../src/actions/actionCreators';
 
-describe('Reducer addListMember tests', () => {
+describe('Reducer isAddingNote tests', () => {
   let initialState;
 
   beforeEach(() => {
@@ -17,46 +20,27 @@ describe('Reducer addListMember tests', () => {
       payload: {},
     };
 
-    const actualState = addListMember(initialState, unknownAction);
+    const actualState = isAddingNote(initialState, unknownAction);
 
     expect(actualState).toEqual(initialState);
   });
 
-  it('should return previous state if action for another reducer is dispatched', () => {
-    const updateNoteAction = prepareActionWithPayload('UPDATE_NOTE', 3, 'Test note', false);
+  it('should set isAddListMemberFocused to true when START_ADDING_NOTE is dispatched', () => {
+    const startTouchAction = startAddingNote();
+    const expectedState = true;
 
-    const actualState = addListMember(initialState, updateNoteAction);
+    const actualState = isAddingNote(initialState, startTouchAction);
 
-    expect(actualState).toEqual(initialState);
+    expect(actualState).toEqual(expectedState);
   });
 
-  it('should set isAddListMemberFocused to true when START_FOCUS_ADD_LIST_MEMBER_INPUT is dispatched', () => {
-    const startTouchAction = {
-      type: 'START_FOCUS_ADD_LIST_MEMBER_INPUT',
-      payload: {
-        isAddListMemberFocused: true,
-      },
-    };
+  it('should set isAddListMemberFocused to false when STOP_ADDING_NOTE is dispatched', () => {
+    const stopTouchAction = stopAddingNote();
+    const expectedState = false;
+    initialState = true;
 
-    const actualState = addListMember(initialState, startTouchAction);
+    const actualState = isAddingNote(initialState, stopTouchAction);
 
-    expect(actualState.isAddListMemberFocused).toBeTruthy();
-  });
-
-  it('should set isAddListMemberFocused to false when STOP_FOCUS_ADD_LIST_MEMBER_INPUT is dispatched', () => {
-    const startTouchAction = {
-      type: 'STOP_FOCUS_ADD_LIST_MEMBER_INPUT',
-      payload: {
-        isAddListMemberFocused: false,
-      },
-    };
-
-    initialState = {
-      isAddListMemberFocused: true,
-    };
-
-    const actualState = addListMember(initialState, startTouchAction);
-
-    expect(actualState.isAddListMemberFocused).toBeFalsy();
+    expect(actualState).toEqual(expectedState);
   });
 });

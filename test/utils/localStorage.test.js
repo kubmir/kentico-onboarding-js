@@ -12,7 +12,7 @@ import { OrderedMap } from 'immutable';
 describe('Test local storage functionality', () => {
   it('saveNotesDataFactory test', () => {
     const key = 'testKey';
-    const notes = prepareNotesInitialState().notes;
+    const notes = prepareNotesInitialState();
     const savedData = {
       key: '',
       notes: OrderedMap(),
