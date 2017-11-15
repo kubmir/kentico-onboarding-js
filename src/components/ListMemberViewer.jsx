@@ -13,12 +13,9 @@ export class ListMemberViewer extends PureComponent {
     onTextClick: PropTypes.func.isRequired,
   };
 
-  onTextClick = () =>
-    this.props.onTextClick(this.props.note.id);
-
   render() {
     return (
-      <p onClick={this.onTextClick}>{this.props.number + '. ' + this.props.note.text}</p>
+      <p onClick={this.props.onTextClick}>{this.props.number + '. ' + this.props.note.text}</p>
     );
   }
 }

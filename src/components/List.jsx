@@ -1,32 +1,23 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { ListMember } from './ListMember';
+import { ListMemberContainer } from '../containers-redux/ListMember';
 
 export class List extends PureComponent {
   static propTypes = {
-    notes: ImmutablePropTypes.orderedMapOf(
-      ImmutablePropTypes.recordOf({
-        text: PropTypes.string.isRequired,
-        id: PropTypes.string.isRequired,
-        isEditActive: PropTypes.bool.isRequired,
-      }),
-      PropTypes.string.isRequired,
-    ),
+    notesIds: ImmutablePropTypes.seq,
   };
 
   render() {
     const members = this
       .props
-      .notes
-      .valueSeq()
-      .map((note, i) => (
+      .notesIds
+      .map((noteId, i) => (
         <li
           className="list-group-item"
-          key={note.id}
+          key={noteId}
         >
-          <ListMember
-            note={note}
+          <ListMemberContainer
+            noteId={noteId}
             number={i + 1}
           />
         </li>

@@ -2,15 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ListMemberEditorContainer } from '../containers-redux/ListMemberEditor';
 import { ListMemberViewerContainer } from '../containers-redux/ListMemberViewer';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 
 const ListMember = (props) => {
   const memberEditor = (
-    <ListMemberEditorContainer {...props} />
+    <ListMemberEditorContainer
+      id={props.note.id}
+      number={props.number}
+    />
   );
 
   const memberViewer = (
-    <ListMemberViewerContainer {...props} />
+    <ListMemberViewerContainer
+      id={props.note.id}
+      number={props.number}
+    />
   );
 
   return props.note.isEditActive
@@ -19,10 +24,10 @@ const ListMember = (props) => {
 };
 
 ListMember.propTypes = {
-  note: ImmutablePropTypes.recordOf({
-    text: PropTypes.string.isRequired,
+  note: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     isEditActive: PropTypes.bool.isRequired,
-  }),
+  }).isRequired,
   number: PropTypes.number.isRequired,
 };
 

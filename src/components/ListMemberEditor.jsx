@@ -15,7 +15,7 @@ export class ListMemberEditor extends PureComponent {
     number: PropTypes.number.isRequired,
     onDeleteClick: PropTypes.func.isRequired,
     onSaveClick: PropTypes.func.isRequired,
-    onCancelClick: PropTypes.func.isRequired,
+    onCancelEditor: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -30,14 +30,8 @@ export class ListMemberEditor extends PureComponent {
       currentNoteText: newText,
     });
 
-  onDeleteClick = () =>
-    this.props.onDeleteClick(this.props.note.id);
-
   onSaveClick = () =>
-    this.props.onSaveClick(this.state.currentNoteText, this.props.note.id);
-
-  onCancelEditor = () =>
-    this.props.onCancelClick(this.props.note.id);
+    this.props.onSaveClick(this.state.currentNoteText);
 
   render() {
     const isValid = isNoteValid(this.state.currentNoteText);
@@ -71,14 +65,14 @@ export class ListMemberEditor extends PureComponent {
             <button
               type="button"
               className="btn btn-dark"
-              onClick={this.onCancelEditor}
+              onClick={this.props.onCancelEditor}
             >
               Cancel
             </button>
             <button
               type="button"
               className="btn btn-danger"
-              onClick={this.onDeleteClick}
+              onClick={this.props.onDeleteClick}
             >
               Delete
             </button>
