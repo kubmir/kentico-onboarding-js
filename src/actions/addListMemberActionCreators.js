@@ -1,12 +1,12 @@
-export const startFocusingAddListMember = () => ({
-  type: 'START_FOCUS_ADD_LIST_MEMBER_INPUT',
+export const startAddingNote = () => ({
+  type: 'START_ADDING_NOTE',
   payload: {
     isAddListMemberFocused: true,
   },
 });
 
-export const stopFocusingAddListMember = () => ({
-  type: 'STOP_FOCUS_ADD_LIST_MEMBER_INPUT',
+export const stopAddingNote = () => ({
+  type: 'STOP_ADDING_NOTE',
   payload: {
     isAddListMemberFocused: false,
   },

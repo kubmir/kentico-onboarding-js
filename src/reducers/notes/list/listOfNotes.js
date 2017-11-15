@@ -3,7 +3,7 @@ import { OrderedMap } from 'immutable';
 
 export const listOfNotes = (state = OrderedMap(), action) => {
   switch (action.type) {
-    case 'ADD_NEW_NOTE':
+    case 'ADD_NOTE':
     case 'UPDATE_NOTE':
       return setNoteToState(state, action);
     case 'DELETE_NOTE':

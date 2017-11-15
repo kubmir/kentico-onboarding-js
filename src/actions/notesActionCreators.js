@@ -1,5 +1,5 @@
 export const addNewNote = (noteText, generateIdFunction) => ({
-  type: 'ADD_NEW_NOTE',
+  type: 'ADD_NOTE',
   payload: {
     text: noteText,
     isEditActive: false,
