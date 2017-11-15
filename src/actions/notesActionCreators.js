@@ -1,4 +1,4 @@
-export const addNewNote = (noteText, generateIdFunction) => ({
+export const addNewNoteFactory = (generateIdFunction) => (noteText) => ({
   type: 'ADD_NOTE',
   payload: {
     text: noteText,
