@@ -7,5 +7,4 @@ const mapStateToProps = (state) => ({
 
 export const ListContainer = connect(
   mapStateToProps,
-  null
 )(List);

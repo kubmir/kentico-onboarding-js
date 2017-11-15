@@ -6,10 +6,8 @@ import {
 } from '../actions/actionCreators';
 import { ListMemberEditor } from '../components/ListMemberEditor';
 
-const mapStateToProps = (state, ownProps) => ownProps;
-
 export const ListMemberEditorContainer = connect(
-  mapStateToProps,
+  null,
   {
     onDeleteClick: deleteNote,
     onSaveClick: updateNote,

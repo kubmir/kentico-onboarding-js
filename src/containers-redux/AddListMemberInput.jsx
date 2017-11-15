@@ -5,10 +5,8 @@ import {
   stopAddingNote,
 } from '../actions/actionCreators';
 
-const mapStateToProps = (state, ownProps) => ownProps;
-
 export const AddListMemberInputContainer = connect(
-  mapStateToProps,
+  null,
   {
     onInputFocus: startAddingNote,
     onInputBlur: stopAddingNote,
