@@ -19,7 +19,11 @@ export const listOfNotes = (state = OrderedMap(), action) => {
 
 const setNoteToState = (state, action) => {
   const payload = action.payload;
-  const addNote = new ListItem({ ...payload });
+  const addNote = new ListItem({
+    id: payload.id,
+    text: payload.text,
+    isEditActive: payload.isEditActive,
+  });
   const newNotes = state
     .set(payload.id, addNote);
 
