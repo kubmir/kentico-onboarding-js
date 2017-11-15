@@ -3,7 +3,7 @@ import { NonEmptyInput } from '../components/NonEmptyInput';
 import {
   startAddingNote,
   stopAddingNote,
-} from '../actions/addListMemberActionCreators';
+} from '../actions/actionCreators';
 
 const mapStateToProps = (state, ownProps) => ownProps;
 

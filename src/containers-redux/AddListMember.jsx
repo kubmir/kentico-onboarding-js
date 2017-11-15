@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { addNewNote } from '../actions/notesActionCreators';
+import { addNewNote } from '../actions/actionCreators';
 import { AddListMember } from '../components/AddListMember';
 import { generateId } from '../utils/generateId';
 
