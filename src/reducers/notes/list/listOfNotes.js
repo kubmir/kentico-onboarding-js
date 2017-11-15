@@ -1,7 +1,7 @@
-import { notesInitialState } from '../utils/notesInitialState';
-import { ListItem } from '../models/ListItem';
+import { ListItem } from '../../../models/ListItem';
+import { OrderedMap } from 'immutable';
 
-export const listOfNotes = (state = notesInitialState(), action) => {
+export const listOfNotes = (state = OrderedMap(), action) => {
   switch (action.type) {
     case 'ADD_NEW_NOTE':
     case 'UPDATE_NOTE':
@@ -20,33 +20,32 @@ export const listOfNotes = (state = notesInitialState(), action) => {
 const setNoteToState = (state, action) => {
   const payload = action.payload;
   const addNote = new ListItem({ ...payload });
-
   const newNotes = state
-    .notes
     .set(payload.id, addNote);
 
-  return Object.assign({}, state, { notes: newNotes });
+  return newNotes;
 };
 
 const deleteNote = (state, action) => {
   const currentNotes = state
-    .notes
     .delete(action.payload.id);
 
-  return Object.assign({}, state, { notes: currentNotes });
+  return currentNotes;
 };
 
 const changeEditingMode = (state, action, newEditingMode) => {
   const id = action.payload.id;
-  const changeNote = state
-    .notes
-    .get(id);
+  const noteText = state
+    .get(id)
+    .text;
 
-  const updatedNote = changeNote.merge({ isEditActive: newEditingMode });
+  const editAction = {
+    payload: {
+      id,
+      text: noteText,
+      isEditActive: newEditingMode,
+    },
+  };
 
-  const newNotes = state
-    .notes
-    .set(id, updatedNote);
-
-  return Object.assign({}, state, { notes: newNotes });
+  return setNoteToState(state, editAction);
 };

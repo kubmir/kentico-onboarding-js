@@ -2,7 +2,7 @@ import {
   createStore,
   applyMiddleware,
 } from 'redux';
-import { notesApplication } from '../reducers/notesApplication';
+import { application } from '../reducers/application';
 import logger from 'redux-logger';
 import { OrderedMap } from 'immutable';
 import throttle from 'lodash/throttle';
@@ -13,17 +13,15 @@ export const createApplicationStore = (getSavedNotes, saveNotesData) => {
 
   if (persistedNotes !== undefined) {
     initialState = {
-      listOfNotes: {
-        notes: OrderedMap(persistedNotes),
-      },
-      addListMember: {
-        isAddListMemberFocused: false,
+      notes: {
+        listOfNotes: OrderedMap(persistedNotes),
+        isAddingNote: false,
       },
     };
   }
 
   const store = createStore(
-    notesApplication,
+    application,
     initialState,
     applyMiddleware(logger)
   );
@@ -31,8 +29,8 @@ export const createApplicationStore = (getSavedNotes, saveNotesData) => {
   store.subscribe(throttle(() => {
     const stateNotes = store
       .getState()
-      .listOfNotes
-      .notes;
+      .notes
+      .listOfNotes;
 
     saveNotesData('notes', stateNotes);
   }, 1000));

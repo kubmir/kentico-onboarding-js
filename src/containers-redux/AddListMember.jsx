@@ -4,7 +4,7 @@ import { AddListMember } from '../components/AddListMember';
 import { generateId } from '../utils/generateId';
 
 const mapStateToProps = (state) => ({
-  isInputFocused: state.addListMember.isAddListMemberFocused,
+  isInputFocused: state.notes.isAddingNote,
 });
 
 const mapDispatchToProps = (dispatch) => ({
