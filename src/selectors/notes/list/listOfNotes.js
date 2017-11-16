@@ -1,13 +1,14 @@
-export const getAllIds = (notes) => notes.keySeq();
+import memoize from 'memoizee';
 
-export const getNoteWithoutText = (notes, id) => {
-  const note = notes
-    .get(id);
+const getNoteWithoutTextFactory = memoize((note) => ({ isEditActive: note.isEditActive }), { length: 1 });
+const getAllIdsFactory = memoize((...params) => params, { length: false });
 
-  return {
-    id: note.id,
-    isEditActive: note.isEditActive,
-  };
-};
 
-export const getNoteById = (notes, id) => notes.get(id);
+export const getNoteIsEditActive = (notes, id) =>
+  getNoteWithoutTextFactory(notes.get(id));
+
+export const getNoteById = (notes, id) =>
+  notes.get(id);
+
+export const getAllIds = (notes) =>
+  getAllIdsFactory.apply(this, notes.keySeq().toArray());

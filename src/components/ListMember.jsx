@@ -6,14 +6,14 @@ import { ListMemberViewerContainer } from '../containers-redux/ListMemberViewer'
 const ListMember = (props) => {
   const memberEditor = (
     <ListMemberEditorContainer
-      id={props.note.id}
+      id={props.noteId}
       number={props.number}
     />
   );
 
   const memberViewer = (
     <ListMemberViewerContainer
-      id={props.note.id}
+      id={props.noteId}
       number={props.number}
     />
   );
@@ -25,7 +25,6 @@ const ListMember = (props) => {
 
 ListMember.propTypes = {
   note: PropTypes.shape({
-    id: PropTypes.string.isRequired,
     isEditActive: PropTypes.bool.isRequired,
   }).isRequired,
   number: PropTypes.number.isRequired,

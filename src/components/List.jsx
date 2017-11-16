@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
+import PropTypes from 'prop-types';
 import { ListMemberContainer } from '../containers-redux/ListMember';
 
 export class List extends PureComponent {
   static propTypes = {
-    notesIds: ImmutablePropTypes.seq,
+    notesIds: PropTypes.array.isRequired,
   };
 
   render() {
