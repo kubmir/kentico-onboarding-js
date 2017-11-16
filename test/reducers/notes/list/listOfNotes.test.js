@@ -1,15 +1,15 @@
-import { listOfNotes } from '../../src/reducers/notes/list/listOfNotes';
+import { listOfNotes } from '../../../../src/reducers/notes/list/listOfNotes';
 import {
   prepareNotesInitialState,
   prepareListItem,
-} from '../testUtils/prepareTestData';
+} from '../../../testUtils/prepareTestData';
 import {
   addNewNoteFactory,
   deleteNote,
   startEditingNote,
   updateNote,
   cancelEditingNote,
-} from '../../src/actions/actionCreators';
+} from '../../../../src/actions/actionCreators';
 import { OrderedMap } from 'immutable';
 
 describe('Reducer listOfNotes tests', () => {

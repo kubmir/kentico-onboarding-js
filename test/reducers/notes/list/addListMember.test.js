@@ -1,11 +1,11 @@
-import { isAddingNote } from '../../src/reducers/notes/list/isAddingNote';
+import { isAddingNote } from '../../../../src/reducers/notes/list/isAddingNote';
 import {
   prepareAddListMemberInitialState,
-} from '../testUtils/prepareTestData';
+} from '../../../testUtils/prepareTestData';
 import {
   startAddingNote,
   stopAddingNote,
-} from '../../src/actions/actionCreators';
+} from '../../../../src/actions/actionCreators';
 
 describe('Reducer isAddingNote tests', () => {
   let initialState;
