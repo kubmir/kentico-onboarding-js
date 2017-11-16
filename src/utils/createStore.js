@@ -22,12 +22,14 @@ export const createApplicationStore = (getSavedNotes, saveNotesData) => {
 const prepareInitialState = (getSavedNotes) => {
   const persistedNotes = getSavedNotes('notes');
 
-  return persistedNotes && {
-    notes: {
-      listOfNotes: OrderedMap(persistedNotes),
-      isAddingNote: false,
-    },
-  };
+  return persistedNotes === undefined
+    ? undefined
+    : {
+      notes: {
+        listOfNotes: OrderedMap(persistedNotes),
+        isAddingNote: false,
+      },
+    };
 };
 
 const saveData = (saveNotesData, store) =>
