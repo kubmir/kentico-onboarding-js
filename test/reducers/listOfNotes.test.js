@@ -4,7 +4,7 @@ import {
   prepareListItem,
 } from '../testUtils/prepareTestData';
 import {
-  addNewNote,
+  addNewNoteFactory,
   deleteNote,
   startEditingNote,
   updateNote,
@@ -33,7 +33,7 @@ describe('Reducer listOfNotes tests', () => {
   it('action ADD_NOTE should add new note to state notes', () => {
     const generateId = () => 3;
     const noteToAddText = 'Third test note - added';
-    const addNoteAction = addNewNote(noteToAddText, generateId);
+    const addNoteAction = addNewNoteFactory(generateId)(noteToAddText);
     const expectedState = OrderedMap(
       [
         [1, prepareListItem('First test note', 1, false)],
