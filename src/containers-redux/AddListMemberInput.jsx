@@ -5,10 +5,12 @@ import {
   stopAddingNote,
 } from '../actions/actionCreators';
 
+const events = {
+  onInputFocus: startAddingNote,
+  onInputBlur: stopAddingNote,
+};
+
 export const AddListMemberInputContainer = connect(
   null,
-  {
-    onInputFocus: startAddingNote,
-    onInputBlur: stopAddingNote,
-  }
+  events
 )(NonEmptyInput);
