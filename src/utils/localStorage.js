@@ -9,8 +9,7 @@ export const saveNotesDataFactory = (saveFunction) => (key, dataToStore) => {
     saveFunction(key, serializedNotes);
   }
   catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Error while storing data to local storage! ' + error.message);
+    throw new Error('Error while saving data to storage!');
   }
 };
 
@@ -21,8 +20,7 @@ export const getSavedNotesFactory = (loadFunction) => (key) => {
     serializedNotes = loadFunction(key);
   }
   catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Error while retrieving data from local storage! ' + error.message);
+    throw new Error('Error while retrieving data from storage!');
   }
 
   return serializedNotes && prepareNotesForApplication(JSON.parse(serializedNotes));
