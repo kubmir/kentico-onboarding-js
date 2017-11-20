@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { NonEmptyInput } from '../components/NonEmptyInput';
+import { NonEmptyInput } from '../components/NonEmptyInput.tsx';
 import {
   startAddingNote,
   stopAddingNote,

@@ -1,8 +1,27 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
+import { FormEvent } from 'react';
 
-export class NonEmptyInput extends PureComponent {
+interface NonEmptyInputDataProps {
+  text: string;
+  isError: boolean;
+  inputClassName: string;
+  enableAutoFocus: boolean;
+}
+
+interface NonEmptyInputCallbacksProps {
+  updateInsertedText: (insertedText: string) => void;
+  addInsertedText: () => void;
+  enableAutoFocus: () => void;
+  onInputFocus?: () => void;
+  onInputBlur?: () => void;
+  onCancelEditing?: () => void;
+}
+
+type NonEmptyInputProps = NonEmptyInputDataProps & NonEmptyInputCallbacksProps;
+
+export class NonEmptyInput extends React.PureComponent<NonEmptyInputProps> {
 
   static propTypes = {
     text: PropTypes.string.isRequired,
@@ -16,6 +35,8 @@ export class NonEmptyInput extends PureComponent {
     onCancelEditing: PropTypes.func,
   };
 
+  textInput: HTMLInputElement;
+
   onInputFocus = () => {
     if (this.props.onInputFocus !== undefined) {
       this.props.onInputFocus();
@@ -28,8 +49,8 @@ export class NonEmptyInput extends PureComponent {
     }
   };
 
-  onInputChange = (event) =>
-    this.props.updateInsertedText(event.target.value);
+  onInputChange = (event: FormEvent<HTMLInputElement>) =>
+    this.props.updateInsertedText(event.currentTarget.value);
 
   componentDidMount() {
     if (this.props.enableAutoFocus) {
@@ -42,8 +63,7 @@ export class NonEmptyInput extends PureComponent {
   onCancelFocusOfInput = () => {
     if (this.props.onCancelEditing !== undefined) {
       this.props.onCancelEditing();
-    }
-    else {
+    } else {
       this.textInput.blur();
     }
   };
@@ -70,7 +90,7 @@ export class NonEmptyInput extends PureComponent {
         <HotKeys handlers={handlers}>
           <input
             type="text"
-            ref={(input) => {
+            ref={(input: HTMLInputElement) => {
               this.textInput = input;
             }}
             className={this.props.inputClassName}

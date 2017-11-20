@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { NonEmptyInput } from './NonEmptyInput';
+import { NonEmptyInput } from './NonEmptyInput.tsx';
 import { ErrorMessageListMember } from './ErrorMessageListMember.tsx';
 import { isNoteValid } from '../utils/isNoteValid.ts';
 
