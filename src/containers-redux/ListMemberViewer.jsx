@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { startEditingNote } from '../actions/actionCreators';
-import { ListMemberViewer as ListMemberViewerComponent } from '../components/ListMemberViewer';
+import { ListMemberViewer as ListMemberViewerComponent } from '../components/ListMemberViewer.tsx';
 import { getNoteById } from '../selectors/notes/list/listOfNotes';
 
 const mapStateToProps = (state, ownProps) => ({
