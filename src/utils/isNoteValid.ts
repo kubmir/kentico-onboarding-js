@@ -1,4 +1,6 @@
+import { isNullOrUndefined } from 'util';
+
 export const isNoteValid = (currentNoteText: string): boolean =>
-  currentNoteText
+  isNullOrUndefined(currentNoteText)
     ? false
     : currentNoteText.length > 0;

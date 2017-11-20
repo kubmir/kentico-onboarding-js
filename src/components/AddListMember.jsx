@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { AddListMemberInput } from '../containers-redux/AddListMemberInput';
 import { ErrorMessageListMember } from './ErrorMessageListMember';
-import { isNoteValid } from '../utils/isNoteValid';
+import { isNoteValid } from '../utils/isNoteValid.ts';
 
 export class AddListMember extends PureComponent {
 

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { NonEmptyInput } from './NonEmptyInput';
 import { ErrorMessageListMember } from './ErrorMessageListMember';
-import { isNoteValid } from '../utils/isNoteValid';
+import { isNoteValid } from '../utils/isNoteValid.ts';
 
 export class ListMemberEditor extends PureComponent {
 
