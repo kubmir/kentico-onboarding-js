@@ -4,7 +4,7 @@ import {
   updateNote,
   cancelEditingNote,
 } from '../actions/actionCreators.ts';
-import { ListMemberEditor as ListMemberEditorComponent } from '../components/ListMemberEditor';
+import { ListMemberEditor as ListMemberEditorComponent } from '../components/ListMemberEditor.tsx';
 import { getNoteById } from '../selectors/notes/list/listOfNotes';
 
 const mapStateToProps = (state, ownProps) => ({

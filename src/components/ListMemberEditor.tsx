@@ -1,10 +1,30 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { NonEmptyInput } from './NonEmptyInput.tsx';
-import { ErrorMessageListMember } from './ErrorMessageListMember.tsx';
-import { isNoteValid } from '../utils/isNoteValid.ts';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { NonEmptyInput } from './NonEmptyInput';
+import { ErrorMessageListMember } from './ErrorMessageListMember';
+import { isNoteValid } from '../utils/isNoteValid';
 
-export class ListMemberEditor extends PureComponent {
+interface ListMemberEditorDataProps {
+  note: {
+    text: string;
+    isEditActive: boolean;
+  };
+  number: number;
+}
+
+interface ListMemberEditorCallbacksProps {
+  onDeleteClick: () => void;
+  onSaveClick: (currentText: string) => void;
+  onCancelEditor: () => void;
+}
+
+interface ListMemberEditorState {
+  currentNoteText: string;
+}
+
+type ListMemberEditorProps = ListMemberEditorCallbacksProps & ListMemberEditorDataProps;
+
+export class ListMemberEditor extends React.PureComponent<ListMemberEditorProps, ListMemberEditorState> {
 
   static propTypes = {
     note: PropTypes.shape({
@@ -17,14 +37,14 @@ export class ListMemberEditor extends PureComponent {
     onCancelEditor: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
+  constructor(props: ListMemberEditorProps) {
     super(props);
     this.state = {
       currentNoteText: props.note.text,
     };
   }
 
-  onNoteEditing = (newText) =>
+  onNoteEditing = (newText: string) =>
     this.setState({
       currentNoteText: newText,
     });
@@ -49,7 +69,7 @@ export class ListMemberEditor extends PureComponent {
             updateInsertedText={this.onNoteEditing}
             isError={isError}
             inputClassName="form-control"
-            onCancelEditing={this.onCancelEditor}
+            onCancelEditing={this.props.onCancelEditor}
             enableAutoFocus={true}
           />
           <div className="input-group-btn">
