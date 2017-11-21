@@ -1,8 +1,8 @@
-import './sticky-footer.css';
+import '../sticky-footer.css';
 import React, { PureComponent } from 'react';
 import { HotKeys } from 'react-hotkeys';
-import { ListContainer } from './containers-redux/List';
-import { AddListMemberContainer } from './containers-redux/AddListMember';
+import { ListContainer } from '../containers-redux/List';
+import { AddListMemberContainer } from '../containers-redux/AddListMember';
 
 const keyMap = {
   'cancelEditing': ['esc'],
