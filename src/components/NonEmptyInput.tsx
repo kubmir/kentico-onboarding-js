@@ -2,19 +2,20 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import { FormEvent } from 'react';
+import { IAction } from '../models/IAction';
 
-interface NonEmptyInputDataProps {
+export interface NonEmptyInputDataProps {
   text: string;
   isError: boolean;
   inputClassName: string;
   enableAutoFocus: boolean;
 }
 
-interface NonEmptyInputCallbacksProps {
+export interface NonEmptyInputCallbacksProps {
   updateInsertedText: (insertedText: string) => void;
   addInsertedText: () => void;
-  onInputFocus?: () => void;
-  onInputBlur?: () => void;
+  onInputFocus?: () => IAction;
+  onInputBlur?: () => IAction;
   onCancelEditing?: () => void;
 }
 

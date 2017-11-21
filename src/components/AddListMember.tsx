@@ -1,24 +1,38 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { ErrorMessageListMember } from './ErrorMessageListMember';
 import { AddListMemberInput } from '../containers-redux/AddListMemberInput';
-import { ErrorMessageListMember } from './ErrorMessageListMember.tsx';
-import { isNoteValid } from '../utils/isNoteValid.ts';
+import { isNoteValid } from '../utils/isNoteValid';
 
-export class AddListMember extends PureComponent {
+interface AddListMemberDataProps {
+  isInputFocused: boolean;
+}
+
+interface AddListMemberCallbacksProps {
+  onAddClick: (text: string) => void;
+}
+
+interface AddListMemberState {
+  insertedText: string;
+}
+
+type AddListMemberProps = AddListMemberDataProps & AddListMemberCallbacksProps;
+
+export class AddListMember extends React.PureComponent<AddListMemberProps, AddListMemberState> {
 
   static propTypes = {
     onAddClick: PropTypes.func.isRequired,
     isInputFocused: PropTypes.bool.isRequired,
   };
 
-  constructor(props) {
+  constructor(props: AddListMemberProps) {
     super(props);
     this.state = {
       insertedText: '',
     };
   }
 
-  updateInsertedText = (newText) =>
+  updateInsertedText = (newText: string) =>
     this.setState({
       insertedText: newText,
     });
