@@ -5,7 +5,7 @@ import {
   getSavedNotes,
   saveNotesData,
 } from '../utils/localStorage';
-import { createApplicationStore } from '../utils/createStore';
+import { createApplicationStore } from '../utils/createApplicationStore';
 
 export const Root = () => (
   <Provider store={createApplicationStore(getSavedNotes, saveNotesData)}>
