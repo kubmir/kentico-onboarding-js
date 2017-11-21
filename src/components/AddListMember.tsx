@@ -4,11 +4,11 @@ import { ErrorMessageListMember } from './ErrorMessageListMember';
 import { AddListMemberInput } from '../containers-redux/AddListMemberInput';
 import { isNoteValid } from '../utils/isNoteValid';
 
-interface AddListMemberDataProps {
+export interface AddListMemberDataProps {
   isInputFocused: boolean;
 }
 
-interface AddListMemberCallbacksProps {
+export interface AddListMemberCallbacksProps {
   onAddClick: (text: string) => void;
 }
 
