@@ -13,7 +13,6 @@ interface NonEmptyInputDataProps {
 interface NonEmptyInputCallbacksProps {
   updateInsertedText: (insertedText: string) => void;
   addInsertedText: () => void;
-  enableAutoFocus: () => void;
   onInputFocus?: () => void;
   onInputBlur?: () => void;
   onCancelEditing?: () => void;
