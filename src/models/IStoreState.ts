@@ -1,9 +1,9 @@
 import { OrderedMap } from 'immutable';
-import { ListItem } from './ListItem';
+import { Note } from './Note';
 
 export interface IStore {
   notes: {
-    listOfNotes: OrderedMap<string, ListItem>;
+    listOfNotes: OrderedMap<string, Note>;
     isAddingNote: boolean;
   };
 }
