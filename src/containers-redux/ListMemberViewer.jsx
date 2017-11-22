@@ -4,7 +4,7 @@ import { ListMemberViewer as ListMemberViewerComponent } from '../components/Lis
 import { getNoteById } from '../selectors/notes/list/listOfNotes';
 
 const mapStateToProps = (state, ownProps) => ({
-  number: ownProps.number,
+  ...ownProps,
   note: getNoteById(state.notes.listOfNotes, ownProps.noteId),
 });
 

@@ -4,6 +4,7 @@ import { getNoteIsEditActive } from '../selectors/notes/list/listOfNotes';
 
 const mapStateToProps = (state, ownProps) => ({
   note: getNoteIsEditActive(state.notes.listOfNotes, ownProps.noteId),
+  ...ownProps,
 });
 
 export const ListMember = connect(

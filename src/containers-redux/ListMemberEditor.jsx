@@ -8,7 +8,7 @@ import { ListMemberEditor as ListMemberEditorComponent } from '../components/Lis
 import { getNoteById } from '../selectors/notes/list/listOfNotes';
 
 const mapStateToProps = (state, ownProps) => ({
-  number: ownProps.number,
+  ...ownProps,
   note: getNoteById(state.notes.listOfNotes, ownProps.noteId),
 });
 
