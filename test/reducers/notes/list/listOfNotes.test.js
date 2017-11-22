@@ -22,7 +22,6 @@ describe('Reducer listOfNotes tests', () => {
   it('Reducer should return previous state if unknown action is dispatched', () => {
     const unknownAction = {
       type: 'Test action',
-      payload: {},
     };
 
     const actualState = listOfNotes(initialState, unknownAction);

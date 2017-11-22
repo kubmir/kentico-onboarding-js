@@ -28,6 +28,15 @@ describe('Selector listOfNotes tests', () => {
     expect(actualIds).toEqual(expectedIds);
   });
 
+  it('getAllIds return same object if called multiple times', () => {
+    const notes = prepareNotesInitialState();
+
+    const firstActualIds = getAllIds(notes);
+    const secondActualIds = getAllIds(notes);
+
+    expect(firstActualIds).toBe(secondActualIds);
+  });
+
   it('getNoteIsEditActive test', () => {
     const notes = prepareNotesInitialState();
     const expectedIsEditActive = {

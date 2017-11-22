@@ -16,8 +16,6 @@ export const prepareNotesInitialState = () =>
     ],
   );
 
-export const prepareAddListMemberInitialState = () => false;
-
 export const mockNotesForStoring = () =>
   JSON.stringify([
     {
