@@ -6,14 +6,14 @@ import { ListMemberViewer } from '../containers-redux/ListMemberViewer';
 const ListMember = (props) => {
   const memberEditor = (
     <ListMemberEditor
-      id={props.noteId}
+      noteId={props.noteId}
       number={props.number}
     />
   );
 
   const memberViewer = (
     <ListMemberViewer
-      id={props.noteId}
+      noteId={props.noteId}
       number={props.number}
     />
   );

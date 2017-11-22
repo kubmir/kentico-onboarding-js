@@ -1,19 +1,19 @@
-import { ListItem } from '../models/ListItem';
+import { Note } from '../models/Note';
 
 export const prepareNotesForStoring = (notes) => (
   notes
     .valueSeq()
     .map(note => ({
       text: note.text,
-      id: note.id,
+      noteId: note.noteId,
     }))
 );
 
 export const prepareNotesForApplication = (notes) => (
   notes
     .map(note => ([
-      note.id,
-      new ListItem({
+      note.noteId,
+      new Note({
         ...note,
         isEditActive: false,
       }),

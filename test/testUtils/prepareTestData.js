@@ -1,10 +1,10 @@
 import { OrderedMap } from 'immutable';
-import { ListItem } from '../../src/models/ListItem';
+import { Note } from '../../src/models/Note';
 
 export const prepareListItem = (text, id, isEditActive) =>
-  new ListItem({
+  new Note({
     text,
-    id,
+    noteId: id,
     isEditActive,
   });
 
@@ -20,11 +20,11 @@ export const mockNotesForStoring = () =>
   JSON.stringify([
     {
       text: 'First test note',
-      id: 1,
+      noteId: 1,
     },
     {
       text: 'Second test note',
-      id: 2,
+      noteId: 2,
     },
   ]);
 
@@ -32,17 +32,17 @@ export const mockNotesForApplication = () =>
   [
     [
       1,
-      new ListItem({
+      new Note({
         text: 'First test note',
-        id: 1,
+        noteId: 1,
         isEditActive: false,
       }),
     ],
     [
       2,
-      new ListItem({
+      new Note({
         text: 'Second test note',
-        id: 2,
+        noteId: 2,
         isEditActive: false,
       }),
     ],

@@ -11,7 +11,7 @@ export const addNewNoteFactory = (generateIdFunction) => (noteText) => ({
   payload: {
     text: noteText,
     isEditActive: false,
-    id: generateIdFunction(),
+    noteId: generateIdFunction(),
   },
 });
 
@@ -19,7 +19,7 @@ export const updateNote = (textChanges, id) => ({
   type: UPDATE_NOTE,
   payload: {
     text: textChanges,
-    id,
+    noteId: id,
     isEditActive: false,
   },
 });
@@ -27,20 +27,20 @@ export const updateNote = (textChanges, id) => ({
 export const deleteNote = (id) => ({
   type: DELETE_NOTE,
   payload: {
-    id,
+    noteId: id,
   },
 });
 
 export const startEditingNote = (id) => ({
   type: START_EDITING_NOTE,
   payload: {
-    id,
+    noteId: id,
   },
 });
 
 export const cancelEditingNote = (id) => ({
   type: CANCEL_EDITING_NOTE,
   payload: {
-    id,
+    noteId: id,
   },
 });

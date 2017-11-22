@@ -5,12 +5,12 @@ import { getNoteById } from '../selectors/notes/list/listOfNotes';
 
 const mapStateToProps = (state, ownProps) => ({
   number: ownProps.number,
-  note: getNoteById(state.notes.listOfNotes, ownProps.id),
+  note: getNoteById(state.notes.listOfNotes, ownProps.noteId),
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onTextClick: () =>
-    dispatch(startEditingNote(ownProps.id)),
+    dispatch(startEditingNote(ownProps.noteId)),
 });
 
 export const ListMemberViewer = connect(

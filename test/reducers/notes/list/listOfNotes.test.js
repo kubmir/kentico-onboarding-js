@@ -46,7 +46,7 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action UPDATE_NOTE should update note with specific id', () => {
+  it('action UPDATE_NOTE should update note with specific noteId', () => {
     const idOfUpdatedNote = 1;
     const textChanges = 'Updated text';
     const updateAction = updateNote(textChanges, idOfUpdatedNote);

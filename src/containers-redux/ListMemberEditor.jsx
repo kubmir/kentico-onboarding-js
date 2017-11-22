@@ -9,16 +9,16 @@ import { getNoteById } from '../selectors/notes/list/listOfNotes';
 
 const mapStateToProps = (state, ownProps) => ({
   number: ownProps.number,
-  note: getNoteById(state.notes.listOfNotes, ownProps.id),
+  note: getNoteById(state.notes.listOfNotes, ownProps.noteId),
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onDeleteClick: () =>
-    dispatch(deleteNote(ownProps.id)),
+    dispatch(deleteNote(ownProps.noteId)),
   onCancelEditor: () =>
-    dispatch(cancelEditingNote(ownProps.id)),
+    dispatch(cancelEditingNote(ownProps.noteId)),
   onSaveClick: (currentNoteText) =>
-    dispatch(updateNote(currentNoteText, ownProps.id)),
+    dispatch(updateNote(currentNoteText, ownProps.noteId)),
 });
 
 export const ListMemberEditor = connect(
