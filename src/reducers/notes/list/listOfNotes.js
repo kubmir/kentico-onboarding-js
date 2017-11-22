@@ -1,4 +1,4 @@
-import { ListItem } from '../../../models/ListItem';
+import { Note } from '../../../models/Note';
 import { OrderedMap } from 'immutable';
 
 export const listOfNotes = (state = OrderedMap(), action) => {
@@ -18,38 +18,29 @@ export const listOfNotes = (state = OrderedMap(), action) => {
 };
 
 const setNoteToState = (state, action) => {
-  const payload = action.payload;
-  const addNote = new ListItem({
-    id: payload.id,
-    text: payload.text,
-    isEditActive: payload.isEditActive,
+  const { noteId, text, isEditActive } = action.payload;
+  const noteToAdd = new Note({
+    noteId,
+    text,
+    isEditActive,
   });
   const newNotes = state
-    .set(payload.id, addNote);
+    .set(noteId, noteToAdd);
 
   return newNotes;
 };
 
 const deleteNote = (state, action) => {
   const currentNotes = state
-    .delete(action.payload.id);
+    .delete(action.payload.noteId);
 
   return currentNotes;
 };
 
 const changeEditingMode = (state, action, newEditingMode) => {
-  const id = action.payload.id;
-  const noteText = state
-    .get(id)
-    .text;
+  const noteId = action.payload.noteId;
 
-  const editAction = {
-    payload: {
-      id,
-      text: noteText,
-      isEditActive: newEditingMode,
-    },
-  };
-
-  return setNoteToState(state, editAction);
+  return state.update(noteId, note => note.merge({
+    isEditActive: newEditingMode,
+  }));
 };
