@@ -1,4 +1,4 @@
-import { Note } from '../models/Note';
+import { Note } from '../models/Note.ts';
 
 export const prepareNotesForStoring = (notes) => (
   notes

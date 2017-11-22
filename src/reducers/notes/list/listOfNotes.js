@@ -1,5 +1,5 @@
 import { OrderedMap } from 'immutable';
-import { Note } from '../../../models/Note';
+import { Note } from '../../../models/Note.ts';
 import {
   ADD_NOTE,
   CANCEL_EDITING_NOTE,
