@@ -47,4 +47,13 @@ describe('Selector listOfNotes tests', () => {
 
     expect(actualIsEditActive).toEqual(expectedIsEditActive);
   });
+
+  it('getNoteIsEditActive return same object if called multiple times', () => {
+    const notes = prepareNotesInitialState();
+
+    const firstActualIsEditActive = getNoteIsEditActive(notes, 1);
+    const secondActualIsEditActive = getNoteIsEditActive(notes, 1);
+
+    expect(firstActualIsEditActive).toBe(secondActualIsEditActive);
+  });
 });
