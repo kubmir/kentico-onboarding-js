@@ -10,7 +10,6 @@ export const addNewNoteFactory = (generateIdFunction) => (noteText) => ({
   type: ADD_NOTE,
   payload: {
     text: noteText,
-    isEditActive: false,
     noteId: generateIdFunction(),
   },
 });
@@ -20,7 +19,6 @@ export const updateNote = (textChanges, id) => ({
   payload: {
     text: textChanges,
     noteId: id,
-    isEditActive: false,
   },
 });
 
