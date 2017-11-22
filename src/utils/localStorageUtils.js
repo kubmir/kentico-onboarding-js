@@ -3,9 +3,9 @@ import { Note } from '../models/Note';
 export const prepareNotesForStoring = (notes) => (
   notes
     .valueSeq()
-    .map(note => ({
-      text: note.text,
-      noteId: note.noteId,
+    .map(({ text, noteId }) => ({
+      text,
+      noteId,
     }))
 );
 
