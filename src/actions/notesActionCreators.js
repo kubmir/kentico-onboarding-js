@@ -14,31 +14,31 @@ export const addNewNoteFactory = (generateIdFunction) => (noteText) => ({
   },
 });
 
-export const updateNote = (textChanges, id) => ({
+export const updateNote = (textChanges, noteId) => ({
   type: UPDATE_NOTE,
   payload: {
     text: textChanges,
-    noteId: id,
+    noteId,
   },
 });
 
-export const deleteNote = (id) => ({
+export const deleteNote = (noteId) => ({
   type: DELETE_NOTE,
   payload: {
-    noteId: id,
+    noteId,
   },
 });
 
-export const startEditingNote = (id) => ({
+export const startEditingNote = (noteId) => ({
   type: START_EDITING_NOTE,
   payload: {
-    noteId: id,
+    noteId,
   },
 });
 
-export const cancelEditingNote = (id) => ({
+export const cancelEditingNote = (noteId) => ({
   type: CANCEL_EDITING_NOTE,
   payload: {
-    noteId: id,
+    noteId,
   },
 });
