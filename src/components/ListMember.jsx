@@ -27,6 +27,7 @@ ListMember.propTypes = {
   note: PropTypes.shape({
     isEditActive: PropTypes.bool.isRequired,
   }).isRequired,
+  noteId: PropTypes.string.isRequired,
   number: PropTypes.number.isRequired,
 };
 
