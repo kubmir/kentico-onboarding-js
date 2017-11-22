@@ -10,7 +10,7 @@ const events = {
   onInputBlur: stopAddingNote,
 };
 
-export const AddListMemberInputContainer = connect(
+export const AddListMemberInput = connect(
   null,
   events
 )(NonEmptyInput);

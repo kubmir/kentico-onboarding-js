@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { AddListMemberInputContainer } from '../containers-redux/AddListMemberInput';
+import { AddListMemberInput } from '../containers-redux/AddListMemberInput';
 import { ErrorMessageListMember } from './ErrorMessageListMember';
 import { isNoteValid } from '../utils/isNoteValid';
 
@@ -38,7 +38,7 @@ export class AddListMember extends PureComponent {
     return (
       <div>
         <div className="input-group">
-          <AddListMemberInputContainer
+          <AddListMemberInput
             text={this.state.insertedText}
             updateInsertedText={this.updateInsertedText}
             addInsertedText={this.addInsertedText}

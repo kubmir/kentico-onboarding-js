@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { startEditingNote } from '../actions/actionCreators';
-import { ListMemberViewer } from '../components/ListMemberViewer';
+import { ListMemberViewer as ListMemberViewerComponent } from '../components/ListMemberViewer';
 import { getNoteById } from '../selectors/notes/list/listOfNotes';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(startEditingNote(ownProps.id)),
 });
 
-export const ListMemberViewerContainer = connect(
+export const ListMemberViewer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ListMemberViewer);
+)(ListMemberViewerComponent);

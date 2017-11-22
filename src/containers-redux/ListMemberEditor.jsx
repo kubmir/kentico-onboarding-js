@@ -4,7 +4,7 @@ import {
   updateNote,
   cancelEditingNote,
 } from '../actions/actionCreators';
-import { ListMemberEditor } from '../components/ListMemberEditor';
+import { ListMemberEditor as ListMemberEditorComponent } from '../components/ListMemberEditor';
 import { getNoteById } from '../selectors/notes/list/listOfNotes';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(updateNote(currentNoteText, ownProps.id)),
 });
 
-export const ListMemberEditorContainer = connect(
+export const ListMemberEditor = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ListMemberEditor);
+)(ListMemberEditorComponent);

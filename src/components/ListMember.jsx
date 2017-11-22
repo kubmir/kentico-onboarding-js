@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListMemberEditorContainer } from '../containers-redux/ListMemberEditor';
-import { ListMemberViewerContainer } from '../containers-redux/ListMemberViewer';
+import { ListMemberEditor } from '../containers-redux/ListMemberEditor';
+import { ListMemberViewer } from '../containers-redux/ListMemberViewer';
 
 const ListMember = (props) => {
   const memberEditor = (
-    <ListMemberEditorContainer
+    <ListMemberEditor
       id={props.noteId}
       number={props.number}
     />
   );
 
   const memberViewer = (
-    <ListMemberViewerContainer
+    <ListMemberViewer
       id={props.noteId}
       number={props.number}
     />

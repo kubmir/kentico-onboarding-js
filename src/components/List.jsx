@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { ListMemberContainer } from '../containers-redux/ListMember';
+import { ListMember } from '../containers-redux/ListMember';
 
 export class List extends PureComponent {
   static propTypes = {
@@ -16,7 +16,7 @@ export class List extends PureComponent {
           className="list-group-item"
           key={noteId}
         >
-          <ListMemberContainer
+          <ListMember
             noteId={noteId}
             number={i + 1}
           />

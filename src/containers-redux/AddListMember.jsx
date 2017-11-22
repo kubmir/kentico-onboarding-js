@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { addNewNote } from '../actions/actionCreators';
-import { AddListMember } from '../components/AddListMember';
+import { AddListMember as AddListMemberComponent } from '../components/AddListMember';
 
 const mapStateToProps = (state) => ({
   isInputFocused: state.notes.isAddingNote,
@@ -11,7 +11,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(addNewNote(insertedText)),
 });
 
-export const AddListMemberContainer = connect(
+export const AddListMember = connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddListMember);
+)(AddListMemberComponent);
