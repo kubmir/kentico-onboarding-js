@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { startEditingNote } from '../actions/actionCreators';
+import { startEditingNote } from '../actions/actionCreators.ts';
 import { ListMemberViewer as ListMemberViewerComponent } from '../components/ListMemberViewer.tsx';
 import { getNoteById } from '../selectors/notes/list/listOfNotes';
 

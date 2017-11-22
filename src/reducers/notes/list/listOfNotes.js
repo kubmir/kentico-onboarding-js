@@ -6,7 +6,7 @@ import {
   DELETE_NOTE,
   START_EDITING_NOTE,
   UPDATE_NOTE,
-} from '../../../constants/actionTypes';
+} from '../../../constants/actionTypes.ts';
 
 export const listOfNotes = (state = OrderedMap(), action) => {
   switch (action.type) {

@@ -1,7 +1,7 @@
 import {
   ADD_NOTE_FOCUS,
   ADD_NOTE_BLUR,
-} from '../../../constants/actionTypes';
+} from '../../../constants/actionTypes.ts';
 
 export const isAddingNote = (state = false, action) => {
   switch (action.type) {

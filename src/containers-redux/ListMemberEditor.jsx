@@ -3,7 +3,7 @@ import {
   deleteNote,
   updateNote,
   cancelEditingNote,
-} from '../actions/actionCreators';
+} from '../actions/actionCreators.ts';
 import { ListMemberEditor as ListMemberEditorComponent } from '../components/ListMemberEditor';
 import { getNoteById } from '../selectors/notes/list/listOfNotes';
 

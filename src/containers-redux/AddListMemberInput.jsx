@@ -3,7 +3,7 @@ import { NonEmptyInput } from '../components/NonEmptyInput.tsx';
 import {
   startAddingNote,
   stopAddingNote,
-} from '../actions/actionCreators';
+} from '../actions/actionCreators.ts';
 
 const events = {
   onInputFocus: startAddingNote,

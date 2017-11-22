@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { addNewNote } from '../actions/actionCreators';
+import { addNewNote } from '../actions/actionCreators.ts';
 import { AddListMember as AddListMemberComponent } from '../components/AddListMember';
 
 const mapStateToProps = (state) => ({
