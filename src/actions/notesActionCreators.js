@@ -1,5 +1,13 @@
+import {
+  ADD_NOTE,
+  CANCEL_EDITING_NOTE,
+  DELETE_NOTE,
+  START_EDITING_NOTE,
+  UPDATE_NOTE,
+} from '../constants/actionTypes';
+
 export const addNewNoteFactory = (generateIdFunction) => (noteText) => ({
-  type: 'ADD_NOTE',
+  type: ADD_NOTE,
   payload: {
     text: noteText,
     isEditActive: false,
@@ -8,7 +16,7 @@ export const addNewNoteFactory = (generateIdFunction) => (noteText) => ({
 });
 
 export const updateNote = (textChanges, id) => ({
-  type: 'UPDATE_NOTE',
+  type: UPDATE_NOTE,
   payload: {
     text: textChanges,
     id,
@@ -17,21 +25,21 @@ export const updateNote = (textChanges, id) => ({
 });
 
 export const deleteNote = (id) => ({
-  type: 'DELETE_NOTE',
+  type: DELETE_NOTE,
   payload: {
     id,
   },
 });
 
 export const startEditingNote = (id) => ({
-  type: 'START_EDITING_NOTE',
+  type: START_EDITING_NOTE,
   payload: {
     id,
   },
 });
 
 export const cancelEditingNote = (id) => ({
-  type: 'CANCEL_EDITING_NOTE',
+  type: CANCEL_EDITING_NOTE,
   payload: {
     id,
   },
