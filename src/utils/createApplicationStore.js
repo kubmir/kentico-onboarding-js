@@ -7,6 +7,8 @@ import logger from 'redux-logger';
 import { OrderedMap } from 'immutable';
 import throttle from 'lodash.throttle';
 
+const LOCAL_STORAGE_NOTES_KEY = 'notes';
+
 export const createApplicationStore = (getSavedNotes, saveNotesData) => {
   const store = createStore(
     application,
@@ -20,16 +22,14 @@ export const createApplicationStore = (getSavedNotes, saveNotesData) => {
 };
 
 const prepareInitialState = (getSavedNotes) => {
-  const persistedNotes = getSavedNotes('notes');
+  const persistedNotes = getSavedNotes(LOCAL_STORAGE_NOTES_KEY);
 
-  return persistedNotes === undefined
-    ? undefined
-    : {
-      notes: {
-        listOfNotes: OrderedMap(persistedNotes),
-        isAddingNote: false,
-      },
-    };
+  return ({
+    notes: {
+      listOfNotes: OrderedMap(persistedNotes),
+      isAddingNote: false,
+    },
+  });
 };
 
 const saveData = (saveNotesData, store) =>
@@ -39,6 +39,6 @@ const saveData = (saveNotesData, store) =>
       .notes
       .listOfNotes;
 
-    saveNotesData('notes', stateNotes);
+    saveNotesData(LOCAL_STORAGE_NOTES_KEY, stateNotes);
   }, 1000);
 
