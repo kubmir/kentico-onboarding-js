@@ -56,7 +56,7 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "immutable": "^3.8.2",
-    "lodash": "^4.17.4",
+    "lodash.throttle": "^4.1.1",
     "memoizee": "^0.4.11",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",

@@ -5,7 +5,7 @@ import {
 import { application } from '../reducers/application';
 import logger from 'redux-logger';
 import { OrderedMap } from 'immutable';
-import throttle from 'lodash/throttle';
+import throttle from 'lodash.throttle';
 
 export const createApplicationStore = (getSavedNotes, saveNotesData) => {
   const store = createStore(
