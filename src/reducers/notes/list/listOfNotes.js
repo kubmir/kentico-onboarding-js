@@ -1,16 +1,23 @@
-import { Note } from '../../../models/Note';
 import { OrderedMap } from 'immutable';
+import { Note } from '../../../models/Note';
+import {
+  ADD_NOTE,
+  CANCEL_EDITING_NOTE,
+  DELETE_NOTE,
+  START_EDITING_NOTE,
+  UPDATE_NOTE,
+} from '../../../constants/actionTypes';
 
 export const listOfNotes = (state = OrderedMap(), action) => {
   switch (action.type) {
-    case 'ADD_NOTE':
-    case 'UPDATE_NOTE':
+    case ADD_NOTE:
+    case UPDATE_NOTE:
       return setNoteToState(state, action);
-    case 'DELETE_NOTE':
+    case DELETE_NOTE:
       return deleteNote(state, action);
-    case 'START_EDITING_NOTE':
+    case START_EDITING_NOTE:
       return changeEditingMode(state, action, true);
-    case 'CANCEL_EDITING_NOTE':
+    case CANCEL_EDITING_NOTE:
       return changeEditingMode(state, action, false);
     default:
       return state;
