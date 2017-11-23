@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { ListMember } from '../containers-redux/ListMember';
+import { ListMember } from '../containers-redux/ListMember.tsx';
 
 export class List extends PureComponent {
   static propTypes = {
