@@ -4,7 +4,7 @@ import { App } from './App.tsx';
 import {
   getSavedNotes,
   saveNotesData,
-} from '../utils/localStorage';
+} from '../utils/localStorage.ts';
 import { createApplicationStore } from '../utils/createApplicationStore.ts';
 
 export const Root = () => (
