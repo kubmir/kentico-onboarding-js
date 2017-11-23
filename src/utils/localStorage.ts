@@ -16,7 +16,7 @@ export const saveNotesDataFactory = (saveFunction: (key: string, data: string) =
     }
   };
 
-export const getSavedNotesFactory = (loadFunction: (key: string) => string | null) => (key: string): Iterable<Note> | null => {
+export const getSavedNotesFactory = (loadFunction: (key: string) => string | null) => (key: string): Iterable<Note> | {} => {
   let serializedNotes;
 
   try {
@@ -25,7 +25,7 @@ export const getSavedNotesFactory = (loadFunction: (key: string) => string | nul
     throw new Error('Error while retrieving data from storage!');
   }
 
-  return serializedNotes && prepareNotesForApplication(JSON.parse(serializedNotes));
+  return serializedNotes ? prepareNotesForApplication(JSON.parse(serializedNotes)) : {};
 };
 
 export const getSavedNotes = getSavedNotesFactory((key: string) => localStorage.getItem(key));
