@@ -4,14 +4,14 @@ import {
 } from 'react-redux';
 import { addNewNote } from '../actions/actionCreators';
 import {
-  AddListMember,
+  AddListMember as AddListMemberComponent,
   AddListMemberCallbacksProps,
   AddListMemberDataProps
 } from '../components/AddListMember';
 import { IAction } from '../models/IAction';
-import { IStore } from '../utils/IStore';
+import { IStoreState } from '../models/IStoreState';
 
-const mapStateToProps = (state: IStore): AddListMemberDataProps => ({
+const mapStateToProps = (state: IStoreState): AddListMemberDataProps => ({
   isInputFocused: state.notes.isAddingNote,
 });
 
@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>): AddListMemberCallbacks
     dispatch(addNewNote(insertedText)),
 });
 
-export const AddListMemberContainer = connect(
+export const AddListMember = connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddListMember);
+)(AddListMemberComponent);
