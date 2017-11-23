@@ -1,15 +1,16 @@
-import '../sticky-footer.css';
-import React, { PureComponent } from 'react';
+import * as React from 'react';
 import { HotKeys } from 'react-hotkeys';
-import { List } from '../containers-redux/List.tsx';
-import { AddListMember } from '../containers-redux/AddListMember.tsx';
+import { List } from '../containers-redux/List';
+import { AddListMember } from '../containers-redux/AddListMember';
+import { IKeyMap } from '../models/IKeyMap';
+import '../sticky-footer.css';
 
-const keyMap = {
-  'cancelEditing': ['esc'],
-  'saveChanges': ['enter'],
+const keyMap: IKeyMap = {
+  cancelEditing: 'esc',
+  saveChanges: 'enter',
 };
 
-export class App extends PureComponent {
+export class App extends React.PureComponent {
   render() {
     return (
       <div>
