@@ -1,4 +1,4 @@
-import { isNoteValid } from '../../src/utils/isNoteValid';
+import { isNoteValid } from '../../src/utils/isNoteValid.ts';
 
 describe('Note validator tests', () => {
   it('returns true for valid note', () => {
