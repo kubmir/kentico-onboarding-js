@@ -1,8 +1,12 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { ListMember } from '../containers-redux/ListMember.tsx';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { ListMember } from '../containers-redux/ListMember';
 
-export class List extends PureComponent {
+export interface IListDataProps {
+  notesIds: string[];
+}
+
+export class List extends React.PureComponent<IListDataProps> {
   static propTypes = {
     notesIds: PropTypes.array.isRequired,
   };
@@ -11,7 +15,7 @@ export class List extends PureComponent {
     const members = this
       .props
       .notesIds
-      .map((noteId, i) => (
+      .map((noteId: string, i: number) => (
         <li
           className="list-group-item"
           key={noteId}
