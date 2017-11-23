@@ -4,7 +4,7 @@ import { NonEmptyInput } from './NonEmptyInput';
 import { ErrorMessageListMember } from './ErrorMessageListMember';
 import { isNoteValid } from '../utils/isNoteValid';
 
-interface ListMemberEditorDataProps {
+export interface ListMemberEditorDataProps {
   note: {
     text: string;
     isEditActive: boolean;
@@ -12,7 +12,7 @@ interface ListMemberEditorDataProps {
   number: number;
 }
 
-interface ListMemberEditorCallbacksProps {
+export interface ListMemberEditorCallbacksProps {
   onDeleteClick: () => void;
   onSaveClick: (currentText: string) => void;
   onCancelEditor: () => void;
