@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "@types/jest": "^18.1.1",
+    "@types/memoizee": "^0.4.2",
     "@types/node": "^7.0.39",
     "@types/prop-types": "^15.5.2",
     "@types/react": "^15.6.7",
