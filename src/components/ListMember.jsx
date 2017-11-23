@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ListMemberEditor } from '../containers-redux/ListMemberEditor';
-import { ListMemberViewer } from '../containers-redux/ListMemberViewer';
+import { ListMemberViewer } from '../containers-redux/ListMemberViewer.tsx';
 
 const ListMember = (props) => {
   const memberEditor = (

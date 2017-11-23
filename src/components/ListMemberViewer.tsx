@@ -1,16 +1,15 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-interface ListMemberViewerDataProps {
+export interface ListMemberViewerDataProps {
  note: {
    text: string;
    isEditActive: boolean;
-   id: string;
  };
  number: number;
 }
 
-interface ListMemberViewerCallbacksProps {
+export interface ListMemberViewerCallbacksProps {
   onTextClick: () => void;
 }
 
