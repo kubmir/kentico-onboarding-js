@@ -2,7 +2,7 @@ import {
   createStore,
   applyMiddleware,
 } from 'redux';
-import { application } from '../reducers/application';
+import { application } from '../reducers/application.ts';
 import logger from 'redux-logger';
 import { OrderedMap } from 'immutable';
 import throttle from 'lodash.throttle';

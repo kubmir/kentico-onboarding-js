@@ -1,6 +1,6 @@
 import { Record } from 'immutable';
 
-interface INote {
+export interface INote {
   text: string;
   noteId: string;
   isEditActive: boolean;
@@ -21,5 +21,9 @@ export class Note extends Record(defaultNote) implements INote {
     params
       ? super(params)
       : super();
+  }
+
+  with(values: Partial<INote>) {
+    return this.merge(values) as this;
   }
 }
