@@ -15,20 +15,17 @@ export interface ListMemberViewerCallbacksProps {
 
 type ListMemberViewerProps = ListMemberViewerDataProps & ListMemberViewerCallbacksProps;
 
-export class ListMemberViewer extends React.PureComponent<ListMemberViewerProps> {
+const ListMemberViewer: React.StatelessComponent<ListMemberViewerProps>  = (props: ListMemberViewerProps) => (
+  <p onClick={props.onTextClick}>{props.number + '. ' + props.note.text}</p>
+);
 
-  static propTypes = {
-    note: PropTypes.shape({
-      text: PropTypes.string.isRequired,
-      isEditActive: PropTypes.bool.isRequired,
-    }),
-    number: PropTypes.number.isRequired,
-    onTextClick: PropTypes.func.isRequired,
-  };
+ListMemberViewer.propTypes = {
+  note: PropTypes.shape({
+    text: PropTypes.string.isRequired,
+    isEditActive: PropTypes.bool.isRequired,
+  }),
+  number: PropTypes.number.isRequired,
+  onTextClick: PropTypes.func.isRequired,
+};
 
-  render() {
-    return (
-      <p onClick={this.props.onTextClick}>{this.props.number + '. ' + this.props.note.text}</p>
-    );
-  }
-}
+export { ListMemberViewer };
