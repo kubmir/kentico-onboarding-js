@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { ListMember } from '../containers-redux/ListMember';
+import { AddListMember } from '../containers-redux/AddListMember';
 
 export class List extends PureComponent {
   static propTypes = {
@@ -24,9 +25,12 @@ export class List extends PureComponent {
       ));
 
     return (
-      <div>
+      <ul className="list-group">
         {members}
-      </div>
+        <li className="list-group-item">
+          <AddListMember />
+        </li>
+      </ul>
     );
   }
 }
