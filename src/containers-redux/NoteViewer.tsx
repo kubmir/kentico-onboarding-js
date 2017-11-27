@@ -4,10 +4,10 @@ import {
 } from 'react-redux';
 import { startEditingNote } from '../actions/actionCreators';
 import {
-  ListMemberViewer as ListMemberViewerComponent,
-  IListMemberViewerCallbacksProps,
-  IListMemberViewerDataProps
-} from '../components/ListMemberViewer';
+  NoteViewer as NoteViewerComponent,
+  INoteViewerCallbacksProps,
+  INoteViewerDataProps
+} from '../components/NoteViewer';
 import { getNoteById } from '../selectors/notes/list/listOfNotes';
 import { IStoreState } from '../models/IStoreState';
 import { IAction } from '../models/IAction';
@@ -17,17 +17,17 @@ interface IOwnProps {
   number: number;
 }
 
-const mapStateToProps = (state: IStoreState, ownProps: IOwnProps): IListMemberViewerDataProps => ({
+const mapStateToProps = (state: IStoreState, ownProps: IOwnProps): INoteViewerDataProps => ({
   number: ownProps.number,
   note: getNoteById(state.notes.listOfNotes, ownProps.noteId),
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IOwnProps): IListMemberViewerCallbacksProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IOwnProps): INoteViewerCallbacksProps => ({
   onTextClick: () =>
     dispatch(startEditingNote(ownProps.noteId)),
 });
 
-export const ListMemberViewer = connect(
+export const NoteViewer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ListMemberViewerComponent);
+)(NoteViewerComponent);

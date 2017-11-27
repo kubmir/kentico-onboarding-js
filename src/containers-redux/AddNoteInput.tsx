@@ -22,7 +22,7 @@ const events: Partial<INonEmptyInputCallbacksProps> = {
   onInputBlur: stopAddingNote,
 };
 
-export const AddListMemberInput = connect<{}, Partial<INonEmptyInputCallbacksProps>, OwnProps>(
+export const AddNoteInput = connect<{}, Partial<INonEmptyInputCallbacksProps>, OwnProps>(
   null,
   events
 )(NonEmptyInput);

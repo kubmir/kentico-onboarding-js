@@ -16,7 +16,7 @@ describe('Reducer isAddingNote tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('should set isAddListMemberFocused to true when ADD_NOTE_FOCUS is dispatched', () => {
+  it('should set isAddingNote to true when ADD_NOTE_FOCUS is dispatched', () => {
     const startTouchAction = startAddingNote();
     const expectedState = true;
 
@@ -25,7 +25,7 @@ describe('Reducer isAddingNote tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('should set isAddListMemberFocused to false when ADD_NOTE_BLUR is dispatched', () => {
+  it('should set isAddingNote to false when ADD_NOTE_BLUR is dispatched', () => {
     const stopTouchAction = stopAddingNote();
     const expectedState = false;
     const mockedInitialState = true;

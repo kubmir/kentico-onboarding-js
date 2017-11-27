@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { NonEmptyInput } from './NonEmptyInput';
-import { ErrorMessageListMember } from './ErrorMessageListMember';
+import { NoteErrorMessage } from './NoteErrorMessage';
 import { isNoteValid } from '../utils/isNoteValid';
 
-export interface IListMemberEditorDataProps {
+export interface INoteEditorDataProps {
   note: {
     text: string;
     isEditActive: boolean;
@@ -12,19 +12,19 @@ export interface IListMemberEditorDataProps {
   number: number;
 }
 
-export interface IListMemberEditorCallbacksProps {
+export interface INoteEditorCallbacksProps {
   onDeleteClick: () => void;
   onSaveClick: (currentText: string) => void;
   onCancelEditor: () => void;
 }
 
-interface IListMemberEditorState {
+interface INoteEditorState {
   currentNoteText: string;
 }
 
-type IListMemberEditorProps = IListMemberEditorCallbacksProps & IListMemberEditorDataProps;
+type INoteEditorProps = INoteEditorCallbacksProps & INoteEditorDataProps;
 
-export class ListMemberEditor extends React.PureComponent<IListMemberEditorProps, IListMemberEditorState> {
+export class NoteEditor extends React.PureComponent<INoteEditorProps, INoteEditorState> {
 
   static propTypes = {
     note: PropTypes.shape({
@@ -37,7 +37,7 @@ export class ListMemberEditor extends React.PureComponent<IListMemberEditorProps
     onCancelEditor: PropTypes.func.isRequired,
   };
 
-  constructor(props: IListMemberEditorProps) {
+  constructor(props: INoteEditorProps) {
     super(props);
     this.state = {
       currentNoteText: props.note.text,
@@ -97,7 +97,7 @@ export class ListMemberEditor extends React.PureComponent<IListMemberEditorProps
             </button>
           </div>
         </div>
-        <ErrorMessageListMember
+        <NoteErrorMessage
           isError={isError}
           errorMessage={errorMessage}
         />

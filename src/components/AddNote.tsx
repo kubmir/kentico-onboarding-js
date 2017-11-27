@@ -1,31 +1,31 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { ErrorMessageListMember } from './ErrorMessageListMember';
-import { AddListMemberInput } from '../containers-redux/AddListMemberInput';
+import { NoteErrorMessage } from './NoteErrorMessage';
+import { AddNoteInput } from '../containers-redux/AddNoteInput';
 import { isNoteValid } from '../utils/isNoteValid';
 
-export interface IAddListMemberDataProps {
+export interface IAddNoteDataProps {
   isInputFocused: boolean;
 }
 
-export interface IAddListMemberCallbacksProps {
+export interface IAddNoteCallbacksProps {
   onAddClick: (text: string) => void;
 }
 
-interface IAddListMemberState {
+interface IAddNoteState {
   insertedText: string;
 }
 
-type IAddListMemberProps = IAddListMemberDataProps & IAddListMemberCallbacksProps;
+type IAddNoteProps = IAddNoteDataProps & IAddNoteCallbacksProps;
 
-export class AddListMember extends React.PureComponent<IAddListMemberProps, IAddListMemberState> {
+export class AddNote extends React.PureComponent<IAddNoteProps, IAddNoteState> {
 
   static propTypes = {
     onAddClick: PropTypes.func.isRequired,
     isInputFocused: PropTypes.bool.isRequired,
   };
 
-  constructor(props: IAddListMemberProps) {
+  constructor(props: IAddNoteProps) {
     super(props);
     this.state = {
       insertedText: '',
@@ -52,7 +52,7 @@ export class AddListMember extends React.PureComponent<IAddListMemberProps, IAdd
     return (
       <div>
         <div className="input-group">
-          <AddListMemberInput
+          <AddNoteInput
             text={this.state.insertedText}
             updateInsertedText={this.updateInsertedText}
             addInsertedText={this.addInsertedText}
@@ -71,7 +71,7 @@ export class AddListMember extends React.PureComponent<IAddListMemberProps, IAdd
             </button>
           </div>
         </div>
-        <ErrorMessageListMember
+        <NoteErrorMessage
           isError={isError}
           errorMessage={errorMessage}
         />

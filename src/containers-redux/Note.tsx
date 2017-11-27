@@ -1,21 +1,21 @@
 import { connect } from 'react-redux';
 import {
-  ListMember as ListMemberComponent,
-  IListMemberDataProps
-} from '../components/ListMember';
+  Note as NoteComponent,
+  INoteDataProps
+} from '../components/Note';
 import { getNoteById } from '../selectors/notes/list/listOfNotes';
 import { IStoreState } from '../models/IStoreState';
 
-interface IListMemberOwnProps {
+interface INoteOwnProps {
   noteId: string;
   number: number;
 }
 
-const mapStateToProps = (state: IStoreState, ownProps: IListMemberOwnProps): IListMemberDataProps => ({
+const mapStateToProps = (state: IStoreState, ownProps: INoteOwnProps): INoteDataProps => ({
   note: getNoteById(state.notes.listOfNotes, ownProps.noteId),
   ...ownProps,
 });
 
-export const ListMember = connect(
+export const Note = connect(
   mapStateToProps,
-)(ListMemberComponent);
+)(NoteComponent);

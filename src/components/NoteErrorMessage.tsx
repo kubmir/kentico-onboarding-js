@@ -1,14 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-interface IErrorMessageListMemberDataProps {
+interface INoteErrorMessageDataProps {
   isError: boolean;
   errorMessage: string;
 }
 
-export class ErrorMessageListMember extends React.PureComponent<IErrorMessageListMemberDataProps> {
+export class NoteErrorMessage extends React.PureComponent<INoteErrorMessageDataProps> {
 
-  static propTypes: React.ValidationMap<IErrorMessageListMemberDataProps> = {
+  static propTypes: React.ValidationMap<INoteErrorMessageDataProps> = {
     isError: PropTypes.bool.isRequired,
     errorMessage: PropTypes.string.isRequired,
   };

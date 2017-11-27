@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { ListMember } from '../containers-redux/ListMember';
-import { AddListMember } from '../containers-redux/AddListMember';
+import { Note } from '../containers-redux/Note';
+import { AddNote } from '../containers-redux/AddNote';
 
 export interface IListDataProps {
   notesIds: string[];
@@ -21,7 +21,7 @@ export class List extends React.PureComponent<IListDataProps> {
           className="list-group-item"
           key={noteId}
         >
-          <ListMember
+          <Note
             noteId={noteId}
             number={i + 1}
           />
@@ -32,7 +32,7 @@ export class List extends React.PureComponent<IListDataProps> {
       <ul className="list-group">
         {members}
         <li className="list-group-item">
-          <AddListMember />
+          <AddNote />
         </li>
       </ul>
     );

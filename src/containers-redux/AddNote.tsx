@@ -4,23 +4,23 @@ import {
 } from 'react-redux';
 import { addNewNote } from '../actions/actionCreators';
 import {
-  AddListMember as AddListMemberComponent,
-  IAddListMemberCallbacksProps,
-  IAddListMemberDataProps
-} from '../components/AddListMember';
+  AddNote as AddNoteComponent,
+  IAddNoteCallbacksProps,
+  IAddNoteDataProps
+} from '../components/AddNote';
 import { IAction } from '../models/IAction';
 import { IStoreState } from '../models/IStoreState';
 
-const mapStateToProps = (state: IStoreState): IAddListMemberDataProps => ({
+const mapStateToProps = (state: IStoreState): IAddNoteDataProps => ({
   isInputFocused: state.notes.isAddingNote,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>): IAddListMemberCallbacksProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAction>): IAddNoteCallbacksProps => ({
   onAddClick: (insertedText: string) =>
     dispatch(addNewNote(insertedText)),
 });
 
-export const AddListMember = connect(
+export const AddNote = connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddListMemberComponent);
+)(AddNoteComponent);

@@ -8,25 +8,25 @@ import {
   cancelEditingNote,
 } from '../actions/actionCreators';
 import {
-  ListMemberEditor as ListMemberEditorComponent,
-  IListMemberEditorCallbacksProps,
-  IListMemberEditorDataProps
-} from '../components/ListMemberEditor';
+  NoteEditor as NoteEditorComponent,
+  INoteEditorCallbacksProps,
+  INoteEditorDataProps
+} from '../components/NoteEditor';
 import { getNoteById } from '../selectors/notes/list/listOfNotes';
 import { IStoreState } from '../models/IStoreState';
 import { IAction } from '../models/IAction';
 
-interface IListMemberEditorOwnProps {
+interface INoteEditorOwnProps {
   noteId: string;
   number: number;
 }
 
-const mapStateToProps = (state: IStoreState, ownProps: IListMemberEditorOwnProps): IListMemberEditorDataProps => ({
+const mapStateToProps = (state: IStoreState, ownProps: INoteEditorOwnProps): INoteEditorDataProps => ({
   number: ownProps.number,
   note: getNoteById(state.notes.listOfNotes, ownProps.noteId),
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListMemberEditorOwnProps): IListMemberEditorCallbacksProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: INoteEditorOwnProps): INoteEditorCallbacksProps => ({
   onDeleteClick: () =>
     dispatch(deleteNote(ownProps.noteId)),
   onCancelEditor: () =>
@@ -35,7 +35,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListMemberEd
     dispatch(updateNote(currentNoteText, ownProps.noteId)),
 });
 
-export const ListMemberEditor = connect(
+export const NoteEditor = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ListMemberEditorComponent);
+)(NoteEditorComponent);

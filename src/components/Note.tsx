@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { ListMemberEditor } from '../containers-redux/ListMemberEditor';
-import { ListMemberViewer } from '../containers-redux/ListMemberViewer';
+import { NoteEditor } from '../containers-redux/NoteEditor';
+import { NoteViewer } from '../containers-redux/NoteViewer';
 
-export interface IListMemberDataProps {
+export interface INoteDataProps {
   note: {
     isEditActive: boolean;
   };
@@ -11,16 +11,16 @@ export interface IListMemberDataProps {
   number: number;
 }
 
-const ListMember: React.StatelessComponent<IListMemberDataProps> = (props: IListMemberDataProps): JSX.Element => {
+const Note: React.StatelessComponent<INoteDataProps> = (props: INoteDataProps): JSX.Element => {
   const memberEditor = (
-    <ListMemberEditor
+    <NoteEditor
       noteId={props.noteId}
       number={props.number}
     />
   );
 
   const memberViewer = (
-    <ListMemberViewer
+    <NoteViewer
       noteId={props.noteId}
       number={props.number}
     />
@@ -31,7 +31,7 @@ const ListMember: React.StatelessComponent<IListMemberDataProps> = (props: IList
     : memberViewer;
 };
 
-ListMember.propTypes = {
+Note.propTypes = {
   note: PropTypes.shape({
     isEditActive: PropTypes.bool.isRequired,
   }).isRequired,
@@ -39,4 +39,4 @@ ListMember.propTypes = {
   number: PropTypes.number.isRequired,
 };
 
-export { ListMember };
+export { Note };
