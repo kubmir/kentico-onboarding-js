@@ -37,22 +37,22 @@ export class NonEmptyInput extends React.PureComponent<INonEmptyInputProps> {
 
   private textInput: HTMLInputElement;
 
-  onInputFocus = () => {
+  onInputFocus = (): void => {
     if (this.props.onInputFocus) {
       this.props.onInputFocus();
     }
   };
 
-  onExitingInput = () => {
+  onExitingInput = (): void => {
     if (this.props.onInputBlur) {
       this.props.onInputBlur();
     }
   };
 
-  onInputChange = (event: FormEvent<HTMLInputElement>) =>
+  onInputChange = (event: FormEvent<HTMLInputElement>): void =>
     this.props.updateInsertedText(event.currentTarget.value);
 
-  componentDidMount() {
+  componentDidMount(): void {
     if (this.props.enableAutoFocus) {
       const length = this.textInput.value.length;
       this.textInput.focus();
@@ -60,7 +60,7 @@ export class NonEmptyInput extends React.PureComponent<INonEmptyInputProps> {
     }
   }
 
-  onCancelFocusOfInput = () => {
+  onCancelFocusOfInput = (): void => {
     if (this.props.onCancelEditing) {
       this.props.onCancelEditing();
     } else {
@@ -68,14 +68,14 @@ export class NonEmptyInput extends React.PureComponent<INonEmptyInputProps> {
     }
   };
 
-  onSaveChanges = () => {
+  onSaveChanges = (): void => {
     if (this.props.text) {
       this.textInput.blur();
       this.props.addInsertedText();
     }
   };
 
-  render() {
+  render(): JSX.Element {
     const handlers = {
       'cancelEditing': () => this.onCancelFocusOfInput(),
       'saveChanges': () => this.onSaveChanges(),

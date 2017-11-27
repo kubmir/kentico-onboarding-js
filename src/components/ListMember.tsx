@@ -11,7 +11,7 @@ export interface IListMemberDataProps {
   number: number;
 }
 
-const ListMember: React.StatelessComponent<IListMemberDataProps> = (props: IListMemberDataProps) => {
+const ListMember: React.StatelessComponent<IListMemberDataProps> = (props: IListMemberDataProps): JSX.Element => {
   const memberEditor = (
     <ListMemberEditor
       noteId={props.noteId}

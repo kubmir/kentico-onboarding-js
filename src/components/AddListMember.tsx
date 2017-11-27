@@ -32,19 +32,19 @@ export class AddListMember extends React.PureComponent<IAddListMemberProps, IAdd
     };
   }
 
-  updateInsertedText = (newText: string) =>
+  updateInsertedText = (newText: string): void =>
     this.setState({
       insertedText: newText,
     });
 
-  addInsertedText = () => {
+  addInsertedText = (): void => {
     this.props.onAddClick(this.state.insertedText);
     this.setState({
       insertedText: '',
     });
   };
 
-  render() {
+  render(): JSX.Element {
     const isValid = isNoteValid(this.state.insertedText);
     const isError = !isValid && this.props.isInputFocused;
     const errorMessage = 'Invalid note. You cannot add an empty note to list of notes.';

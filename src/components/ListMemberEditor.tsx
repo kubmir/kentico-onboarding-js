@@ -44,15 +44,15 @@ export class ListMemberEditor extends React.PureComponent<IListMemberEditorProps
     };
   }
 
-  onNoteEditing = (newText: string) =>
+  onNoteEditing = (newText: string): void =>
     this.setState({
       currentNoteText: newText,
     });
 
-  onSaveClick = () =>
+  onSaveClick = (): void =>
     this.props.onSaveClick(this.state.currentNoteText);
 
-  render() {
+  render(): JSX.Element {
     const isValid = isNoteValid(this.state.currentNoteText);
     const isError = !isValid && this.props.note.isEditActive;
     const errorMessage = 'Invalid note. You cannot change note\'s text to empty.';

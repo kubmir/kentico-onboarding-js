@@ -15,7 +15,7 @@ export interface IListMemberViewerCallbacksProps {
 
 type IListMemberViewerProps = IListMemberViewerDataProps & IListMemberViewerCallbacksProps;
 
-const ListMemberViewer: React.StatelessComponent<IListMemberViewerProps>  = (props: IListMemberViewerProps) => (
+const ListMemberViewer: React.StatelessComponent<IListMemberViewerProps>  = (props: IListMemberViewerProps): JSX.Element => (
   <p onClick={props.onTextClick}>{props.number + '. ' + props.note.text}</p>
 );
 

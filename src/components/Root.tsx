@@ -7,7 +7,7 @@ import {
 } from '../utils/localStorage';
 import { createApplicationStore } from '../utils/createApplicationStore';
 
-export const Root = () => (
+export const Root = (): JSX.Element => (
   <Provider store={createApplicationStore(getSavedNotes, saveNotesData)}>
     <App />
   </Provider>

@@ -13,7 +13,7 @@ export class ErrorMessageListMember extends React.PureComponent<IErrorMessageLis
     errorMessage: PropTypes.string.isRequired,
   };
 
-  render() {
+  render(): JSX.Element | false {
     const error = (
       <span className="text-danger">{this.props.errorMessage}</span>
     );

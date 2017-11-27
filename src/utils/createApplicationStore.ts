@@ -8,7 +8,10 @@ import { application } from '../reducers/application';
 import { Note } from '../models/Note';
 import { IStoreState } from '../models/IStoreState';
 import { Store } from 'react-redux';
-import { throttle } from 'lodash';
+import {
+  Cancelable,
+  throttle
+} from 'lodash';
 
 const LOCAL_STORAGE_NOTES_KEY = 'notes';
 
@@ -23,7 +26,7 @@ const prepareInitialState = (getSavedNotes: (key: string) => Iterable<Note> | {}
   };
 };
 
-const saveData = (saveNotesData: (key: string, data: OrderedMap<string, Note>) => void, store: Store<IStoreState>) =>
+const saveData = (saveNotesData: (key: string, data: OrderedMap<string, Note>) => void, store: Store<IStoreState>): (() => void) & Cancelable =>
   throttle(() => {
     const stateNotes = store
       .getState()
@@ -34,7 +37,7 @@ const saveData = (saveNotesData: (key: string, data: OrderedMap<string, Note>) =
   },       1000);
 
 export const createApplicationStore = (getSavedNotes: (key: string) => Iterable<Note> | {},
-  saveNotesData: (key: string, data: OrderedMap<string, Note>) => void) => {
+  saveNotesData: (key: string, data: OrderedMap<string, Note>) => void): Store<IStoreState> => {
 
   const store = createStore<IStoreState>(
     application,

@@ -12,7 +12,7 @@ export class List extends React.PureComponent<IListDataProps> {
     notesIds: PropTypes.array.isRequired,
   };
 
-  render() {
+  render(): JSX.Element {
     const members = this
       .props
       .notesIds
