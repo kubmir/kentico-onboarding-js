@@ -1,24 +1,20 @@
 import React from 'react';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
-import { ListMemberEditor } from './ListMemberEditor';
-import { ListMemberViewer } from './ListMemberViewer';
+import { ListMemberEditor } from '../containers-redux/ListMemberEditor';
+import { ListMemberViewer } from '../containers-redux/ListMemberViewer';
 
 const ListMember = (props) => {
   const memberEditor = (
     <ListMemberEditor
-      note={props.note}
+      noteId={props.noteId}
       number={props.number}
-      onDeleteClick={props.onDeleteClick}
-      onSaveClick={props.onSaveClick}
-      onCancelClick={props.cancelNoteEditor}
-    />);
+    />
+  );
 
   const memberViewer = (
     <ListMemberViewer
-      note={props.note}
+      noteId={props.noteId}
       number={props.number}
-      onTextClick={props.startNoteEditor}
     />
   );
 
@@ -28,15 +24,11 @@ const ListMember = (props) => {
 };
 
 ListMember.propTypes = {
-  note: ImmutablePropTypes.recordOf({
-    text: PropTypes.string.isRequired,
+  note: PropTypes.shape({
     isEditActive: PropTypes.bool.isRequired,
-  }),
+  }).isRequired,
+  noteId: PropTypes.string.isRequired,
   number: PropTypes.number.isRequired,
-  onDeleteClick: PropTypes.func.isRequired,
-  onSaveClick: PropTypes.func.isRequired,
-  cancelNoteEditor: PropTypes.func.isRequired,
-  startNoteEditor: PropTypes.func.isRequired,
 };
 
 export { ListMember };

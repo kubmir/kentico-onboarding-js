@@ -3,19 +3,18 @@ import PropTypes from 'prop-types';
 import { NonEmptyInput } from './NonEmptyInput';
 import { ErrorMessageListMember } from './ErrorMessageListMember';
 import { isNoteValid } from '../utils/isNoteValid';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 
 export class ListMemberEditor extends PureComponent {
 
   static propTypes = {
-    note: ImmutablePropTypes.recordOf({
+    note: PropTypes.shape({
       text: PropTypes.string.isRequired,
       isEditActive: PropTypes.bool.isRequired,
     }).isRequired,
     number: PropTypes.number.isRequired,
     onDeleteClick: PropTypes.func.isRequired,
     onSaveClick: PropTypes.func.isRequired,
-    onCancelClick: PropTypes.func.isRequired,
+    onCancelEditor: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -30,14 +29,8 @@ export class ListMemberEditor extends PureComponent {
       currentNoteText: newText,
     });
 
-  onDeleteClick = () =>
-    this.props.onDeleteClick(this.props.note);
-
   onSaveClick = () =>
-    this.props.onSaveClick(this.props.note, this.state.currentNoteText);
-
-  onCancelEditor = () =>
-    this.props.onCancelClick(this.props.note);
+    this.props.onSaveClick(this.state.currentNoteText);
 
   render() {
     const isValid = isNoteValid(this.state.currentNoteText);
@@ -71,14 +64,14 @@ export class ListMemberEditor extends PureComponent {
             <button
               type="button"
               className="btn btn-dark"
-              onClick={this.onCancelEditor}
+              onClick={this.props.onCancelEditor}
             >
               Cancel
             </button>
             <button
               type="button"
               className="btn btn-danger"
-              onClick={this.onDeleteClick}
+              onClick={this.props.onDeleteClick}
             >
               Delete
             </button>

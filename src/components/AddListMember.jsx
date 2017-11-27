@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { NonEmptyInput } from './NonEmptyInput';
+import { AddListMemberInput } from '../containers-redux/AddListMemberInput';
 import { ErrorMessageListMember } from './ErrorMessageListMember';
 import { isNoteValid } from '../utils/isNoteValid';
 
@@ -8,8 +8,6 @@ export class AddListMember extends PureComponent {
 
   static propTypes = {
     onAddClick: PropTypes.func.isRequired,
-    onInputFocus: PropTypes.func.isRequired,
-    onInputBlur: PropTypes.func.isRequired,
     isInputFocused: PropTypes.bool.isRequired,
   };
 
@@ -40,12 +38,10 @@ export class AddListMember extends PureComponent {
     return (
       <div>
         <div className="input-group">
-          <NonEmptyInput
+          <AddListMemberInput
             text={this.state.insertedText}
             updateInsertedText={this.updateInsertedText}
             addInsertedText={this.addInsertedText}
-            onInputFocus={this.props.onInputFocus}
-            onInputBlur={this.props.onInputBlur}
             inputClassName="form-control"
             isError={isError}
             enableAutoFocus={false}
