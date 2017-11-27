@@ -5,8 +5,8 @@ import {
 import { startEditingNote } from '../actions/actionCreators';
 import {
   ListMemberViewer as ListMemberViewerComponent,
-  ListMemberViewerCallbacksProps,
-  ListMemberViewerDataProps
+  IListMemberViewerCallbacksProps,
+  IListMemberViewerDataProps
 } from '../components/ListMemberViewer';
 import { getNoteById } from '../selectors/notes/list/listOfNotes';
 import { IStoreState } from '../models/IStoreState';
@@ -17,12 +17,12 @@ interface IOwnProps {
   number: number;
 }
 
-const mapStateToProps = (state: IStoreState, ownProps: IOwnProps): ListMemberViewerDataProps => ({
+const mapStateToProps = (state: IStoreState, ownProps: IOwnProps): IListMemberViewerDataProps => ({
   number: ownProps.number,
   note: getNoteById(state.notes.listOfNotes, ownProps.noteId),
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IOwnProps): ListMemberViewerCallbacksProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IOwnProps): IListMemberViewerCallbacksProps => ({
   onTextClick: () =>
     dispatch(startEditingNote(ownProps.noteId)),
 });

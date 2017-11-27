@@ -9,8 +9,8 @@ import {
 } from '../actions/actionCreators';
 import {
   ListMemberEditor as ListMemberEditorComponent,
-  ListMemberEditorCallbacksProps,
-  ListMemberEditorDataProps
+  IListMemberEditorCallbacksProps,
+  IListMemberEditorDataProps
 } from '../components/ListMemberEditor';
 import { getNoteById } from '../selectors/notes/list/listOfNotes';
 import { IStoreState } from '../models/IStoreState';
@@ -21,12 +21,12 @@ interface IListMemberEditorOwnProps {
   number: number;
 }
 
-const mapStateToProps = (state: IStoreState, ownProps: IListMemberEditorOwnProps): ListMemberEditorDataProps => ({
+const mapStateToProps = (state: IStoreState, ownProps: IListMemberEditorOwnProps): IListMemberEditorDataProps => ({
   number: ownProps.number,
   note: getNoteById(state.notes.listOfNotes, ownProps.noteId),
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListMemberEditorOwnProps): ListMemberEditorCallbacksProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListMemberEditorOwnProps): IListMemberEditorCallbacksProps => ({
   onDeleteClick: () =>
     dispatch(deleteNote(ownProps.noteId)),
   onCancelEditor: () =>

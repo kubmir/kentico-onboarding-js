@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { ListMemberEditor } from '../containers-redux/ListMemberEditor';
 import { ListMemberViewer } from '../containers-redux/ListMemberViewer';
 
-export interface ListMemberDataProps {
+export interface IListMemberDataProps {
   note: {
     isEditActive: boolean;
   };
@@ -11,7 +11,7 @@ export interface ListMemberDataProps {
   number: number;
 }
 
-const ListMember: React.StatelessComponent<ListMemberDataProps> = (props: ListMemberDataProps) => {
+const ListMember: React.StatelessComponent<IListMemberDataProps> = (props: IListMemberDataProps) => {
   const memberEditor = (
     <ListMemberEditor
       noteId={props.noteId}

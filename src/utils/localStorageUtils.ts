@@ -1,12 +1,12 @@
 import { OrderedMap } from 'immutable';
 import { Note } from '../models/Note';
 
-interface NoteToStore {
+interface INoteToStore {
   text: string;
   noteId: string;
 }
 
-export const prepareNotesForStoring = (notes: OrderedMap<string, Note>): Iterable<NoteToStore> => (
+export const prepareNotesForStoring = (notes: OrderedMap<string, Note>): Iterable<INoteToStore> => (
   notes
     .valueSeq()
     .map(({ text, id: noteId }: Note) => ({
@@ -15,9 +15,9 @@ export const prepareNotesForStoring = (notes: OrderedMap<string, Note>): Iterabl
     }))
 );
 
-export const prepareNotesForApplication = (databaseNotes: OrderedMap<string, NoteToStore>): Iterable<Note> => (
+export const prepareNotesForApplication = (databaseNotes: OrderedMap<string, INoteToStore>): Iterable<Note> => (
   databaseNotes
-    .map(({text, noteId: id }: NoteToStore) => ([
+    .map(({text, noteId: id }: INoteToStore) => ([
       id,
       new Note({
         id,

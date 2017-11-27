@@ -4,14 +4,14 @@ import { HotKeys } from 'react-hotkeys';
 import { FormEvent } from 'react';
 import { IAction } from '../models/IAction';
 
-export interface NonEmptyInputDataProps {
+export interface INonEmptyInputDataProps {
   text: string;
   isError: boolean;
   inputClassName: string;
   enableAutoFocus: boolean;
 }
 
-export interface NonEmptyInputCallbacksProps {
+export interface INonEmptyInputCallbacksProps {
   updateInsertedText: (insertedText: string) => void;
   addInsertedText: () => void;
   onInputFocus?: () => IAction;
@@ -19,9 +19,9 @@ export interface NonEmptyInputCallbacksProps {
   onCancelEditing?: () => void;
 }
 
-type NonEmptyInputProps = NonEmptyInputDataProps & NonEmptyInputCallbacksProps;
+type INonEmptyInputProps = INonEmptyInputDataProps & INonEmptyInputCallbacksProps;
 
-export class NonEmptyInput extends React.PureComponent<NonEmptyInputProps> {
+export class NonEmptyInput extends React.PureComponent<INonEmptyInputProps> {
 
   static propTypes = {
     text: PropTypes.string.isRequired,

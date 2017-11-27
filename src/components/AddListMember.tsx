@@ -4,28 +4,28 @@ import { ErrorMessageListMember } from './ErrorMessageListMember';
 import { AddListMemberInput } from '../containers-redux/AddListMemberInput';
 import { isNoteValid } from '../utils/isNoteValid';
 
-export interface AddListMemberDataProps {
+export interface IAddListMemberDataProps {
   isInputFocused: boolean;
 }
 
-export interface AddListMemberCallbacksProps {
+export interface IAddListMemberCallbacksProps {
   onAddClick: (text: string) => void;
 }
 
-interface AddListMemberState {
+interface IAddListMemberState {
   insertedText: string;
 }
 
-type AddListMemberProps = AddListMemberDataProps & AddListMemberCallbacksProps;
+type IAddListMemberProps = IAddListMemberDataProps & IAddListMemberCallbacksProps;
 
-export class AddListMember extends React.PureComponent<AddListMemberProps, AddListMemberState> {
+export class AddListMember extends React.PureComponent<IAddListMemberProps, IAddListMemberState> {
 
   static propTypes = {
     onAddClick: PropTypes.func.isRequired,
     isInputFocused: PropTypes.bool.isRequired,
   };
 
-  constructor(props: AddListMemberProps) {
+  constructor(props: IAddListMemberProps) {
     super(props);
     this.state = {
       insertedText: '',

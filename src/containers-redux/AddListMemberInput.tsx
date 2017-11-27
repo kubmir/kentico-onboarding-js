@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import {
   NonEmptyInput,
-  NonEmptyInputCallbacksProps
+  INonEmptyInputCallbacksProps
 } from '../components/NonEmptyInput';
 import {
   startAddingNote,
@@ -17,12 +17,12 @@ interface OwnProps {
   enableAutoFocus: boolean;
 }
 
-const events: Partial<NonEmptyInputCallbacksProps> = {
+const events: Partial<INonEmptyInputCallbacksProps> = {
   onInputFocus: startAddingNote,
   onInputBlur: stopAddingNote,
 };
 
-export const AddListMemberInput = connect<{}, Partial<NonEmptyInputCallbacksProps>, OwnProps>(
+export const AddListMemberInput = connect<{}, Partial<INonEmptyInputCallbacksProps>, OwnProps>(
   null,
   events
 )(NonEmptyInput);

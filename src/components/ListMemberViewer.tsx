@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export interface ListMemberViewerDataProps {
+export interface IListMemberViewerDataProps {
  note: {
    text: string;
    isEditActive: boolean;
@@ -9,13 +9,13 @@ export interface ListMemberViewerDataProps {
  number: number;
 }
 
-export interface ListMemberViewerCallbacksProps {
+export interface IListMemberViewerCallbacksProps {
   onTextClick: () => void;
 }
 
-type ListMemberViewerProps = ListMemberViewerDataProps & ListMemberViewerCallbacksProps;
+type IListMemberViewerProps = IListMemberViewerDataProps & IListMemberViewerCallbacksProps;
 
-const ListMemberViewer: React.StatelessComponent<ListMemberViewerProps>  = (props: ListMemberViewerProps) => (
+const ListMemberViewer: React.StatelessComponent<IListMemberViewerProps>  = (props: IListMemberViewerProps) => (
   <p onClick={props.onTextClick}>{props.number + '. ' + props.note.text}</p>
 );
 
