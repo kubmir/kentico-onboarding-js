@@ -2,19 +2,19 @@ import { Record } from 'immutable';
 
 export interface INote {
   text: string;
-  noteId: string;
+  id: string;
   isEditActive: boolean;
 }
 
 const defaultNote: INote = {
   text: '',
-  noteId: '00000000-0000-0000-0000-000000000000',
+  id: '00000000-0000-0000-0000-000000000000',
   isEditActive: false,
 };
 
 export class Note extends Record(defaultNote) implements INote {
   text: string;
-  noteId: string;
+  id: string;
   isEditActive: boolean;
 
   constructor(params?: INote) {

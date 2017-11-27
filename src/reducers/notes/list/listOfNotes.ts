@@ -12,7 +12,7 @@ import { IAction } from '../../../models/IAction';
 const setNoteToState = (state: OrderedMap<string, Note>, action: IAction) => {
   const { noteId, text } = action.payload;
   const noteToAdd = new Note({
-    noteId,
+    id: noteId,
     text,
     isEditActive: false,
   });
