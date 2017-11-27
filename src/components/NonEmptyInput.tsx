@@ -35,16 +35,16 @@ export class NonEmptyInput extends React.PureComponent<INonEmptyInputProps> {
     onCancelEditing: PropTypes.func,
   };
 
-  textInput: HTMLInputElement;
+  private textInput: HTMLInputElement;
 
   onInputFocus = () => {
-    if (this.props.onInputFocus !== undefined) {
+    if (this.props.onInputFocus) {
       this.props.onInputFocus();
     }
   };
 
   onExitingInput = () => {
-    if (this.props.onInputBlur !== undefined) {
+    if (this.props.onInputBlur) {
       this.props.onInputBlur();
     }
   };
@@ -61,7 +61,7 @@ export class NonEmptyInput extends React.PureComponent<INonEmptyInputProps> {
   }
 
   onCancelFocusOfInput = () => {
-    if (this.props.onCancelEditing !== undefined) {
+    if (this.props.onCancelEditing) {
       this.props.onCancelEditing();
     } else {
       this.textInput.blur();
