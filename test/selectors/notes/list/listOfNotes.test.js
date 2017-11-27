@@ -5,7 +5,6 @@ import {
 import {
   getAllIds,
   getNoteById,
-  getNoteIsEditActive,
 } from '../../../../src/selectors/notes/list/listOfNotes';
 
 describe('Selector listOfNotes tests', () => {
@@ -35,25 +34,5 @@ describe('Selector listOfNotes tests', () => {
     const secondActualIds = getAllIds(notes);
 
     expect(firstActualIds).toBe(secondActualIds);
-  });
-
-  it('getNoteIsEditActive test', () => {
-    const notes = prepareNotesInitialState();
-    const expectedIsEditActive = {
-      isEditActive: false,
-    };
-
-    const actualIsEditActive = getNoteIsEditActive(notes, 1);
-
-    expect(actualIsEditActive).toEqual(expectedIsEditActive);
-  });
-
-  it('getNoteIsEditActive return same object if called multiple times', () => {
-    const notes = prepareNotesInitialState();
-
-    const firstActualIsEditActive = getNoteIsEditActive(notes, 1);
-    const secondActualIsEditActive = getNoteIsEditActive(notes, 1);
-
-    expect(firstActualIsEditActive).toBe(secondActualIsEditActive);
   });
 });
