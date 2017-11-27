@@ -27,7 +27,7 @@ export const listOfNotes = (state = OrderedMap(), action) => {
 const setNoteToState = (state, action) => {
   const { noteId, text } = action.payload;
   const noteToAdd = new Note({
-    noteId,
+    id: noteId,
     text,
     isEditActive: false,
   });
