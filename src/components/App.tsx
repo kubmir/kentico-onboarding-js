@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { HotKeys } from 'react-hotkeys';
 import { List } from '../containers-redux/List';
-import { AddListMember } from '../containers-redux/AddListMember';
 import { IKeyMap } from '../models/IKeyMap';
 import '../sticky-footer.css';
 
@@ -43,12 +42,7 @@ export class App extends React.PureComponent {
               <HotKeys keyMap={keyMap}>
                 <div className="row">
                   <div className="col-sm-12 col-md-offset-1 col-md-10">
-                    <ul className="list-group">
-                      <List />
-                      <li className="list-group-item">
-                        <AddListMember />
-                      </li>
-                    </ul>
+                   <List />
                   </div>
                 </div>
               </HotKeys>
