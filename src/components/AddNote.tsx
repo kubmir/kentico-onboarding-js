@@ -6,23 +6,21 @@ import { isNoteValid } from '../utils/isNoteValid';
 
 export interface IAddNoteDataProps {
   isInputFocused: boolean;
+  text: string;
 }
 
 export interface IAddNoteCallbacksProps {
   onAddClick: (text: string) => void;
 }
 
-interface IAddNoteState {
-  insertedText: string;
-}
-
 type IAddNoteProps = IAddNoteDataProps & IAddNoteCallbacksProps;
 
-export class AddNote extends React.PureComponent<IAddNoteProps, IAddNoteState> {
+export class AddNote extends React.PureComponent<IAddNoteProps> {
 
   static propTypes = {
     onAddClick: PropTypes.func.isRequired,
     isInputFocused: PropTypes.bool.isRequired,
+    text: PropTypes.string.isRequired,
   };
 
   constructor(props: IAddNoteProps) {
@@ -32,20 +30,12 @@ export class AddNote extends React.PureComponent<IAddNoteProps, IAddNoteState> {
     };
   }
 
-  updateInsertedText = (newText: string): void =>
-    this.setState({
-      insertedText: newText,
-    });
-
   addInsertedText = (): void => {
-    this.props.onAddClick(this.state.insertedText);
-    this.setState({
-      insertedText: '',
-    });
+    this.props.onAddClick(this.props.text);
   };
 
   render(): JSX.Element {
-    const isValid = isNoteValid(this.state.insertedText);
+    const isValid = isNoteValid(this.props.text);
     const isError = !isValid && this.props.isInputFocused;
     const errorMessage = 'Invalid note. You cannot add an empty note to list of notes.';
 
@@ -53,9 +43,6 @@ export class AddNote extends React.PureComponent<IAddNoteProps, IAddNoteState> {
       <div>
         <div className="input-group">
           <AddNoteInput
-            text={this.state.insertedText}
-            updateInsertedText={this.updateInsertedText}
-            addInsertedText={this.addInsertedText}
             inputClassName="form-control"
             isError={isError}
             enableAutoFocus={false}

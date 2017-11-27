@@ -7,5 +7,6 @@ export interface INotesState {
   notes: {
     listOfNotes: OrderedMap<string, Note>;
     isAddingNote: boolean;
+    currentTextToAdd: string;
   };
 }

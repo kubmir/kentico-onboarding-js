@@ -13,6 +13,7 @@ import { IStoreState } from '../models/IStoreState';
 
 const mapStateToProps = (state: IStoreState): IAddNoteDataProps => ({
   isInputFocused: state.notes.isAddingNote,
+  text: state.notes.currentTextToAdd,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>): IAddNoteCallbacksProps => ({

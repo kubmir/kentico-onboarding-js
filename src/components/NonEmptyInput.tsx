@@ -13,7 +13,7 @@ export interface INonEmptyInputDataProps {
 
 export interface INonEmptyInputCallbacksProps {
   updateInsertedText: (insertedText: string) => void;
-  addInsertedText: () => void;
+  addInsertedText: (newText?: string) => void;
   onInputFocus?: () => IAction;
   onInputBlur?: () => IAction;
   onCancelEditing?: () => void;
@@ -71,7 +71,7 @@ export class NonEmptyInput extends React.PureComponent<INonEmptyInputProps> {
   onSaveChanges = (): void => {
     if (this.props.text) {
       this.textInput.blur();
-      this.props.addInsertedText();
+      this.props.addInsertedText(this.props.text);
     }
   };
 

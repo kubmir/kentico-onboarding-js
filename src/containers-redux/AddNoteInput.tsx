@@ -1,28 +1,44 @@
-import { connect } from 'react-redux';
+import {
+  connect,
+  Dispatch
+} from 'react-redux';
 import {
   NonEmptyInput,
-  INonEmptyInputCallbacksProps
+  INonEmptyInputCallbacksProps,
+  INonEmptyInputDataProps
 } from '../components/NonEmptyInput';
 import {
+  addNewNote,
   startAddingNote,
   stopAddingNote,
+  changeAddingNoteText,
 } from '../actions/actionCreators';
+import { IAction } from '../models/IAction';
+import { IStoreState } from '../models/IStoreState';
 
-interface OwnProps {
-  text: string;
-  updateInsertedText: (text: string) => void;
-  addInsertedText: (text: string) => void;
+interface IOwnProps {
   inputClassName: string;
   isError: boolean;
   enableAutoFocus: boolean;
 }
 
-const events: Partial<INonEmptyInputCallbacksProps> = {
-  onInputFocus: startAddingNote,
-  onInputBlur: stopAddingNote,
-};
+const mapStateToProps = (state: IStoreState, ownProps: IOwnProps): INonEmptyInputDataProps => ({
+  text: state.notes.currentTextToAdd,
+  ...ownProps
+});
 
-export const AddNoteInput = connect<{}, Partial<INonEmptyInputCallbacksProps>, OwnProps>(
-  null,
-  events
+const mapDispatchToProps = (dispatch: Dispatch<IAction>): INonEmptyInputCallbacksProps => ({
+  onInputFocus: () =>
+    dispatch(startAddingNote()),
+  onInputBlur: () =>
+    dispatch(stopAddingNote()),
+  updateInsertedText: (newText: string) =>
+    dispatch(changeAddingNoteText(newText)),
+  addInsertedText: (newText: string) =>
+    dispatch(addNewNote(newText)),
+});
+
+export const AddNoteInput = connect(
+  mapStateToProps,
+  mapDispatchToProps,
 )(NonEmptyInput);
