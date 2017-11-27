@@ -4,7 +4,7 @@ import { Note } from '../../src/models/Note.ts';
 export const prepareListItem = (text, id, isEditActive) =>
   new Note({
     text,
-    noteId: id,
+    id,
     isEditActive,
   });
 
@@ -34,7 +34,7 @@ export const mockNotesForApplication = () =>
       1,
       new Note({
         text: 'First test note',
-        noteId: 1,
+        id: 1,
         isEditActive: false,
       }),
     ],
@@ -42,7 +42,7 @@ export const mockNotesForApplication = () =>
       2,
       new Note({
         text: 'Second test note',
-        noteId: 2,
+        id: 2,
         isEditActive: false,
       }),
     ],
