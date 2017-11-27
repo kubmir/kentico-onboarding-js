@@ -9,7 +9,7 @@ import {
 } from '../../../constants/actionTypes';
 import { IAction } from '../../../models/IAction';
 
-const setNoteToState = (state: OrderedMap<string, Note>, action: IAction) => {
+const setNoteToState = (state: OrderedMap<string, Note>, action: IAction): OrderedMap<string, Note> => {
   const { noteId, text } = action.payload;
   const noteToAdd = new Note({
     id: noteId,
@@ -22,14 +22,14 @@ const setNoteToState = (state: OrderedMap<string, Note>, action: IAction) => {
   return newNotes;
 };
 
-const deleteNote = (state: OrderedMap<string, Note>, action: IAction) => {
+const deleteNote = (state: OrderedMap<string, Note>, action: IAction): OrderedMap<string, Note> => {
   const currentNotes = state
     .delete(action.payload.noteId);
 
   return currentNotes;
 };
 
-const changeEditingMode = (state: OrderedMap<string, Note>, action: IAction, newEditingMode: boolean) => {
+const changeEditingMode = (state: OrderedMap<string, Note>, action: IAction, newEditingMode: boolean): OrderedMap<string, Note> => {
   const noteId = action.payload.noteId;
 
   return state.update(noteId, note => note.with({
@@ -37,7 +37,7 @@ const changeEditingMode = (state: OrderedMap<string, Note>, action: IAction, new
   }));
 };
 
-export const listOfNotes = (state = OrderedMap<string, Note>(), action: IAction) => {
+export const listOfNotes = (state = OrderedMap<string, Note>(), action: IAction): OrderedMap<string, Note> => {
   switch (action.type) {
     case ADD_NOTE:
     case UPDATE_NOTE:

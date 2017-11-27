@@ -1,7 +1,9 @@
 import { OrderedMap } from 'immutable';
 import { Note } from './Note';
 
-export interface IStoreState {
+export type IStoreState = INotesState;
+
+export interface INotesState {
   notes: {
     listOfNotes: OrderedMap<string, Note>;
     isAddingNote: boolean;
