@@ -3,7 +3,7 @@ import {
   ListMember as ListMemberComponent,
   ListMemberDataProps
 } from '../components/ListMember';
-import { getNoteIsEditActive } from '../selectors/notes/list/listOfNotes';
+import { getNoteById } from '../selectors/notes/list/listOfNotes';
 import { IStoreState } from '../models/IStoreState';
 
 interface IListMemberOwnProps {
@@ -12,7 +12,7 @@ interface IListMemberOwnProps {
 }
 
 const mapStateToProps = (state: IStoreState, ownProps: IListMemberOwnProps): ListMemberDataProps => ({
-  note: getNoteIsEditActive(state.notes.listOfNotes, ownProps.noteId),
+  note: getNoteById(state.notes.listOfNotes, ownProps.noteId),
   ...ownProps,
 });
 
