@@ -9,11 +9,12 @@ export const prepareNotesForStoring = (notes) => (
     }))
 );
 
-export const prepareNotesForApplication = (notes) => (
-  notes
+export const prepareNotesForApplication = (databaseNotes) => (
+  databaseNotes
     .map(note => ([
       note.noteId,
       new Note({
+        id: note.noteId,
         ...note,
         isEditActive: false,
       }),
