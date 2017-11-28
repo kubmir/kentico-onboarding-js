@@ -23,13 +23,6 @@ export class AddNote extends React.PureComponent<IAddNoteProps> {
     text: PropTypes.string.isRequired,
   };
 
-  constructor(props: IAddNoteProps) {
-    super(props);
-    this.state = {
-      insertedText: '',
-    };
-  }
-
   addInsertedText = (): void => {
     this.props.onAddClick(this.props.text);
   };
