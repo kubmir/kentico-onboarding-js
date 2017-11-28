@@ -22,7 +22,7 @@ const prepareInitialState = (getSavedNotes: (key: string) => Iterable<Note> | {}
     notes: {
       listOfNotes: OrderedMap(persistedNotes),
       isAddingNote: false,
-      currentTextToAdd: '',
+      addNoteText: '',
     },
   };
 };

@@ -4,7 +4,7 @@ import {
   ADD_NOTE_TEXT_CHANGE
 } from '../../../constants/actionTypes';
 
-export const currentTextToAdd = (state = '', action: IAction): string => {
+export const addNoteText = (state = '', action: IAction): string => {
   switch (action.type) {
     case ADD_NOTE_TEXT_CHANGE:
       return action.payload.newText;

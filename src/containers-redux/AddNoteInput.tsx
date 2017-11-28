@@ -23,7 +23,7 @@ interface IOwnProps {
 }
 
 const mapStateToProps = (state: IStoreState, ownProps: IOwnProps): INonEmptyInputDataProps => ({
-  text: state.notes.currentTextToAdd,
+  text: state.notes.addNoteText,
   ...ownProps
 });
 
