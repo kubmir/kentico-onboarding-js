@@ -19,9 +19,9 @@ export interface INonEmptyInputCallbacksProps {
   onCancelEditing?: () => void;
 }
 
-type INonEmptyInputProps = INonEmptyInputDataProps & INonEmptyInputCallbacksProps;
+type NonEmptyInputProps = INonEmptyInputDataProps & INonEmptyInputCallbacksProps;
 
-export class NonEmptyInput extends React.PureComponent<INonEmptyInputProps> {
+export class NonEmptyInput extends React.PureComponent<NonEmptyInputProps> {
   static displayName = 'NonEmptyInput';
 
   static propTypes = {

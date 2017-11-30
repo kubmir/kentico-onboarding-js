@@ -13,9 +13,9 @@ export interface INoteViewerCallbacksProps {
   onTextClick: () => void;
 }
 
-type INoteViewerProps = INoteViewerDataProps & INoteViewerCallbacksProps;
+type NoteViewerProps = INoteViewerDataProps & INoteViewerCallbacksProps;
 
-const NoteViewer: React.StatelessComponent<INoteViewerProps>  = (props: INoteViewerProps): JSX.Element => (
+const NoteViewer: React.StatelessComponent<NoteViewerProps>  = (props: NoteViewerProps): JSX.Element => (
   <p onClick={props.onTextClick}>{props.number + '. ' + props.note.text}</p>
 );
 

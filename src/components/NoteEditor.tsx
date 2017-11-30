@@ -22,11 +22,11 @@ interface INoteEditorState {
   currentNoteText: string;
 }
 
-type INoteEditorProps = INoteEditorCallbacksProps & INoteEditorDataProps;
+type NoteEditorProps = INoteEditorCallbacksProps & INoteEditorDataProps;
 
-export class NoteEditor extends React.PureComponent<INoteEditorProps, INoteEditorState> {
+export class NoteEditor extends React.PureComponent<NoteEditorProps, INoteEditorState> {
   static displayName = 'NoteEditor';
-  
+
   static propTypes = {
     note: PropTypes.shape({
       text: PropTypes.string.isRequired,
@@ -38,7 +38,7 @@ export class NoteEditor extends React.PureComponent<INoteEditorProps, INoteEdito
     onCancelEditor: PropTypes.func.isRequired,
   };
 
-  constructor(props: INoteEditorProps) {
+  constructor(props: NoteEditorProps) {
     super(props);
     this.state = {
       currentNoteText: props.note.text,
