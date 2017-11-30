@@ -16,6 +16,7 @@ export interface IAddNoteCallbacksProps {
 type IAddNoteProps = IAddNoteDataProps & IAddNoteCallbacksProps;
 
 export class AddNote extends React.PureComponent<IAddNoteProps> {
+  static displayName = 'AddNote';
 
   static propTypes = {
     onAddClick: PropTypes.func.isRequired,

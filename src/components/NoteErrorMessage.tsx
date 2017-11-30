@@ -7,6 +7,7 @@ interface INoteErrorMessageDataProps {
 }
 
 export class NoteErrorMessage extends React.PureComponent<INoteErrorMessageDataProps> {
+  static displayName = 'NoteErrorMessage';
 
   static propTypes: React.ValidationMap<INoteErrorMessageDataProps> = {
     isError: PropTypes.bool.isRequired,

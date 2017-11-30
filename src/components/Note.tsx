@@ -12,6 +12,7 @@ export interface INoteDataProps {
 }
 
 const Note: React.StatelessComponent<INoteDataProps> = (props: INoteDataProps): JSX.Element => {
+
   const memberEditor = (
     <NoteEditor
       noteId={props.noteId}
@@ -30,6 +31,8 @@ const Note: React.StatelessComponent<INoteDataProps> = (props: INoteDataProps): 
     ? memberEditor
     : memberViewer;
 };
+
+Note.displayName = 'Note';
 
 Note.propTypes = {
   note: PropTypes.shape({

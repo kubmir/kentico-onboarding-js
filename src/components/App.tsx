@@ -10,6 +10,8 @@ const keyMap: IKeyMap = {
 };
 
 export class App extends React.PureComponent {
+  static displayName = 'App';
+
   render() {
     return (
       <div>

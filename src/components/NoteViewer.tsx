@@ -19,6 +19,8 @@ const NoteViewer: React.StatelessComponent<INoteViewerProps>  = (props: INoteVie
   <p onClick={props.onTextClick}>{props.number + '. ' + props.note.text}</p>
 );
 
+NoteViewer.displayName = 'NoteViewer';
+
 NoteViewer.propTypes = {
   note: PropTypes.shape({
     text: PropTypes.string.isRequired,

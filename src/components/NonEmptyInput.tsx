@@ -22,6 +22,7 @@ export interface INonEmptyInputCallbacksProps {
 type INonEmptyInputProps = INonEmptyInputDataProps & INonEmptyInputCallbacksProps;
 
 export class NonEmptyInput extends React.PureComponent<INonEmptyInputProps> {
+  static displayName = 'NonEmptyInput';
 
   static propTypes = {
     text: PropTypes.string.isRequired,

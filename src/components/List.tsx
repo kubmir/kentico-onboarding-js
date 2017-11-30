@@ -8,6 +8,8 @@ export interface IListDataProps {
 }
 
 export class List extends React.PureComponent<IListDataProps> {
+  static displayName = 'List';
+
   static propTypes = {
     notesIds: PropTypes.array.isRequired,
   };

@@ -25,7 +25,8 @@ interface INoteEditorState {
 type INoteEditorProps = INoteEditorCallbacksProps & INoteEditorDataProps;
 
 export class NoteEditor extends React.PureComponent<INoteEditorProps, INoteEditorState> {
-
+  static displayName = 'NoteEditor';
+  
   static propTypes = {
     note: PropTypes.shape({
       text: PropTypes.string.isRequired,

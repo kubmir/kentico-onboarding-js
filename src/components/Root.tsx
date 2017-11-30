@@ -7,8 +7,12 @@ import {
 } from '../utils/localStorage';
 import { createApplicationStore } from '../utils/createApplicationStore';
 
-export const Root = (): JSX.Element => (
+const Root: React.StatelessComponent = (): JSX.Element => (
   <Provider store={createApplicationStore(getSavedNotes, saveNotesData)}>
     <App />
   </Provider>
 );
+
+Root.displayName = 'Root';
+
+export { Root };
