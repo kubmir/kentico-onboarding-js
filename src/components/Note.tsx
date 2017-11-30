@@ -13,24 +13,14 @@ export interface INoteDataProps {
 }
 
 const Note: React.StatelessComponent<INoteDataProps> = (props: INoteDataProps): JSX.Element => {
+  const NoteComponent = props.note.isEditActive
+    ? NoteEditor
+    : NoteViewer;
 
-  const memberEditor = (
-    <NoteEditor
-      noteId={props.noteId}
-      number={props.number}
-    />
-  );
-
-  const memberViewer = (
-    <NoteViewer
-      noteId={props.noteId}
-      number={props.number}
-    />
-  );
-
-  return props.note.isEditActive
-    ? memberEditor
-    : memberViewer;
+  return <NoteComponent
+    noteId={props.noteId}
+    number={props.number}
+  />;
 };
 
 Note.displayName = 'Note';
