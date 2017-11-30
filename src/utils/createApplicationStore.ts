@@ -14,6 +14,7 @@ import {
 } from 'lodash';
 
 const LOCAL_STORAGE_NOTES_KEY = 'notes';
+const THROTTLE_TIMEOUT = 1000;
 
 const prepareInitialState = (getSavedNotes: (key: string) => Iterable<Note> | {}): IStoreState => {
   const persistedNotes = getSavedNotes(LOCAL_STORAGE_NOTES_KEY);
@@ -28,14 +29,16 @@ const prepareInitialState = (getSavedNotes: (key: string) => Iterable<Note> | {}
 };
 
 const saveData = (saveNotesData: (key: string, data: OrderedMap<string, Note>) => void, store: Store<IStoreState>): (() => void) & Cancelable =>
-  throttle(() => {
-    const stateNotes = store
-      .getState()
-      .notes
-      .listOfNotes;
+  throttle(
+    () => {
+      const stateNotes = store
+        .getState()
+        .notes
+        .listOfNotes;
 
-    saveNotesData(LOCAL_STORAGE_NOTES_KEY, stateNotes);
-  },       1000);
+      saveNotesData(LOCAL_STORAGE_NOTES_KEY, stateNotes);
+    },
+    THROTTLE_TIMEOUT);
 
 export const createApplicationStore = (getSavedNotes: (key: string) => Iterable<Note> | {},
   saveNotesData: (key: string, data: OrderedMap<string, Note>) => void): Store<IStoreState> => {
