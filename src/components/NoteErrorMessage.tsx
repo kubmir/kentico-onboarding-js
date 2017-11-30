@@ -6,20 +6,21 @@ interface INoteErrorMessageDataProps {
   errorMessage: string;
 }
 
-export class NoteErrorMessage extends React.PureComponent<INoteErrorMessageDataProps> {
-  static displayName = 'NoteErrorMessage';
+const NoteErrorMessage: React.StatelessComponent<INoteErrorMessageDataProps> = (props: INoteErrorMessageDataProps): JSX.Element => {
+  const error = (
+    <span className="text-danger">{props.errorMessage}</span>
+  );
 
-  static propTypes: React.ValidationMap<INoteErrorMessageDataProps> = {
-    isError: PropTypes.bool.isRequired,
-    errorMessage: PropTypes.string.isRequired,
-  };
+  return props.isError
+    ? error
+    : <span />;
+};
 
-  render(): JSX.Element | false {
-    const error = (
-      <span className="text-danger">{this.props.errorMessage}</span>
-    );
+NoteErrorMessage.displayName = 'NoteErrorMessage';
 
-    return this.props.isError && error;
-  }
-}
+NoteErrorMessage.propTypes = {
+  isError: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+};
 
+export { NoteErrorMessage };
