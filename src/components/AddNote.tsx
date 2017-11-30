@@ -24,6 +24,8 @@ export class AddNote extends React.PureComponent<AddNoteProps> {
     text: PropTypes.string.isRequired,
   };
 
+  private errorMessage = 'Invalid note. You cannot add an empty note to list of notes.';
+
   addInsertedText = (): void => {
     this.props.onAddClick(this.props.text);
   };
@@ -31,7 +33,6 @@ export class AddNote extends React.PureComponent<AddNoteProps> {
   render(): JSX.Element {
     const isValid = isNoteValid(this.props.text);
     const isError = !isValid && this.props.isInputFocused;
-    const errorMessage = 'Invalid note. You cannot add an empty note to list of notes.';
 
     return (
       <div>
@@ -54,7 +55,7 @@ export class AddNote extends React.PureComponent<AddNoteProps> {
         </div>
         <NoteErrorMessage
           isError={isError}
-          errorMessage={errorMessage}
+          errorMessage={this.errorMessage}
         />
       </div>
     );

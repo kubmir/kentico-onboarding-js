@@ -38,6 +38,8 @@ export class NoteEditor extends React.PureComponent<NoteEditorProps, INoteEditor
     onCancelEditor: PropTypes.func.isRequired,
   };
 
+  private errorMessage = 'Invalid note. You cannot change note\'s text to empty.';
+
   constructor(props: NoteEditorProps) {
     super(props);
     this.state = {
@@ -56,7 +58,6 @@ export class NoteEditor extends React.PureComponent<NoteEditorProps, INoteEditor
   render(): JSX.Element {
     const isValid = isNoteValid(this.state.currentNoteText);
     const isError = !isValid && this.props.note.isEditActive;
-    const errorMessage = 'Invalid note. You cannot change note\'s text to empty.';
 
     return (
       <div>
@@ -100,7 +101,7 @@ export class NoteEditor extends React.PureComponent<NoteEditorProps, INoteEditor
         </div>
         <NoteErrorMessage
           isError={isError}
-          errorMessage={errorMessage}
+          errorMessage={this.errorMessage}
         />
       </div>
     );
