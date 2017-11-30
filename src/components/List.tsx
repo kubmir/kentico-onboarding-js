@@ -8,36 +8,36 @@ export interface IListDataProps {
   notesIds: Guid[];
 }
 
-export class List extends React.PureComponent<IListDataProps> {
-  static displayName = 'List';
+const List: React.StatelessComponent<IListDataProps> = (props: IListDataProps): JSX.Element => {
+  const members = props
+    .notesIds
+    .map((noteId: Guid, i: number) => (
+      <li
+        className="list-group-item"
+        key={noteId}
+      >
+        <Note
+          noteId={noteId}
+          number={i + 1}
+        />
+      </li>
+    ));
 
-  static propTypes = {
-    notesIds: PropTypes.array.isRequired,
-  };
+  return (
+    <ul className="list-group">
+      {members}
+      <li className="list-group-item">
+        <AddNote />
+      </li>
+    </ul>
+  );
+};
 
-  render(): JSX.Element {
-    const members = this
-      .props
-      .notesIds
-      .map((noteId: Guid, i: number) => (
-        <li
-          className="list-group-item"
-          key={noteId}
-        >
-          <Note
-            noteId={noteId}
-            number={i + 1}
-          />
-        </li>
-      ));
+List.displayName = 'List';
 
-    return (
-      <ul className="list-group">
-        {members}
-        <li className="list-group-item">
-          <AddNote />
-        </li>
-      </ul>
-    );
-  }
-}
+List.propTypes = {
+  notesIds: PropTypes.array.isRequired,
+};
+
+export { List };
+
