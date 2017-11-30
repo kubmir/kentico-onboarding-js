@@ -2,9 +2,9 @@ import { Record } from 'immutable';
 import { Guid } from '../@types/globals';
 
 export interface INote {
-  text: string;
-  id: Guid;
-  isEditActive: boolean;
+  readonly text: string;
+  readonly id: Guid;
+  readonly isEditActive: boolean;
 }
 
 const defaultNote: INote = {
@@ -14,9 +14,9 @@ const defaultNote: INote = {
 };
 
 export class Note extends Record(defaultNote) implements INote {
-  text: string;
-  id: Guid;
-  isEditActive: boolean;
+  readonly text: string;
+  readonly id: Guid;
+  readonly isEditActive: boolean;
 
   constructor(params?: INote) {
     params

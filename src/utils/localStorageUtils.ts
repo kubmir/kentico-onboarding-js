@@ -3,8 +3,8 @@ import { Note } from '../models/Note';
 import { Guid } from '../@types/globals';
 
 interface INoteToStore {
-  text: string;
-  noteId: Guid;
+  readonly text: string;
+  readonly noteId: Guid;
 }
 
 export const prepareNotesForStoring = (notes: OrderedMap<string, Note>): Iterable<INoteToStore> => (

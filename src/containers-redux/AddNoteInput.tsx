@@ -17,9 +17,9 @@ import { IAction } from '../models/IAction';
 import { IStoreState } from '../models/IStoreState';
 
 interface IOwnProps {
-  inputClassName: string;
-  isError: boolean;
-  enableAutoFocus: boolean;
+  readonly inputClassName: string;
+  readonly isError: boolean;
+  readonly enableAutoFocus: boolean;
 }
 
 const mapStateToProps = (state: IStoreState, ownProps: IOwnProps): INonEmptyInputDataProps => ({

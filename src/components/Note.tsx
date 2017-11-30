@@ -5,11 +5,11 @@ import { NoteViewer } from '../containers-redux/NoteViewer';
 import { Guid } from '../@types/globals';
 
 export interface INoteDataProps {
-  note: {
-    isEditActive: boolean;
+  readonly note: {
+    readonly isEditActive: boolean;
   };
-  noteId: Guid;
-  number: number;
+  readonly noteId: Guid;
+  readonly number: number;
 }
 
 const Note: React.StatelessComponent<INoteDataProps> = (props: INoteDataProps): JSX.Element => {

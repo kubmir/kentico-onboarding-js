@@ -1,4 +1,4 @@
 export interface IKeyMap {
-  saveChanges: 'enter';
-  cancelEditing: 'esc';
+  readonly saveChanges: 'enter';
+  readonly cancelEditing: 'esc';
 }

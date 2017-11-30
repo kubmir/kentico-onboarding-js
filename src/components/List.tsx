@@ -5,7 +5,7 @@ import { AddNote } from '../containers-redux/AddNote';
 import { Guid } from '../@types/globals';
 
 export interface IListDataProps {
-  notesIds: Guid[];
+  readonly notesIds: Guid[];
 }
 
 const List: React.StatelessComponent<IListDataProps> = (props: IListDataProps): JSX.Element => {

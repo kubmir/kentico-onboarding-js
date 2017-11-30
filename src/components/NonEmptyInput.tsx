@@ -5,18 +5,18 @@ import { FormEvent } from 'react';
 import { IAction } from '../models/IAction';
 
 export interface INonEmptyInputDataProps {
-  text: string;
-  isError: boolean;
-  inputClassName: string;
-  enableAutoFocus: boolean;
+  readonly text: string;
+  readonly isError: boolean;
+  readonly inputClassName: string;
+  readonly enableAutoFocus: boolean;
 }
 
 export interface INonEmptyInputCallbacksProps {
-  updateInsertedText: (insertedText: string) => void;
-  addInsertedText: (newText?: string) => void;
-  onInputFocus?: () => IAction;
-  onInputBlur?: () => IAction;
-  onCancelEditing?: () => void;
+  readonly updateInsertedText: (insertedText: string) => void;
+  readonly addInsertedText: (newText?: string) => void;
+  readonly onInputFocus?: () => IAction;
+  readonly onInputBlur?: () => IAction;
+  readonly onCancelEditing?: () => void;
 }
 
 type NonEmptyInputProps = INonEmptyInputDataProps & INonEmptyInputCallbacksProps;

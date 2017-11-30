@@ -5,21 +5,21 @@ import { NoteErrorMessage } from './NoteErrorMessage';
 import { isNoteValid } from '../utils/isNoteValid';
 
 export interface INoteEditorDataProps {
-  note: {
-    text: string;
-    isEditActive: boolean;
+  readonly note: {
+    readonly text: string;
+    readonly isEditActive: boolean;
   };
-  number: number;
+  readonly number: number;
 }
 
 export interface INoteEditorCallbacksProps {
-  onDeleteClick: () => void;
-  onSaveClick: (currentText: string) => void;
-  onCancelEditor: () => void;
+  readonly onDeleteClick: () => void;
+  readonly onSaveClick: (currentText: string) => void;
+  readonly onCancelEditor: () => void;
 }
 
 interface INoteEditorState {
-  currentNoteText: string;
+  readonly currentNoteText: string;
 }
 
 type NoteEditorProps = INoteEditorCallbacksProps & INoteEditorDataProps;

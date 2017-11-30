@@ -5,12 +5,12 @@ import { AddNoteInput } from '../containers-redux/AddNoteInput';
 import { isNoteValid } from '../utils/isNoteValid';
 
 export interface IAddNoteDataProps {
-  isInputFocused: boolean;
-  text: string;
+  readonly isInputFocused: boolean;
+  readonly text: string;
 }
 
 export interface IAddNoteCallbacksProps {
-  onAddClick: (text: string) => void;
+  readonly onAddClick: (text: string) => void;
 }
 
 type AddNoteProps = IAddNoteDataProps & IAddNoteCallbacksProps;

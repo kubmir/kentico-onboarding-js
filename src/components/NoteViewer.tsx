@@ -2,15 +2,15 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 export interface INoteViewerDataProps {
- note: {
-   text: string;
-   isEditActive: boolean;
+  readonly note: {
+    readonly text: string;
+    readonly isEditActive: boolean;
  };
- number: number;
+  readonly number: number;
 }
 
 export interface INoteViewerCallbacksProps {
-  onTextClick: () => void;
+  readonly onTextClick: () => void;
 }
 
 type NoteViewerProps = INoteViewerDataProps & INoteViewerCallbacksProps;

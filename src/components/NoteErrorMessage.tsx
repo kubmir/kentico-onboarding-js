@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 interface INoteErrorMessageDataProps {
-  isError: boolean;
-  errorMessage: string;
+  readonly isError: boolean;
+  readonly errorMessage: string;
 }
 
 const NoteErrorMessage: React.StatelessComponent<INoteErrorMessageDataProps> = (props: INoteErrorMessageDataProps): JSX.Element => {

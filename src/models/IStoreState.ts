@@ -4,9 +4,9 @@ import { Note } from './Note';
 export type IStoreState = INotesState;
 
 export interface INotesState {
-  notes: {
-    listOfNotes: OrderedMap<string, Note>;
-    isAddingNote: boolean;
-    addNoteText: string;
+  readonly notes: {
+    readonly listOfNotes: OrderedMap<string, Note>;
+    readonly isAddingNote: boolean;
+    readonly addNoteText: string;
   };
 }

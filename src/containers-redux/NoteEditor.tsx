@@ -18,8 +18,8 @@ import { IAction } from '../models/IAction';
 import { Guid } from '../@types/globals';
 
 interface INoteEditorOwnProps {
-  noteId: Guid;
-  number: number;
+  readonly noteId: Guid;
+  readonly number: number;
 }
 
 const mapStateToProps = (state: IStoreState, ownProps: INoteEditorOwnProps): INoteEditorDataProps => ({
