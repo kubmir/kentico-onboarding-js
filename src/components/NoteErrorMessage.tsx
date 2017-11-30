@@ -6,14 +6,12 @@ interface INoteErrorMessageDataProps {
   readonly errorMessage: string;
 }
 
-const NoteErrorMessage: React.StatelessComponent<INoteErrorMessageDataProps> = (props: INoteErrorMessageDataProps): JSX.Element => {
+const NoteErrorMessage: React.StatelessComponent<INoteErrorMessageDataProps> = (props: INoteErrorMessageDataProps): JSX.Element | null => {
   const error = (
     <span className="text-danger">{props.errorMessage}</span>
   );
 
-  return props.isError
-    ? error
-    : <span />;
+  return props.isError ? error : null;
 };
 
 NoteErrorMessage.displayName = 'NoteErrorMessage';
