@@ -18,7 +18,7 @@ export class Note extends Record(defaultNote) implements INote {
   readonly id: Guid;
   readonly isEditActive: boolean;
 
-  constructor(params?: INote) {
+  constructor(params?: Partial<INote>) {
     params
       ? super(params)
       : super();
