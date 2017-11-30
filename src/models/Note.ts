@@ -1,8 +1,9 @@
 import { Record } from 'immutable';
+import { Guid } from '../@types/globals';
 
 export interface INote {
   text: string;
-  id: string;
+  id: Guid;
   isEditActive: boolean;
 }
 
@@ -14,7 +15,7 @@ const defaultNote: INote = {
 
 export class Note extends Record(defaultNote) implements INote {
   text: string;
-  id: string;
+  id: Guid;
   isEditActive: boolean;
 
   constructor(params?: INote) {

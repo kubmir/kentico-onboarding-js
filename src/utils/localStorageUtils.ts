@@ -1,9 +1,10 @@
 import { OrderedMap } from 'immutable';
 import { Note } from '../models/Note';
+import { Guid } from '../@types/globals';
 
 interface INoteToStore {
   text: string;
-  noteId: string;
+  noteId: Guid;
 }
 
 export const prepareNotesForStoring = (notes: OrderedMap<string, Note>): Iterable<INoteToStore> => (

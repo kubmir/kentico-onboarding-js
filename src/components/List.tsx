@@ -2,9 +2,10 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Note } from '../containers-redux/Note';
 import { AddNote } from '../containers-redux/AddNote';
+import { Guid } from '../@types/globals';
 
 export interface IListDataProps {
-  notesIds: string[];
+  notesIds: Guid[];
 }
 
 export class List extends React.PureComponent<IListDataProps> {
@@ -18,7 +19,7 @@ export class List extends React.PureComponent<IListDataProps> {
     const members = this
       .props
       .notesIds
-      .map((noteId: string, i: number) => (
+      .map((noteId: Guid, i: number) => (
         <li
           className="list-group-item"
           key={noteId}

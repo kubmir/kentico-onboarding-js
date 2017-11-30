@@ -6,8 +6,9 @@ import {
   UPDATE_NOTE,
 } from '../constants/actionTypes';
 import { IAction } from '../models/IAction';
+import { Guid } from '../@types/globals';
 
-export const addNewNoteFactory = (generateIdFunction: () => string) => (noteText: string): IAction => ({
+export const addNewNoteFactory = (generateIdFunction: () => Guid) => (noteText: string): IAction => ({
   type: ADD_NOTE,
   payload: {
     text: noteText,
@@ -15,7 +16,7 @@ export const addNewNoteFactory = (generateIdFunction: () => string) => (noteText
   },
 });
 
-export const updateNote = (textChanges: string, noteId: string): IAction => ({
+export const updateNote = (textChanges: string, noteId: Guid): IAction => ({
   type: UPDATE_NOTE,
   payload: {
     text: textChanges,
@@ -23,21 +24,21 @@ export const updateNote = (textChanges: string, noteId: string): IAction => ({
   },
 });
 
-export const deleteNote = (noteId: string): IAction => ({
+export const deleteNote = (noteId: Guid): IAction => ({
   type: DELETE_NOTE,
   payload: {
     noteId,
   },
 });
 
-export const startEditingNote = (noteId: string): IAction => ({
+export const startEditingNote = (noteId: Guid): IAction => ({
   type: START_EDITING_NOTE,
   payload: {
     noteId,
   },
 });
 
-export const cancelEditingNote = (noteId: string): IAction => ({
+export const cancelEditingNote = (noteId: Guid): IAction => ({
   type: CANCEL_EDITING_NOTE,
   payload: {
     noteId,

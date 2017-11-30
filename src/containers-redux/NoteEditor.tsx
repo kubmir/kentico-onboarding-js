@@ -15,9 +15,10 @@ import {
 import { getNoteById } from '../selectors/notes/list/listOfNotes';
 import { IStoreState } from '../models/IStoreState';
 import { IAction } from '../models/IAction';
+import { Guid } from '../@types/globals';
 
 interface INoteEditorOwnProps {
-  noteId: string;
+  noteId: Guid;
   number: number;
 }
 
