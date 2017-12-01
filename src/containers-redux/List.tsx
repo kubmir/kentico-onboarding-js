@@ -6,8 +6,8 @@ import {
 import { getAllIds } from '../selectors/notes/list/listOfNotes';
 import { IStoreState } from '../models/IStoreState';
 
-const mapStateToProps = (state: IStoreState): IListDataProps => ({
-  notesIds: getAllIds(state.notes.listOfNotes),
+const mapStateToProps = ({ notes }: IStoreState): IListDataProps => ({
+  notesIds: getAllIds(notes.listOfNotes),
 });
 
 export const List = connect(

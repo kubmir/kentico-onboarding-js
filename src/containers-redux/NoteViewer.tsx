@@ -18,9 +18,9 @@ interface IOwnProps {
   readonly number: number;
 }
 
-const mapStateToProps = (state: IStoreState, ownProps: IOwnProps): INoteViewerDataProps => ({
+const mapStateToProps = ({ notes }: IStoreState, ownProps: IOwnProps): INoteViewerDataProps => ({
   number: ownProps.number,
-  note: getNoteById(state.notes.listOfNotes, ownProps.noteId),
+  note: getNoteById(notes.listOfNotes, ownProps.noteId),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IOwnProps): INoteViewerCallbacksProps => ({

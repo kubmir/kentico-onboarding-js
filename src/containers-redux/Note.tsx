@@ -12,8 +12,8 @@ interface INoteOwnProps {
   readonly number: number;
 }
 
-const mapStateToProps = (state: IStoreState, ownProps: INoteOwnProps): INoteDataProps => ({
-  note: getNoteById(state.notes.listOfNotes, ownProps.noteId),
+const mapStateToProps = ({ notes }: IStoreState, ownProps: INoteOwnProps): INoteDataProps => ({
+  note: getNoteById(notes.listOfNotes, ownProps.noteId),
   ...ownProps,
 });
 

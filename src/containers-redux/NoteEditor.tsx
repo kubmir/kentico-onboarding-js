@@ -22,9 +22,9 @@ interface INoteEditorOwnProps {
   readonly number: number;
 }
 
-const mapStateToProps = (state: IStoreState, ownProps: INoteEditorOwnProps): INoteEditorDataProps => ({
+const mapStateToProps = ({ notes }: IStoreState, ownProps: INoteEditorOwnProps): INoteEditorDataProps => ({
   number: ownProps.number,
-  note: getNoteById(state.notes.listOfNotes, ownProps.noteId),
+  note: getNoteById(notes.listOfNotes, ownProps.noteId),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: INoteEditorOwnProps): INoteEditorCallbacksProps => ({

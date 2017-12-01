@@ -22,8 +22,8 @@ interface IOwnProps {
   readonly enableAutoFocus: boolean;
 }
 
-const mapStateToProps = (state: IStoreState, ownProps: IOwnProps): INonEmptyInputDataProps => ({
-  text: state.notes.addNoteText,
+const mapStateToProps = ({ notes }: IStoreState, ownProps: IOwnProps): INonEmptyInputDataProps => ({
+  text: notes.addNoteText,
   ...ownProps
 });
 
