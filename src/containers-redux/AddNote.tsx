@@ -11,9 +11,9 @@ import {
 import { IAction } from '../models/IAction';
 import { IStoreState } from '../models/IStoreState';
 
-const mapStateToProps = (state: IStoreState): IAddNoteDataProps => ({
-  isInputFocused: state.notes.isAddingNote,
-  text: state.notes.addNoteText,
+const mapStateToProps = ({ notes }: IStoreState): IAddNoteDataProps => ({
+  isInputFocused: notes.isAddingNote,
+  text: notes.addNoteText,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>): IAddNoteCallbacksProps => ({
