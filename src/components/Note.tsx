@@ -5,15 +5,13 @@ import { NoteViewer } from '../containers-redux/NoteViewer';
 import { Guid } from '../@types/globals';
 
 export interface INoteDataProps {
-  readonly note: {
-    readonly isEditActive: boolean;
-  };
+  readonly noteIsEditActive: boolean;
   readonly noteId: Guid;
   readonly number: number;
 }
 
 const Note: React.StatelessComponent<INoteDataProps> = (props: INoteDataProps): JSX.Element => {
-  const NoteComponent = props.note.isEditActive
+  const NoteComponent = props.noteIsEditActive
     ? NoteEditor
     : NoteViewer;
 
@@ -26,9 +24,7 @@ const Note: React.StatelessComponent<INoteDataProps> = (props: INoteDataProps): 
 Note.displayName = 'Note';
 
 Note.propTypes = {
-  note: PropTypes.shape({
-    isEditActive: PropTypes.bool.isRequired,
-  }).isRequired,
+  noteIsEditActive: PropTypes.bool.isRequired,
   noteId: PropTypes.string.isRequired,
   number: PropTypes.number.isRequired,
 };

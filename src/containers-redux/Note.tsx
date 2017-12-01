@@ -13,7 +13,7 @@ interface INoteOwnProps {
 }
 
 const mapStateToProps = ({ notes }: IStoreState, ownProps: INoteOwnProps): INoteDataProps => ({
-  note: getNoteById(notes.listOfNotes, ownProps.noteId),
+  noteIsEditActive: getNoteById(notes.listOfNotes, ownProps.noteId).isEditActive,
   ...ownProps,
 });
 
