@@ -36,7 +36,6 @@ export class AddNote extends React.PureComponent<AddNoteProps> {
           <AddNoteInput
             inputClassName="form-control"
             isError={isError}
-            enableAutoFocus={false}
           />
           <div className="input-group-btn">
             <button

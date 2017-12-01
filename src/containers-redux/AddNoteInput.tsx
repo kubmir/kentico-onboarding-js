@@ -19,11 +19,11 @@ import { IStoreState } from '../models/IStoreState';
 interface IOwnProps {
   readonly inputClassName: string;
   readonly isError: boolean;
-  readonly enableAutoFocus: boolean;
 }
 
 const mapStateToProps = ({ notes }: IStoreState, ownProps: IOwnProps): INonEmptyInputDataProps => ({
   text: notes.addNoteText,
+  enableAutoFocus: false,
   ...ownProps
 });
 
