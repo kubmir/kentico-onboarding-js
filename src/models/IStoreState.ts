@@ -1,12 +1,13 @@
 import { OrderedMap } from 'immutable';
 import { Note } from './Note';
+import { Guid } from '../@types/globals';
 
 export interface IStoreState {
-  notes: INotesState;
-};
+  readonly notes: INotesState;
+}
 
 export interface INotesState {
-    readonly listOfNotes: OrderedMap<string, Note>;
+    readonly listOfNotes: OrderedMap<Guid, Note>;
     readonly isAddingNote: boolean;
     readonly addNoteText: string;
 }
