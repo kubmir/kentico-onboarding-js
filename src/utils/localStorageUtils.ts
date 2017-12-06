@@ -1,6 +1,5 @@
 import { OrderedMap } from 'immutable';
 import { Note } from '../models/Note';
-import { Guid } from '../@types/globals';
 
 interface INoteToStore {
   readonly text: string;

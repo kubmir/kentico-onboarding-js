@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Note } from '../containers-redux/Note';
 import { AddNote } from '../containers-redux/AddNote';
-import { Guid } from '../@types/globals';
 
 export interface IListDataProps {
   readonly notesIds: Guid[];

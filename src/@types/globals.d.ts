@@ -1,1 +1,2 @@
-export type Guid = string;
+declare type Guid = string;
+

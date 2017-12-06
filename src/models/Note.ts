@@ -1,5 +1,4 @@
 import { Record } from 'immutable';
-import { Guid } from '../@types/globals';
 
 export interface INote {
   readonly text: string;

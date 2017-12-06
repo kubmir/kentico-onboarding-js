@@ -5,7 +5,6 @@ import {
 } from '../components/Note';
 import { getNoteById } from '../selectors/notes/list/listOfNotes';
 import { IStoreState } from '../models/IStoreState';
-import { Guid } from '../@types/globals';
 
 interface INoteOwnProps {
   readonly noteId: Guid;

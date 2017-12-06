@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { NoteEditor } from '../containers-redux/NoteEditor';
 import { NoteViewer } from '../containers-redux/NoteViewer';
-import { Guid } from '../@types/globals';
 
 export interface INoteDataProps {
   readonly noteIsEditActive: boolean;

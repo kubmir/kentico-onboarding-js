@@ -12,7 +12,6 @@ import {
   Cancelable,
   throttle
 } from 'lodash';
-import { Guid } from '../@types/globals';
 
 const LOCAL_STORAGE_NOTES_KEY = 'notes';
 const THROTTLE_TIMEOUT = 1000;

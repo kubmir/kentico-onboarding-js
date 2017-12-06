@@ -1,7 +1,6 @@
 import * as memoize from 'memoizee';
 import { OrderedMap } from 'immutable';
 import { Note } from '../../../models/Note';
-import { Guid } from '../../../@types/globals';
 
 const getIds = memoize((...params: string[]) => params, { length: false });
 

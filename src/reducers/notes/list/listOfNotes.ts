@@ -8,7 +8,6 @@ import {
   UPDATE_NOTE,
 } from '../../../constants/actionTypes';
 import { IAction } from '../../../models/IAction';
-import { Guid } from '../../../@types/globals';
 
 const addNote = (state: OrderedMap<Guid, Note>, payload: { noteId: Guid, text: string }): OrderedMap<Guid, Note> => {
   const { noteId, text } = payload;

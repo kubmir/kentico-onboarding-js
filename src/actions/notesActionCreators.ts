@@ -6,7 +6,6 @@ import {
   UPDATE_NOTE,
 } from '../constants/actionTypes';
 import { IAction } from '../models/IAction';
-import { Guid } from '../@types/globals';
 
 export const addNewNoteFactory = (generateIdFunction: () => Guid) => (noteText: string): IAction => ({
   type: ADD_NOTE,
