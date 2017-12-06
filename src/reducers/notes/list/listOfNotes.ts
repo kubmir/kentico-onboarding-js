@@ -10,12 +10,11 @@ import {
 import { IAction } from '../../../models/IAction';
 import { Guid } from '../../../@types/globals';
 
-const setNoteToState = (state: OrderedMap<string, Note>, payload: { noteId: Guid, text: string }): OrderedMap<string, Note> => {
+const addNote = (state: OrderedMap<string, Note>, payload: { noteId: Guid, text: string }): OrderedMap<string, Note> => {
   const { noteId, text } = payload;
   const noteToAdd = new Note({
     id: noteId,
     text,
-    isEditActive: false,
   });
   const newNotes = state
     .set(noteId, noteToAdd);
@@ -50,7 +49,7 @@ const updateEditingMode = (state: OrderedMap<string, Note>, payload: {noteId: Gu
 export const listOfNotes = (state = OrderedMap<string, Note>(), action: IAction): OrderedMap<string, Note> => {
   switch (action.type) {
     case ADD_NOTE:
-      return setNoteToState(state, action.payload);
+      return addNote(state, action.payload);
     case UPDATE_NOTE:
       return updateText(state, action.payload);
     case DELETE_NOTE:
