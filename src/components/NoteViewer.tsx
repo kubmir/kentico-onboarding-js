@@ -25,7 +25,7 @@ NoteViewer.propTypes = {
   note: PropTypes.shape({
     text: PropTypes.string.isRequired,
     isEditActive: PropTypes.bool.isRequired,
-  }),
+  }).isRequired,
   number: PropTypes.number.isRequired,
   onTextClick: PropTypes.func.isRequired,
 };
