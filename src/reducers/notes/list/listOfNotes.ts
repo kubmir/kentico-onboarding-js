@@ -10,7 +10,7 @@ import {
 import { IAction } from '../../../models/IAction';
 import { Guid } from '../../../@types/globals';
 
-const addNote = (state: OrderedMap<string, Note>, payload: { noteId: Guid, text: string }): OrderedMap<string, Note> => {
+const addNote = (state: OrderedMap<Guid, Note>, payload: { noteId: Guid, text: string }): OrderedMap<Guid, Note> => {
   const { noteId, text } = payload;
   const noteToAdd = new Note({
     id: noteId,
@@ -22,7 +22,7 @@ const addNote = (state: OrderedMap<string, Note>, payload: { noteId: Guid, text:
   return newNotes;
 };
 
-const updateText = (state: OrderedMap<string, Note>, payload: { noteId: Guid, text: string }): OrderedMap<string, Note> => {
+const updateText = (state: OrderedMap<Guid, Note>, payload: { noteId: Guid, text: string }): OrderedMap<Guid, Note> => {
   const { noteId, text } = payload;
 
   return state.update(noteId, note => note.with({
@@ -31,14 +31,14 @@ const updateText = (state: OrderedMap<string, Note>, payload: { noteId: Guid, te
   }));
 };
 
-const deleteNote = (state: OrderedMap<string, Note>, payload: {noteId: Guid}): OrderedMap<string, Note> => {
+const deleteNote = (state: OrderedMap<Guid, Note>, payload: {noteId: Guid}): OrderedMap<Guid, Note> => {
   const currentNotes = state
     .delete(payload.noteId);
 
   return currentNotes;
 };
 
-const updateEditingMode = (state: OrderedMap<string, Note>, payload: {noteId: Guid}, newEditingMode: boolean): OrderedMap<string, Note> => {
+const updateEditingMode = (state: OrderedMap<Guid, Note>, payload: {noteId: Guid}, newEditingMode: boolean): OrderedMap<Guid, Note> => {
   const { noteId } = payload;
 
   return state.update(noteId, note => note.with({
@@ -46,7 +46,7 @@ const updateEditingMode = (state: OrderedMap<string, Note>, payload: {noteId: Gu
   }));
 };
 
-export const listOfNotes = (state = OrderedMap<string, Note>(), action: IAction): OrderedMap<string, Note> => {
+export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): OrderedMap<Guid, Note> => {
   switch (action.type) {
     case ADD_NOTE:
       return addNote(state, action.payload);

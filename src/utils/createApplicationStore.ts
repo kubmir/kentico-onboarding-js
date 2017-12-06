@@ -12,6 +12,7 @@ import {
   Cancelable,
   throttle
 } from 'lodash';
+import { Guid } from '../@types/globals';
 
 const LOCAL_STORAGE_NOTES_KEY = 'notes';
 const THROTTLE_TIMEOUT = 1000;
@@ -28,7 +29,7 @@ const prepareInitialState = (getSavedNotes: (key: string) => Iterable<Note> | {}
   };
 };
 
-const saveData = (saveNotesData: (key: string, data: OrderedMap<string, Note>) => void, store: Store<IStoreState>): (() => void) & Cancelable =>
+const saveData = (saveNotesData: (key: string, data: OrderedMap<Guid, Note>) => void, store: Store<IStoreState>): (() => void) & Cancelable =>
   throttle(
     () => {
       const stateNotes = store
@@ -41,7 +42,7 @@ const saveData = (saveNotesData: (key: string, data: OrderedMap<string, Note>) =
     THROTTLE_TIMEOUT);
 
 export const createApplicationStore = (getSavedNotes: (key: string) => Iterable<Note> | {},
-  saveNotesData: (key: string, data: OrderedMap<string, Note>) => void): Store<IStoreState> => {
+  saveNotesData: (key: string, data: OrderedMap<Guid, Note>) => void): Store<IStoreState> => {
 
   const store = createStore<IStoreState>(
     application,

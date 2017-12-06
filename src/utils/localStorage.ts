@@ -4,9 +4,10 @@ import {
 } from './localStorageUtils';
 import { OrderedMap } from 'immutable';
 import { Note } from '../models/Note';
+import { Guid } from '../@types/globals';
 
 export const saveNotesDataFactory = (saveFunction: (key: string, data: string) => void) =>
-  (key: string, dataToStore: OrderedMap<string, Note>): void => {
+  (key: string, dataToStore: OrderedMap<Guid, Note>): void => {
 
     try {
       const serializedNotes = JSON.stringify(prepareNotesForStoring(dataToStore));

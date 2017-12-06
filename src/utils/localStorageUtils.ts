@@ -7,7 +7,7 @@ interface INoteToStore {
   readonly noteId: Guid;
 }
 
-export const prepareNotesForStoring = (notes: OrderedMap<string, Note>): Iterable<INoteToStore> => (
+export const prepareNotesForStoring = (notes: OrderedMap<Guid, Note>): Iterable<INoteToStore> => (
   notes
     .valueSeq()
     .map(({ text, id: noteId }: Note) => ({
@@ -16,7 +16,7 @@ export const prepareNotesForStoring = (notes: OrderedMap<string, Note>): Iterabl
     }))
 );
 
-export const prepareNotesForApplication = (databaseNotes: OrderedMap<string, INoteToStore>): Iterable<Note> => (
+export const prepareNotesForApplication = (databaseNotes: OrderedMap<Guid, INoteToStore>): Iterable<Note> => (
   databaseNotes
     .map(({text, noteId: id }: INoteToStore) => ([
       id,

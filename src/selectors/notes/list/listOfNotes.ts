@@ -5,8 +5,8 @@ import { Guid } from '../../../@types/globals';
 
 const getIds = memoize((...params: string[]) => params, { length: false });
 
-export const getNoteById = (notes: OrderedMap<string, Note>, noteId: Guid): Note =>
+export const getNoteById = (notes: OrderedMap<Guid, Note>, noteId: Guid): Note =>
   notes.get(noteId);
 
-export const getAllIds = (notes: OrderedMap<string, Note>): string[] =>
+export const getAllIds = (notes: OrderedMap<Guid, Note>): Guid[] =>
   getIds(...notes.keySeq().toArray());
