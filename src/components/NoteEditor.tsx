@@ -47,6 +47,14 @@ export class NoteEditor extends React.PureComponent<NoteEditorProps, INoteEditor
     };
   }
 
+  _onNoteEditing = (newText: string): void =>
+    this.setState({
+      currentNoteText: newText,
+    });
+
+  _onSaveClick = (): void =>
+    this.props.onSaveClick(this.state.currentNoteText);
+
   render(): JSX.Element {
     const isValid = isNoteValid(this.state.currentNoteText);
     const isError = !isValid && this.props.note.isEditActive;
@@ -98,12 +106,4 @@ export class NoteEditor extends React.PureComponent<NoteEditorProps, INoteEditor
       </div>
     );
   }
-
-  private _onNoteEditing = (newText: string): void =>
-    this.setState({
-      currentNoteText: newText,
-    });
-
-  private _onSaveClick = (): void =>
-    this.props.onSaveClick(this.state.currentNoteText);
 }
