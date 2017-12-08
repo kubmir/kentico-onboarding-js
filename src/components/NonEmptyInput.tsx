@@ -70,7 +70,7 @@ export class NonEmptyInput extends React.PureComponent<NonEmptyInputProps> {
   };
 
   _onSaveChanges = (): void => {
-    if (this.props.text) {
+    if (!this.props.isError) {
       this.textInput.blur();
       this.props.addInsertedText(this.props.text);
     }
