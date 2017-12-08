@@ -16,4 +16,12 @@ describe('Note validator tests', () => {
 
     expect(validationResult).toBeFalsy();
   });
+
+  it('returns false if string consisting of spaces is inserted', () => {
+    const invalidNote = ' ';
+
+    const validationResult = isNoteValid(invalidNote);
+
+    expect(validationResult).toBeFalsy();
+  });
 });
