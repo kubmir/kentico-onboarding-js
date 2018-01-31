@@ -12,6 +12,7 @@ import {
   Cancelable,
   throttle
 } from 'lodash';
+import thunk from 'redux-thunk';
 
 const LOCAL_STORAGE_NOTES_KEY = 'notes';
 const THROTTLE_TIMEOUT = 1000;
@@ -51,7 +52,7 @@ export const createApplicationStore = (getSavedNotes: (key: string) => Iterable<
   const store = createStore<IStoreState>(
     application,
     prepareInitialState(getSavedNotes),
-    applyMiddleware(logger)
+    applyMiddleware(logger, thunk)
   );
 
   store.subscribe(saveData(saveNotesData, store));
