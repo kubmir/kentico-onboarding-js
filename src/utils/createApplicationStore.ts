@@ -25,6 +25,11 @@ const prepareInitialState = (getSavedNotes: (key: string) => Iterable<Note> | {}
       isAddingNote: false,
       addNoteText: '',
     },
+    notesLoader: {
+      isLoadingFailed: false,
+      isLoadingNotes: false,
+      isLoadingSuccessful: false,
+    }
   };
 };
 
