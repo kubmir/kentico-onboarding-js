@@ -4,15 +4,16 @@ import {
   START_LOADING_NOTES
 } from '../constants/actionTypes';
 import { IAction } from '../models/IAction';
+import { INote } from '../models/Note';
 
 export const startLoadingNotes = (): IAction => ({
   type: START_LOADING_NOTES
 });
 
-export const storeLoadedNotes = (serializedNotes: string): IAction => ({
+export const storeLoadedNotes = (notes: Iterable<INote>): IAction => ({
   type: LOADING_NOTES_SUCCESS,
   payload: {
-    notes: JSON.parse(serializedNotes),
+    notes,
   },
 });
 
