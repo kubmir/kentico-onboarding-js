@@ -6,3 +6,6 @@ export const convertNote = ({ id, text }: IServerNote): INote => ({
   id,
   isEditActive: false,
 });
+
+export const convertNotes = (serverNotes: IServerNote[]): Iterable<INote> =>
+  serverNotes.map(serverNote => convertNote(serverNote));
