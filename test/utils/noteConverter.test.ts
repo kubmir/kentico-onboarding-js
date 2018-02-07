@@ -1,14 +1,15 @@
 import { convertNote } from '../../src/utils/noteConverter';
+import { Note } from '../../src/models/Note';
 
 describe('NoteCoverter tests', () => {
   it('Correctly convert server note to application note', () => {
     const text = 'Test text';
     const id = '1';
-    const expectedApplicationNote = {
+    const expectedApplicationNote = new Note({
       text,
       id,
       isEditActive: false,
-    };
+    });
     const serverNote = {
       text,
       id,
