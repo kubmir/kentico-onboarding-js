@@ -16,18 +16,15 @@ export const getNotesFactory = (dependencies: IGetNotesDependencies) => {
     dispatch(dependencies.onGettingStarted());
 
     return fetch(dependencies.apiAddress)
-      .then(
-        response => response.json(),
-        error => dependencies.onGettingError(error.toString())
-      )
+      .then(response => response.json())
       .then(
         serverNotes => {
-          const applicationNotes = dependencies.convertNotes(serverNotes);
+          const applicationNotes = dependencies.convertNotes(JSON.parse(serverNotes));
 
           dispatch(dependencies.onGettingSuccessful(applicationNotes));
-        },
-        error => dependencies.onGettingError(error.toString()),
-      );
+        }
+      )
+      .catch(error => dispatch(dependencies.onGettingError(error.toString())));
   };
 };
 
