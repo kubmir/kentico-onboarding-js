@@ -4,6 +4,7 @@ import {
   ADD_NOTE,
   CANCEL_EDITING_NOTE,
   DELETE_NOTE,
+  LOADING_NOTES_SUCCESS,
   START_EDITING_NOTE,
   UPDATE_NOTE,
 } from '../../../constants/actionTypes';
@@ -45,8 +46,13 @@ const updateEditingMode = (state: OrderedMap<Guid, Note>, payload: {noteId: Guid
   }));
 };
 
+const addLoadedNotes = (payload: {notes: Iterable<[Guid, Note]>}): OrderedMap<Guid, Note> =>
+  OrderedMap(payload.notes);
+
 export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): OrderedMap<Guid, Note> => {
   switch (action.type) {
+    case LOADING_NOTES_SUCCESS:
+      return addLoadedNotes(action.payload);
     case ADD_NOTE:
       return addNote(state, action.payload);
     case UPDATE_NOTE:

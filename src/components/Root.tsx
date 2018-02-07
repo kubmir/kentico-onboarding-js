@@ -1,14 +1,10 @@
 import *as React from 'react';
 import { Provider } from 'react-redux';
 import { App } from '../containers-redux/App';
-import {
-  getSavedNotes,
-  saveNotesData,
-} from '../utils/localStorage';
-import { createApplicationStore } from '../utils/createApplicationStore';
+import { createAppStoreServer } from '../utils/createAppStoreServer';
 
 const Root: React.StatelessComponent = (): JSX.Element => (
-  <Provider store={createApplicationStore(getSavedNotes, saveNotesData)}>
+  <Provider store={createAppStoreServer()}>
     <App />
   </Provider>
 );
