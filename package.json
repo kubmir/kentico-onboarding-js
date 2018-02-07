@@ -118,5 +118,5 @@
       "react-app"
     ]
   },
-  "proxy": "http://localhost::51058"
+  "proxy": "http://localhost:51058"
 }
