@@ -16,4 +16,5 @@ export interface INotesLoaderState {
   readonly isLoadingFailed: boolean;
   readonly isLoadingSuccessful: boolean;
   readonly isLoadingNotes: boolean;
+  readonly errorMessage: string;
 }

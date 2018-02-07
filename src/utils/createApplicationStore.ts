@@ -30,6 +30,7 @@ const prepareInitialState = (getSavedNotes: (key: string) => Iterable<Note> | {}
       isLoadingFailed: false,
       isLoadingNotes: false,
       isLoadingSuccessful: false,
+      errorMessage: '',
     }
   };
 };
