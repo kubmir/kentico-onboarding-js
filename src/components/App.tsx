@@ -3,16 +3,25 @@ import { HotKeys } from 'react-hotkeys';
 import { List } from '../containers-redux/List';
 import { IKeyMap } from '../models/IKeyMap';
 import '../sticky-footer.css';
+import { Loader } from './Loader';
 
 const keyMap: IKeyMap = {
   cancelEditing: 'esc',
   saveChanges: 'enter',
 };
 
-export class App extends React.PureComponent {
+export interface IAppDataProps {
+  readonly isLoadingNotes: boolean;
+}
+
+export class App extends React.PureComponent<IAppDataProps> {
   static displayName = 'App';
 
   render() {
+    const pageContent = this.props.isLoadingNotes
+      ? <Loader />
+      : <List />;
+
     return (
       <div>
         <div className="container">
@@ -44,7 +53,7 @@ export class App extends React.PureComponent {
               <HotKeys keyMap={keyMap}>
                 <div className="row">
                   <div className="col-sm-12 col-md-offset-1 col-md-10">
-                   <List />
+                    {pageContent}
                   </div>
                 </div>
               </HotKeys>
