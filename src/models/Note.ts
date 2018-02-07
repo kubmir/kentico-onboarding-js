@@ -1,6 +1,6 @@
 import { Record } from 'immutable';
 
-export interface INote {
+interface INote {
   readonly text: string;
   readonly id: Guid;
   readonly isEditActive: boolean;
