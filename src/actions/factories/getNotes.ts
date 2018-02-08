@@ -1,10 +1,11 @@
 import { Note } from '../../models/Note';
 import { IAction } from '../../models/IAction';
 import { IServerNote } from '../../models/IServerNote';
+import { HTTP_GET } from '../../constants/httpMethods';
 
 interface IGetNotesDependencies {
   apiAddress: string;
-  sendRequest: (apiAddress: string, httpMethod: string, data?: object) => Promise<Response>;
+  sendRequest: (apiAddress: string, httpMethod: HttpMethods, data?: object) => Promise<Response>;
   onGettingStarted: () => IAction;
   onGettingError: (errorDescription: string) => IAction;
   onGettingSuccessful: (notes: Iterable<[Guid, Note]>) => IAction;
@@ -16,7 +17,7 @@ export const getNotesFactory = (dependencies: IGetNotesDependencies) => {
 
     dispatch(dependencies.onGettingStarted());
 
-    return dependencies.sendRequest(dependencies.apiAddress, 'GET')
+    return dependencies.sendRequest(dependencies.apiAddress, HTTP_GET)
       .then(response => response.json())
       .then(serverNotes => {
           const applicationNotes = dependencies.convertNotes(serverNotes);
