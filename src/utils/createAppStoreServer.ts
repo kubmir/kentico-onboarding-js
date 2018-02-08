@@ -7,7 +7,7 @@ import {
 import thunk from 'redux-thunk';
 import { logger } from 'redux-logger';
 import { Store } from 'react-redux';
-import { getAllNotes } from '../actions/serverActionCreators/getActionCreators';
+import { getAllNotes } from '../actions/actionCreators';
 
 export const createAppStoreServer = (): Store<IStoreState> => {
 
@@ -16,9 +16,7 @@ export const createAppStoreServer = (): Store<IStoreState> => {
     applyMiddleware(logger, thunk)
   );
 
-  store
-    .dispatch(getAllNotes)
-    .then(() => console.log('Store state after server loading of notes' + store.getState().notes.listOfNotes));
+  store.dispatch(getAllNotes);
 
   return store;
 };
