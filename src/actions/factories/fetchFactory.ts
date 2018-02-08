@@ -2,7 +2,7 @@ import 'isomorphic-fetch';
 
 const checkResponseStatus = (response: Response): Response => {
   if (!response.ok) {
-    throw Error('Network error while communication with server. Error - ' + response.status + ' ' + response.statusText);
+    throw Error('Server error. Error  ' + response.status + ' ' + response.statusText);
   } else {
     return response;
   }
