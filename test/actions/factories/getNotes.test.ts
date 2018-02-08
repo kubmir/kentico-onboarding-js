@@ -14,7 +14,7 @@ const START_ACTION = { type: 'TEST_STARTED' };
 const ERROR_ACTION = { type: 'TEST_ERROR' };
 const SUCCESS_ACTION = { type: 'TEST_SUCCESSFUL' };
 
-const mockDependencies = (requestFunction: Mock<{}>): IGetNotesDependencies => {
+const mockDependencies = (requestFunction: Mock<any>): IGetNotesDependencies => {
   return {
     apiAddress: 'test',
     onGettingStarted: jest.fn().mockReturnValue(START_ACTION),
@@ -25,14 +25,14 @@ const mockDependencies = (requestFunction: Mock<{}>): IGetNotesDependencies => {
   };
 };
 
-const resolvedRequest = (responseBody: string): Mock<{}> =>
-  jest.fn().mockImplementation(() => Promise.resolve(mockResponse(200, 'response text', responseBody)));
+const resolvedRequest = (responseBody: string): Mock<Promise<any>> =>
+  jest.fn(() => Promise.resolve(mockResponse(200, true, responseBody)));
 
-const rejectedRequest = (): Mock<{}> =>
-  jest.fn().mockImplementation(() => Promise.reject(mockResponse(200, 'response text')));
+const rejectedRequest = (): Mock<any> =>
+  jest.fn().mockImplementation(() => Promise.reject(mockResponse(200, true)));
 
 describe('getNotesFactory tests', () => {
-  let dispatch: Mock<{}>;
+  let dispatch: Mock<any>;
 
   beforeEach(() => dispatch = jest.fn());
 

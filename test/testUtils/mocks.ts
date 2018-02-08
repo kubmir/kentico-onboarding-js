@@ -1,7 +1,13 @@
 import 'isomorphic-fetch';
+import { Promise } from 'es6-promise';
 
-export const mockResponse = (status: number, statusText: string, body?: string): Response =>
-  new Response(body, {status, statusText});
+interface IMockedResponse {
+  readonly status: number;
+  readonly ok: boolean;
+  readonly json: () => Promise<string | undefined>;
+}
+export const mockResponse = (status: number, ok: boolean, body?: string): Promise<IMockedResponse> =>
+  Promise.resolve({ status, ok, json: () => Promise.resolve(body) });
 
 export const mockServerNote = (text: string, id: Guid) => ({
   text,
