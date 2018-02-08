@@ -3,7 +3,7 @@ import { IAction } from '../../models/IAction';
 import { IServerNote } from '../../models/IServerNote';
 import { HTTP_GET } from '../../constants/httpMethods';
 
-interface IGetNotesDependencies {
+export interface IGetNotesDependencies {
   apiAddress: string;
   sendRequest: (apiAddress: string, httpMethod: HttpMethods, data?: object) => Promise<Response>;
   onGettingStarted: () => IAction;
@@ -12,7 +12,7 @@ interface IGetNotesDependencies {
   convertNotes: (serverNotes: IServerNote[]) => Iterable<[Guid, Note]>;
 }
 
-export const getNotesFactory = (dependencies: IGetNotesDependencies) => {
+export const getNotesFactory = (dependencies: IGetNotesDependencies): (dispatch: any) => Promise<any> => {
   return function (dispatch: any) {
 
     dispatch(dependencies.onGettingStarted());
