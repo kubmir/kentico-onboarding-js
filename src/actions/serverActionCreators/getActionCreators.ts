@@ -6,8 +6,12 @@ import {
   storeLoadedNotes
 } from '../notesLoaderActionCreators';
 import { convertNotes } from '../../utils/noteConverter';
+import { fetchFactory } from '../factories/fetchFactory';
+
+const sendRequest = fetchFactory(fetch);
 
 const configurationObject = {
+  sendRequest,
   onGettingStarted: startLoadingNotes,
   onGettingError: displayError,
   onGettingSuccessful: storeLoadedNotes,
@@ -23,4 +27,3 @@ export const getNoteWithId = (id: Guid) => getNotesFactory({
   apiAddress: API_PREFIX + '/' + id,
   ...configurationObject,
 });
-

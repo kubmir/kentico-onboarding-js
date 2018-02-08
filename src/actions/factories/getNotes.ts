@@ -4,6 +4,7 @@ import { IServerNote } from '../../models/IServerNote';
 
 interface IGetNotesDependencies {
   apiAddress: string;
+  sendRequest: (apiAddress: string, httpMethod: string, data?: object) => Promise<Response>;
   onGettingStarted: () => IAction;
   onGettingError: (errorDescription: string) => IAction;
   onGettingSuccessful: (notes: Iterable<[Guid, Note]>) => IAction;
@@ -15,11 +16,10 @@ export const getNotesFactory = (dependencies: IGetNotesDependencies) => {
 
     dispatch(dependencies.onGettingStarted());
 
-    return fetch(dependencies.apiAddress)
+    return dependencies.sendRequest(dependencies.apiAddress, 'GET')
       .then(response => response.json())
-      .then(
-        serverNotes => {
-          const applicationNotes = dependencies.convertNotes(JSON.parse(serverNotes));
+      .then(serverNotes => {
+          const applicationNotes = dependencies.convertNotes(serverNotes);
 
           dispatch(dependencies.onGettingSuccessful(applicationNotes));
         }
