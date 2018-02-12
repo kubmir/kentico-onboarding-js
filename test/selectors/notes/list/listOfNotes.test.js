@@ -10,16 +10,16 @@ import {
 describe('Selector listOfNotes tests', () => {
   it('getNoteById test', () => {
     const notes = prepareNotesInitialState();
-    const expectedNote = prepareListItem('First test note', 1, false);
+    const expectedNote = prepareListItem('First test note', '1', false);
 
-    const actualNote = getNoteById(notes, 1);
+    const actualNote = getNoteById(notes, '1');
 
     expect(actualNote).toEqual(expectedNote);
   });
 
   it('getAllIds test', () => {
     const notes = prepareNotesInitialState();
-    const expectedIds = [1, 2];
+    const expectedIds = ['1', '2'];
 
     const actualIds = getAllIds(notes);
 
