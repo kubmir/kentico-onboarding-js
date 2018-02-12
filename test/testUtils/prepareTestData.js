@@ -1,7 +1,7 @@
 import { OrderedMap } from 'immutable';
 import { Note } from '../../src/models/Note.ts';
 
-export const prepareListItem = (text, id, isEditActive) =>
+export const prepareNote = (text, id, isEditActive) =>
   new Note({
     text,
     id,
@@ -11,8 +11,8 @@ export const prepareListItem = (text, id, isEditActive) =>
 export const prepareNotesInitialState = () =>
   OrderedMap(
     [
-      ['1', prepareListItem('First test note', '1', false)],
-      ['2', prepareListItem('Second test note', '2', false)],
+      ['1', prepareNote('First test note', '1', false)],
+      ['2', prepareNote('Second test note', '2', false)],
     ],
   );
 

@@ -1,6 +1,6 @@
 import {
   prepareNotesInitialState,
-  prepareListItem,
+  prepareNote,
 } from '../../../testUtils/prepareTestData';
 import {
   getAllIds,
@@ -10,7 +10,7 @@ import {
 describe('Selector listOfNotes tests', () => {
   it('getNoteById test', () => {
     const notes = prepareNotesInitialState();
-    const expectedNote = prepareListItem('First test note', '1', false);
+    const expectedNote = prepareNote('First test note', '1', false);
 
     const actualNote = getNoteById(notes, '1');
 

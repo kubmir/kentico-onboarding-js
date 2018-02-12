@@ -1,7 +1,7 @@
 import { listOfNotes } from '../../../../src/reducers/notes/list/listOfNotes.ts';
 import {
   prepareNotesInitialState,
-  prepareListItem,
+  prepareNote,
 } from '../../../testUtils/prepareTestData';
 import {
   addNewNoteFactory,
@@ -35,9 +35,9 @@ describe('Reducer listOfNotes tests', () => {
     const addNoteAction = addNewNoteFactory(generateGuid)(noteToAddText);
     const expectedState = OrderedMap(
       [
-        ['1', prepareListItem('First test note', '1', false)],
-        ['2', prepareListItem('Second test note', '2', false)],
-        ['3', prepareListItem(noteToAddText, '3', false)],
+        ['1', prepareNote('First test note', '1', false)],
+        ['2', prepareNote('Second test note', '2', false)],
+        ['3', prepareNote(noteToAddText, '3', false)],
       ],
     );
 
@@ -52,8 +52,8 @@ describe('Reducer listOfNotes tests', () => {
     const updateAction = updateNote(textChanges, idOfUpdatedNote);
     const expectedState = OrderedMap(
       [
-        ['1', prepareListItem(textChanges, '1', false)],
-        ['2', prepareListItem('Second test note', '2', false)],
+        ['1', prepareNote(textChanges, '1', false)],
+        ['2', prepareNote('Second test note', '2', false)],
       ],
     );
 
@@ -78,7 +78,7 @@ describe('Reducer listOfNotes tests', () => {
     const deleteAction = deleteNote('1');
     const expectedState = OrderedMap(
       [
-        ['2', prepareListItem('Second test note', '2', false)],
+        ['2', prepareNote('Second test note', '2', false)],
       ],
     );
 
@@ -92,8 +92,8 @@ describe('Reducer listOfNotes tests', () => {
     const startEditAction = startEditingNote(idOfNote);
     const expectedState = OrderedMap(
       [
-        ['1', prepareListItem('First test note', '1', true)],
-        ['2', prepareListItem('Second test note', '2', false)],
+        ['1', prepareNote('First test note', '1', true)],
+        ['2', prepareNote('Second test note', '2', false)],
       ],
     );
 
@@ -107,14 +107,14 @@ describe('Reducer listOfNotes tests', () => {
     const startEditAction = cancelEditingNote(idOfNote);
     const expectedState = OrderedMap(
       [
-        ['1', prepareListItem('First test note', '1', false)],
-        ['2', prepareListItem('Second test note', '2', true)],
+        ['1', prepareNote('First test note', '1', false)],
+        ['2', prepareNote('Second test note', '2', true)],
       ],
     );
     initialState = OrderedMap(
       [
-        ['1', prepareListItem('First test note', '1', true)],
-        ['2', prepareListItem('Second test note', '2', true)],
+        ['1', prepareNote('First test note', '1', true)],
+        ['2', prepareNote('Second test note', '2', true)],
       ],
     );
 
