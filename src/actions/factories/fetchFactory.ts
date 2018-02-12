@@ -14,6 +14,7 @@ export const fetchFactory = (injectedFetch: (apiAddress: string, initializationO
   const requestInitialization = {
     method: httpMethod,
     body: JSON.stringify(data),
+    headers: {'content-type': 'application/json'},
   };
 
   return injectedFetch(apiAddress, requestInitialization)
