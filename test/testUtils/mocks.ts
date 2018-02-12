@@ -1,5 +1,6 @@
 import 'isomorphic-fetch';
 import { Promise } from 'es6-promise';
+import Mock = jest.Mock;
 
 interface IMockedResponse {
   readonly status: number;
@@ -15,3 +16,13 @@ export const mockServerNote = (text: string, id: Guid) => ({
   lastModificationDate: new Date(2017, 12, 5),
   creationDate: new Date(2017, 12, 4),
 });
+
+export const mockResolvedRequest = (responseBody: string): Mock<Promise<any>> =>
+  jest.fn(() => Promise.resolve(mockResponse(200, true, responseBody)));
+
+export const mockRejectedRequest = (): Mock<any> =>
+  jest.fn().mockImplementation(() => Promise.reject(mockResponse(200, true)));
+
+export const START_ACTION = { type: 'TEST_STARTED' };
+export const ERROR_ACTION = { type: 'TEST_ERROR' };
+export const SUCCESS_ACTION = { type: 'TEST_SUCCESSFUL' };

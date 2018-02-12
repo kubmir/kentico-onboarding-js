@@ -14,7 +14,6 @@ const mockRejectedFetch = (status: number) => {
   return fetchFactory(mockedInjectedFetch);
 };
 
-
 describe('FetchFactory tests', () => {
   it('throws error when promise is resolved but response ok is false - error 500', () => {
     const HTTP_ERROR_STATUS = 500;

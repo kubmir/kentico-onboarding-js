@@ -4,15 +4,14 @@ import {
   IGetNotesDependencies
 } from '../../../src/actions/factories/getNotes';
 import {
-  mockResponse,
-  mockServerNote
+  mockServerNote,
+  mockRejectedRequest,
+  mockResolvedRequest,
+  START_ACTION,
+  ERROR_ACTION,
+  SUCCESS_ACTION
 } from '../../testUtils/mocks';
-import { Promise } from 'es6-promise';
 import Mock = jest.Mock;
-
-const START_ACTION = { type: 'TEST_STARTED' };
-const ERROR_ACTION = { type: 'TEST_ERROR' };
-const SUCCESS_ACTION = { type: 'TEST_SUCCESSFUL' };
 
 const mockDependencies = (requestFunction: Mock<any>): IGetNotesDependencies => {
   return {
@@ -25,12 +24,6 @@ const mockDependencies = (requestFunction: Mock<any>): IGetNotesDependencies => 
   };
 };
 
-const resolvedRequest = (responseBody: string): Mock<Promise<any>> =>
-  jest.fn(() => Promise.resolve(mockResponse(200, true, responseBody)));
-
-const rejectedRequest = (): Mock<any> =>
-  jest.fn().mockImplementation(() => Promise.reject(mockResponse(200, true)));
-
 describe('getNotesFactory tests', () => {
   let dispatch: Mock<any>;
 
@@ -38,7 +31,7 @@ describe('getNotesFactory tests', () => {
 
   it('notes are correctly loaded from server', () => {
     const responseBody = JSON.stringify([mockServerNote('first', '1'), mockServerNote('second', '2')]);
-    const getNotesDependencies = mockDependencies(resolvedRequest(responseBody));
+    const getNotesDependencies = mockDependencies(mockResolvedRequest(responseBody));
 
     return getNotesFactory(getNotesDependencies)(dispatch)
       .then(() => {
@@ -49,7 +42,7 @@ describe('getNotesFactory tests', () => {
   });
 
   it('request to server is rejected', () => {
-    const getNotesDependencies = mockDependencies(rejectedRequest());
+    const getNotesDependencies = mockDependencies(mockRejectedRequest());
 
     return getNotesFactory(getNotesDependencies)(dispatch)
       .catch(reject => {
