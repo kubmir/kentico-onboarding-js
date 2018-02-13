@@ -1,6 +1,8 @@
 import 'isomorphic-fetch';
 import { Promise } from 'es6-promise';
 import Mock = jest.Mock;
+import { OrderedMap } from 'immutable';
+import { IStoreState } from '../../src/models/IStoreState';
 
 interface IMockedResponse {
   readonly status: number;
@@ -26,3 +28,19 @@ export const mockRejectedRequest = (): Mock<any> =>
 export const START_ACTION = { type: 'TEST_STARTED' };
 export const ERROR_ACTION = { type: 'TEST_ERROR' };
 export const SUCCESS_ACTION = { type: 'TEST_SUCCESSFUL' };
+
+export const mockStoreState = (): IStoreState =>
+  ({
+    notes: {
+      listOfNotes: OrderedMap(),
+      isAddingNote: false,
+      addNoteText: '',
+    },
+    notesLoader: {
+      isLoadingFailed: false,
+      isLoadingNotes: false,
+      isLoadingSuccessful: false,
+      errorMessage: '',
+    }
+  });
+

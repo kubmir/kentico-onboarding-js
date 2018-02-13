@@ -8,6 +8,7 @@ import {
   mockRejectedRequest,
   mockResolvedRequest,
   mockServerNote,
+  mockStoreState,
   START_ACTION,
   SUCCESS_ACTION
 } from '../../testUtils/mocks';
@@ -36,7 +37,7 @@ describe('postNoteFactory tests', () => {
     const responseBody = JSON.stringify(mockServerNote(NOTE_TO_ADD_TEXT, '1'));
     const postNoteDependencies = mockDependencies(mockResolvedRequest(responseBody));
 
-    return postNoteFactory(postNoteDependencies)(dispatch)
+    return postNoteFactory(postNoteDependencies)(dispatch, () => mockStoreState(), null)
       .then(() => {
         expect(dispatch.mock.calls.length).toEqual(2);
         expect(dispatch.mock.calls[0][0]).toEqual(START_ACTION);
@@ -47,7 +48,7 @@ describe('postNoteFactory tests', () => {
   it('request to server is rejected', () => {
     const postNoteDependencies = mockDependencies(mockRejectedRequest());
 
-    return postNoteFactory(postNoteDependencies)(dispatch)
+    return postNoteFactory(postNoteDependencies)(dispatch, () => mockStoreState(), null)
       .catch(() => {
         expect(dispatch.mock.calls.length).toEqual(2);
         expect(dispatch.mock.calls[0][0]).toEqual(START_ACTION);

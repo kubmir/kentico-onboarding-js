@@ -8,7 +8,6 @@ import {
   IAddNoteCallbacksProps,
   IAddNoteDataProps
 } from '../components/AddNote';
-import { IAction } from '../models/IAction';
 import { IStoreState } from '../models/IStoreState';
 
 const mapStateToProps = ({ notes }: IStoreState): IAddNoteDataProps => ({
@@ -16,7 +15,7 @@ const mapStateToProps = ({ notes }: IStoreState): IAddNoteDataProps => ({
   text: notes.addNoteText,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>): IAddNoteCallbacksProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IStoreState>): IAddNoteCallbacksProps => ({
   onAddClick: (insertedText: string) =>
     dispatch(addNewNote(insertedText)),
 });

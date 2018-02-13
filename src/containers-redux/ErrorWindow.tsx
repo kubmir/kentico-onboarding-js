@@ -8,14 +8,13 @@ import {
   IErrorWindowCallbacksProps
 } from '../components/ErrorWindow';
 import { IErrorWindowDataProps } from '../components/ErrorWindow';
-import { IAction } from '../models/IAction';
 import { getAllNotes } from '../actions/serverActionCreators/getActionCreators';
 
 const mapStateToProps = ({ notesLoader }: IStoreState): IErrorWindowDataProps => ({
   errorMessage: notesLoader.errorMessage,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>): IErrorWindowCallbacksProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IStoreState>): IErrorWindowCallbacksProps => ({
   onReloadClick: () =>
     dispatch(getAllNotes),
 });

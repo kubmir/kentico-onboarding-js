@@ -2,6 +2,9 @@ import { Note } from '../../models/Note';
 import { IAction } from '../../models/IAction';
 import { IServerNote } from '../../models/IServerNote';
 import { HTTP_GET } from '../../constants/httpMethods';
+import { Dispatch } from 'redux';
+import { IStoreState } from '../../models/IStoreState';
+import { Promise } from 'es6-promise';
 
 export interface IGetNotesDependencies {
   apiAddress: string;
@@ -12,8 +15,8 @@ export interface IGetNotesDependencies {
   convertNotes: (serverNotes: IServerNote[]) => Iterable<[Guid, Note]>;
 }
 
-export const getNotesFactory = (dependencies: IGetNotesDependencies): (dispatch: any) => Promise<any> => {
-  return function (dispatch: any) {
+export const getNotesFactory: AsyncActionCreator = (dependencies: IGetNotesDependencies) => {
+  return function (dispatch: Dispatch<IStoreState>) {
 
     dispatch(dependencies.onGettingStarted());
 
@@ -22,7 +25,7 @@ export const getNotesFactory = (dependencies: IGetNotesDependencies): (dispatch:
       .then(serverNotes => {
           const applicationNotes = dependencies.convertNotes(serverNotes);
 
-          dispatch(dependencies.onGettingSuccessful(applicationNotes));
+          return dispatch(dependencies.onGettingSuccessful(applicationNotes));
         }
       )
       .catch(error => dispatch(dependencies.onGettingError(error.toString())));

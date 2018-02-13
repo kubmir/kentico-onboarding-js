@@ -9,7 +9,8 @@ import {
   mockResolvedRequest,
   START_ACTION,
   ERROR_ACTION,
-  SUCCESS_ACTION
+  SUCCESS_ACTION,
+  mockStoreState
 } from '../../testUtils/mocks';
 import Mock = jest.Mock;
 
@@ -33,7 +34,7 @@ describe('getNotesFactory tests', () => {
     const responseBody = JSON.stringify([mockServerNote('first', '1'), mockServerNote('second', '2')]);
     const getNotesDependencies = mockDependencies(mockResolvedRequest(responseBody));
 
-    return getNotesFactory(getNotesDependencies)(dispatch)
+    return getNotesFactory(getNotesDependencies)(dispatch, () => mockStoreState(), null)
       .then(() => {
         expect(dispatch.mock.calls.length).toEqual(2);
         expect(dispatch.mock.calls[0][0]).toEqual(START_ACTION);
@@ -44,7 +45,7 @@ describe('getNotesFactory tests', () => {
   it('request to server is rejected', () => {
     const getNotesDependencies = mockDependencies(mockRejectedRequest());
 
-    return getNotesFactory(getNotesDependencies)(dispatch)
+    return getNotesFactory(getNotesDependencies)(dispatch, () => mockStoreState(), null)
       .catch(reject => {
         expect(reject).toBeTruthy();
         expect(dispatch.mock.calls.length).toEqual(2);

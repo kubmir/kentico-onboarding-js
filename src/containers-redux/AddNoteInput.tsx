@@ -13,7 +13,6 @@ import {
   stopAddingNote,
   changeAddingNoteText,
 } from '../actions/actionCreators';
-import { IAction } from '../models/IAction';
 import { IStoreState } from '../models/IStoreState';
 
 interface IOwnProps {
@@ -27,7 +26,7 @@ const mapStateToProps = ({ notes }: IStoreState, ownProps: IOwnProps): INonEmpty
   ...ownProps
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>): INonEmptyInputCallbacksProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IStoreState>): INonEmptyInputCallbacksProps => ({
   onInputFocus: () =>
     dispatch(startAddingNote()),
   onInputBlur: () =>

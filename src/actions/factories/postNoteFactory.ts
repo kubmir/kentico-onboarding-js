@@ -3,6 +3,9 @@ import { Note } from '../../models/Note';
 import { HTTP_POST } from '../../constants/httpMethods';
 import { IServerNote } from '../../models/IServerNote';
 import { convertNote } from '../../utils/noteConverter';
+import { Dispatch } from 'redux';
+import { IStoreState } from '../../models/IStoreState';
+import { Promise } from 'es6-promise';
 
 interface IPostNote {
   text: string;
@@ -18,8 +21,8 @@ export interface IPostNoteDependencies {
   convertNote: (serverNotes: IServerNote) => Note;
 }
 
-export const postNoteFactory = (dependencies: IPostNoteDependencies) => {
-  return function (dispatch: any) {
+export const postNoteFactory: AsyncActionCreator = (dependencies: IPostNoteDependencies) => {
+  return function (dispatch: Dispatch<IStoreState>) {
     dispatch(dependencies.onAddingStarted());
 
     return dependencies.sendRequest(dependencies.apiAddress, HTTP_POST, dependencies.data)
@@ -27,7 +30,7 @@ export const postNoteFactory = (dependencies: IPostNoteDependencies) => {
       .then(addedNote => {
         const applicationNote = convertNote(addedNote);
 
-        dispatch(dependencies.onAddingSuccessful(applicationNote));
+        return dispatch(dependencies.onAddingSuccessful(applicationNote));
       })
       .catch(error => dispatch(dependencies.onAddingError(error.toString())));
   };

@@ -1,3 +1,11 @@
-declare type Guid = string;
+import { IAction } from '../models/IAction';
+import { Promise } from 'es6-promise';
+import { ActionCreator } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+import { IStoreState } from '../models/IStoreState';
 
-declare type HttpMethods = 'GET' | 'POST' | 'DELETE' | 'PUT';
+declare global {
+  type Guid = string;
+  type HttpMethods = 'GET' | 'POST' | 'DELETE' | 'PUT';
+  type AsyncActionCreator = ActionCreator<ThunkAction<Promise<IAction>, IStoreState, null>>;
+}
