@@ -3,7 +3,6 @@ import {
   Dispatch
 } from 'react-redux';
 import {
-  deleteNote,
   updateNote,
   cancelEditingNote,
 } from '../actions/actionCreators';
@@ -14,7 +13,7 @@ import {
 } from '../components/NoteEditor';
 import { getNoteById } from '../selectors/notes/list/listOfNotes';
 import { IStoreState } from '../models/IStoreState';
-import { IAction } from '../models/IAction';
+import { deleteServerNote } from '../actions/serverActionCreators/deleteNoteActionCreators';
 
 interface INoteEditorOwnProps {
   readonly noteId: Guid;
@@ -26,9 +25,9 @@ const mapStateToProps = ({ notes }: IStoreState, ownProps: INoteEditorOwnProps):
   note: getNoteById(notes.listOfNotes, ownProps.noteId),
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: INoteEditorOwnProps): INoteEditorCallbacksProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IStoreState>, ownProps: INoteEditorOwnProps): INoteEditorCallbacksProps => ({
   onDeleteClick: () =>
-    dispatch(deleteNote(ownProps.noteId)),
+    dispatch(deleteServerNote(ownProps.noteId)),
   onCancelEditor: () =>
     dispatch(cancelEditingNote(ownProps.noteId)),
   onSaveClick: (currentNoteText: string) =>

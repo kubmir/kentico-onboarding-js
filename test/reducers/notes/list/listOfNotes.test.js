@@ -4,10 +4,11 @@ import {
   prepareNote,
 } from '../../../testUtils/prepareTestData';
 import {
-  addNewNoteFactory,
-  deleteNote,
+  sendingNoteToServerSuccess,
+  deletingNoteFromServerSuccess,
   startEditingNote,
   updateNote,
+  storeLoadedNotes,
   cancelEditingNote,
 } from '../../../../src/actions/actionCreators.ts';
 import { OrderedMap } from 'immutable';
@@ -29,15 +30,28 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(initialState);
   });
 
-  it('action ADD_NOTE should add new note to state notes', () => {
-    const generateGuid = () => '3';
+  it('action LOADING_NOTE_SUCCESS should add all loaded notes to stete notes', () => {
+    const loadedNotes = OrderedMap([
+      ['1', prepareNote('First test note', '1', false)],
+      ['2', prepareNote('Second test note', '2', false)],
+    ]);
+    const loadingSuccessAction = storeLoadedNotes(loadedNotes);
+    const expectedState = loadedNotes;
+
+    const actualState = listOfNotes(initialState, loadingSuccessAction);
+
+    expect(actualState).toEqual(expectedState);
+  });
+
+  it('action SENDING_NOTE_TO_SERVER_SUCCESS should add new note to state notes', () => {
     const noteToAddText = 'Third test note - added';
-    const addNoteAction = addNewNoteFactory(generateGuid)(noteToAddText);
+    const newNote = prepareNote(noteToAddText, '3', false);
+    const addNoteAction = sendingNoteToServerSuccess(newNote);
     const expectedState = OrderedMap(
       [
         ['1', prepareNote('First test note', '1', false)],
         ['2', prepareNote('Second test note', '2', false)],
-        ['3', prepareNote(noteToAddText, '3', false)],
+        ['3', newNote],
       ],
     );
 
@@ -74,8 +88,8 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action DELETE_NOTE should delete note from state notes', () => {
-    const deleteAction = deleteNote('1');
+  it('action DELETING_NOTE_FROM_SERVER_SUCCESS should delete note from state notes', () => {
+    const deleteAction = deletingNoteFromServerSuccess('1');
     const expectedState = OrderedMap(
       [
         ['2', prepareNote('Second test note', '2', false)],

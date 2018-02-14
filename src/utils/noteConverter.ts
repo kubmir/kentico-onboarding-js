@@ -4,8 +4,7 @@ import { Note } from '../models/Note';
 export const convertNote = ({ id, text }: IServerNote): Note => (
   new Note({
     text,
-    id,
-    isEditActive: false,
+    id
   })
 );
 
