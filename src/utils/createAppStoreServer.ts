@@ -16,7 +16,7 @@ export const createAppStoreServer = (): Store<IStoreState> => {
 
   const store = createStore<IStoreState>(
     application,
-    composeEnhancers(applyMiddleware(logger, thunk)),
+    composeEnhancers(applyMiddleware(thunk, logger)),
   );
 
   store.dispatch(getAllNotes);
