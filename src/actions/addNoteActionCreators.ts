@@ -24,13 +24,19 @@ export const changeAddingNoteText = (newText: string): IAction => ({
   }
 });
 
-export const startSendingNoteToServer = (): IAction => ({
+export const startSendingNoteToServer  = (noteId: Guid, text: string): IAction => ({
   type: START_SENDING_NOTE_TO_SERVER,
+  payload: {
+    noteId,
+    text,
+    isCommunicating: true,
+  }
 });
 
-export const sendingNoteToServerFailed = (errorDescription: string): IAction => ({
+export const sendingNoteToServerFailed = (noteId: Guid, errorDescription: string): IAction => ({
   type: SENDING_NOTE_TO_SERVER_FAILURE,
   payload: {
+    noteId,
     errorDescription,
   }
 });
@@ -38,7 +44,8 @@ export const sendingNoteToServerFailed = (errorDescription: string): IAction => 
 export const sendingNoteToServerSuccess = (addedNote: Note): IAction => ({
   type: SENDING_NOTE_TO_SERVER_SUCCESS,
   payload: {
-    noteId: addedNote.id,
     text: addedNote.text,
+    noteId: addedNote.id,
+    isCommunicating: false,
   }
 });
