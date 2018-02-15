@@ -1,4 +1,4 @@
-.glyphicon-refresh-animate {
+.refresh-animate {
   -animation: spin .7s infinite linear;
   -ms-animation: spin .7s infinite linear;
   -webkit-animation: spinw .7s infinite linear;
@@ -6,7 +6,7 @@
 }
 
 .inactive-line {
-    color: darkgray;
+  color: darkgray;
 }
 
 @keyframes spin {

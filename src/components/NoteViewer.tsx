@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import '../styles/noteViewer.css';
+import { InactiveNote } from './InactiveNote';
 
 export interface INoteViewerDataProps {
   readonly note: {
@@ -19,11 +19,8 @@ export interface INoteViewerCallbacksProps {
 type NoteViewerProps = INoteViewerDataProps & INoteViewerCallbacksProps;
 
 const NoteViewer: React.StatelessComponent<NoteViewerProps> = (props: NoteViewerProps): JSX.Element => (
-  props.note.isCommunicating
-    ? <p className="inactive-line">
-        {props.number + '. ' + props.note.text}
-        <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate pull-right"></span>
-      </p>
+  props.note.isCommunicating || props.note.communicationError !== ''
+    ? <InactiveNote note={props.note} number={props.number} />
     : <p onClick={props.onTextClick}>{props.number + '. ' + props.note.text}</p>
 );
 
