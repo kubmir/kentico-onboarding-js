@@ -28,6 +28,7 @@ export const mockRejectedRequest = (): Mock<any> =>
 export const START_ACTION = { type: 'TEST_STARTED' };
 export const ERROR_ACTION = { type: 'TEST_ERROR' };
 export const SUCCESS_ACTION = { type: 'TEST_SUCCESSFUL' };
+export const DELETE_ACTION = { type: 'TEST_DELETE' };
 
 export const mockStoreState = (): IStoreState =>
   ({

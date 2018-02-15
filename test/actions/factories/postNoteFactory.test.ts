@@ -4,6 +4,7 @@ import {
   postNoteFactory
 } from '../../../src/actions/factories/postNoteFactory';
 import {
+  DELETE_ACTION,
   ERROR_ACTION,
   mockRejectedRequest,
   mockResolvedRequest,
@@ -25,6 +26,8 @@ const mockDependencies = (requestFunction: Mock<any>): IPostNoteDependencies => 
     convertNote: jest.fn().mockReturnValue(new Note()),
     sendRequest: requestFunction,
     data: {text: NOTE_TO_ADD_TEXT},
+    generateLocalId: jest.fn(),
+    deleteNote: jest.fn().mockReturnValue(DELETE_ACTION),
   };
 };
 
@@ -39,9 +42,10 @@ describe('postNoteFactory tests', () => {
 
     return postNoteFactory(postNoteDependencies)(dispatch, () => mockStoreState(), null)
       .then(() => {
-        expect(dispatch.mock.calls.length).toEqual(2);
+        expect(dispatch.mock.calls.length).toEqual(3);
         expect(dispatch.mock.calls[0][0]).toEqual(START_ACTION);
-        expect(dispatch.mock.calls[1][0]).toEqual(SUCCESS_ACTION);
+        expect(dispatch.mock.calls[1][0]).toEqual(DELETE_ACTION);
+        expect(dispatch.mock.calls[2][0]).toEqual(SUCCESS_ACTION);
       });
   });
 
