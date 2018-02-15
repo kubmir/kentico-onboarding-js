@@ -5,20 +5,21 @@ import {
   deletingNoteFromServerSuccess,
   startDeletingNoteFromServer
 } from '../deleteNoteActionCreators';
-import { deleteNoteFactory } from '../factories/deleteNoteFactory';
+import {
+  deleteNoteFactory,
+  IDeleteNoteDependencies
+} from '../factories/deleteNoteFactory';
 
 const sendRequest = fetchFactory(fetch);
 
-const configurationObject = {
+const prepareDependencies = (noteId: Guid): IDeleteNoteDependencies => ({
+  apiAddress: API_PREFIX + '/' + noteId,
+  noteId,
   sendRequest,
   onDeletingStarted: startDeletingNoteFromServer,
   onDeletingError: deletingNoteFromServerFailed,
   onDeletingSuccessful: deletingNoteFromServerSuccess,
-};
+});
 
 export const deleteServerNote = (noteId: Guid) =>
-  deleteNoteFactory({
-    apiAddress: API_PREFIX + '/' + noteId,
-    noteId,
-    ...configurationObject,
-  });
+  deleteNoteFactory(prepareDependencies(noteId));

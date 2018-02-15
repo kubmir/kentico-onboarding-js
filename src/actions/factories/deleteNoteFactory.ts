@@ -2,7 +2,6 @@ import { IStoreState } from '../../models/IStoreState';
 import { HTTP_DELETE } from '../../constants/httpMethods';
 import { IAction } from '../../models/IAction';
 import { Dispatch } from 'redux';
-import { Promise } from 'es6-promise';
 
 export interface IDeleteNoteDependencies {
   apiAddress: string;

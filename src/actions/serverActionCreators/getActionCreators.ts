@@ -1,4 +1,7 @@
-import { getNotesFactory } from '../factories/getNotes';
+import {
+  getNotesFactory,
+  IGetNotesDependencies
+} from '../factories/getNotesFactory';
 import { API_PREFIX } from '../../constants/apiPrefix';
 import {
   displayError,
@@ -10,7 +13,8 @@ import { fetchFactory } from '../factories/fetchFactory';
 
 const sendRequest = fetchFactory(fetch);
 
-const configurationObject = {
+const configurationObject: IGetNotesDependencies = {
+  apiAddress: API_PREFIX,
   sendRequest,
   onGettingStarted: startLoadingNotes,
   onGettingError: displayError,
@@ -18,12 +22,4 @@ const configurationObject = {
   convertNotes: convertNotes,
 };
 
-export const getAllNotes = getNotesFactory({
-  apiAddress: API_PREFIX,
-  ...configurationObject,
-});
-
-export const getNoteWithId = (id: Guid) => getNotesFactory({
-  apiAddress: API_PREFIX + '/' + id,
-  ...configurationObject,
-});
+export const getAllNotes = getNotesFactory(configurationObject);

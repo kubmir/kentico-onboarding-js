@@ -4,7 +4,6 @@ import { IServerNote } from '../../models/IServerNote';
 import { HTTP_GET } from '../../constants/httpMethods';
 import { Dispatch } from 'redux';
 import { IStoreState } from '../../models/IStoreState';
-import { Promise } from 'es6-promise';
 
 export interface IGetNotesDependencies {
   apiAddress: string;

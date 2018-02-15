@@ -1,5 +1,3 @@
-import 'isomorphic-fetch';
-
 const checkResponseStatus = (response: Response): Response => {
   if (!response.ok) {
     throw Error('Server error. Error  ' + response.status + ' ' + response.statusText);

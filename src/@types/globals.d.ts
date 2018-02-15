@@ -1,5 +1,4 @@
 import { IAction } from '../models/IAction';
-import { Promise } from 'es6-promise';
 import { ActionCreator } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { IStoreState } from '../models/IStoreState';

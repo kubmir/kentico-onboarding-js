@@ -2,7 +2,7 @@ import { Note } from '../../../src/models/Note';
 import {
   getNotesFactory,
   IGetNotesDependencies
-} from '../../../src/actions/factories/getNotes';
+} from '../../../src/actions/factories/getNotesFactory';
 import {
   mockServerNote,
   mockRejectedRequest,
