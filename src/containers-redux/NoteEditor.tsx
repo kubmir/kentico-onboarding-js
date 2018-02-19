@@ -3,8 +3,9 @@ import {
   Dispatch
 } from 'react-redux';
 import {
-  updateNote,
+  updateServerNote,
   cancelEditingNote,
+  deleteServerNote,
 } from '../actions/actionCreators';
 import {
   NoteEditor as NoteEditorComponent,
@@ -13,7 +14,6 @@ import {
 } from '../components/NoteEditor';
 import { getNoteById } from '../selectors/notes/list/listOfNotes';
 import { IStoreState } from '../models/IStoreState';
-import { deleteServerNote } from '../actions/serverActionCreators/deleteNoteActionCreators';
 
 interface INoteEditorOwnProps {
   readonly noteId: Guid;
@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IStoreState>, ownProps: INoteEdit
   onCancelEditor: () =>
     dispatch(cancelEditingNote(ownProps.noteId)),
   onSaveClick: (currentNoteText: string) =>
-    dispatch(updateNote(currentNoteText, ownProps.noteId)),
+    dispatch(updateServerNote(currentNoteText, ownProps.noteId)),
 });
 
 export const NoteEditor = connect(
