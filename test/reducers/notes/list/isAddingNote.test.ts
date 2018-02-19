@@ -1,8 +1,8 @@
-import { isAddingNote } from '../../../../src/reducers/notes/list/isAddingNote.ts';
+import { isAddingNote } from '../../../../src/reducers/notes/list/isAddingNote';
 import {
   startAddingNote,
   stopAddingNote,
-} from '../../../../src/actions/actionCreators.ts';
+} from '../../../../src/actions/actionCreators';
 
 describe('Reducer isAddingNote tests', () => {
   it('should return previous state if unknown action is dispatched', () => {

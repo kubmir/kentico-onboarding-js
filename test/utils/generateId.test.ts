@@ -1,4 +1,4 @@
-import { generateId } from '../../src/utils/generateId.ts';
+import { generateId } from '../../src/utils/generateId';
 
 describe('ID generator', () => {
   it('returns id matching conditions for uuid4', () => {
