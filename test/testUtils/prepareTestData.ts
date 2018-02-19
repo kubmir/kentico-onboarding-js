@@ -29,35 +29,3 @@ export const prepareNotesInitialState = (): OrderedMap<Guid, Note> =>
       ['2', prepareNote('Second test note', '2', false)],
     ],
   );
-
-export const mockNotesForStoring = () =>
-  JSON.stringify([
-    {
-      text: 'First test note',
-      noteId: '1',
-    },
-    {
-      text: 'Second test note',
-      noteId: '2',
-    },
-  ]);
-
-export const mockNotesForApplication = () =>
-  [
-    [
-      '1',
-      new Note({
-        text: 'First test note',
-        id: '1',
-        isEditActive: false,
-      }),
-    ],
-    [
-      '2',
-      new Note({
-        text: 'Second test note',
-        id: '2',
-        isEditActive: false,
-      }),
-    ],
-  ];
