@@ -5,7 +5,7 @@ import {
 import {
   getAllIds,
   getNoteById,
-} from '../../../../src/selectors/notes/list/listOfNotes.ts';
+} from '../../../../src/selectors/notes/list/listOfNotes';
 
 describe('Selector listOfNotes tests', () => {
   it('getNoteById test', () => {
