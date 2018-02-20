@@ -15,11 +15,12 @@ export const prepareLocalNote = (text: string, id: Guid): Note =>
     isCommunicating: true,
   });
 
-export const prepareNoteWithCommunicationError = (text: string, id: Guid, communicationError: string): Note =>
+export const prepareNoteWithCommunicationError = (text: string, id: Guid, communicationError: string, failedAction: Actions): Note =>
   new Note({
     text,
     id,
     communicationError,
+    failedAction,
   });
 
 export const prepareNotesInitialState = (): OrderedMap<Guid, Note> =>

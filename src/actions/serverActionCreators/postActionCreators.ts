@@ -29,6 +29,6 @@ const prepareDependencies = (newNoteText: string): IPostNoteDependencies => (
   }
 );
 
-export const addNewNote = (newNoteText: string) =>
-  postNoteFactory(prepareDependencies(newNoteText));
+export const addNewNote = (newNoteText: string, noteId?: Guid) =>
+  postNoteFactory(prepareDependencies(newNoteText), noteId);
 

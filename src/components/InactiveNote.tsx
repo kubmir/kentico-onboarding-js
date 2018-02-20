@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { InactiveNoteViewer } from './InactiveNoteViewer';
-import { InactiveNoteError } from './InactiveNoteError';
+import { InactiveNoteError } from '../containers-redux/InactiveNoteError';
 
 export interface IInactiveNoteDataProps {
   readonly note: {
