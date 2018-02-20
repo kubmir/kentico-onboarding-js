@@ -12,7 +12,7 @@ interface IPutNote {
 export interface IPutNoteDependencies {
   apiAddress: string;
   sendRequest: (apiAddress: string, httpMethod: HttpMethods, data?: object) => Promise<Response>;
-  onUpdateStarted: (noteId: Guid) => IAction;
+  onUpdateStarted: (noteId: Guid, newText: string) => IAction;
   onUpdateError: (noteId: Guid, errorDescription: string) => IAction;
   onUpdateSuccessful: (updatedNote: Note) => IAction;
   data: IPutNote;
@@ -22,7 +22,7 @@ export const putNoteFactory: AsyncActionCreator = (dependencies: IPutNoteDepende
   return function (dispatch: Dispatch<IStoreState>) {
     const { noteId, text } = dependencies.data;
 
-    dispatch(dependencies.onUpdateStarted(noteId));
+    dispatch(dependencies.onUpdateStarted(noteId, text));
 
     const noteToUpdate = {
       text,

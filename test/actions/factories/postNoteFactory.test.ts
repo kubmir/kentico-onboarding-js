@@ -16,6 +16,7 @@ import {
 import Mock = jest.Mock;
 
 const NOTE_TO_ADD_TEXT = 'test added text';
+const NOTE_ID = '1';
 
 const mockDependencies = (requestFunction: Mock<any>): IPostNoteDependencies => {
   return {
@@ -37,7 +38,7 @@ describe('postNoteFactory tests', () => {
   beforeEach(() => dispatch = jest.fn());
 
   it('note is correctly added to server', () => {
-    const responseBody = JSON.stringify(mockServerNote(NOTE_TO_ADD_TEXT, '1'));
+    const responseBody = JSON.stringify(mockServerNote(NOTE_TO_ADD_TEXT, NOTE_ID));
     const postNoteDependencies = mockDependencies(mockResolvedRequest(responseBody));
 
     return postNoteFactory(postNoteDependencies)(dispatch, () => mockStoreState(), null)
@@ -48,6 +49,21 @@ describe('postNoteFactory tests', () => {
         expect(dispatch.mock.calls[2][0]).toEqual(SUCCESS_ACTION);
       });
   });
+
+  it('retry action remove failed note and add new note', () => {
+    const responseBody = JSON.stringify(mockServerNote(NOTE_TO_ADD_TEXT, NOTE_ID));
+    const postNoteDependencies = mockDependencies(mockResolvedRequest(responseBody));
+
+    return postNoteFactory(postNoteDependencies, NOTE_ID)(dispatch, () => mockStoreState(), null)
+      .then(() => {
+        expect(dispatch.mock.calls.length).toEqual(4);
+        expect(dispatch.mock.calls[0][0]).toEqual(DELETE_ACTION);
+        expect(dispatch.mock.calls[1][0]).toEqual(START_ACTION);
+        expect(dispatch.mock.calls[2][0]).toEqual(DELETE_ACTION);
+        expect(dispatch.mock.calls[3][0]).toEqual(SUCCESS_ACTION);
+      });
+  });
+
 
   it('request to server is rejected', () => {
     const postNoteDependencies = mockDependencies(mockRejectedRequest());

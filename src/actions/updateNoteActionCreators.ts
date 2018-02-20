@@ -6,10 +6,11 @@ import {
 import { IAction } from '../models/IAction';
 import { Note } from '../models/Note';
 
-export const startUpdatingNoteOnServer = (noteId: Guid): IAction => ({
+export const startUpdatingNoteOnServer = (noteId: Guid, newText: string): IAction => ({
   type: START_UPDATING_NOTE_ON_SERVER,
   payload: {
     noteId,
+    newText,
   }
 });
 

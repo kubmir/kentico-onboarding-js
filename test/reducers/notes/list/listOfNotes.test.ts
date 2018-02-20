@@ -18,7 +18,11 @@ import {
 } from '../../../../src/actions/actionCreators';
 import { OrderedMap } from 'immutable';
 import { Note } from '../../../../src/models/Note';
-import { updatingNoteOnServerSuccess } from '../../../../src/actions/updateNoteActionCreators';
+import {
+  startUpdatingNoteOnServer,
+  updatingNoteOnServerFailed,
+  updatingNoteOnServerSuccess
+} from '../../../../src/actions/updateNoteActionCreators';
 
 describe('Reducer listOfNotes tests', () => {
   let initialState: OrderedMap<Guid, Note>;
@@ -185,11 +189,11 @@ describe('Reducer listOfNotes tests', () => {
   });
 
   it('action START_UPDATING_NOTE_ON_SERVER should set property isCommunicating of note to true', () => {
-    const startDeleteAction = startDeletingNoteFromServer('2');
+    const startDeleteAction = startUpdatingNoteOnServer('2', 'new test text');
     const expectedState = OrderedMap(
       [
         ['1', prepareNote('First test note', '1', false)],
-        ['2', prepareLocalNote('Second test note', '2')],
+        ['2', prepareLocalNote('new test text', '2')],
       ],
     );
 
@@ -198,11 +202,11 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action DELETING_NOTE_FROM_SERVER_FAILURE should set property isCommunicating of note to false and communicationError value', () => {
+  it('action DELETING_NOTE_FROM_SERVER_FAILURE should set property isCommunicating of note to false, communicationError and failedAction', () => {
     const deletingNoteFailureAction = deletingNoteFromServerFailed('1', 'Test error');
     const expectedState = OrderedMap(
       [
-        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error')],
+        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', 'DELETE')],
         ['2', prepareNote('Second test note', '2', false)],
       ],
     );
@@ -212,11 +216,11 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action SENDING_NOTE_TO_SERVER_FAILURE should set property isCommunicating of note to false and communicationError value', () => {
+  it('action SENDING_NOTE_TO_SERVER_FAILURE should set property isCommunicating of note to false, communicationError and failedAction', () => {
     const sendingNoteFailureAction = sendingNoteToServerFailed('1', 'Test error');
     const expectedState = OrderedMap(
       [
-        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error')],
+        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', 'ADD')],
         ['2', prepareNote('Second test note', '2', false)],
       ],
     );
@@ -227,11 +231,11 @@ describe('Reducer listOfNotes tests', () => {
   });
 
 
-  it('action UPDATING_NOTE_ON_SERVER_FAILURE should set property isCommunicating of note to false and communicationError value', () => {
-    const sendingNoteFailureAction = sendingNoteToServerFailed('1', 'Test error');
+  it('action UPDATING_NOTE_ON_SERVER_FAILURE should set property isCommunicating of note to false, communicationError and failedAction', () => {
+    const sendingNoteFailureAction = updatingNoteOnServerFailed('1', 'Test error');
     const expectedState = OrderedMap(
       [
-        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error')],
+        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', 'UPDATE')],
         ['2', prepareNote('Second test note', '2', false)],
       ],
     );
