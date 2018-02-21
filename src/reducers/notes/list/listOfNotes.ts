@@ -38,6 +38,9 @@ const updateNote = (state: OrderedMap<Guid, Note>, updatedNote: Partial<Note>, n
 const addLoadedNotes = (payload: { notes: Iterable<[Guid, Note]> }): OrderedMap<Guid, Note> =>
   OrderedMap(payload.notes);
 
+const updateNoteOnFailure = (state: OrderedMap<Guid, Note>, failedAction: Actions, payload: { errorDescription: string, noteId: Guid }) =>
+  updateNote(state, { isEditActive: false, isCommunicating: false, communicationError: payload.errorDescription, failedAction, }, payload.noteId);
+
 export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): OrderedMap<Guid, Note> => {
   switch (action.type) {
     case LOADING_NOTES_SUCCESS:
@@ -57,11 +60,11 @@ export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): 
     case START_DELETING_NOTE_FROM_SERVER:
       return updateNote(state, { isEditActive: false, isCommunicating: true }, action.payload.noteId);
     case DELETING_NOTE_FROM_SERVER_FAILURE:
-      return updateNote(state, { isEditActive: false, isCommunicating: false, communicationError: action.payload.errorDescription, failedAction: 'DELETE' }, action.payload.noteId);
+      return updateNoteOnFailure(state, 'DELETE', action.payload);
     case SENDING_NOTE_TO_SERVER_FAILURE:
-      return updateNote(state, { isEditActive: false, isCommunicating: false, communicationError: action.payload.errorDescription, failedAction: 'ADD' }, action.payload.noteId);
+      return updateNoteOnFailure(state, 'ADD', action.payload);
     case UPDATING_NOTE_ON_SERVER_FAILURE:
-      return updateNote(state, { isEditActive: false, isCommunicating: false, communicationError: action.payload.errorDescription, failedAction: 'UPDATE' }, action.payload.noteId);
+      return updateNoteOnFailure(state, 'UPDATE', action.payload);
     case DELETE_NOTE:
     case DELETING_NOTE_FROM_SERVER_SUCCESS:
       return deleteNote(state, action.payload);
