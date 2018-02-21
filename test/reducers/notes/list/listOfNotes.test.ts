@@ -15,14 +15,12 @@ import {
   startDeletingNoteFromServer,
   sendingNoteToServerFailed,
   startSendingNoteToServer,
+  startUpdatingNoteOnServer,
+  updatingNoteOnServerFailed,
+  updatingNoteOnServerSuccess,
 } from '../../../../src/actions/actionCreators';
 import { OrderedMap } from 'immutable';
 import { Note } from '../../../../src/models/Note';
-import {
-  startUpdatingNoteOnServer,
-  updatingNoteOnServerFailed,
-  updatingNoteOnServerSuccess
-} from '../../../../src/actions/updateNoteActionCreators';
 
 describe('Reducer listOfNotes tests', () => {
   let initialState: OrderedMap<Guid, Note>;

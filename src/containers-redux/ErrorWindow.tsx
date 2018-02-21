@@ -8,7 +8,7 @@ import {
   IErrorWindowCallbacksProps
 } from '../components/ErrorWindow';
 import { IErrorWindowDataProps } from '../components/ErrorWindow';
-import { getAllNotes } from '../actions/serverActionCreators/getActionCreators';
+import { getAllNotes } from '../actions/actionCreators';
 
 const mapStateToProps = ({ notesLoader }: IStoreState): IErrorWindowDataProps => ({
   errorMessage: notesLoader.errorMessage,

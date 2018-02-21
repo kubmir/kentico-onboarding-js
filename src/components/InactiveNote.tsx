@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { InactiveNoteViewer } from './InactiveNoteViewer';
 import { InactiveNoteError } from '../containers-redux/InactiveNoteError';
+import { NotePropType } from '../@types/notePropType';
 
 export interface IInactiveNoteDataProps {
   readonly note: {
@@ -9,6 +10,7 @@ export interface IInactiveNoteDataProps {
     readonly isEditActive: boolean;
     readonly isCommunicating: boolean;
     readonly communicationError: string;
+    readonly failedAction: Actions;
   };
   readonly number: number;
 }
@@ -29,12 +31,7 @@ const InactiveNote: React.StatelessComponent<InactiveNoteProps> = (props: Inacti
 InactiveNote.displayName = 'InactiveNote';
 
 InactiveNote.propTypes = {
-  note: PropTypes.shape({
-    text: PropTypes.string.isRequired,
-    isEditActive: PropTypes.bool.isRequired,
-    isCommunicating: PropTypes.bool.isRequired,
-    communicationError: PropTypes.string.isRequired,
-  }).isRequired,
+  note: NotePropType,
   number: PropTypes.number.isRequired,
 };
 

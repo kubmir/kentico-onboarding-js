@@ -11,7 +11,7 @@ import {
 } from '../addNoteActionCreators';
 import { convertNote } from '../../utils/noteConverter';
 import { generateId } from '../../utils/generateId';
-import { deleteNote } from '../notesActionCreators';
+import { deleteNote } from '../deleteNoteActionCreators';
 
 const sendRequest = fetchFactory(fetch);
 

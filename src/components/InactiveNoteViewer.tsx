@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { MdAutorenew } from 'react-icons/lib/md';
+import { NotePropType } from '../@types/notePropType';
 import '../styles/noteViewer.css';
 
 export interface InactiveNoteViewerDataProps {
@@ -18,19 +19,14 @@ type InactiveNoteViewerProps = InactiveNoteViewerDataProps;
 const InactiveNoteViewer: React.StatelessComponent<InactiveNoteViewerProps> = (props: InactiveNoteViewerProps): JSX.Element => (
   <p className="inactive-line">
     {props.number + '. ' + props.note.text}
-    <MdAutorenew className="pull-right refresh-animate" size="25" color="#3498db"/>
+    <MdAutorenew className="pull-right refresh-animate" size="25" color="DeepSkyBlue"/>
   </p>
 );
 
 InactiveNoteViewer.displayName = 'InactiveNote';
 
 InactiveNoteViewer.propTypes = {
-  note: PropTypes.shape({
-    text: PropTypes.string.isRequired,
-    isEditActive: PropTypes.bool.isRequired,
-    isCommunicating: PropTypes.bool.isRequired,
-    communicationError: PropTypes.string.isRequired,
-  }).isRequired,
+  note: NotePropType,
   number: PropTypes.number.isRequired,
 };
 

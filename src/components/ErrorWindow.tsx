@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { IAction } from '../models/IAction';
 import '../styles/errorWindow.css';
 
 export interface IErrorWindowDataProps {
@@ -7,7 +8,7 @@ export interface IErrorWindowDataProps {
 }
 
 export interface IErrorWindowCallbacksProps {
-  readonly onReloadClick: () => Promise<any>;
+  readonly onReloadClick: () => Promise<IAction>;
 }
 
 type ErrorWindowProps = IErrorWindowDataProps & IErrorWindowCallbacksProps;
@@ -24,7 +25,7 @@ export class ErrorWindow extends React.PureComponent<ErrorWindowProps> {
     super(props);
   }
 
-  _onReloadClick = (): Promise<any> =>
+  _onReloadClick = (): Promise<IAction> =>
     this.props.onReloadClick();
 
   render() {

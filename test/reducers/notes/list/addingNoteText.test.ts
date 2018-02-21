@@ -1,5 +1,5 @@
 import { addNoteText } from '../../../../src/reducers/notes/list/addingNoteText';
-import { changeAddingNoteText } from '../../../../src/actions/addNoteActionCreators';
+import { changeAddingNoteText } from '../../../../src/actions/actionCreators';
 
 const EMPTY_STATE = '';
 

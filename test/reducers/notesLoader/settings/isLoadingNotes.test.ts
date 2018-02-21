@@ -3,7 +3,7 @@ import {
   displayError,
   startLoadingNotes,
   storeLoadedNotes
-} from '../../../../src/actions/notesLoaderActionCreators';
+} from '../../../../src/actions/actionCreators';
 
 describe('Reducer isLoadingNotes tests', () => {
   it('should return previous state if unknown action is dispatched', () => {
