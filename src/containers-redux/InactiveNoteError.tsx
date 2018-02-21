@@ -3,6 +3,8 @@ import {
   Dispatch
 } from 'react-redux';
 import {
+  addNewNote,
+  updateServerNote,
   deleteServerNote,
 } from '../actions/actionCreators';
 import { IStoreState } from '../models/IStoreState';
@@ -10,9 +12,7 @@ import {
   InactiveNoteError as IInactiveNoteErrorComponent,
   IInactiveNoteErrorCallbackProps,
 } from '../components/InactiveNoteError';
-import { updateServerNote } from '../actions/serverActionCreators/putActionCreators';
 import { Note } from '../models/Note';
-import { addNewNote } from '../actions/serverActionCreators/postActionCreators';
 
 interface IInactiveNoteErrorOwnProps {
   readonly note: Note;
@@ -20,7 +20,7 @@ interface IInactiveNoteErrorOwnProps {
 }
 
 const getRetryAction = (dispatch: Dispatch<IStoreState>, actionType: Actions, ownProps: IInactiveNoteErrorOwnProps) => {
-  const { text , id } = ownProps.note;
+  const { text, id } = ownProps.note;
 
   switch (actionType) {
     case 'DELETE':

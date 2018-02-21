@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import { NoteErrorMessage } from './NoteErrorMessage';
 import { AddNoteInput } from '../containers-redux/AddNoteInput';
 import { isNoteValid } from '../utils/isNoteValid';
+import { IAction } from '../models/IAction';
 
 export interface IAddNoteDataProps {
   readonly isInputFocused: boolean;
@@ -10,7 +11,7 @@ export interface IAddNoteDataProps {
 }
 
 export interface IAddNoteCallbacksProps {
-  readonly onAddClick: (text: string) => void;
+  readonly onAddClick: (text: string) => Promise<IAction>;
 }
 
 type AddNoteProps = IAddNoteDataProps & IAddNoteCallbacksProps;
@@ -26,7 +27,7 @@ export class AddNote extends React.PureComponent<AddNoteProps> {
 
   private errorMessage = 'Invalid note. You cannot add an empty note to list of notes.';
 
-  _addInsertedText = (): void =>
+  _addInsertedText = (): Promise<IAction> =>
     this.props.onAddClick(this.props.text);
 
   render(): JSX.Element {

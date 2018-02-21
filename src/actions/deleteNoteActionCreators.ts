@@ -1,9 +1,17 @@
 import {
+  DELETE_NOTE,
   DELETING_NOTE_FROM_SERVER_FAILURE,
   DELETING_NOTE_FROM_SERVER_SUCCESS,
   START_DELETING_NOTE_FROM_SERVER,
 } from '../constants/actionTypes';
 import { IAction } from '../models/IAction';
+
+export const deleteNote = (noteId: Guid): IAction => ({
+  type: DELETE_NOTE,
+  payload: {
+    noteId,
+  },
+});
 
 export const startDeletingNoteFromServer = (noteId: Guid): IAction => ({
   type: START_DELETING_NOTE_FROM_SERVER,

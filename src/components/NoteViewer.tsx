@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { InactiveNote } from './InactiveNote';
+import { NotePropType } from '../@types/notePropType';
 
 export interface INoteViewerDataProps {
   readonly note: {
@@ -8,6 +9,7 @@ export interface INoteViewerDataProps {
     readonly isEditActive: boolean;
     readonly isCommunicating: boolean;
     readonly communicationError: string;
+    readonly failedAction: Actions;
   };
   readonly number: number;
 }
@@ -27,12 +29,7 @@ const NoteViewer: React.StatelessComponent<NoteViewerProps> = (props: NoteViewer
 NoteViewer.displayName = 'NoteViewer';
 
 NoteViewer.propTypes = {
-  note: PropTypes.shape({
-    text: PropTypes.string.isRequired,
-    isEditActive: PropTypes.bool.isRequired,
-    isCommunicating: PropTypes.bool.isRequired,
-    communicationError: PropTypes.string.isRequired,
-  }).isRequired,
+  note: NotePropType,
   number: PropTypes.number.isRequired,
   onTextClick: PropTypes.func.isRequired,
 };
