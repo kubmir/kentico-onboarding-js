@@ -4,6 +4,8 @@ import {
   MdError,
   MdRepeat,
 } from 'react-icons/lib/md';
+import { NotePropType } from '../@types/notePropType';
+import { IAction } from '../models/IAction';
 
 export interface IInactiveNoteErrorDataProps {
   readonly note: {
@@ -17,7 +19,7 @@ export interface IInactiveNoteErrorDataProps {
 }
 
 export interface IInactiveNoteErrorCallbackProps {
-  readonly retryFailedAction: (actionType: Actions) => void;
+  readonly retryFailedAction: (actionType: Actions) => Promise<IAction> | undefined;
 }
 
 type InactiveNoteErrorProps = IInactiveNoteErrorDataProps & IInactiveNoteErrorCallbackProps;
@@ -26,12 +28,7 @@ export class InactiveNoteError extends React.PureComponent<InactiveNoteErrorProp
   static displayName = 'InactiveNoteError';
 
   static propTypes = {
-    note: PropTypes.shape({
-      text: PropTypes.string.isRequired,
-      isEditActive: PropTypes.bool.isRequired,
-      isCommunicating: PropTypes.bool.isRequired,
-      communicationError: PropTypes.string.isRequired,
-    }).isRequired,
+    note: NotePropType,
     number: PropTypes.number.isRequired,
   };
 
@@ -39,23 +36,43 @@ export class InactiveNoteError extends React.PureComponent<InactiveNoteErrorProp
     super(props);
   }
 
-  _onRetryClick = () =>
+  _onRetryClick = (): Promise<IAction> | undefined =>
     this.props.retryFailedAction(this.props.note.failedAction);
 
+  _getFailedAction = (): string => {
+    switch (this.props.note.failedAction) {
+      case 'DELETE':
+        return 'delete operation';
+      case 'UPDATE':
+        return 'update operation';
+      case 'ADD':
+        return 'addition of note';
+      default:
+        return '';
+    }
+  };
+
   render() {
+    const failedActionMessage = this._getFailedAction();
+
     return (<p>
       <span style={{ color: 'grey' }}>{this.props.number + '. ' + this.props.note.text}</span>
-      <MdRepeat
-        className="pull-right"
-        color="green"
-        size="25"
-        onClick={this._onRetryClick}
-      />
-      <MdError
-        className="pull-right"
-        size="25"
-        color="red"
-      />
+      <span title={'Retry ' + failedActionMessage}>
+        <MdRepeat
+          className="pull-right"
+          color="green"
+          size="25"
+          style={{ cursor: 'pointer' }}
+          onClick={this._onRetryClick}
+        />
+      </span>
+      <span title="Error">
+        <MdError
+          className="pull-right"
+          size="25"
+          color="red"
+        />
+      </span>
       <span
         className="pull-right"
         style={{ color: 'red' }}
