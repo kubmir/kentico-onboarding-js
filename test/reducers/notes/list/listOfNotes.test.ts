@@ -21,6 +21,7 @@ import {
 } from '../../../../src/actions/actionCreators';
 import { OrderedMap } from 'immutable';
 import { Note } from '../../../../src/models/Note';
+import { startReSendingNoteToServer } from '../../../../src/actions/addNoteActionCreators';
 
 describe('Reducer listOfNotes tests', () => {
   let initialState: OrderedMap<Guid, Note>;
@@ -61,6 +62,18 @@ describe('Reducer listOfNotes tests', () => {
     );
 
     const actualState = listOfNotes(initialState, addNoteAction);
+
+    expect(actualState).toEqual(expectedState);
+  });
+
+  it('action START_RESENDING_NOTE_TO_SERVER should update isCommunicating and communicationError property of state note', () => {
+    const resendingAction = startReSendingNoteToServer('2');
+    const expectedState = OrderedMap([
+      ['1', prepareNote('First test note', '1', false)],
+      ['2', prepareLocalNote('Second test note', '2')],
+    ]);
+
+    const actualState = listOfNotes(initialState, resendingAction);
 
     expect(actualState).toEqual(expectedState);
   });
@@ -110,19 +123,6 @@ describe('Reducer listOfNotes tests', () => {
   });
 
   it('action DELETING_NOTE_FROM_SERVER_SUCCESS should delete note from state notes', () => {
-    const deleteAction = deletingNoteFromServerSuccess('1');
-    const expectedState = OrderedMap(
-      [
-        ['2', prepareNote('Second test note', '2', false)],
-      ],
-    );
-
-    const actualState = listOfNotes(initialState, deleteAction);
-
-    expect(actualState).toEqual(expectedState);
-  });
-
-  it('action DELETE_NOTE should delete note from state notes', () => {
     const deleteAction = deletingNoteFromServerSuccess('1');
     const expectedState = OrderedMap(
       [

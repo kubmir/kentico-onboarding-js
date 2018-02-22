@@ -3,7 +3,7 @@ import {
   Dispatch
 } from 'react-redux';
 import {
-  addNewNote,
+  retryAddNewNote,
   updateServerNote,
   deleteServerNote,
 } from '../actions/actionCreators';
@@ -28,7 +28,7 @@ const getRetryAction = (dispatch: Dispatch<IStoreState>, actionType: Actions, ow
     case 'UPDATE':
       return dispatch(updateServerNote(text, id));
     case 'ADD':
-      return dispatch(addNewNote(text, id));
+      return dispatch(retryAddNewNote(text, id));
     default:
       return;
   }

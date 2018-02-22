@@ -2,7 +2,6 @@ import { OrderedMap } from 'immutable';
 import { Note } from '../../../models/Note';
 import {
   CANCEL_EDITING_NOTE,
-  DELETE_NOTE,
   DELETING_NOTE_FROM_SERVER_FAILURE,
   DELETING_NOTE_FROM_SERVER_SUCCESS,
   LOADING_NOTES_SUCCESS,
@@ -10,6 +9,7 @@ import {
   SENDING_NOTE_TO_SERVER_SUCCESS,
   START_DELETING_NOTE_FROM_SERVER,
   START_EDITING_NOTE,
+  START_RESENDING_NOTE_TO_SERVER,
   START_SENDING_NOTE_TO_SERVER,
   START_UPDATING_NOTE_ON_SERVER,
   UPDATING_NOTE_ON_SERVER_FAILURE,
@@ -52,6 +52,8 @@ export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): 
       return addLoadedNotes(action.payload);
     case START_SENDING_NOTE_TO_SERVER:
       return addNote(state, action.payload);
+    case START_RESENDING_NOTE_TO_SERVER:
+      return updateNote(state, { isCommunicating: true, communicationError: '' }, action.payload.localNoteId);
     case SENDING_NOTE_TO_SERVER_SUCCESS:
       return addServerSynchronizedNote(state, action.payload);
     case UPDATING_NOTE_ON_SERVER_SUCCESS:
@@ -70,7 +72,6 @@ export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): 
       return updateNoteOnFailure(state, 'ADD', action.payload);
     case UPDATING_NOTE_ON_SERVER_FAILURE:
       return updateNoteOnFailure(state, 'UPDATE', action.payload);
-    case DELETE_NOTE:
     case DELETING_NOTE_FROM_SERVER_SUCCESS:
       return deleteNote(state, action.payload);
     default:
