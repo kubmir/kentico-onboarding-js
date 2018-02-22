@@ -68,11 +68,10 @@ describe('Reducer listOfNotes tests', () => {
   it('action SENDING_NOTE_TO_SERVER_SUCCESS should add new note to state notes', () => {
     const noteToAddText = 'Third test note - added';
     const newNote = prepareNote(noteToAddText, '3', false);
-    const addNoteAction = sendingNoteToServerSuccess(newNote);
+    const addNoteAction = sendingNoteToServerSuccess(newNote, '2');
     const expectedState = OrderedMap(
       [
         ['1', prepareNote('First test note', '1', false)],
-        ['2', prepareNote('Second test note', '2', false)],
         ['3', newNote],
       ],
     );

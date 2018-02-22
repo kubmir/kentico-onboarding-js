@@ -41,11 +41,12 @@ export const sendingNoteToServerFailed = (noteId: Guid, errorDescription: string
   }
 });
 
-export const sendingNoteToServerSuccess = (addedNote: Note): IAction => ({
+export const sendingNoteToServerSuccess = (addedNote: Note, localNoteId: Guid): IAction => ({
   type: SENDING_NOTE_TO_SERVER_SUCCESS,
   payload: {
     text: addedNote.text,
     noteId: addedNote.id,
     isCommunicating: false,
+    localNoteId,
   }
 });

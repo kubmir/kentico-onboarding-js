@@ -14,7 +14,7 @@ export interface IPostNoteDependencies {
   sendRequest: (apiAddress: string, httpMethod: HttpMethods, data?: object) => Promise<Response>;
   onAddingStarted: (localId: Guid, addedText: string) => IAction;
   onAddingError: (localId: Guid, errorDescription: string) => IAction;
-  onAddingSuccessful: (addedNote: Note) => IAction;
+  onAddingSuccessful: (addedNote: Note, localId: Guid) => IAction;
   data: IPostNote;
   convertNote: (serverNotes: IServerNote) => Note;
   generateLocalId: () => Guid;
@@ -36,8 +36,7 @@ export const postNoteFactory: AsyncActionCreator = (dependencies: IPostNoteDepen
       .then(addedNote => {
         const applicationNote = dependencies.convertNote(addedNote);
 
-        dispatch(dependencies.deleteNote(localId));
-        return dispatch(dependencies.onAddingSuccessful(applicationNote));
+        return dispatch(dependencies.onAddingSuccessful(applicationNote, localId));
       })
       .catch(error => dispatch(dependencies.onAddingError(localId, error.toString())));
   };

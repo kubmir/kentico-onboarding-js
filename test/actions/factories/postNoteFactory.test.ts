@@ -43,10 +43,9 @@ describe('postNoteFactory tests', () => {
 
     return postNoteFactory(postNoteDependencies)(dispatch, () => mockStoreState(), null)
       .then(() => {
-        expect(dispatch.mock.calls.length).toEqual(3);
+        expect(dispatch.mock.calls.length).toEqual(2);
         expect(dispatch.mock.calls[0][0]).toEqual(START_ACTION);
-        expect(dispatch.mock.calls[1][0]).toEqual(DELETE_ACTION);
-        expect(dispatch.mock.calls[2][0]).toEqual(SUCCESS_ACTION);
+        expect(dispatch.mock.calls[1][0]).toEqual(SUCCESS_ACTION);
       });
   });
 
@@ -56,11 +55,10 @@ describe('postNoteFactory tests', () => {
 
     return postNoteFactory(postNoteDependencies, NOTE_ID)(dispatch, () => mockStoreState(), null)
       .then(() => {
-        expect(dispatch.mock.calls.length).toEqual(4);
+        expect(dispatch.mock.calls.length).toEqual(3);
         expect(dispatch.mock.calls[0][0]).toEqual(DELETE_ACTION);
         expect(dispatch.mock.calls[1][0]).toEqual(START_ACTION);
-        expect(dispatch.mock.calls[2][0]).toEqual(DELETE_ACTION);
-        expect(dispatch.mock.calls[3][0]).toEqual(SUCCESS_ACTION);
+        expect(dispatch.mock.calls[2][0]).toEqual(SUCCESS_ACTION);
       });
   });
 
