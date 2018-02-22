@@ -5,6 +5,7 @@ import {
   START_SENDING_NOTE_TO_SERVER,
   SENDING_NOTE_TO_SERVER_FAILURE,
   SENDING_NOTE_TO_SERVER_SUCCESS,
+  START_RESENDING_NOTE_TO_SERVER,
 } from '../constants/actionTypes';
 import { IAction } from '../models/IAction';
 import { Note } from '../models/Note';
@@ -21,6 +22,13 @@ export const changeAddingNoteText = (newText: string): IAction => ({
   type: ADD_NOTE_TEXT_CHANGE,
   payload: {
     newText,
+  }
+});
+
+export const startReSendingNoteToServer = (localNoteId: Guid) => ({
+  type: START_RESENDING_NOTE_TO_SERVER,
+  payload: {
+    localNoteId,
   }
 });
 

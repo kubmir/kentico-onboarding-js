@@ -1,34 +1,48 @@
 import { fetchFactory } from '../factories/fetchFactory';
 import {
+  IPostDependencies,
   IPostNoteDependencies,
-  postNoteFactory
+  IRepostNoteDependencies,
+  postNoteFactory,
+  repostNoteFactory
 } from '../factories/postNoteFactory';
 import { API_PREFIX } from '../../constants/apiPrefix';
 import {
   sendingNoteToServerFailed,
   sendingNoteToServerSuccess,
+  startReSendingNoteToServer,
   startSendingNoteToServer
 } from '../addNoteActionCreators';
 import { convertNote } from '../../utils/noteConverter';
 import { generateId } from '../../utils/generateId';
-import { deleteNote } from '../deleteNoteActionCreators';
 
 const sendRequest = fetchFactory(fetch);
 
-const prepareDependencies = (newNoteText: string): IPostNoteDependencies => (
+const preparePostDependencies = (): IPostDependencies => ({
+  apiAddress: API_PREFIX,
+  sendRequest,
+  onAddingError: sendingNoteToServerFailed,
+  onAddingSuccessful: sendingNoteToServerSuccess,
+  convertNote,
+});
+
+const preparePostNoteDependencies = (): IPostNoteDependencies => (
   {
-    apiAddress: API_PREFIX,
-    sendRequest,
-    onAddingError: sendingNoteToServerFailed,
+    ...preparePostDependencies(),
     onAddingStarted: startSendingNoteToServer,
-    onAddingSuccessful: sendingNoteToServerSuccess,
-    convertNote,
-    data: { text: newNoteText },
     generateLocalId: generateId,
-    deleteNote: deleteNote,
   }
 );
 
-export const addNewNote = (newNoteText: string, noteId?: Guid) =>
-  postNoteFactory(prepareDependencies(newNoteText), noteId);
+const prepareRePostNoteDependencies = (): IRepostNoteDependencies => (
+  {
+    ...preparePostDependencies(),
+    onAddingStarted: startReSendingNoteToServer,
+  }
+);
 
+export const addNewNote = (newNoteText: string) =>
+  postNoteFactory(preparePostNoteDependencies())({ text: newNoteText });
+
+export const retryAddNewNote = (newNoteText: string, localId: Guid) =>
+  repostNoteFactory(prepareRePostNoteDependencies())({ text: newNoteText }, localId);
