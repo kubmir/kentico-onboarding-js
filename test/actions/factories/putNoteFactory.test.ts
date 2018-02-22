@@ -9,29 +9,29 @@ import {
   mockStoreState,
   START_ACTION,
   ERROR_ACTION,
+  IMockedResponse,
 } from '../../testUtils/mocks';
-import Mock = jest.Mock;
 import { Note } from '../../../src/models/Note';
 
 const BEFORE_UPDATE_TEXT = 'before update test';
 const UPDATED_TEXT = 'test updated text';
 const UPDATED_NOTE_ID = '1';
 
-const mockDependencies = (requestFunction: Mock<any>): IPutNoteDependencies => {
+const mockDependencies = (responsePromise: Promise<IMockedResponse>): IPutNoteDependencies => {
   return {
     apiAddress: 'test',
     onUpdateStarted: jest.fn().mockReturnValue(START_ACTION),
     onUpdateError: jest.fn().mockReturnValue(ERROR_ACTION),
     onUpdateSuccessful: jest.fn().mockImplementation((note: Note) => ({type: 'TEST SUCCESSFUL', payload: { text: note.text }})),
-    sendRequest: requestFunction,
+    sendRequest: jest.fn().mockReturnValue(responsePromise),
     data: { text: UPDATED_TEXT, noteId: UPDATED_NOTE_ID },
   };
 };
 
 describe('putNoteFactory tests', () => {
-  let dispatch: Mock<any>;
+  const dispatch = jest.fn();
 
-  beforeEach(() => dispatch = jest.fn());
+  beforeEach(() => dispatch.mockReset());
 
   it('note is correctly updated on server', () => {
     const responseBody = JSON.stringify(mockServerNote(BEFORE_UPDATE_TEXT, UPDATED_NOTE_ID));

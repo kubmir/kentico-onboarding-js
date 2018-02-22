@@ -6,6 +6,7 @@ import {
 import {
   DELETE_ACTION,
   ERROR_ACTION,
+  IMockedResponse,
   mockRejectedRequest,
   mockResolvedRequest,
   mockServerNote,
@@ -13,19 +14,18 @@ import {
   START_ACTION,
   SUCCESS_ACTION
 } from '../../testUtils/mocks';
-import Mock = jest.Mock;
 
 const NOTE_TO_ADD_TEXT = 'test added text';
 const NOTE_ID = '1';
 
-const mockDependencies = (requestFunction: Mock<any>): IPostNoteDependencies => {
+const mockDependencies = (responsePromise: Promise<IMockedResponse>): IPostNoteDependencies => {
   return {
     apiAddress: 'test',
     onAddingStarted: jest.fn().mockReturnValue(START_ACTION),
     onAddingError: jest.fn().mockReturnValue(ERROR_ACTION),
     onAddingSuccessful: jest.fn().mockReturnValue(SUCCESS_ACTION),
     convertNote: jest.fn().mockReturnValue(new Note()),
-    sendRequest: requestFunction,
+    sendRequest: jest.fn().mockReturnValue(responsePromise),
     data: {text: NOTE_TO_ADD_TEXT},
     generateLocalId: jest.fn(),
     deleteNote: jest.fn().mockReturnValue(DELETE_ACTION),
@@ -33,9 +33,9 @@ const mockDependencies = (requestFunction: Mock<any>): IPostNoteDependencies => 
 };
 
 describe('postNoteFactory tests', () => {
-  let dispatch: Mock<any>;
+  const dispatch = jest.fn();
 
-  beforeEach(() => dispatch = jest.fn());
+  beforeEach(() => dispatch.mockReset());
 
   it('note is correctly added to server', () => {
     const responseBody = JSON.stringify(mockServerNote(NOTE_TO_ADD_TEXT, NOTE_ID));
