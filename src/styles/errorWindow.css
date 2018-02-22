@@ -1,5 +1,7 @@
 .reload-button {
-  margin-left: 40%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .error-message {
