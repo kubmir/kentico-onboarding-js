@@ -1,10 +1,9 @@
 import 'isomorphic-fetch';
 import { Promise } from 'es6-promise';
-import Mock = jest.Mock;
 import { OrderedMap } from 'immutable';
 import { IStoreState } from '../../src/models/IStoreState';
 
-interface IMockedResponse {
+export interface IMockedResponse {
   readonly status: number;
   readonly ok: boolean;
   readonly json: () => Promise<string | undefined>;
@@ -19,11 +18,11 @@ export const mockServerNote = (text: string, id: Guid) => ({
   creationDate: new Date(2017, 12, 4),
 });
 
-export const mockResolvedRequest = (responseBody: string): Mock<Promise<any>> =>
-  jest.fn(() => Promise.resolve(mockResponse(200, true, responseBody)));
+export const mockResolvedRequest = (responseBody: string): Promise<IMockedResponse> =>
+  Promise.resolve(mockResponse(200, true, responseBody));
 
-export const mockRejectedRequest = (): Mock<any> =>
-  jest.fn().mockImplementation(() => Promise.reject(mockResponse(200, true)));
+export const mockRejectedRequest = (): Promise<IMockedResponse> =>
+  Promise.reject(mockResponse(200, true));
 
 export const START_ACTION = { type: 'TEST_STARTED' };
 export const ERROR_ACTION = { type: 'TEST_ERROR' };

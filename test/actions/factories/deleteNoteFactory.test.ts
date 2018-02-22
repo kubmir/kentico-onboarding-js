@@ -10,27 +10,27 @@ import {
   mockResolvedRequest,
   mockServerNote,
   mockStoreState,
+  IMockedResponse,
 } from '../../testUtils/mocks';
-import Mock = jest.Mock;
 
 const NOTE_TO_DELETE_TEXT = 'test added text';
 const NOTE_TO_DELETE_ID = '1';
 
-const mockDependencies = (requestFunction: Mock<any>): IDeleteNoteDependencies => {
+const mockDependencies = (responsePromise: Promise<IMockedResponse>): IDeleteNoteDependencies => {
   return {
     apiAddress: 'test',
     onDeletingStarted: jest.fn().mockReturnValue(START_ACTION),
     onDeletingError: jest.fn().mockReturnValue(ERROR_ACTION),
     onDeletingSuccessful: jest.fn().mockReturnValue(SUCCESS_ACTION),
-    sendRequest: requestFunction,
+    sendRequest: jest.fn().mockReturnValue(responsePromise),
     noteId: NOTE_TO_DELETE_ID,
   };
 };
 
 describe('deleteNoteFactory tests', () => {
-  let dispatch: Mock<any>;
+  const dispatch = jest.fn();
 
-  beforeEach(() => dispatch = jest.fn());
+  beforeEach(() => dispatch.mockReset());
 
   it('note is correctly deleted from server', () => {
     const responseBody = JSON.stringify(mockServerNote(NOTE_TO_DELETE_TEXT, NOTE_TO_DELETE_ID));

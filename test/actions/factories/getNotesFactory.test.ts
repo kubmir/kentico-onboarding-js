@@ -10,25 +10,25 @@ import {
   START_ACTION,
   ERROR_ACTION,
   SUCCESS_ACTION,
-  mockStoreState
+  mockStoreState,
+  IMockedResponse
 } from '../../testUtils/mocks';
-import Mock = jest.Mock;
 
-const mockDependencies = (requestFunction: Mock<any>): IGetNotesDependencies => {
+const mockDependencies = (responsePromise: Promise<IMockedResponse>): IGetNotesDependencies => {
   return {
     apiAddress: 'test',
     onGettingStarted: jest.fn().mockReturnValue(START_ACTION),
     onGettingError: jest.fn().mockReturnValue(ERROR_ACTION),
     onGettingSuccessful: jest.fn().mockReturnValue(SUCCESS_ACTION),
     convertNotes: jest.fn().mockReturnValue(new Note()),
-    sendRequest: requestFunction,
+    sendRequest: jest.fn().mockReturnValue(responsePromise),
   };
 };
 
 describe('getNotesFactory tests', () => {
-  let dispatch: Mock<any>;
+  const dispatch = jest.fn();
 
-  beforeEach(() => dispatch = jest.fn());
+  beforeEach(() => dispatch.mockReset());
 
   it('notes are correctly loaded from server', () => {
     const responseBody = JSON.stringify([mockServerNote('first', '1'), mockServerNote('second', '2')]);
