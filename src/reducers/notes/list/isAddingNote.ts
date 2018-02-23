@@ -8,8 +8,10 @@ export const isAddingNote = (state = false, action: IAction): boolean => {
   switch (action.type) {
     case ADD_NOTE_FOCUS:
       return true;
+
     case ADD_NOTE_BLUR:
       return false;
+
     default:
       return state;
   }

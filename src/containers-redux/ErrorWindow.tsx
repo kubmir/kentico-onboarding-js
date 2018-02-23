@@ -19,7 +19,6 @@ const mapDispatchToProps = (dispatch: Dispatch<IStoreState>): IErrorWindowCallba
     dispatch(getAllNotes),
 });
 
-
 export const ErrorWindow = connect(
   mapStateToProps,
   mapDispatchToProps

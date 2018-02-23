@@ -15,7 +15,7 @@ export const prepareLocalNote = (text: string, id: Guid): Note =>
     isCommunicating: true,
   });
 
-export const prepareNoteWithCommunicationError = (text: string, id: Guid, communicationError: string, failedAction: Actions): Note =>
+export const prepareNoteWithCommunicationError = (text: string, id: Guid, communicationError: string, failedAction: FailedAction): Note =>
   new Note({
     text,
     id,

@@ -6,7 +6,7 @@ interface INote {
   readonly isEditActive: boolean;
   readonly isCommunicating: boolean;
   readonly communicationError: string;
-  readonly failedAction: Actions;
+  readonly failedAction: FailedAction;
 }
 
 const defaultNote: INote = {
@@ -24,7 +24,7 @@ export class Note extends Record(defaultNote) implements INote {
   readonly isEditActive: boolean;
   readonly isCommunicating: boolean;
   readonly communicationError: string;
-  readonly failedAction: Actions;
+  readonly failedAction: FailedAction;
 
   constructor(params?: Partial<INote>) {
     params

@@ -12,7 +12,7 @@ import { getAllNotes } from '../actions/actionCreators';
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export const createAppStoreServer = (): Store<IStoreState> => {
+export const createApplicationStore = (): Store<IStoreState> => {
 
   const store = createStore<IStoreState>(
     application,

@@ -3,13 +3,13 @@ import { fetchFactory } from '../../../src/actions/factories/fetchFactory';
 import { mockResponse } from '../../testUtils/mocks';
 
 const mockResolvedFetch = (status: number, ok: boolean) => {
-  const mockedInjectedFetch = jest.fn().mockImplementation(() => Promise.resolve(mockResponse(status, ok)));
+  const mockedInjectedFetch = jest.fn(() => Promise.resolve(mockResponse(status, ok)));
 
   return fetchFactory(mockedInjectedFetch);
 };
 
 const mockRejectedFetch = (status: number) => {
-  const mockedInjectedFetch = jest.fn().mockImplementation(() => Promise.reject(mockResponse(status, false)));
+  const mockedInjectedFetch = jest.fn(() => Promise.reject(mockResponse(status, false)));
 
   return fetchFactory(mockedInjectedFetch);
 };

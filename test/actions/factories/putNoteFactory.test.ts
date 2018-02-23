@@ -22,7 +22,7 @@ const mockDependencies = (responsePromise: Promise<IMockedResponse>): IPutNoteDe
     apiPrefix: 'test',
     onUpdateStarted: jest.fn().mockReturnValue(START_ACTION),
     onUpdateError: jest.fn().mockReturnValue(ERROR_ACTION),
-    onUpdateSuccessful: jest.fn().mockImplementation((note: Note) => ({type: 'TEST SUCCESSFUL', payload: { text: note.text }})),
+    onUpdateSuccessful: jest.fn((note: Note) => ({type: 'TEST SUCCESSFUL', payload: { text: note.text }})),
     sendRequest: jest.fn().mockReturnValue(responsePromise),
   };
 };

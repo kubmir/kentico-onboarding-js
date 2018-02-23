@@ -13,21 +13,26 @@ import {
   IInactiveNoteErrorCallbackProps,
 } from '../components/InactiveNoteError';
 import { Note } from '../models/Note';
+import {
+  ADD,
+  DELETE,
+  UPDATE
+} from '../constants/failedAction';
 
 interface IInactiveNoteErrorOwnProps {
   readonly note: Note;
   readonly number: number;
 }
 
-const getRetryAction = (dispatch: Dispatch<IStoreState>, actionType: Actions, ownProps: IInactiveNoteErrorOwnProps) => {
+const getRetryAction = (dispatch: Dispatch<IStoreState>, actionType: FailedAction, ownProps: IInactiveNoteErrorOwnProps) => {
   const { text, id } = ownProps.note;
 
   switch (actionType) {
-    case 'DELETE':
+    case DELETE:
       return dispatch(deleteServerNote(id));
-    case 'UPDATE':
+    case UPDATE:
       return dispatch(updateServerNote(text, id));
-    case 'ADD':
+    case ADD:
       return dispatch(retryAddNewNote(text, id));
     default:
       return;
@@ -35,8 +40,8 @@ const getRetryAction = (dispatch: Dispatch<IStoreState>, actionType: Actions, ow
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<IStoreState>, ownProps: IInactiveNoteErrorOwnProps): IInactiveNoteErrorCallbackProps => ({
-  retryFailedAction: (actionType: Actions) =>
-    getRetryAction(dispatch, actionType, ownProps)
+  retryFailedAction: (failedAction: FailedAction) =>
+    getRetryAction(dispatch, failedAction, ownProps)
 });
 
 export const InactiveNoteError = connect(
