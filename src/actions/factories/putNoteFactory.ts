@@ -17,8 +17,8 @@ export interface IPutNoteDependencies {
   onUpdateSuccessful: (updatedNote: Note) => IAction;
 }
 
-export const putNoteFactory = (dependencies: IPutNoteDependencies) => (data: IPutNote): Thunk => {
-  return function (dispatch: Dispatch<IStoreState>) {
+export const putNoteFactory = (dependencies: IPutNoteDependencies) => (data: IPutNote): Thunk =>
+  function (dispatch: Dispatch<IStoreState>) {
     const { noteId, text } = data;
     const apiAddress = dependencies.apiPrefix + '/' + noteId;
 
@@ -41,4 +41,3 @@ export const putNoteFactory = (dependencies: IPutNoteDependencies) => (data: IPu
       })
       .catch(error => dispatch(dependencies.onUpdateError(noteId, error.toString())));
   };
-};

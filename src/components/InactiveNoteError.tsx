@@ -6,6 +6,11 @@ import {
 } from 'react-icons/lib/md';
 import { NotePropType } from '../@types/notePropType';
 import { IAction } from '../models/IAction';
+import {
+  ADD,
+  DELETE,
+  UPDATE
+} from '../constants/failedAction';
 
 export interface IInactiveNoteErrorDataProps {
   readonly note: {
@@ -13,13 +18,13 @@ export interface IInactiveNoteErrorDataProps {
     readonly isEditActive: boolean;
     readonly isCommunicating: boolean;
     readonly communicationError: string;
-    readonly failedAction: Actions;
+    readonly failedAction: FailedAction;
   };
   readonly number: number;
 }
 
 export interface IInactiveNoteErrorCallbackProps {
-  readonly retryFailedAction: (actionType: Actions) => Promise<IAction> | undefined;
+  readonly retryFailedAction: (failedAction: FailedAction) => Promise<IAction> | undefined;
 }
 
 type InactiveNoteErrorProps = IInactiveNoteErrorDataProps & IInactiveNoteErrorCallbackProps;
@@ -41,11 +46,11 @@ export class InactiveNoteError extends React.PureComponent<InactiveNoteErrorProp
 
   _getFailedAction = (): string => {
     switch (this.props.note.failedAction) {
-      case 'DELETE':
+      case DELETE:
         return 'delete operation';
-      case 'UPDATE':
+      case UPDATE:
         return 'update operation';
-      case 'ADD':
+      case ADD:
         return 'addition of note';
       default:
         return '';

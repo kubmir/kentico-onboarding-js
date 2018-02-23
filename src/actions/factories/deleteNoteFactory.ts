@@ -1,7 +1,7 @@
+import { Dispatch } from 'redux';
 import { IStoreState } from '../../models/IStoreState';
 import { HTTP_DELETE } from '../../constants/httpMethods';
 import { IAction } from '../../models/IAction';
-import { Dispatch } from 'redux';
 
 export interface IDeleteNoteDependencies {
   apiPrefix: string;
@@ -11,8 +11,8 @@ export interface IDeleteNoteDependencies {
   onDeletingSuccessful: (noteId: Guid) => IAction;
 }
 
-export const deleteNoteFactory = (dependencies: IDeleteNoteDependencies) => (noteId: Guid): Thunk => {
-  return function (dispatch: Dispatch<IStoreState>) {
+export const deleteNoteFactory = (dependencies: IDeleteNoteDependencies) => (noteId: Guid): Thunk =>
+  function (dispatch: Dispatch<IStoreState>) {
     const apiAddress = dependencies.apiPrefix + '/' + noteId;
     dispatch(dependencies.onDeletingStarted(noteId));
 
@@ -21,4 +21,3 @@ export const deleteNoteFactory = (dependencies: IDeleteNoteDependencies) => (not
       .then(deletedNote => dispatch(dependencies.onDeletingSuccessful(deletedNote.id)))
       .catch(error => dispatch(dependencies.onDeletingError(noteId, error.toString())));
   };
-};

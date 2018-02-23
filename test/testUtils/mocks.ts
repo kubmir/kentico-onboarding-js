@@ -1,4 +1,3 @@
-import 'isomorphic-fetch';
 import { Promise } from 'es6-promise';
 import { OrderedMap } from 'immutable';
 import { IStoreState } from '../../src/models/IStoreState';

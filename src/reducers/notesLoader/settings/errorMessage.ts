@@ -9,12 +9,13 @@ const NO_ERROR_MESSAGE = '';
 
 export const errorMessage = (state = NO_ERROR_MESSAGE, action: IAction): string => {
   switch (action.type) {
-    case START_LOADING_NOTES:
-      return NO_ERROR_MESSAGE;
     case LOADING_NOTES_FAILURE:
       return action.payload.errorDescription;
+
+    case START_LOADING_NOTES:
     case LOADING_NOTES_SUCCESS:
       return NO_ERROR_MESSAGE;
+
     default:
       return state;
   }

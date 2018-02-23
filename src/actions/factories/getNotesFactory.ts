@@ -1,8 +1,8 @@
+import { Dispatch } from 'redux';
 import { Note } from '../../models/Note';
 import { IAction } from '../../models/IAction';
 import { IServerNote } from '../../models/IServerNote';
 import { HTTP_GET } from '../../constants/httpMethods';
-import { Dispatch } from 'redux';
 import { IStoreState } from '../../models/IStoreState';
 
 export interface IGetNotesDependencies {
@@ -14,8 +14,8 @@ export interface IGetNotesDependencies {
   convertNotes: (serverNotes: IServerNote[]) => Iterable<[Guid, Note]>;
 }
 
-export const getNotesFactory = (dependencies: IGetNotesDependencies): Thunk => {
-  return function (dispatch: Dispatch<IStoreState>) {
+export const getNotesFactory = (dependencies: IGetNotesDependencies): Thunk =>
+  function (dispatch: Dispatch<IStoreState>) {
 
     dispatch(dependencies.onGettingStarted());
 
@@ -29,5 +29,3 @@ export const getNotesFactory = (dependencies: IGetNotesDependencies): Thunk => {
       )
       .catch(error => dispatch(dependencies.onGettingError(error.toString())));
   };
-};
-

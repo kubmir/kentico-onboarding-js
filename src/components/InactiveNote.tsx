@@ -10,7 +10,7 @@ export interface IInactiveNoteDataProps {
     readonly isEditActive: boolean;
     readonly isCommunicating: boolean;
     readonly communicationError: string;
-    readonly failedAction: Actions;
+    readonly failedAction: FailedAction;
   };
   readonly number: number;
 }

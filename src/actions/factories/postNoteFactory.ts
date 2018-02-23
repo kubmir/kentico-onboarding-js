@@ -1,8 +1,8 @@
+import { Dispatch } from 'redux';
 import { IAction } from '../../models/IAction';
 import { Note } from '../../models/Note';
 import { HTTP_POST } from '../../constants/httpMethods';
 import { IServerNote } from '../../models/IServerNote';
-import { Dispatch } from 'redux';
 import { IStoreState } from '../../models/IStoreState';
 
 interface IPostNote {
@@ -26,8 +26,8 @@ export interface IRepostNoteDependencies extends IPostDependencies {
   onAddingStarted: (localId: Guid) => IAction;
 }
 
-export const postNoteFactory = (dependencies: IPostNoteDependencies) => (data: IPostNote): Thunk => {
-  return function (dispatch: Dispatch<IStoreState>) {
+export const postNoteFactory = (dependencies: IPostNoteDependencies) => (data: IPostNote): Thunk =>
+  function (dispatch: Dispatch<IStoreState>) {
     const localId = dependencies.generateLocalId();
 
     dispatch(dependencies.onAddingStarted(localId, data.text));
@@ -41,11 +41,9 @@ export const postNoteFactory = (dependencies: IPostNoteDependencies) => (data: I
       })
       .catch(error => dispatch(dependencies.onAddingError(localId, error.toString())));
   };
-};
 
-
-export const repostNoteFactory = (dependencies: IRepostNoteDependencies) => (data: IPostNote, localId: Guid): Thunk => {
-  return function (dispatch: Dispatch<IStoreState>) {
+export const repostNoteFactory = (dependencies: IRepostNoteDependencies) => (data: IPostNote, localId: Guid): Thunk =>
+  function (dispatch: Dispatch<IStoreState>) {
     dispatch(dependencies.onAddingStarted(localId));
 
     return dependencies.sendRequest(dependencies.apiAddress, HTTP_POST, data)
@@ -57,4 +55,3 @@ export const repostNoteFactory = (dependencies: IRepostNoteDependencies) => (dat
       })
       .catch(error => dispatch(dependencies.onAddingError(localId, error.toString())));
   };
-};
