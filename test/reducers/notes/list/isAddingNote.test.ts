@@ -3,6 +3,10 @@ import {
   startAddingNote,
   stopAddingNote,
 } from '../../../../src/actions/actionCreators';
+import {
+  FALSE_INITIAL_STATE,
+  TRUE_INITIAL_STATE
+} from '../../../testUtils/mocks';
 
 describe('Reducer isAddingNote tests', () => {
   it('should return previous state if unknown action is dispatched', () => {
@@ -11,7 +15,7 @@ describe('Reducer isAddingNote tests', () => {
     };
     const expectedState = false;
 
-    const actualState = isAddingNote(undefined, unknownAction);
+    const actualState = isAddingNote(FALSE_INITIAL_STATE, unknownAction);
 
     expect(actualState).toEqual(expectedState);
   });
@@ -20,7 +24,7 @@ describe('Reducer isAddingNote tests', () => {
     const startTouchAction = startAddingNote();
     const expectedState = true;
 
-    const actualState = isAddingNote(undefined, startTouchAction);
+    const actualState = isAddingNote(FALSE_INITIAL_STATE, startTouchAction);
 
     expect(actualState).toEqual(expectedState);
   });
@@ -28,9 +32,8 @@ describe('Reducer isAddingNote tests', () => {
   it('should set isAddingNote to false when ADD_NOTE_BLUR is dispatched', () => {
     const stopTouchAction = stopAddingNote();
     const expectedState = false;
-    const mockedInitialState = true;
 
-    const actualState = isAddingNote(mockedInitialState, stopTouchAction);
+    const actualState = isAddingNote(TRUE_INITIAL_STATE, stopTouchAction);
 
     expect(actualState).toEqual(expectedState);
   });
