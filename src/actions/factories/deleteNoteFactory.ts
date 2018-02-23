@@ -12,7 +12,7 @@ export interface IDeleteNoteDependencies {
   noteId: Guid;
 }
 
-export const deleteNoteFactory: AsyncActionCreator = (dependencies: IDeleteNoteDependencies) => {
+export const deleteNoteFactory = (dependencies: IDeleteNoteDependencies): Thunk => {
   return function (dispatch: Dispatch<IStoreState>) {
 
     dispatch(dependencies.onDeletingStarted(dependencies.noteId));

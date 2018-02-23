@@ -4,7 +4,6 @@ import { HTTP_POST } from '../../constants/httpMethods';
 import { IServerNote } from '../../models/IServerNote';
 import { Dispatch } from 'redux';
 import { IStoreState } from '../../models/IStoreState';
-import { ThunkAction } from 'redux-thunk';
 
 interface IPostNote {
   text: string;
@@ -27,7 +26,7 @@ export interface IRepostNoteDependencies extends IPostDependencies {
   onAddingStarted: (localId: Guid) => IAction;
 }
 
-export const postNoteFactory = (dependencies: IPostNoteDependencies) => (data: IPostNote): ThunkAction<Promise<IAction>, IStoreState, null> => {
+export const postNoteFactory = (dependencies: IPostNoteDependencies) => (data: IPostNote): Thunk => {
   return function (dispatch: Dispatch<IStoreState>) {
     const localId = dependencies.generateLocalId();
 
@@ -45,7 +44,7 @@ export const postNoteFactory = (dependencies: IPostNoteDependencies) => (data: I
 };
 
 
-export const repostNoteFactory = (dependencies: IRepostNoteDependencies) => (data: IPostNote, localId: Guid): ThunkAction<Promise<IAction>, IStoreState, null> => {
+export const repostNoteFactory = (dependencies: IRepostNoteDependencies) => (data: IPostNote, localId: Guid): Thunk => {
   return function (dispatch: Dispatch<IStoreState>) {
     dispatch(dependencies.onAddingStarted(localId));
 

@@ -18,7 +18,7 @@ export interface IPutNoteDependencies {
   data: IPutNote;
 }
 
-export const putNoteFactory: AsyncActionCreator = (dependencies: IPutNoteDependencies) => {
+export const putNoteFactory = (dependencies: IPutNoteDependencies): Thunk => {
   return function (dispatch: Dispatch<IStoreState>) {
     const { noteId, text } = dependencies.data;
 
