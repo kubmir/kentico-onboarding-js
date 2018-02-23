@@ -10,21 +10,21 @@ interface IPutNote {
 }
 
 export interface IPutNoteDependencies {
-  apiAddress: string;
+  apiPrefix: string;
   sendRequest: (apiAddress: string, httpMethod: HttpMethods, data?: object) => Promise<Response>;
   onUpdateStarted: (noteId: Guid, newText: string) => IAction;
   onUpdateError: (noteId: Guid, errorDescription: string) => IAction;
   onUpdateSuccessful: (updatedNote: Note) => IAction;
-  data: IPutNote;
 }
 
-export const putNoteFactory = (dependencies: IPutNoteDependencies): Thunk => {
+export const putNoteFactory = (dependencies: IPutNoteDependencies) => (data: IPutNote): Thunk => {
   return function (dispatch: Dispatch<IStoreState>) {
-    const { noteId, text } = dependencies.data;
+    const { noteId, text } = data;
+    const apiAddress = dependencies.apiPrefix + '/' + noteId;
 
     dispatch(dependencies.onUpdateStarted(noteId, text));
 
-    return dependencies.sendRequest(dependencies.apiAddress, HTTP_PUT, { text })
+    return dependencies.sendRequest(apiAddress, HTTP_PUT, { text })
       .then(response => response.json())
       .then(noteBeforeUpdate => {
         const applicationNote = new Note ({id: noteBeforeUpdate.id, text});

@@ -18,12 +18,11 @@ const NOTE_TO_DELETE_ID = '1';
 
 const mockDependencies = (responsePromise: Promise<IMockedResponse>): IDeleteNoteDependencies => {
   return {
-    apiAddress: 'test',
+    apiPrefix: 'test',
     onDeletingStarted: jest.fn().mockReturnValue(START_ACTION),
     onDeletingError: jest.fn().mockReturnValue(ERROR_ACTION),
     onDeletingSuccessful: jest.fn().mockReturnValue(SUCCESS_ACTION),
     sendRequest: jest.fn().mockReturnValue(responsePromise),
-    noteId: NOTE_TO_DELETE_ID,
   };
 };
 
@@ -36,7 +35,7 @@ describe('deleteNoteFactory tests', () => {
     const responseBody = JSON.stringify(mockServerNote(NOTE_TO_DELETE_TEXT, NOTE_TO_DELETE_ID));
     const postNoteDependencies = mockDependencies(mockResolvedRequest(responseBody));
 
-    return deleteNoteFactory(postNoteDependencies)(dispatch, () => mockStoreState(), null)
+    return deleteNoteFactory(postNoteDependencies)(NOTE_TO_DELETE_ID)(dispatch, () => mockStoreState(), null)
       .then(() => {
         expect(dispatch.mock.calls.length).toEqual(2);
         expect(dispatch.mock.calls[0][0]).toEqual(START_ACTION);
@@ -47,7 +46,7 @@ describe('deleteNoteFactory tests', () => {
   it('request to server is rejected', () => {
     const postNoteDependencies = mockDependencies(mockRejectedRequest());
 
-    return deleteNoteFactory(postNoteDependencies)(dispatch, () => mockStoreState(), null)
+    return deleteNoteFactory(postNoteDependencies)(NOTE_TO_DELETE_ID)(dispatch, () => mockStoreState(), null)
       .catch(() => {
         expect(dispatch.mock.calls.length).toEqual(2);
         expect(dispatch.mock.calls[0][0]).toEqual(START_ACTION);
