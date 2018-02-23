@@ -4,6 +4,10 @@ import {
   startLoadingNotes,
   storeLoadedNotes
 } from '../../../../src/actions/actionCreators';
+import {
+  FALSE_INITIAL_STATE,
+  TRUE_INITIAL_STATE
+} from '../../../testUtils/mocks';
 
 describe('Reducer isLoadingNotes tests', () => {
   it('should return previous state if unknown action is dispatched', () => {
@@ -12,7 +16,7 @@ describe('Reducer isLoadingNotes tests', () => {
     };
     const expectedState = false;
 
-    const actualState = isLoadingNotes(undefined, unknownAction);
+    const actualState = isLoadingNotes(FALSE_INITIAL_STATE, unknownAction);
 
     expect(actualState).toEqual(expectedState);
   });
@@ -21,7 +25,7 @@ describe('Reducer isLoadingNotes tests', () => {
     const failedLoadingAction = displayError('Test error');
     const expectedState = false;
 
-    const actualState = isLoadingNotes(undefined, failedLoadingAction);
+    const actualState = isLoadingNotes(TRUE_INITIAL_STATE, failedLoadingAction);
 
     expect(actualState).toEqual(expectedState);
   });
@@ -30,7 +34,7 @@ describe('Reducer isLoadingNotes tests', () => {
     const successfulLoadingAction = storeLoadedNotes('{}');
     const expectedState = false;
 
-    const actualState = isLoadingNotes(undefined, successfulLoadingAction);
+    const actualState = isLoadingNotes(TRUE_INITIAL_STATE, successfulLoadingAction);
 
     expect(actualState).toEqual(expectedState);
   });
@@ -39,7 +43,7 @@ describe('Reducer isLoadingNotes tests', () => {
     const startLoadingAction = startLoadingNotes();
     const expectedState = true;
 
-    const actualState = isLoadingNotes(undefined, startLoadingAction);
+    const actualState = isLoadingNotes(FALSE_INITIAL_STATE, startLoadingAction);
 
     expect(actualState).toEqual(expectedState);
   });
