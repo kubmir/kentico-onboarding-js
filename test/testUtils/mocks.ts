@@ -1,16 +1,21 @@
 import { Promise } from 'es6-promise';
 import { OrderedMap } from 'immutable';
 import { IStoreState } from '../../src/models/IStoreState';
+import { IServerNote } from '../../src/models/IServerNote';
 
 export interface IMockedResponse {
   readonly status: number;
   readonly ok: boolean;
   readonly json: () => Promise<string | undefined>;
 }
-export const mockResponse = (status: number, ok: boolean, body?: string): Promise<IMockedResponse> =>
-  Promise.resolve({ status, ok, json: () => Promise.resolve(body) });
 
-export const mockServerNote = (text: string, id: Guid) => ({
+const mockedJson = (body?: string) => (): Promise<string | undefined> =>
+  Promise.resolve(body);
+
+export const mockResponse = (status: number, ok: boolean, body?: string): Promise<IMockedResponse> =>
+  Promise.resolve({ status, ok, json: mockedJson(body) });
+
+export const mockServerNote = (text: string, id: Guid): IServerNote => ({
   text,
   id,
   lastModificationDate: new Date(2017, 12, 5),
