@@ -14,7 +14,7 @@ export interface IGetNotesDependencies {
   convertNotes: (serverNotes: IServerNote[]) => Iterable<[Guid, Note]>;
 }
 
-export const getNotesFactory: AsyncActionCreator = (dependencies: IGetNotesDependencies) => {
+export const getNotesFactory = (dependencies: IGetNotesDependencies): Thunk => {
   return function (dispatch: Dispatch<IStoreState>) {
 
     dispatch(dependencies.onGettingStarted());
