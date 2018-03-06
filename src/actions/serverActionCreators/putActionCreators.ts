@@ -1,4 +1,3 @@
-import { API_PREFIX } from '../../constants/apiPrefix';
 import { fetchFactory } from '../factories/fetchFactory';
 import {
   IPutNoteDependencies,
@@ -14,7 +13,7 @@ const sendRequest = fetchFactory(fetch);
 
 const prepareDependencies = (): IPutNoteDependencies => (
   {
-    apiPrefix: API_PREFIX,
+    apiPrefix: process.env.API_URL,
     sendRequest,
     onUpdateError: updatingNoteOnServerFailed,
     onUpdateStarted: startUpdatingNoteOnServer,

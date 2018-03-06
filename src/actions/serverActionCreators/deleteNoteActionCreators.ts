@@ -1,5 +1,4 @@
 import { fetchFactory } from '../factories/fetchFactory';
-import { API_PREFIX } from '../../constants/apiPrefix';
 import {
   deletingNoteFromServerFailed,
   deletingNoteFromServerSuccess,
@@ -13,7 +12,7 @@ import {
 const sendRequest = fetchFactory(fetch);
 
 const prepareDependencies = (): IDeleteNoteDependencies => ({
-  apiPrefix: API_PREFIX,
+  apiPrefix: process.env.API_URL,
   sendRequest,
   onDeletingStarted: startDeletingNoteFromServer,
   onDeletingError: deletingNoteFromServerFailed,

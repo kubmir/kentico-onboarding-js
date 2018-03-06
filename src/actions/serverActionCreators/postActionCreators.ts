@@ -6,7 +6,6 @@ import {
   postNoteFactory,
   repostNoteFactory
 } from '../factories/postNoteFactory';
-import { API_PREFIX } from '../../constants/apiPrefix';
 import {
   sendingNoteToServerFailed,
   sendingNoteToServerSuccess,
@@ -19,7 +18,7 @@ import { generateId } from '../../utils/generateId';
 const sendRequest = fetchFactory(fetch);
 
 const preparePostDependencies = (): IPostDependencies => ({
-  apiAddress: API_PREFIX,
+  apiAddress: process.env.API_URL,
   sendRequest,
   onAddingError: sendingNoteToServerFailed,
   onAddingSuccessful: sendingNoteToServerSuccess,

@@ -2,7 +2,6 @@ import {
   getNotesFactory,
   IGetNotesDependencies
 } from '../factories/getNotesFactory';
-import { API_PREFIX } from '../../constants/apiPrefix';
 import {
   displayError,
   startLoadingNotes,
@@ -14,7 +13,7 @@ import { fetchFactory } from '../factories/fetchFactory';
 const sendRequest = fetchFactory(fetch);
 
 const configurationObject: IGetNotesDependencies = {
-  apiAddress: API_PREFIX,
+  apiAddress: process.env.API_URL,
   sendRequest,
   onGettingStarted: startLoadingNotes,
   onGettingError: displayError,

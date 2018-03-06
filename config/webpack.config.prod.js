@@ -239,7 +239,12 @@ module.exports = {
     // having to parse `index.html`.
     new ManifestPlugin({
       fileName: 'asset-manifest.json'
-    })
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'API_URL': JSON.stringify('https://miroslavknotesapi.azurewebsites.net/api/v1.0/notes'),
+      },
+    }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
