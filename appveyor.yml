@@ -1,5 +1,8 @@
 environment:
   nodejs_version: "8"
+  SURGE_LOGIN: login
+  SURGE_TOKEN:
+    secure: secure-string
 
 install:
   - ps: Install-Product node $env:nodejs_version
@@ -10,3 +13,11 @@ test_script:
 
 build_script:
   - cmd: npm run build
+
+for:
+- 
+  branches:
+    only: 
+      - /master-v2/
+  deploy_script:
+    - cmd: npm run deploy
