@@ -27,7 +27,7 @@ export interface IRepostNoteDependencies extends IPostDependencies {
 }
 
 export const postNoteFactory = (dependencies: IPostNoteDependencies) => (data: IPostNote): Thunk =>
-  function (dispatch: Dispatch<IStoreState>) {
+  function (dispatch: Dispatch<IStoreState>): Promise<IAction> {
     const localId = dependencies.generateLocalId();
 
     dispatch(dependencies.onAddingStarted(localId, data.text));
@@ -43,7 +43,7 @@ export const postNoteFactory = (dependencies: IPostNoteDependencies) => (data: I
   };
 
 export const repostNoteFactory = (dependencies: IRepostNoteDependencies) => (data: IPostNote, localId: Guid): Thunk =>
-  function (dispatch: Dispatch<IStoreState>) {
+  function (dispatch: Dispatch<IStoreState>): Promise<IAction> {
     dispatch(dependencies.onAddingStarted(localId));
 
     return dependencies.sendRequest(dependencies.apiAddress, HTTP_POST, data)

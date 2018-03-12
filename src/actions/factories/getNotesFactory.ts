@@ -15,7 +15,7 @@ export interface IGetNotesDependencies {
 }
 
 export const getNotesFactory = (dependencies: IGetNotesDependencies): Thunk =>
-  function (dispatch: Dispatch<IStoreState>) {
+  function (dispatch: Dispatch<IStoreState>): Promise<IAction> {
 
     dispatch(dependencies.onGettingStarted());
 
