@@ -18,7 +18,7 @@ export interface IPutNoteDependencies {
 }
 
 export const putNoteFactory = (dependencies: IPutNoteDependencies) => (data: IPutNote): Thunk =>
-  function (dispatch: Dispatch<IStoreState>) {
+  function (dispatch: Dispatch<IStoreState>): Promise<IAction> {
     const { noteId, text } = data;
     const apiAddress = dependencies.apiPrefix + '/' + noteId;
 

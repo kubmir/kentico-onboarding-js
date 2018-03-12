@@ -12,7 +12,7 @@ export interface IDeleteNoteDependencies {
 }
 
 export const deleteNoteFactory = (dependencies: IDeleteNoteDependencies) => (noteId: Guid): Thunk =>
-  function (dispatch: Dispatch<IStoreState>) {
+  function (dispatch: Dispatch<IStoreState>): Promise<IAction> {
     const apiAddress = dependencies.apiPrefix + '/' + noteId;
     dispatch(dependencies.onDeletingStarted(noteId));
 
