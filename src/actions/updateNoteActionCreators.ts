@@ -1,5 +1,8 @@
 import {
   CANCEL_EDITING_NOTE,
+  CANCEL_FAILED_ADD_ACTION,
+  CANCEL_FAILED_DELETE_ACTION,
+  CANCEL_FAILED_UPDATE_ACTION,
   START_EDITING_NOTE,
   START_UPDATING_NOTE_ON_SERVER,
   UPDATING_NOTE_ON_SERVER_FAILURE,
@@ -38,10 +41,31 @@ export const updatingNoteOnServerFailed = (noteId: Guid, errorDescription: strin
   }
 });
 
-export const updatingNoteOnServerSuccess = (updatedNote: Note) => ({
+export const updatingNoteOnServerSuccess = (updatedNote: Note): IAction => ({
   type: UPDATING_NOTE_ON_SERVER_SUCCESS,
   payload: {
     noteId: updatedNote.id,
     text: updatedNote.text,
+  }
+});
+
+export const cancelFailedDeleteAction = (noteId: Guid): IAction => ({
+  type: CANCEL_FAILED_DELETE_ACTION,
+  payload: {
+    noteId,
+  }
+});
+
+export const cancelFailedUpdateAction = (noteId: Guid): IAction => ({
+  type: CANCEL_FAILED_UPDATE_ACTION,
+  payload: {
+    noteId,
+  }
+});
+
+export const cancelFailedAddAction = (noteId: Guid): IAction => ({
+  type: CANCEL_FAILED_ADD_ACTION,
+  payload: {
+    noteId,
   }
 });
