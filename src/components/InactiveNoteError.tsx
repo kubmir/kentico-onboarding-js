@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import {
   MdError,
   MdRepeat,
+  MdCancel,
 } from 'react-icons/lib/md';
 import { NotePropType } from '../@types/notePropType';
 import { IAction } from '../models/IAction';
@@ -25,6 +26,7 @@ export interface IInactiveNoteErrorDataProps {
 
 export interface IInactiveNoteErrorCallbackProps {
   readonly retryFailedAction: (failedAction: FailedAction) => Promise<IAction> | undefined;
+  readonly cancelFailedAction: (failedAction: FailedAction) => IAction | undefined;
 }
 
 type InactiveNoteErrorProps = IInactiveNoteErrorDataProps & IInactiveNoteErrorCallbackProps;
@@ -44,6 +46,9 @@ export class InactiveNoteError extends React.PureComponent<InactiveNoteErrorProp
   _onRetryClick = (): Promise<IAction> | undefined =>
     this.props.retryFailedAction(this.props.note.failedAction);
 
+  _onCancelFailedActionClick = (): IAction | undefined =>
+    this.props.cancelFailedAction(this.props.note.failedAction);
+
   _getFailedAction = (): string => {
     switch (this.props.note.failedAction) {
       case DELETE:
@@ -62,6 +67,15 @@ export class InactiveNoteError extends React.PureComponent<InactiveNoteErrorProp
 
     return (<p>
       <span style={{ color: 'grey' }}>{this.props.number + '. ' + this.props.note.text}</span>
+      <span title={'Cancel failed ' + failedActionMessage}>
+        <MdCancel
+          className="pull-right"
+          size="25"
+          color="blue"
+          style={{ cursor: 'pointer' }}
+          onClick={this._onCancelFailedActionClick}
+        />
+      </span>
       <span title={'Retry ' + failedActionMessage}>
         <MdRepeat
           className="pull-right"

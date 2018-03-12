@@ -18,10 +18,15 @@ import {
   startUpdatingNoteOnServer,
   updatingNoteOnServerFailed,
   updatingNoteOnServerSuccess,
+  cancelFailedDeleteAction,
 } from '../../../../src/actions/actionCreators';
 import { OrderedMap } from 'immutable';
 import { Note } from '../../../../src/models/Note';
 import { startReSendingNoteToServer } from '../../../../src/actions/addNoteActionCreators';
+import {
+  cancelFailedAddAction,
+  cancelFailedUpdateAction
+} from '../../../../src/actions/updateNoteActionCreators';
 
 describe('Reducer listOfNotes tests', () => {
   let initialState: OrderedMap<Guid, Note>;
@@ -238,6 +243,65 @@ describe('Reducer listOfNotes tests', () => {
     );
 
     const actualState = listOfNotes(initialState, sendingNoteFailureAction);
+
+    expect(actualState).toEqual(expectedState);
+  });
+
+  it('action CANCEL_FAILED_DELETE_ACTION should set property isCommunicating to false, communicationError and failedAction to empty', () => {
+    const cancelDeleteAction = cancelFailedDeleteAction('1');
+    const initialErrorState = OrderedMap<string, Note>(
+      [
+        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', 'DELETE')],
+        ['2', prepareNote('Second test note', '2', false)],
+      ],
+    );
+    const expectedState = OrderedMap(
+      [
+        ['1', prepareNote('First test note', '1', false)],
+        ['2', prepareNote('Second test note', '2', false)],
+      ],
+    );
+
+    const actualState = listOfNotes(initialErrorState, cancelDeleteAction);
+
+    expect(actualState).toEqual(expectedState);
+  });
+
+  it('action CANCEL_FAILED_UPDATE_ACTION should set property isCommunicating to false, communicationError and failedAction to empty', () => {
+    const cancelUpdateAction = cancelFailedUpdateAction('1');
+    const initialErrorState = OrderedMap<string, Note>(
+      [
+        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', 'UPDATE')],
+        ['2', prepareNote('Second test note', '2', false)],
+      ],
+    );
+    const expectedState = OrderedMap(
+      [
+        ['1', prepareNote('First test note', '1', false)],
+        ['2', prepareNote('Second test note', '2', false)],
+      ],
+    );
+
+    const actualState = listOfNotes(initialErrorState, cancelUpdateAction);
+
+    expect(actualState).toEqual(expectedState);
+  });
+
+  it('action CANCEL_FAILED_ADD_ACTION should delete local note of failed addition', () => {
+    const cancelAddAction = cancelFailedAddAction('1');
+    const initialErrorState = OrderedMap<string, Note>(
+      [
+        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', 'UPDATE')],
+        ['2', prepareNote('Second test note', '2', false)],
+      ],
+    );
+    const expectedState = OrderedMap(
+      [
+        ['2', prepareNote('Second test note', '2', false)],
+      ],
+    );
+
+    const actualState = listOfNotes(initialErrorState, cancelAddAction);
 
     expect(actualState).toEqual(expectedState);
   });

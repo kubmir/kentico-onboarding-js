@@ -2,6 +2,9 @@ import { OrderedMap } from 'immutable';
 import { Note } from '../../../models/Note';
 import {
   CANCEL_EDITING_NOTE,
+  CANCEL_FAILED_ADD_ACTION,
+  CANCEL_FAILED_DELETE_ACTION,
+  CANCEL_FAILED_UPDATE_ACTION,
   DELETING_NOTE_FROM_SERVER_FAILURE,
   DELETING_NOTE_FROM_SERVER_SUCCESS,
   LOADING_NOTES_SUCCESS,
@@ -90,6 +93,13 @@ export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): 
       return updateNoteOnFailure(state, UPDATE, action.payload);
 
     case DELETING_NOTE_FROM_SERVER_SUCCESS:
+      return deleteNote(state, action.payload);
+
+    case CANCEL_FAILED_DELETE_ACTION:
+    case CANCEL_FAILED_UPDATE_ACTION:
+      return updateNote(state, { isEditActive: false, isCommunicating: false, communicationError: '', failedAction: '' }, action.payload.noteId);
+
+    case CANCEL_FAILED_ADD_ACTION :
       return deleteNote(state, action.payload);
 
     default:
