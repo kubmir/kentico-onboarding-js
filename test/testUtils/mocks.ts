@@ -13,7 +13,11 @@ const mockedJson = (body?: string) => (): Promise<string | undefined> =>
   Promise.resolve(body);
 
 export const mockResponse = (status: number, ok: boolean, body?: string): Promise<IMockedResponse> =>
-  Promise.resolve({ status, ok, json: mockedJson(body) });
+  Promise.resolve({
+    status,
+    ok,
+    json: mockedJson(body)
+  });
 
 export const mockServerNote = (text: string, id: Guid): IServerNote => ({
   text,
@@ -46,6 +50,13 @@ export const mockStoreState = (): IStoreState =>
       isLoadingNotes: false,
       isLoadingSuccessful: false,
       errorMessage: '',
-    }
+    },
+    notesModal: {
+      isConfirmModalVisible: false,
+      modalNote: {
+        noteId: '',
+        failedAction: '',
+      },
+    },
   });
 

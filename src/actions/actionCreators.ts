@@ -6,3 +6,4 @@ export * from './serverActionCreators/putActionCreators';
 export * from './notesLoaderActionCreators';
 export * from './deleteNoteActionCreators';
 export * from './updateNoteActionCreators';
+export * from './confirmModalActionCreators';

@@ -5,6 +5,7 @@ import { List } from '../containers-redux/List';
 import { IKeyMap } from '../models/IKeyMap';
 import { Loader } from './Loader';
 import { ErrorWindow } from '../containers-redux/ErrorWindow';
+import { CancelActionModal } from '../containers-redux/CancelActionModal';
 import '../sticky-footer.css';
 
 const keyMap: IKeyMap = {
@@ -73,6 +74,7 @@ export class App extends React.PureComponent<IAppDataProps> {
         <footer className="footer">
           <p>&copy; 2017 Kentico software, s.r.o</p>
         </footer>
+        <CancelActionModal />
       </div>
     );
   }

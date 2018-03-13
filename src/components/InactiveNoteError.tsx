@@ -12,21 +12,16 @@ import {
   DELETE,
   UPDATE
 } from '../constants/failedAction';
+import { Note } from '../models/Note';
 
 export interface IInactiveNoteErrorDataProps {
-  readonly note: {
-    readonly text: string;
-    readonly isEditActive: boolean;
-    readonly isCommunicating: boolean;
-    readonly communicationError: string;
-    readonly failedAction: FailedAction;
-  };
+  readonly note: Note,
   readonly number: number;
 }
 
 export interface IInactiveNoteErrorCallbackProps {
   readonly retryFailedAction: (failedAction: FailedAction) => Promise<IAction> | undefined;
-  readonly cancelFailedAction: (failedAction: FailedAction) => IAction | undefined;
+  readonly showModal: (note: Note) => IAction | undefined;
 }
 
 type InactiveNoteErrorProps = IInactiveNoteErrorDataProps & IInactiveNoteErrorCallbackProps;
@@ -47,7 +42,7 @@ export class InactiveNoteError extends React.PureComponent<InactiveNoteErrorProp
     this.props.retryFailedAction(this.props.note.failedAction);
 
   _onCancelFailedActionClick = (): IAction | undefined =>
-    this.props.cancelFailedAction(this.props.note.failedAction);
+    this.props.showModal(this.props.note);
 
   _getFailedAction = (): string => {
     switch (this.props.note.failedAction) {
@@ -65,39 +60,42 @@ export class InactiveNoteError extends React.PureComponent<InactiveNoteErrorProp
   render() {
     const failedActionMessage = this._getFailedAction();
 
-    return (<p>
-      <span style={{ color: 'grey' }}>{this.props.number + '. ' + this.props.note.text}</span>
-      <span title={'Cancel failed ' + failedActionMessage}>
-        <MdCancel
-          className="pull-right"
-          size="25"
-          color="blue"
-          style={{ cursor: 'pointer' }}
-          onClick={this._onCancelFailedActionClick}
-        />
-      </span>
-      <span title={'Retry ' + failedActionMessage}>
-        <MdRepeat
-          className="pull-right"
-          color="green"
-          size="25"
-          style={{ cursor: 'pointer' }}
-          onClick={this._onRetryClick}
-        />
-      </span>
-      <span title="Error">
-        <MdError
-          className="pull-right"
-          size="25"
-          color="red"
-        />
-      </span>
-      <span
-        className="pull-right"
-        style={{ color: 'red' }}
-      >
-        {this.props.note.communicationError}
-      </span>
-    </p>);
+    return (
+      <div>
+        <p>
+          <span style={{ color: 'grey' }}>{this.props.number + '. ' + this.props.note.text}</span>
+          <span title={'Cancel failed ' + failedActionMessage}>
+            <MdCancel
+              className="pull-right"
+              size="25"
+              color="blue"
+              style={{ cursor: 'pointer' }}
+              onClick={this._onCancelFailedActionClick}
+            />
+          </span>
+          <span title={'Retry ' + failedActionMessage}>
+            <MdRepeat
+              className="pull-right"
+              color="green"
+              size="25"
+              style={{ cursor: 'pointer' }}
+              onClick={this._onRetryClick}
+            />
+          </span>
+          <span title="Error">
+            <MdError
+              className="pull-right"
+              size="25"
+              color="red"
+            />
+          </span>
+          <span
+            className="pull-right"
+            style={{ color: 'red' }}
+          >
+            {this.props.note.communicationError}
+          </span>
+        </p>
+      </div>);
   }
 }
