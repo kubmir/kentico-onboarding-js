@@ -4,22 +4,21 @@ import { IAction } from '../../models/IAction';
 import { Dispatch } from 'redux';
 
 export interface IDeleteNoteDependencies {
-  apiAddress: string;
+  apiPrefix: string;
   sendRequest: (apiAddress: string, httpMethod: HttpMethods, data?: object) => Promise<Response>;
   onDeletingStarted: (noteId: Guid) => IAction;
   onDeletingError: (noteId: Guid, errorDescription: string) => IAction;
   onDeletingSuccessful: (noteId: Guid) => IAction;
-  noteId: Guid;
 }
 
-export const deleteNoteFactory = (dependencies: IDeleteNoteDependencies): Thunk => {
+export const deleteNoteFactory = (dependencies: IDeleteNoteDependencies) => (noteId: Guid): Thunk => {
   return function (dispatch: Dispatch<IStoreState>) {
+    const apiAddress = dependencies.apiPrefix + '/' + noteId;
+    dispatch(dependencies.onDeletingStarted(noteId));
 
-    dispatch(dependencies.onDeletingStarted(dependencies.noteId));
-
-    return dependencies.sendRequest(dependencies.apiAddress, HTTP_DELETE)
+    return dependencies.sendRequest(apiAddress, HTTP_DELETE)
       .then(response => response.json())
       .then(deletedNote => dispatch(dependencies.onDeletingSuccessful(deletedNote.id)))
-      .catch(error => dispatch(dependencies.onDeletingError(dependencies.noteId, error.toString())));
+      .catch(error => dispatch(dependencies.onDeletingError(noteId, error.toString())));
   };
 };

@@ -12,9 +12,8 @@ import {
 
 const sendRequest = fetchFactory(fetch);
 
-const prepareDependencies = (noteId: Guid): IDeleteNoteDependencies => ({
-  apiAddress: API_PREFIX + '/' + noteId,
-  noteId,
+const prepareDependencies = (): IDeleteNoteDependencies => ({
+  apiPrefix: API_PREFIX,
   sendRequest,
   onDeletingStarted: startDeletingNoteFromServer,
   onDeletingError: deletingNoteFromServerFailed,
@@ -22,4 +21,4 @@ const prepareDependencies = (noteId: Guid): IDeleteNoteDependencies => ({
 });
 
 export const deleteServerNote = (noteId: Guid) =>
-  deleteNoteFactory(prepareDependencies(noteId));
+  deleteNoteFactory(prepareDependencies())(noteId);

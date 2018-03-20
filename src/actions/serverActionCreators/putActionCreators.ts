@@ -12,16 +12,15 @@ import {
 
 const sendRequest = fetchFactory(fetch);
 
-const prepareDependencies = (newNoteText: string, noteId: Guid): IPutNoteDependencies => (
+const prepareDependencies = (): IPutNoteDependencies => (
   {
-    apiAddress: API_PREFIX + '/' + noteId,
+    apiPrefix: API_PREFIX,
     sendRequest,
     onUpdateError: updatingNoteOnServerFailed,
     onUpdateStarted: startUpdatingNoteOnServer,
     onUpdateSuccessful: updatingNoteOnServerSuccess,
-    data: { text: newNoteText, noteId }
   }
 );
 
 export const updateServerNote = (updatedNoteText: string, noteId: Guid) =>
-  putNoteFactory(prepareDependencies(updatedNoteText, noteId));
+  putNoteFactory(prepareDependencies())({ text: updatedNoteText, noteId });
