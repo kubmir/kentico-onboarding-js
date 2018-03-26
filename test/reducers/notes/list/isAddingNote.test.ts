@@ -2,7 +2,7 @@ import { isAddingNote } from '../../../../src/reducers/notes/list/isAddingNote';
 import {
   startAddingNote,
   stopAddingNote,
-} from '../../../../src/actions/actionCreators';
+} from '../../../../src/actions';
 import {
   FALSE_INITIAL_STATE,
   TRUE_INITIAL_STATE

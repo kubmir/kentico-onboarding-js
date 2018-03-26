@@ -1,4 +1,5 @@
 import { Record } from 'immutable';
+import { FailedAction } from '../enums/failedAction';
 
 interface INote {
   readonly text: string;
@@ -15,7 +16,7 @@ const defaultNote: INote = {
   isEditActive: false,
   isCommunicating: false,
   communicationError: '',
-  failedAction: '',
+  failedAction: FailedAction.NO_FAILURE,
 };
 
 export class Note extends Record(defaultNote) implements INote {

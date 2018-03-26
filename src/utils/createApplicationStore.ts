@@ -8,7 +8,7 @@ import {
 import thunk from 'redux-thunk';
 import { logger } from 'redux-logger';
 import { Store } from 'react-redux';
-import { getAllNotes } from '../actions/actionCreators';
+import { getAllNotes } from '../actions';
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

@@ -1,5 +1,6 @@
 import { OrderedMap } from 'immutable';
 import { Note } from '../../src/models/Note';
+import { FailedAction } from '../../src/enums/failedAction';
 
 export const prepareNote = (text: string, id: Guid, isEditActive: boolean): Note =>
   new Note({

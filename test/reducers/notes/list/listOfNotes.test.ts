@@ -19,14 +19,13 @@ import {
   updatingNoteOnServerFailed,
   updatingNoteOnServerSuccess,
   cancelFailedDeleteAction,
-} from '../../../../src/actions/actionCreators';
-import { OrderedMap } from 'immutable';
-import { Note } from '../../../../src/models/Note';
-import { startReSendingNoteToServer } from '../../../../src/actions/addNoteActionCreators';
-import {
+  startReSendingNoteToServer,
   cancelFailedAddAction,
   cancelFailedUpdateAction
-} from '../../../../src/actions/updateNoteActionCreators';
+} from '../../../../src/actions';
+import { OrderedMap } from 'immutable';
+import { Note } from '../../../../src/models/Note';
+import { FailedAction } from '../../../../src/enums/failedAction';
 
 describe('Reducer listOfNotes tests', () => {
   let initialState: OrderedMap<Guid, Note>;
@@ -208,7 +207,7 @@ describe('Reducer listOfNotes tests', () => {
     const deletingNoteFailureAction = deletingNoteFromServerFailed('1', 'Test error');
     const expectedState = OrderedMap(
       [
-        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', 'DELETE')],
+        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', FailedAction.DELETE)],
         ['2', prepareNote('Second test note', '2', false)],
       ],
     );
@@ -222,7 +221,7 @@ describe('Reducer listOfNotes tests', () => {
     const sendingNoteFailureAction = sendingNoteToServerFailed('1', 'Test error');
     const expectedState = OrderedMap(
       [
-        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', 'ADD')],
+        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', FailedAction.ADD)],
         ['2', prepareNote('Second test note', '2', false)],
       ],
     );
@@ -237,7 +236,7 @@ describe('Reducer listOfNotes tests', () => {
     const sendingNoteFailureAction = updatingNoteOnServerFailed('1', 'Test error');
     const expectedState = OrderedMap(
       [
-        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', 'UPDATE')],
+        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', FailedAction.UPDATE)],
         ['2', prepareNote('Second test note', '2', false)],
       ],
     );
@@ -251,7 +250,7 @@ describe('Reducer listOfNotes tests', () => {
     const cancelDeleteAction = cancelFailedDeleteAction('1');
     const initialErrorState = OrderedMap<string, Note>(
       [
-        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', 'DELETE')],
+        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', FailedAction.DELETE)],
         ['2', prepareNote('Second test note', '2', false)],
       ],
     );
@@ -271,7 +270,7 @@ describe('Reducer listOfNotes tests', () => {
     const cancelUpdateAction = cancelFailedUpdateAction('1');
     const initialErrorState = OrderedMap<string, Note>(
       [
-        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', 'UPDATE')],
+        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', FailedAction.UPDATE)],
         ['2', prepareNote('Second test note', '2', false)],
       ],
     );
@@ -291,7 +290,7 @@ describe('Reducer listOfNotes tests', () => {
     const cancelAddAction = cancelFailedAddAction('1');
     const initialErrorState = OrderedMap<string, Note>(
       [
-        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', 'UPDATE')],
+        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', FailedAction.UPDATE)],
         ['2', prepareNote('Second test note', '2', false)],
       ],
     );

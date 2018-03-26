@@ -3,7 +3,7 @@ import {
   displayError,
   startLoadingNotes,
   storeLoadedNotes
-} from '../../../../src/actions/actionCreators';
+} from '../../../../src/actions';
 import {
   FALSE_INITIAL_STATE,
   TRUE_INITIAL_STATE
