@@ -22,5 +22,5 @@ const prepareDependencies = (): IPutNoteDependencies => (
   }
 );
 
-export const updateServerNote = (updatedNoteText: string, noteId: Guid) =>
+export const updateServerNote = (noteId: Guid, updatedNoteText: string) =>
   putNoteFactory(prepareDependencies())({ text: updatedNoteText, noteId });

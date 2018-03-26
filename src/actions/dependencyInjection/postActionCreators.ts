@@ -44,5 +44,5 @@ const prepareRePostNoteDependencies = (): IRepostNoteDependencies => (
 export const addNewNote = (newNoteText: string) =>
   postNoteFactory(preparePostNoteDependencies())({ text: newNoteText });
 
-export const retryAddNewNote = (newNoteText: string, localId: Guid) =>
+export const retryAddNewNote = (localId: Guid, newNoteText: string) =>
   repostNoteFactory(prepareRePostNoteDependencies())({ text: newNoteText }, localId);

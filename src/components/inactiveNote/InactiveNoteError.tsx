@@ -23,6 +23,7 @@ export interface IInactiveNoteErrorDataProps {
 export interface IInactiveNoteErrorCallbackProps {
   readonly retryFailedAction: (failedAction: FailedAction) => Promise<IAction> | undefined;
   readonly cancelFailedAction: (failedAction: FailedAction) => IAction | undefined;
+  readonly getFailedActionTooltipText: () => string;
 }
 
 type InactiveNoteErrorProps = IInactiveNoteErrorDataProps & IInactiveNoteErrorCallbackProps;
@@ -45,25 +46,10 @@ export class InactiveNoteError extends React.PureComponent<InactiveNoteErrorProp
   _onCancelFailedActionClick = (): IAction | undefined =>
     this.props.cancelFailedAction(this.props.note.failedAction);
 
-  _getFailedAction = (): string => {
-    switch (this.props.note.failedAction) {
-      case FailedAction.DELETE:
-        return 'delete operation';
-      case FailedAction.UPDATE:
-        return 'update operation';
-      case FailedAction.ADD:
-        return 'addition of note';
-      default:
-        return '';
-    }
-  };
-
   render() {
-    const failedActionMessage = this._getFailedAction();
-
     return (<p>
       <span style={{ color: 'grey' }}>{this.props.number + '. ' + this.props.note.text}</span>
-      <span title={'Cancel failed ' + failedActionMessage}>
+      <span title={'Cancel failed ' + this.props.getFailedActionTooltipText()}>
         <MdCancel
           className="pull-right"
           size="25"
@@ -72,7 +58,7 @@ export class InactiveNoteError extends React.PureComponent<InactiveNoteErrorProp
           onClick={this._onCancelFailedActionClick}
         />
       </span>
-      <span title={'Retry ' + failedActionMessage}>
+      <span title={'Retry ' + this.props.getFailedActionTooltipText()}>
         <MdRepeat
           className="pull-right"
           color="green"

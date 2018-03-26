@@ -20,5 +20,5 @@ const prepareDependencies = (): IDeleteNoteDependencies => ({
   onDeletingSuccessful: deletingNoteFromServerSuccess,
 });
 
-export const deleteServerNote = (noteId: Guid) =>
+export const deleteServerNote = (noteId: Guid): Thunk =>
   deleteNoteFactory(prepareDependencies())(noteId);

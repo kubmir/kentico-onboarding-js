@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IStoreState>, ownProps: INoteEdit
   onCancelEditor: () =>
     dispatch(cancelEditingNote(ownProps.noteId)),
   onSaveClick: (currentNoteText: string) =>
-    dispatch(updateServerNote(currentNoteText, ownProps.noteId)),
+    dispatch(updateServerNote(ownProps.noteId, currentNoteText)),
 });
 
 export const NoteEditor = connect(
