@@ -1,10 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
-import { List } from '../../containers-redux/applicationViews/List';
 import { IKeyMap } from '../../models/IKeyMap';
 import { Loader } from './Loader';
-import { ErrorWindow } from '../../containers-redux/applicationViews/ErrorWindow';
+import { MainPage } from '../../containers-redux/applicationViews/MainPage';
 import '../../sticky-footer.css';
 
 const keyMap: IKeyMap = {
@@ -14,23 +13,19 @@ const keyMap: IKeyMap = {
 
 export interface IAppDataProps {
   readonly isLoadingNotes: boolean;
-  readonly isLoadingFailed: boolean;
 }
 
 export class App extends React.PureComponent<IAppDataProps> {
   static displayName = 'App';
 
   static propTypes = {
-    isLoadingFailed: PropTypes.bool.isRequired,
     isLoadingNotes: PropTypes.bool.isRequired,
   };
 
   render() {
     const pageContent = this.props.isLoadingNotes
       ? <Loader />
-      : (this.props.isLoadingFailed
-        ? <ErrorWindow />
-        : <List />);
+      : <MainPage />;
 
     return (
       <div>

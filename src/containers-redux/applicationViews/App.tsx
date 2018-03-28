@@ -5,9 +5,8 @@ import {
   App as AppComponent
 } from '../../components/applicationViews/App';
 
-const mapStateToProps = ({ notesLoader }: IStoreState): IAppDataProps => ({
-  isLoadingNotes: notesLoader.isLoadingNotes,
-  isLoadingFailed: notesLoader.isLoadingFailed,
+const mapStateToProps = ({ notesLoader: { isLoadingNotes } }: IStoreState): IAppDataProps => ({
+  isLoadingNotes,
 });
 
 export const App = connect(
