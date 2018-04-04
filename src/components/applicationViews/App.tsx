@@ -5,6 +5,7 @@ import { IKeyMap } from '../../models/IKeyMap';
 import { Loader } from './Loader';
 import { MainPage } from '../../containers-redux/applicationViews/MainPage';
 import '../../sticky-footer.css';
+import { IAction } from '../../models/IAction';
 
 const keyMap: IKeyMap = {
   cancelEditing: 'esc',
@@ -15,12 +16,26 @@ export interface IAppDataProps {
   readonly isLoadingNotes: boolean;
 }
 
-export class App extends React.PureComponent<IAppDataProps> {
+export interface IAppCallbacksProps {
+  readonly loadNotesFromServer: () => Promise<IAction>;
+}
+
+type IAppProps = IAppDataProps & IAppCallbacksProps;
+
+export class App extends React.PureComponent<IAppProps> {
   static displayName = 'App';
 
   static propTypes = {
     isLoadingNotes: PropTypes.bool.isRequired,
   };
+
+  constructor(props: IAppProps) {
+    super(props);
+  }
+
+  componentDidMount() {
+    this.props.loadNotesFromServer();
+  }
 
   render() {
     const pageContent = this.props.isLoadingNotes

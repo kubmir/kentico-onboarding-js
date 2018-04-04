@@ -1,4 +1,4 @@
-import *as React from 'react';
+import * as React from 'react';
 import { Provider } from 'react-redux';
 import { App } from '../containers-redux/applicationViews/App';
 import { createApplicationStore } from '../utils/createApplicationStore';

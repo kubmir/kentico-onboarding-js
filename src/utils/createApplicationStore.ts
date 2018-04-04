@@ -8,7 +8,6 @@ import {
 import thunk from 'redux-thunk';
 import { logger } from 'redux-logger';
 import { Store } from 'react-redux';
-import { getAllNotes } from '../actions';
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -18,8 +17,6 @@ export const createApplicationStore = (): Store<IStoreState> => {
     application,
     composeEnhancers(applyMiddleware(thunk, logger)),
   );
-
-  store.dispatch(getAllNotes);
 
   return store;
 };
