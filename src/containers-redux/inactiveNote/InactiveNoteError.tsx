@@ -20,10 +20,10 @@ const mapDispatchToProps = (dispatch: Dispatch<IStoreState>, ownProps: IInactive
 
   return {
     retryFailedAction: () =>
-      dispatch(failedActionObject.retryFailedAction(ownProps.note.id, ownProps.note.text)),
+      dispatch(failedActionObject.retryFailedAction(ownProps.note.id, ownProps.note.visibleText)),
 
     cancelFailedAction: () =>
-      dispatch(failedActionObject.cancelFailedAction(ownProps.note.id)),
+      dispatch(failedActionObject.cancelFailedAction(ownProps.note.id, ownProps.note.serverSynchronizedText)),
 
     getFailedActionTooltipText: () =>
       failedActionObject.getFailedActionTooltipText(),

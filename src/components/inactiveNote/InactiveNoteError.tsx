@@ -11,7 +11,7 @@ import { FailedAction } from '../../enums/failedAction';
 
 export interface IInactiveNoteErrorDataProps {
   readonly note: {
-    readonly text: string;
+    readonly visibleText: string;
     readonly isEditActive: boolean;
     readonly isCommunicating: boolean;
     readonly communicationError: string;
@@ -48,7 +48,7 @@ export class InactiveNoteError extends React.PureComponent<InactiveNoteErrorProp
 
   render() {
     return (<p>
-      <span style={{ color: 'grey' }}>{this.props.number + '. ' + this.props.note.text}</span>
+      <span style={{ color: 'grey' }}>{this.props.number + '. ' + this.props.note.visibleText}</span>
       <span title={'Cancel failed ' + this.props.getFailedActionTooltipText()}>
         <MdCancel
           className="pull-right"

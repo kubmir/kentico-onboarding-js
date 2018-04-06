@@ -39,7 +39,7 @@ export const updatingNoteOnServerSuccess = (updatedNote: Note): IAction => ({
   type: UPDATING_NOTE_ON_SERVER_SUCCESS,
   payload: {
     noteId: updatedNote.id,
-    text: updatedNote.text,
+    text: updatedNote.visibleText,
   }
 });
 
@@ -60,7 +60,7 @@ export const putNoteFactory = (dependencies: IPutNoteDependencies) => (data: IPu
       .then(noteBeforeUpdate => {
         const applicationNote = new Note({
           id: noteBeforeUpdate.id,
-          text
+          visibleText: text
         });
 
         return dispatch(updatingNoteOnServerSuccess(applicationNote));

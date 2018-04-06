@@ -15,7 +15,7 @@ import {
 } from './getTooltipText';
 
 interface FailedActionCallbacks {
-  readonly cancelFailedAction: (id: Guid) => IAction;
+  readonly cancelFailedAction: (id: Guid, serverSynchronizedText: string) => IAction;
   readonly retryFailedAction: (id: Guid, text: string) => Thunk;
   readonly getFailedActionTooltipText: () => string;
 }

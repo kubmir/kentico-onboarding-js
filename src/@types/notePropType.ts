@@ -2,7 +2,8 @@ import * as PropTypes from 'prop-types';
 import { FailedAction } from '../enums/failedAction';
 
 export const NotePropType = PropTypes.shape({
-  text: PropTypes.string.isRequired,
+  visibleText: PropTypes.string.isRequired,
+  serverSynchronizedText: PropTypes.string.isRequired,
   isEditActive: PropTypes.bool.isRequired,
   isCommunicating: PropTypes.bool.isRequired,
   communicationError: PropTypes.string.isRequired,

@@ -92,12 +92,10 @@ describe('Reducer listOfNotes tests', () => {
     const noteToAddText = 'Third test note - added';
     const newNote = prepareNote(noteToAddText, '3', false);
     const addNoteAction = sendingNoteToServerSuccess(newNote, '2');
-    const expectedState = OrderedMap(
-      [
+    const expectedState = OrderedMap([
         ['1', prepareNote('First test note', '1', false)],
-        ['3', newNote],
-      ],
-    );
+        ['3', newNote.with({ serverSynchronizedText: noteToAddText })],
+    ]);
 
     const actualState = listOfNotes(initialState, addNoteAction);
 
@@ -106,11 +104,11 @@ describe('Reducer listOfNotes tests', () => {
 
   it('action UPDATING_NOTE_ON_SERVER_SUCCESS should update note with specific noteId', () => {
     const idOfUpdatedNote = '1';
-    const textChanges = 'Updated text';
-    const updateAction = updatingNoteOnServerSuccess(new Note({ text: textChanges, id: idOfUpdatedNote }));
+    const textChanges = 'Updated visibleText';
+    const updateAction = updatingNoteOnServerSuccess(new Note({ visibleText: textChanges, id: idOfUpdatedNote }));
     const expectedState = OrderedMap(
       [
-        ['1', prepareNote(textChanges, '1', false)],
+        ['1', prepareNote(textChanges, idOfUpdatedNote, false).with({ serverSynchronizedText: textChanges })],
         ['2', prepareNote('Second test note', '2', false)],
       ],
     );
@@ -120,12 +118,15 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action UPDATING_NOTE_ON_SERVER_SUCCESS should not change text of note if no changes are made', () => {
+  it('action UPDATING_NOTE_ON_SERVER_SUCCESS should not change visibleText of note if no changes are made', () => {
     const idOfUpdatedNote = '1';
     const previousNote = initialState
       .get(idOfUpdatedNote);
-    const expectedState = prepareNotesInitialState();
-    const updateAction = updatingNoteOnServerSuccess(new Note({ text: previousNote.text, id: idOfUpdatedNote }));
+    const expectedState =   OrderedMap([
+        ['1', prepareNote('First test note', idOfUpdatedNote, false).with( { serverSynchronizedText: 'First test note' })],
+        ['2', prepareNote('Second test note', '2', false)],
+    ]);
+    const updateAction = updatingNoteOnServerSuccess(new Note({ visibleText: previousNote.visibleText, id: idOfUpdatedNote }));
 
     const actualState = listOfNotes(initialState, updateAction);
 
@@ -196,11 +197,11 @@ describe('Reducer listOfNotes tests', () => {
   });
 
   it('action START_UPDATING_NOTE_ON_SERVER should set property isCommunicating of note to true', () => {
-    const startDeleteAction = startUpdatingNoteOnServer('2', 'new test text');
+    const startDeleteAction = startUpdatingNoteOnServer('2', 'new test visibleText');
     const expectedState = OrderedMap(
       [
         ['1', prepareNote('First test note', '1', false)],
-        ['2', prepareLocalNote('new test text', '2')],
+        ['2', prepareLocalNote('new test visibleText', '2')],
       ],
     );
 
@@ -273,10 +274,10 @@ describe('Reducer listOfNotes tests', () => {
   });
 
   it('action CANCEL_FAILED_UPDATE_ACTION should set property isCommunicating to false, communicationError and failedAction to empty', () => {
-    const cancelUpdateAction = cancelFailedUpdateAction('1');
+    const cancelUpdateAction = cancelFailedUpdateAction('1', 'First test note');
     const initialErrorState = OrderedMap<string, Note>(
       [
-        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', FailedAction.UPDATE)],
+        ['1', prepareNoteWithCommunicationError('First test note updated', '1', 'Test error', FailedAction.UPDATE)],
         ['2', prepareNote('Second test note', '2', false)],
       ],
     );

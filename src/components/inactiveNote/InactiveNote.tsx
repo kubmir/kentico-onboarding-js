@@ -7,7 +7,7 @@ import { FailedAction } from '../../enums/failedAction';
 
 export interface IInactiveNoteDataProps {
   readonly note: {
-    readonly text: string;
+    readonly visibleText: string;
     readonly isEditActive: boolean;
     readonly isCommunicating: boolean;
     readonly communicationError: string;

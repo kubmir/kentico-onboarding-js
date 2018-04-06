@@ -6,7 +6,7 @@ import { FailedAction } from '../../enums/failedAction';
 
 export interface INoteViewerDataProps {
   readonly note: {
-    readonly text: string;
+    readonly visibleText: string;
     readonly isEditActive: boolean;
     readonly isCommunicating: boolean;
     readonly communicationError: string;
@@ -24,7 +24,7 @@ type NoteViewerProps = INoteViewerDataProps & INoteViewerCallbacksProps;
 const NoteViewer: React.StatelessComponent<NoteViewerProps> = (props: NoteViewerProps): JSX.Element => (
   props.note.isCommunicating || props.note.communicationError !== ''
     ? <InactiveNote note={props.note} number={props.number} />
-    : <p onClick={props.onTextClick}>{props.number + '. ' + props.note.text}</p>
+    : <p onClick={props.onTextClick}>{props.number + '. ' + props.note.visibleText}</p>
 );
 
 NoteViewer.displayName = 'NoteViewer';

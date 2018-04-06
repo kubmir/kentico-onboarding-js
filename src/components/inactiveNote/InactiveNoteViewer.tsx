@@ -6,7 +6,7 @@ import '../../styles/noteViewer.css';
 
 export interface InactiveNoteViewerDataProps {
   readonly note: {
-    readonly text: string;
+    readonly visibleText: string;
     readonly isEditActive: boolean;
     readonly isCommunicating: boolean;
     readonly communicationError: string;
@@ -18,7 +18,7 @@ type InactiveNoteViewerProps = InactiveNoteViewerDataProps;
 
 const InactiveNoteViewer: React.StatelessComponent<InactiveNoteViewerProps> = (props: InactiveNoteViewerProps): JSX.Element => (
   <p className="inactive-line">
-    {props.number + '. ' + props.note.text}
+    {props.number + '. ' + props.note.visibleText}
     <MdAutorenew
       className="pull-right refresh-animate"
       size="25"

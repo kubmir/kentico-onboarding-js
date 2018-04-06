@@ -3,10 +3,11 @@ import { Note } from '../../src/models/Note';
 
 describe('NoteCoverter tests', () => {
   it('Correctly convert server note to application note', () => {
-    const text = 'Test text';
+    const text = 'Test visibleText';
     const id = '1';
     const expectedApplicationNote = new Note({
-      text,
+      visibleText: text,
+      serverSynchronizedText: text,
       id,
       isEditActive: false,
     });

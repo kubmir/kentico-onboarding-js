@@ -3,7 +3,8 @@ import { Note } from '../models/Note';
 
 export const convertNote = ({ id, text }: IServerNote): Note => (
   new Note({
-    text,
+    visibleText: text,
+    serverSynchronizedText: text,
     id
   })
 );

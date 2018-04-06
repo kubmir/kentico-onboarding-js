@@ -6,7 +6,7 @@ import { isNoteValid } from '../../utils/isNoteValid';
 
 export interface INoteEditorDataProps {
   readonly note: {
-    readonly text: string;
+    readonly visibleText: string;
     readonly isEditActive: boolean;
   };
   readonly number: number;
@@ -29,7 +29,7 @@ export class NoteEditor extends React.PureComponent<NoteEditorProps, INoteEditor
 
   static propTypes = {
     note: PropTypes.shape({
-      text: PropTypes.string.isRequired,
+      visibleText: PropTypes.string.isRequired,
       isEditActive: PropTypes.bool.isRequired,
     }).isRequired,
     number: PropTypes.number.isRequired,
@@ -43,7 +43,7 @@ export class NoteEditor extends React.PureComponent<NoteEditorProps, INoteEditor
   constructor(props: NoteEditorProps) {
     super(props);
     this.state = {
-      currentNoteText: props.note.text,
+      currentNoteText: props.note.visibleText,
     };
   }
 

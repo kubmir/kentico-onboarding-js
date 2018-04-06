@@ -28,10 +28,11 @@ export const cancelFailedDeleteAction = (noteId: Guid): IAction => ({
   }
 });
 
-export const cancelFailedUpdateAction = (noteId: Guid): IAction => ({
+export const cancelFailedUpdateAction = (noteId: Guid, serverSynchronizedText: string): IAction => ({
   type: CANCEL_FAILED_UPDATE_ACTION,
   payload: {
     noteId,
+    serverSynchronizedText,
   }
 });
 

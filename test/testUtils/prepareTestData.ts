@@ -4,21 +4,21 @@ import { FailedAction } from '../../src/enums/failedAction';
 
 export const prepareNote = (text: string, id: Guid, isEditActive: boolean): Note =>
   new Note({
-    text,
+    visibleText: text,
     id,
     isEditActive,
   });
 
 export const prepareLocalNote = (text: string, id: Guid): Note =>
   new Note({
-    text,
+    visibleText: text,
     id,
     isCommunicating: true,
   });
 
 export const prepareNoteWithCommunicationError = (text: string, id: Guid, communicationError: string, failedAction: FailedAction): Note =>
   new Note({
-    text,
+    visibleText: text,
     id,
     communicationError,
     failedAction,
