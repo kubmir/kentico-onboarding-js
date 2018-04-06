@@ -16,7 +16,7 @@ const mapStateToProps = ({ notesLoader: { isLoadingNotes } }: IStoreState): IApp
 
 const mapDispatchToProps = (dispatch: Dispatch<IStoreState>): IAppCallbacksProps => ({
   loadNotesFromServer: () =>
-    dispatch(getAllNotes),
+    dispatch(getAllNotes()),
 });
 
 export const App = connect(

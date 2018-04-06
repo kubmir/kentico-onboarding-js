@@ -1,3 +1,4 @@
+import { OrderedMap } from 'immutable';
 import { listOfNotes } from '../../../../src/reducers/notes/list/listOfNotes';
 import {
   prepareNotesInitialState,
@@ -6,26 +7,31 @@ import {
   prepareNoteWithCommunicationError,
 } from '../../../testUtils/prepareTestData';
 import {
-  sendingNoteToServerSuccess,
-  deletingNoteFromServerSuccess,
   startEditingNote,
-  storeLoadedNotes,
   cancelEditingNote,
-  deletingNoteFromServerFailed,
-  startDeletingNoteFromServer,
-  sendingNoteToServerFailed,
-  startSendingNoteToServer,
-  startUpdatingNoteOnServer,
-  updatingNoteOnServerFailed,
-  updatingNoteOnServerSuccess,
   cancelFailedDeleteAction,
-  startReSendingNoteToServer,
   cancelFailedAddAction,
   cancelFailedUpdateAction
 } from '../../../../src/actions';
-import { OrderedMap } from 'immutable';
+import {
+  sendingNoteToServerFailed,
+  sendingNoteToServerSuccess,
+  startReSendingNoteToServer,
+  startSendingNoteToServer
+} from '../../../../src/actions/thunkFactories/postNoteFactory';
 import { Note } from '../../../../src/models/Note';
 import { FailedAction } from '../../../../src/enums/failedAction';
+import {
+  deletingNoteFromServerFailed,
+  deletingNoteFromServerSuccess,
+  startDeletingNoteFromServer
+} from '../../../../src/actions/thunkFactories/deleteNoteFactory';
+import { storeLoadedNotes } from '../../../../src/actions/thunkFactories/getNotesFactory';
+import {
+  startUpdatingNoteOnServer,
+  updatingNoteOnServerFailed,
+  updatingNoteOnServerSuccess
+} from '../../../../src/actions/thunkFactories/putNoteFactory';
 
 describe('Reducer listOfNotes tests', () => {
   let initialState: OrderedMap<Guid, Note>;

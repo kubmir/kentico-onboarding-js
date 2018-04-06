@@ -4,11 +4,6 @@ import {
   IPutNoteDependencies,
   putNoteFactory
 } from '../thunkFactories/putNoteFactory';
-import {
-  startUpdatingNoteOnServer,
-  updatingNoteOnServerFailed,
-  updatingNoteOnServerSuccess
-} from '../index';
 
 const sendRequest = fetchFactory(fetch);
 
@@ -16,9 +11,6 @@ const prepareDependencies = (): IPutNoteDependencies => (
   {
     apiPrefix: API_PREFIX,
     sendRequest,
-    onUpdateError: updatingNoteOnServerFailed,
-    onUpdateStarted: startUpdatingNoteOnServer,
-    onUpdateSuccessful: updatingNoteOnServerSuccess,
   }
 );
 

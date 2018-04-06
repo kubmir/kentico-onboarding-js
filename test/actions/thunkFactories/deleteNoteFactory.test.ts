@@ -3,15 +3,17 @@ import {
   IDeleteNoteDependencies
 } from '../../../src/actions/thunkFactories/deleteNoteFactory';
 import {
-  ERROR_ACTION,
-  START_ACTION,
-  SUCCESS_ACTION,
   mockRejectedRequest,
   mockResolvedRequest,
   mockServerNote,
   mockStoreState,
   IMockedResponse,
 } from '../../testUtils/mocks';
+import {
+  DELETING_NOTE_FROM_SERVER_FAILURE,
+  DELETING_NOTE_FROM_SERVER_SUCCESS,
+  START_DELETING_NOTE_FROM_SERVER
+} from '../../../src/constants/actionTypes';
 
 const NOTE_TO_DELETE_TEXT = 'test added text';
 const NOTE_TO_DELETE_ID = '1';
@@ -19,9 +21,6 @@ const NOTE_TO_DELETE_ID = '1';
 const mockDependencies = (responsePromise: Promise<IMockedResponse>): IDeleteNoteDependencies => {
   return {
     apiPrefix: 'test',
-    onDeletingStarted: jest.fn().mockReturnValue(START_ACTION),
-    onDeletingError: jest.fn().mockReturnValue(ERROR_ACTION),
-    onDeletingSuccessful: jest.fn().mockReturnValue(SUCCESS_ACTION),
     sendRequest: jest.fn().mockReturnValue(responsePromise),
   };
 };
@@ -38,8 +37,8 @@ describe('deleteNoteFactory tests', () => {
     return deleteNoteFactory(postNoteDependencies)(NOTE_TO_DELETE_ID)(dispatch, () => mockStoreState(), null)
       .then(() => {
         expect(dispatch.mock.calls.length).toEqual(2);
-        expect(dispatch.mock.calls[0][0]).toEqual(START_ACTION);
-        expect(dispatch.mock.calls[1][0]).toEqual(SUCCESS_ACTION);
+        expect(dispatch.mock.calls[0][0].type).toEqual(START_DELETING_NOTE_FROM_SERVER);
+        expect(dispatch.mock.calls[1][0].type).toEqual(DELETING_NOTE_FROM_SERVER_SUCCESS);
       });
   });
 
@@ -47,10 +46,10 @@ describe('deleteNoteFactory tests', () => {
     const postNoteDependencies = mockDependencies(mockRejectedRequest());
 
     return deleteNoteFactory(postNoteDependencies)(NOTE_TO_DELETE_ID)(dispatch, () => mockStoreState(), null)
-      .catch(() => {
+      .then(() => {
         expect(dispatch.mock.calls.length).toEqual(2);
-        expect(dispatch.mock.calls[0][0]).toEqual(START_ACTION);
-        expect(dispatch.mock.calls[1][0]).toEqual(ERROR_ACTION);
+        expect(dispatch.mock.calls[0][0].type).toEqual(START_DELETING_NOTE_FROM_SERVER);
+        expect(dispatch.mock.calls[1][0].type).toEqual(DELETING_NOTE_FROM_SERVER_FAILURE);
       });
   });
 });

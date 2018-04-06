@@ -1,13 +1,13 @@
 import { isLoadingFailed } from '../../../../src/reducers/notesLoader/settings/isLoadingFailed';
 import {
-  displayError,
-  startLoadingNotes,
-  storeLoadedNotes
-} from '../../../../src/actions';
-import {
   FALSE_INITIAL_STATE,
   TRUE_INITIAL_STATE
 } from '../../../testUtils/mocks';
+import {
+  displayError,
+  startLoadingNotes,
+  storeLoadedNotes
+} from '../../../../src/actions/thunkFactories/getNotesFactory';
 
 describe('Reducer isLoadingFailed tests', () => {
   it('should return previous state if unknown action is dispatched', () => {

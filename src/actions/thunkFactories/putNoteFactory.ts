@@ -3,6 +3,11 @@ import { IAction } from '../../models/IAction';
 import { IStoreState } from '../../models/IStoreState';
 import { Note } from '../../models/Note';
 import { HttpMethods } from '../../enums/HttpMethods';
+import {
+  START_UPDATING_NOTE_ON_SERVER,
+  UPDATING_NOTE_ON_SERVER_FAILURE,
+  UPDATING_NOTE_ON_SERVER_SUCCESS
+} from '../../constants/actionTypes';
 
 interface IPutNote {
   readonly noteId: Guid;
@@ -12,17 +17,38 @@ interface IPutNote {
 export interface IPutNoteDependencies {
   apiPrefix: string;
   sendRequest: (apiAddress: string, httpMethod: HttpMethods, data?: object) => Promise<Response>;
-  onUpdateStarted: (noteId: Guid, newText: string) => IAction;
-  onUpdateError: (noteId: Guid, errorDescription: string) => IAction;
-  onUpdateSuccessful: (updatedNote: Note) => IAction;
 }
+
+export const startUpdatingNoteOnServer = (noteId: Guid, newText: string): IAction => ({
+  type: START_UPDATING_NOTE_ON_SERVER,
+  payload: {
+    noteId,
+    newText,
+  }
+});
+
+export const updatingNoteOnServerFailed = (noteId: Guid, errorDescription: string): IAction => ({
+  type: UPDATING_NOTE_ON_SERVER_FAILURE,
+  payload: {
+    noteId,
+    errorDescription,
+  }
+});
+
+export const updatingNoteOnServerSuccess = (updatedNote: Note): IAction => ({
+  type: UPDATING_NOTE_ON_SERVER_SUCCESS,
+  payload: {
+    noteId: updatedNote.id,
+    text: updatedNote.text,
+  }
+});
 
 export const putNoteFactory = (dependencies: IPutNoteDependencies) => (data: IPutNote): Thunk =>
   function (dispatch: Dispatch<IStoreState>): Promise<IAction> {
     const { noteId, text } = data;
     const apiAddress = dependencies.apiPrefix + '/' + noteId;
 
-    dispatch(dependencies.onUpdateStarted(noteId, text));
+    dispatch(startUpdatingNoteOnServer(noteId, text));
 
     const noteToUpdate = {
       text,
@@ -37,7 +63,7 @@ export const putNoteFactory = (dependencies: IPutNoteDependencies) => (data: IPu
           text
         });
 
-        return dispatch(dependencies.onUpdateSuccessful(applicationNote));
+        return dispatch(updatingNoteOnServerSuccess(applicationNote));
       })
-      .catch(error => dispatch(dependencies.onUpdateError(noteId, error.toString())));
+      .catch(error => dispatch(updatingNoteOnServerFailed(noteId, error.toString())));
   };

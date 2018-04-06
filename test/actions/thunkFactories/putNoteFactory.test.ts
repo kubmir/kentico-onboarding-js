@@ -7,11 +7,13 @@ import {
   mockResolvedRequest,
   mockServerNote,
   mockStoreState,
-  START_ACTION,
-  ERROR_ACTION,
   IMockedResponse,
 } from '../../testUtils/mocks';
-import { Note } from '../../../src/models/Note';
+import {
+  START_UPDATING_NOTE_ON_SERVER,
+  UPDATING_NOTE_ON_SERVER_FAILURE,
+  UPDATING_NOTE_ON_SERVER_SUCCESS,
+} from '../../../src/constants/actionTypes';
 
 const BEFORE_UPDATE_TEXT = 'before update test';
 const UPDATED_TEXT = 'test updated text';
@@ -20,9 +22,6 @@ const UPDATED_NOTE_ID = '1';
 const mockDependencies = (responsePromise: Promise<IMockedResponse>): IPutNoteDependencies => {
   return {
     apiPrefix: 'test',
-    onUpdateStarted: jest.fn().mockReturnValue(START_ACTION),
-    onUpdateError: jest.fn().mockReturnValue(ERROR_ACTION),
-    onUpdateSuccessful: jest.fn((note: Note) => ({type: 'TEST SUCCESSFUL', payload: { text: note.text }})),
     sendRequest: jest.fn().mockReturnValue(responsePromise),
   };
 };
@@ -39,8 +38,8 @@ describe('putNoteFactory tests', () => {
     return putNoteFactory(putNoteDependencies)({ text: UPDATED_TEXT, noteId: UPDATED_NOTE_ID })(dispatch, () => mockStoreState(), null)
       .then(() => {
         expect(dispatch.mock.calls.length).toEqual(2);
-        expect(dispatch.mock.calls[0][0]).toEqual(START_ACTION);
-        expect(dispatch.mock.calls[1][0]).toEqual({ type: 'TEST SUCCESSFUL', payload: { text: UPDATED_TEXT }});
+        expect(dispatch.mock.calls[0][0].type).toEqual(START_UPDATING_NOTE_ON_SERVER);
+        expect(dispatch.mock.calls[1][0].type).toEqual(UPDATING_NOTE_ON_SERVER_SUCCESS);
       });
   });
 
@@ -48,10 +47,10 @@ describe('putNoteFactory tests', () => {
     const putNoteDependencies = mockDependencies(mockRejectedRequest());
 
     return putNoteFactory(putNoteDependencies)({ text: UPDATED_TEXT, noteId: UPDATED_NOTE_ID })(dispatch, () => mockStoreState(), null)
-      .catch(() => {
+      .then(() => {
         expect(dispatch.mock.calls.length).toEqual(2);
-        expect(dispatch.mock.calls[0][0]).toEqual(START_ACTION);
-        expect(dispatch.mock.calls[1][0]).toEqual(ERROR_ACTION);
+        expect(dispatch.mock.calls[0][0].type).toEqual(START_UPDATING_NOTE_ON_SERVER);
+        expect(dispatch.mock.calls[1][0].type).toEqual(UPDATING_NOTE_ON_SERVER_FAILURE);
       });
   });
 });

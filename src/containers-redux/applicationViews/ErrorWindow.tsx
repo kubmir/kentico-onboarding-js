@@ -16,7 +16,7 @@ const mapStateToProps = ({ notesLoader }: IStoreState): IErrorWindowDataProps =>
 
 const mapDispatchToProps = (dispatch: Dispatch<IStoreState>): IErrorWindowCallbacksProps => ({
   onReloadClick: () =>
-    dispatch(getAllNotes),
+    dispatch(getAllNotes()),
 });
 
 export const ErrorWindow = connect(

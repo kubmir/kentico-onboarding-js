@@ -28,9 +28,6 @@ export const mockResolvedRequest = (responseBody: string): Promise<IMockedRespon
 export const mockRejectedRequest = (): Promise<IMockedResponse> =>
   Promise.reject(mockResponse(200, true));
 
-export const START_ACTION = { type: 'TEST_STARTED' };
-export const ERROR_ACTION = { type: 'TEST_ERROR' };
-export const SUCCESS_ACTION = { type: 'TEST_SUCCESSFUL' };
 export const FALSE_INITIAL_STATE = false;
 export const TRUE_INITIAL_STATE = true;
 

@@ -4,28 +4,48 @@ import { IAction } from '../../models/IAction';
 import { IServerNote } from '../../models/IServerNote';
 import { IStoreState } from '../../models/IStoreState';
 import { HttpMethods } from '../../enums/HttpMethods';
+import {
+  LOADING_NOTES_FAILURE,
+  LOADING_NOTES_SUCCESS,
+  START_LOADING_NOTES
+} from '../../constants/actionTypes';
 
 export interface IGetNotesDependencies {
   apiAddress: string;
   sendRequest: (apiAddress: string, httpMethod: HttpMethods, data?: object) => Promise<Response>;
-  onGettingStarted: () => IAction;
-  onGettingError: (errorDescription: string) => IAction;
-  onGettingSuccessful: (notes: Iterable<[Guid, Note]>) => IAction;
   convertNotes: (serverNotes: IServerNote[]) => Iterable<[Guid, Note]>;
 }
+
+export const startLoadingNotes = (): IAction => ({
+  type: START_LOADING_NOTES
+});
+
+export const storeLoadedNotes = (notes: Iterable<[Guid, Note]>): IAction => ({
+  type: LOADING_NOTES_SUCCESS,
+  payload: {
+    notes,
+  },
+});
+
+export const displayError = (errorDescription: string): IAction => ({
+  type: LOADING_NOTES_FAILURE,
+  payload : {
+    errorDescription,
+  },
+});
 
 export const getNotesFactory = (dependencies: IGetNotesDependencies): Thunk =>
   function (dispatch: Dispatch<IStoreState>): Promise<IAction> {
 
-    dispatch(dependencies.onGettingStarted());
+    dispatch(startLoadingNotes());
 
     return dependencies.sendRequest(dependencies.apiAddress, HttpMethods.GET)
       .then(response => response.json())
       .then(serverNotes => {
           const applicationNotes = dependencies.convertNotes(serverNotes);
 
-          return dispatch(dependencies.onGettingSuccessful(applicationNotes));
+          return dispatch(storeLoadedNotes(applicationNotes));
         }
       )
-      .catch(error => dispatch(dependencies.onGettingError(error.toString())));
+      .catch(error => dispatch(displayError(error.toString())));
   };
