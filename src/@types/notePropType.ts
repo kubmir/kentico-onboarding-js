@@ -1,5 +1,5 @@
 import * as PropTypes from 'prop-types';
-import { FailedAction } from '../enums/failedAction';
+import { FailedAction } from '../enums/FailedAction';
 
 export const NotePropType = PropTypes.shape({
   visibleText: PropTypes.string.isRequired,

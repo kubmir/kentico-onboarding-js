@@ -7,7 +7,7 @@ import {
 } from 'react-icons/lib/md';
 import { NotePropType } from '../../@types/notePropType';
 import { IAction } from '../../models/IAction';
-import { FailedAction } from '../../enums/failedAction';
+import { FailedAction } from '../../enums/FailedAction';
 
 export interface IInactiveNoteErrorDataProps {
   readonly note: {

@@ -1,13 +1,8 @@
+import { Promise } from 'es6-promise';
+import { deleteNoteFactory } from '../../../src/actions/thunkFactories/deleteNoteFactory';
 import {
-  deleteNoteFactory,
-  IDeleteNoteDependencies
-} from '../../../src/actions/thunkFactories/deleteNoteFactory';
-import {
-  mockRejectedRequest,
-  mockResolvedRequest,
   mockServerNote,
-  mockStoreState,
-  IMockedResponse,
+  mockStoreState
 } from '../../testUtils/mocks';
 import {
   DELETING_NOTE_FROM_SERVER_FAILURE,
@@ -15,15 +10,7 @@ import {
   START_DELETING_NOTE_FROM_SERVER
 } from '../../../src/constants/actionTypes';
 
-const NOTE_TO_DELETE_TEXT = 'test added text';
 const NOTE_TO_DELETE_ID = '1';
-
-const mockDependencies = (responsePromise: Promise<IMockedResponse>): IDeleteNoteDependencies => {
-  return {
-    apiPrefix: 'test',
-    sendRequest: jest.fn().mockReturnValue(responsePromise),
-  };
-};
 
 describe('deleteNoteFactory tests', () => {
   const dispatch = jest.fn();
@@ -31,10 +18,10 @@ describe('deleteNoteFactory tests', () => {
   beforeEach(() => dispatch.mockReset());
 
   it('note is correctly deleted from server', () => {
-    const responseBody = JSON.stringify(mockServerNote(NOTE_TO_DELETE_TEXT, NOTE_TO_DELETE_ID));
-    const postNoteDependencies = mockDependencies(mockResolvedRequest(responseBody));
+    const sendRequest = () => Promise.resolve(mockServerNote('test', NOTE_TO_DELETE_ID));
+    const configurationObject = { sendRequest };
 
-    return deleteNoteFactory(postNoteDependencies)(NOTE_TO_DELETE_ID)(dispatch, () => mockStoreState(), null)
+    return deleteNoteFactory(configurationObject)(NOTE_TO_DELETE_ID)(dispatch, () => mockStoreState(), null)
       .then(() => {
         expect(dispatch.mock.calls.length).toEqual(2);
         expect(dispatch.mock.calls[0][0].type).toEqual(START_DELETING_NOTE_FROM_SERVER);
@@ -43,9 +30,9 @@ describe('deleteNoteFactory tests', () => {
   });
 
   it('request to server is rejected', () => {
-    const postNoteDependencies = mockDependencies(mockRejectedRequest());
+    const configurationObject = { sendRequest: () => Promise.reject({}) };
 
-    return deleteNoteFactory(postNoteDependencies)(NOTE_TO_DELETE_ID)(dispatch, () => mockStoreState(), null)
+    return deleteNoteFactory(configurationObject)(NOTE_TO_DELETE_ID)(dispatch, () => mockStoreState(), null)
       .then(() => {
         expect(dispatch.mock.calls.length).toEqual(2);
         expect(dispatch.mock.calls[0][0].type).toEqual(START_DELETING_NOTE_FROM_SERVER);

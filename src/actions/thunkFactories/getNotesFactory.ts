@@ -3,17 +3,15 @@ import { Note } from '../../models/Note';
 import { IAction } from '../../models/IAction';
 import { IServerNote } from '../../models/IServerNote';
 import { IStoreState } from '../../models/IStoreState';
-import { HttpMethods } from '../../enums/HttpMethods';
 import {
   LOADING_NOTES_FAILURE,
   LOADING_NOTES_SUCCESS,
   START_LOADING_NOTES
 } from '../../constants/actionTypes';
+import { convertNotes } from '../../utils/noteConverter';
 
 export interface IGetNotesDependencies {
-  apiAddress: string;
-  sendRequest: (apiAddress: string, httpMethod: HttpMethods, data?: object) => Promise<Response>;
-  convertNotes: (serverNotes: IServerNote[]) => Iterable<[Guid, Note]>;
+  sendRequest: () => Promise<IServerNote[]>;
 }
 
 export const startLoadingNotes = (): IAction => ({
@@ -35,14 +33,13 @@ export const displayError = (errorDescription: string): IAction => ({
 });
 
 export const getNotesFactory = (dependencies: IGetNotesDependencies): Thunk =>
-  function (dispatch: Dispatch<IStoreState>): Promise<IAction> {
-
+  (dispatch: Dispatch<IStoreState>): Promise<IAction> => {
     dispatch(startLoadingNotes());
 
-    return dependencies.sendRequest(dependencies.apiAddress, HttpMethods.GET)
-      .then(response => response.json())
+    return dependencies
+      .sendRequest()
       .then(serverNotes => {
-          const applicationNotes = dependencies.convertNotes(serverNotes);
+          const applicationNotes = convertNotes(serverNotes);
 
           return dispatch(storeLoadedNotes(applicationNotes));
         }
