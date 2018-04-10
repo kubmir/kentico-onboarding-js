@@ -20,7 +20,7 @@ import {
   startSendingNoteToServer
 } from '../../../../src/actions/thunkFactories/postNoteFactory';
 import { Note } from '../../../../src/models/Note';
-import { FailedAction } from '../../../../src/enums/failedAction';
+import { FailedAction } from '../../../../src/enums/FailedAction';
 import {
   deletingNoteFromServerFailed,
   deletingNoteFromServerSuccess,

@@ -3,9 +3,6 @@ import {
   repostNoteFactory
 } from '../../../src/actions/thunkFactories/postNoteFactory';
 import {
-  IMockedResponse,
-  mockRejectedRequest,
-  mockResolvedRequest,
   mockServerNote,
   mockStoreState,
 } from '../../testUtils/mocks';
@@ -15,17 +12,10 @@ import {
   START_RESENDING_NOTE_TO_SERVER,
   START_SENDING_NOTE_TO_SERVER
 } from '../../../src/constants/actionTypes';
+import { Promise } from 'es6-promise';
 
 const NOTE_TO_ADD_TEXT = 'test added text';
 const NOTE_ID = '1';
-
-const mockDependencies = (responsePromise: Promise<IMockedResponse>) => {
-  return {
-    apiAddress: 'test',
-    convertNote: jest.fn().mockReturnValue({ text: NOTE_TO_ADD_TEXT, id: NOTE_ID }),
-    sendRequest: jest.fn().mockReturnValue(responsePromise),
-  };
-};
 
 describe('Post note factories tests', () => {
   const dispatch = jest.fn();
@@ -33,13 +23,10 @@ describe('Post note factories tests', () => {
   beforeEach(() => dispatch.mockReset());
 
   it('PostNoteFactory - note is correctly added to server', () => {
-    const responseBody = JSON.stringify(mockServerNote(NOTE_TO_ADD_TEXT, NOTE_ID));
-    const postNoteDependencies = {
-      ...mockDependencies(mockResolvedRequest(responseBody)),
-      generateLocalId: jest.fn().mockReturnValue(NOTE_ID),
-    };
+    const sendRequest = () => Promise.resolve(mockServerNote(NOTE_TO_ADD_TEXT, NOTE_ID));
+    const configurationObject = { sendRequest };
 
-    return postNoteFactory(postNoteDependencies)({ text: NOTE_TO_ADD_TEXT })(dispatch, () => mockStoreState(), null)
+    return postNoteFactory(configurationObject)({ text: NOTE_TO_ADD_TEXT })(dispatch, () => mockStoreState(), null)
       .then(() => {
         expect(dispatch.mock.calls.length).toEqual(2);
         expect(dispatch.mock.calls[0][0].type).toEqual(START_SENDING_NOTE_TO_SERVER);
@@ -48,12 +35,9 @@ describe('Post note factories tests', () => {
   });
 
   it('PostNoteFactory - request to server is rejected', () => {
-    const postNoteDependencies = {
-      ...mockDependencies(mockRejectedRequest()),
-      generateLocalId: jest.fn().mockReturnValue(NOTE_ID),
-    };
+    const configurationObject = { sendRequest: () => Promise.reject({}) };
 
-    return postNoteFactory(postNoteDependencies)({ text: NOTE_TO_ADD_TEXT })(dispatch, () => mockStoreState(), null)
+    return postNoteFactory(configurationObject)({ text: NOTE_TO_ADD_TEXT })(dispatch, () => mockStoreState(), null)
       .then(() => {
         expect(dispatch.mock.calls.length).toEqual(2);
         expect(dispatch.mock.calls[0][0].type).toEqual(START_SENDING_NOTE_TO_SERVER);
@@ -62,10 +46,10 @@ describe('Post note factories tests', () => {
   });
 
   it('RepostNoteFactory - retry action remove failed note and add new note', () => {
-    const responseBody = JSON.stringify(mockServerNote(NOTE_TO_ADD_TEXT, NOTE_ID));
-    const postNoteDependencies = mockDependencies(mockResolvedRequest(responseBody));
+    const sendRequest = () => Promise.resolve(mockServerNote(NOTE_TO_ADD_TEXT, NOTE_ID));
+    const configurationObject = { sendRequest };
 
-    return repostNoteFactory(postNoteDependencies)({ text: NOTE_TO_ADD_TEXT }, NOTE_ID)(dispatch, () => mockStoreState(), null)
+    return repostNoteFactory(configurationObject)({ text: NOTE_TO_ADD_TEXT }, NOTE_ID)(dispatch, () => mockStoreState(), null)
       .then(() => {
         expect(dispatch.mock.calls.length).toEqual(2);
         expect(dispatch.mock.calls[0][0].type).toEqual(START_RESENDING_NOTE_TO_SERVER);
@@ -74,9 +58,9 @@ describe('Post note factories tests', () => {
   });
 
   it('RepostNoteFactory - request to server is rejected', () => {
-    const postNoteDependencies = mockDependencies(mockRejectedRequest());
+    const configurationObject = { sendRequest: () => Promise.reject({}) };
 
-    return repostNoteFactory(postNoteDependencies)({ text: NOTE_TO_ADD_TEXT }, NOTE_ID)(dispatch, () => mockStoreState(), null)
+    return repostNoteFactory(configurationObject)({ text: NOTE_TO_ADD_TEXT }, NOTE_ID)(dispatch, () => mockStoreState(), null)
       .then(() => {
         expect(dispatch.mock.calls.length).toEqual(2);
         expect(dispatch.mock.calls[0][0].type).toEqual(START_RESENDING_NOTE_TO_SERVER);

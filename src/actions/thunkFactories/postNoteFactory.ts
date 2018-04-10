@@ -3,26 +3,22 @@ import { IAction } from '../../models/IAction';
 import { Note } from '../../models/Note';
 import { IServerNote } from '../../models/IServerNote';
 import { IStoreState } from '../../models/IStoreState';
-import { HttpMethods } from '../../enums/HttpMethods';
+import { convertNote } from '../../utils/noteConverter';
+
 import {
   SENDING_NOTE_TO_SERVER_FAILURE,
   SENDING_NOTE_TO_SERVER_SUCCESS,
   START_RESENDING_NOTE_TO_SERVER,
   START_SENDING_NOTE_TO_SERVER
 } from '../../constants/actionTypes';
+import { generateLocalId } from '../../utils/generateLocalId';
 
-interface IPostNote {
+export interface IPostNote {
   text: string;
 }
 
-export interface IPostDependencies {
-  apiAddress: string;
-  sendRequest: (apiAddress: string, httpMethod: HttpMethods, data?: object) => Promise<Response>;
-  convertNote: (serverNotes: IServerNote) => Note;
-}
-
-export interface IPostNoteDependencies extends IPostDependencies {
-  generateLocalId: () => Guid;
+export interface IPostNoteDependencies {
+  sendRequest: (data: IPostNote) => Promise<IServerNote>;
 }
 
 export const startReSendingNoteToServer = (localNoteId: Guid) => ({
@@ -59,32 +55,33 @@ export const sendingNoteToServerSuccess = (addedNote: Note, localNoteId: Guid): 
   }
 });
 
-export const postNoteFactory = (dependencies: IPostNoteDependencies) => (data: IPostNote): Thunk =>
-  function (dispatch: Dispatch<IStoreState>): Promise<IAction> {
-    const localId = dependencies.generateLocalId();
+export const postNoteFactory = (dependencies: IPostNoteDependencies) =>
+  (data: IPostNote): Thunk =>
+    (dispatch: Dispatch<IStoreState>): Promise<IAction> => {
+      const localId = generateLocalId();
 
-    dispatch(startSendingNoteToServer(localId, data.text));
+      dispatch(startSendingNoteToServer(localId, data.text));
 
-    return dependencies.sendRequest(dependencies.apiAddress, HttpMethods.POST, data)
-      .then(response => response.json())
-      .then(addedNote => {
-        const applicationNote = dependencies.convertNote(addedNote);
+      return dependencies.sendRequest(data)
+        .then(addedNote => {
+          const applicationNote = convertNote(addedNote);
 
-        return dispatch(sendingNoteToServerSuccess(applicationNote, localId));
-      })
-      .catch(error => dispatch(sendingNoteToServerFailed(localId, error.toString())));
-  };
+          return dispatch(sendingNoteToServerSuccess(applicationNote, localId));
+        })
+        .catch(error => dispatch(sendingNoteToServerFailed(localId, error.toString())));
+    };
 
-export const repostNoteFactory = (dependencies: IPostDependencies) => (data: IPostNote, localId: Guid): Thunk =>
-  function (dispatch: Dispatch<IStoreState>): Promise<IAction> {
-    dispatch(startReSendingNoteToServer(localId));
+export const repostNoteFactory = (dependencies: IPostNoteDependencies) =>
+  (data: IPostNote, localId: Guid): Thunk =>
+    (dispatch: Dispatch<IStoreState>): Promise<IAction> => {
+      dispatch(startReSendingNoteToServer(localId));
 
-    return dependencies.sendRequest(dependencies.apiAddress, HttpMethods.POST, data)
-      .then(response => response.json())
-      .then(addedNote => {
-        const applicationNote = dependencies.convertNote(addedNote);
+      return dependencies
+        .sendRequest(data)
+        .then(addedNote => {
+          const applicationNote = convertNote(addedNote);
 
-        return dispatch(sendingNoteToServerSuccess(applicationNote, localId));
-      })
-      .catch(error => dispatch(sendingNoteToServerFailed(localId, error.toString())));
-  };
+          return dispatch(sendingNoteToServerSuccess(applicationNote, localId));
+        })
+        .catch(error => dispatch(sendingNoteToServerFailed(localId, error.toString())));
+    };

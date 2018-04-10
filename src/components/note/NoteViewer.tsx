@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { InactiveNote } from '../inactiveNote/InactiveNote';
 import { NotePropType } from '../../@types/notePropType';
-import { FailedAction } from '../../enums/failedAction';
+import { FailedAction } from '../../enums/FailedAction';
 
 export interface INoteViewerDataProps {
   readonly note: {

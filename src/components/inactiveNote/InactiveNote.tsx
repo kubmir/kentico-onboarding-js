@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { InactiveNoteViewer } from './InactiveNoteViewer';
 import { InactiveNoteError } from '../../containers-redux/inactiveNote/InactiveNoteError';
 import { NotePropType } from '../../@types/notePropType';
-import { FailedAction } from '../../enums/failedAction';
+import { FailedAction } from '../../enums/FailedAction';
 
 export interface IInactiveNoteDataProps {
   readonly note: {

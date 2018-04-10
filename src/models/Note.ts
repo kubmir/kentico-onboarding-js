@@ -1,5 +1,5 @@
 import { Record } from 'immutable';
-import { FailedAction } from '../enums/failedAction';
+import { FailedAction } from '../enums/FailedAction';
 
 const EMPTY_TEXT = '';
 

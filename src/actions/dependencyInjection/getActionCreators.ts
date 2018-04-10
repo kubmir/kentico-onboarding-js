@@ -1,17 +1,10 @@
-import {
-  getNotesFactory,
-  IGetNotesDependencies
-} from '../thunkFactories/getNotesFactory';
-import { API_PREFIX } from '../../constants/apiPrefix';
-import { convertNotes } from '../../utils/noteConverter';
-import { fetchFactory } from '../thunkFactories/fetchFactory';
+import { fetchFactory } from '../thunkFactories/fetchFactories';
+import { HttpMethods } from '../../enums/HttpMethods';
+import { getNotesFactory } from '../thunkFactories/getNotesFactory';
+import { IServerNote } from '../../models/IServerNote';
+import { injectFetchWithApiPrefix } from './fetchInjection';
 
-const sendRequest = fetchFactory(fetch);
+const sendRequest = fetchFactory<IServerNote[]>(injectFetchWithApiPrefix, HttpMethods.GET);
 
-const configurationObject: IGetNotesDependencies = {
-  apiAddress: API_PREFIX,
-  sendRequest,
-  convertNotes: convertNotes,
-};
-
-export const getAllNotes = () => getNotesFactory(configurationObject);
+export const getAllNotes = () =>
+  getNotesFactory({ sendRequest });

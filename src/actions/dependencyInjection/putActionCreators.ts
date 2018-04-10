@@ -1,18 +1,12 @@
-import { API_PREFIX } from '../../constants/apiPrefix';
-import { fetchFactory } from '../thunkFactories/fetchFactory';
-import {
-  IPutNoteDependencies,
-  putNoteFactory
-} from '../thunkFactories/putNoteFactory';
+import { fetchWithIdFactory } from '../thunkFactories/fetchFactories';
+import { putNoteFactory } from '../thunkFactories/putNoteFactory';
+import { HttpMethods } from '../../enums/HttpMethods';
+import { urlBuilder } from '../../utils/urlBuilder';
 
-const sendRequest = fetchFactory(fetch);
-
-const prepareDependencies = (): IPutNoteDependencies => (
-  {
-    apiPrefix: API_PREFIX,
-    sendRequest,
-  }
-);
+const sendRequest = fetchWithIdFactory(fetch, urlBuilder, HttpMethods.DELETE);
 
 export const updateServerNote = (noteId: Guid, updatedNoteText: string) =>
-  putNoteFactory(prepareDependencies())({ text: updatedNoteText, noteId });
+  putNoteFactory({ sendRequest })({
+    text: updatedNoteText,
+    id: noteId
+  });

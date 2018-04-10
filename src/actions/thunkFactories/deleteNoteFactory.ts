@@ -1,7 +1,8 @@
 import { Dispatch } from 'redux';
 import { IStoreState } from '../../models/IStoreState';
 import { IAction } from '../../models/IAction';
-import { HttpMethods } from '../../enums/HttpMethods';
+import { IServerNote } from '../../models/IServerNote';
+
 import {
   DELETING_NOTE_FROM_SERVER_FAILURE,
   DELETING_NOTE_FROM_SERVER_SUCCESS,
@@ -9,8 +10,7 @@ import {
 } from '../../constants/actionTypes';
 
 export interface IDeleteNoteDependencies {
-  apiPrefix: string;
-  sendRequest: (apiAddress: string, httpMethod: HttpMethods, data?: object) => Promise<Response>;
+  sendRequest: (id: Guid) => Promise<IServerNote>;
 }
 
 export const startDeletingNoteFromServer = (noteId: Guid): IAction => ({
@@ -35,13 +35,13 @@ export const deletingNoteFromServerSuccess = (noteId: Guid): IAction => ({
   }
 });
 
-export const deleteNoteFactory = (dependencies: IDeleteNoteDependencies) => (noteId: Guid): Thunk =>
-  function (dispatch: Dispatch<IStoreState>): Promise<IAction> {
-    const apiAddress = dependencies.apiPrefix + '/' + noteId;
-    dispatch(startDeletingNoteFromServer(noteId));
+export const deleteNoteFactory = (dependencies: IDeleteNoteDependencies) =>
+  (noteId: Guid): Thunk =>
+    (dispatch: Dispatch<IStoreState>): Promise<IAction> => {
+      dispatch(startDeletingNoteFromServer(noteId));
 
-    return dependencies.sendRequest(apiAddress, HttpMethods.DELETE)
-      .then(response => response.json())
-      .then(deletedNote => dispatch(deletingNoteFromServerSuccess(deletedNote.id)))
-      .catch(error => dispatch(deletingNoteFromServerFailed(noteId, error.toString())));
-  };
+      return dependencies
+        .sendRequest(noteId)
+        .then(deletedNote => dispatch(deletingNoteFromServerSuccess(deletedNote.id)))
+        .catch(error => dispatch(deletingNoteFromServerFailed(noteId, error.toString())));
+    };

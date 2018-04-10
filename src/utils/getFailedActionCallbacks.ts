@@ -1,4 +1,4 @@
-import { FailedAction } from '../enums/failedAction';
+import { FailedAction } from '../enums/FailedAction';
 import {
   cancelFailedAddAction,
   cancelFailedDeleteAction,

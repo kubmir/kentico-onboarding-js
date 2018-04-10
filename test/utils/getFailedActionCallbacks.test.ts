@@ -7,7 +7,7 @@ import {
   updateServerNote
 } from '../../src/actions';
 import { getFailedActionCallbacks } from '../../src/utils/getFailedActionCallbacks';
-import { FailedAction } from '../../src/enums/failedAction';
+import { FailedAction } from '../../src/enums/FailedAction';
 import {
   getFailedAddActionTooltipText,
   getFailedDeleteActionTooltipText,
