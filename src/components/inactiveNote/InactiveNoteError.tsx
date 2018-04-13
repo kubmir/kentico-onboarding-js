@@ -47,39 +47,41 @@ export class InactiveNoteError extends React.PureComponent<InactiveNoteErrorProp
     this.props.cancelFailedAction(this.props.note.failedAction);
 
   render() {
-    return (<p>
-      <span style={{ color: 'grey' }}>{this.props.number + '. ' + this.props.note.visibleText}</span>
-      <span title={'Cancel failed ' + this.props.getFailedActionTooltipText()}>
-        <MdCancel
+    return (
+      <p>
+        <span style={{ color: 'grey' }}>{this.props.number + '. ' + this.props.note.visibleText}</span>
+        <span title={'Cancel failed ' + this.props.getFailedActionTooltipText()}>
+          <MdCancel
+            className="pull-right"
+            size="25"
+            color="blue"
+            style={{ cursor: 'pointer' }}
+            onClick={this._onCancelFailedActionClick}
+          />
+        </span>
+        <span title={'Retry ' + this.props.getFailedActionTooltipText()}>
+          <MdRepeat
+            className="pull-right"
+            color="green"
+            size="25"
+            style={{ cursor: 'pointer' }}
+            onClick={this._onRetryClick}
+          />
+        </span>
+        <span title="Error">
+          <MdError
+            className="pull-right"
+            size="25"
+            color="red"
+          />
+        </span>
+        <span
           className="pull-right"
-          size="25"
-          color="blue"
-          style={{ cursor: 'pointer' }}
-          onClick={this._onCancelFailedActionClick}
-        />
-      </span>
-      <span title={'Retry ' + this.props.getFailedActionTooltipText()}>
-        <MdRepeat
-          className="pull-right"
-          color="green"
-          size="25"
-          style={{ cursor: 'pointer' }}
-          onClick={this._onRetryClick}
-        />
-      </span>
-      <span title="Error">
-        <MdError
-          className="pull-right"
-          size="25"
-          color="red"
-        />
-      </span>
-      <span
-        className="pull-right"
-        style={{ color: 'red' }}
-      >
-        {this.props.note.communicationError}
-      </span>
-    </p>);
+          style={{ color: 'red' }}
+        >
+          {this.props.note.communicationError}
+        </span>
+      </p>
+    );
   }
 }
