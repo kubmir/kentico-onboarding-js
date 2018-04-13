@@ -14,13 +14,13 @@ import {
   getFailedUpdateActionTooltipText
 } from '../../src/utils/getTooltipText';
 
-describe('getFailedActionCallbacks', () => {
+describe('GetFailedActionCallbacks', () => {
 
-  it('no failure action', () =>
+  it('should throw an error when no failed action occurred.', () =>
     expect(() => getFailedActionCallbacks(FailedAction.NO_FAILURE)).toThrow()
   );
 
-  it('delete action', () => {
+  it('should return delete methods when delete action failed.', () => {
     const expectedCallbacks = {
       cancelFailedAction: cancelFailedDeleteAction,
       retryFailedAction: deleteServerNote,
@@ -32,7 +32,7 @@ describe('getFailedActionCallbacks', () => {
     expect(actualCallbacks).toEqual(expectedCallbacks);
   });
 
-  it('add action', () => {
+  it('should return add methods when add action failed.', () => {
     const expectedCallbacks = {
       cancelFailedAction: cancelFailedAddAction,
       retryFailedAction: retryAddNewNote,
@@ -44,7 +44,7 @@ describe('getFailedActionCallbacks', () => {
     expect(actualCallbacks).toEqual(expectedCallbacks);
   });
 
-  it('update action', () => {
+  it('should return update methods when update action failed.', () => {
     const expectedCallbacks = {
       cancelFailedAction: cancelFailedUpdateAction,
       retryFailedAction: updateServerNote,

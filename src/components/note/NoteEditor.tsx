@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { NonEmptyInput } from '../input/NonEmptyInput';
 import { NoteErrorMessage } from './NoteErrorMessage';
-import { isNoteValid } from '../../utils/isNoteValid';
+import { isValidNoteText } from '../../utils/isValidNoteText';
 
 export interface INoteEditorDataProps {
   readonly note: {
@@ -56,8 +56,8 @@ export class NoteEditor extends React.PureComponent<NoteEditorProps, INoteEditor
     this.props.onSaveClick(this.state.currentNoteText);
 
   render(): JSX.Element {
-    const isValid = isNoteValid(this.state.currentNoteText);
-    const isError = !isValid && this.props.note.isEditActive;
+    const isNoteTextValid = isValidNoteText(this.state.currentNoteText);
+    const isError = !isNoteTextValid && this.props.note.isEditActive;
 
     return (
       <div>

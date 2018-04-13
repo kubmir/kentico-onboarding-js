@@ -24,69 +24,66 @@ const mockRejectedFetch = () =>
     throw 'test error';
   }));
 
-describe('FetchFactories -> ', () => {
+describe('FetchWithIdFactory', () => {
+  it('should throw an error when promise is resolved but response.ok is false - error 500.', () => {
+    const mockedFetch = mockResolvedFetch(HTTP_ERROR_STATUS, false);
+    const saveFunction = fetchWithIdFactory(mockedFetch, () => 'test', HttpMethods.GET);
 
-  describe('fetchWithIdFactory', () => {
-    it('throws error when promise is resolved but response ok is false - error 500', () => {
-      const mockedFetch = mockResolvedFetch(HTTP_ERROR_STATUS, false);
-      const saveFunction = fetchWithIdFactory(mockedFetch, () => 'test', HttpMethods.GET);
-
-      return saveFunction(NOTE_ID)
-        .then(
-          () => fail('Expected error was not throw for http code 500!'),
-          error => expect(error).toBeTruthy()
-        );
-    });
-
-    it('return correct response when response ok is true - status code 200', () => {
-      const mockedFetch = mockResolvedFetch(HTTP_SUCCESS_STATUS, true);
-      const saveFunction = fetchWithIdFactory(mockedFetch, () => `test/${NOTE_ID}`, HttpMethods.GET);
-
-      return saveFunction(NOTE_ID)
-        .then(
-          response => expect(response).toBeTruthy(),
-          () => fail('Unexpected error was thrown for http code 200!'),
-        );
-    });
-
-    it('throw error when fetch failed - promise is rejected', () => {
-      const mockedFetch = mockRejectedFetch();
-      const saveFunction = fetchWithIdFactory(mockedFetch, () => `test/${NOTE_ID}`, HttpMethods.GET);
-
-      return saveFunction(NOTE_ID)
-        .catch(reject => expect(reject).toBeTruthy());
-    });
+    return saveFunction(NOTE_ID)
+      .then(
+        () => fail('Expected error was not throw for http code 500!'),
+        error => expect(error).toBeTruthy()
+      );
   });
 
-  describe('fetchFactory', () => {
-    it('throws error when promise is resolved but response ok is false - error 500', () => {
-      const mockedFetch = mockResolvedFetch(HTTP_ERROR_STATUS, false);
-      const saveFunction = fetchFactory<IServerNote>(mockedFetch, HttpMethods.GET);
+  it('should return correct object when response.ok is true - status code 200.', () => {
+    const mockedFetch = mockResolvedFetch(HTTP_SUCCESS_STATUS, true);
+    const saveFunction = fetchWithIdFactory(mockedFetch, () => `test/${NOTE_ID}`, HttpMethods.GET);
 
-      return saveFunction(POST_NOTE)
-        .then(
-          () => fail('Expected error was not throw for http code 500!'),
-          error => expect(error).toBeTruthy()
-        );
-    });
+    return saveFunction(NOTE_ID)
+      .then(
+        response => expect(response).toBeTruthy(),
+        () => fail('Unexpected error was thrown for http code 200!'),
+      );
+  });
 
-    it('return correct response when response ok is true - status code 200', () => {
-      const mockedFetch = mockResolvedFetch(HTTP_SUCCESS_STATUS, true);
-      const saveFunction = fetchFactory<IServerNote>(mockedFetch, HttpMethods.GET);
+  it('should throw an error when fetch failed - promise is rejected.', () => {
+    const mockedFetch = mockRejectedFetch();
+    const saveFunction = fetchWithIdFactory(mockedFetch, () => `test/${NOTE_ID}`, HttpMethods.GET);
 
-      return saveFunction()
-        .then(
-          response => expect(response).toBeTruthy(),
-          () => fail('Unexpected error was thrown for http code 200!'),
-        );
-    });
+    return saveFunction(NOTE_ID)
+      .catch(reject => expect(reject).toBeTruthy());
+  });
+});
 
-    it('throw error when fetch failed - promise is rejected', () => {
-      const mockedFetch = mockRejectedFetch();
-      const saveFunction = fetchFactory<IServerNote>(mockedFetch, HttpMethods.GET);
+describe('FetchFactory', () => {
+  it('should throw an error when promise is resolved but response.ok is false - error 500.', () => {
+    const mockedFetch = mockResolvedFetch(HTTP_ERROR_STATUS, false);
+    const saveFunction = fetchFactory<IServerNote>(mockedFetch, HttpMethods.GET);
 
-      return saveFunction(POST_NOTE)
-        .catch(reject => expect(reject).toBeTruthy());
-    });
+    return saveFunction(POST_NOTE)
+      .then(
+        () => fail('Expected error was not throw for http code 500!'),
+        error => expect(error).toBeTruthy()
+      );
+  });
+
+  it('should return correct object when response.ok is true - status code 200.', () => {
+    const mockedFetch = mockResolvedFetch(HTTP_SUCCESS_STATUS, true);
+    const saveFunction = fetchFactory<IServerNote>(mockedFetch, HttpMethods.GET);
+
+    return saveFunction()
+      .then(
+        response => expect(response).toBeTruthy(),
+        () => fail('Unexpected error was thrown for http code 200!'),
+      );
+  });
+
+  it('should throw an error when fetch failed - promise is rejected.', () => {
+    const mockedFetch = mockRejectedFetch();
+    const saveFunction = fetchFactory<IServerNote>(mockedFetch, HttpMethods.GET);
+
+    return saveFunction(POST_NOTE)
+      .catch(reject => expect(reject).toBeTruthy());
   });
 });

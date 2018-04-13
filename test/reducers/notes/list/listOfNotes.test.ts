@@ -11,7 +11,7 @@ import {
   cancelEditingNote,
   cancelFailedDeleteAction,
   cancelFailedAddAction,
-  cancelFailedUpdateAction
+  cancelFailedUpdateAction,
 } from '../../../../src/actions';
 import {
   sendingNoteToServerFailed,
@@ -33,14 +33,22 @@ import {
   updatingNoteOnServerSuccess
 } from '../../../../src/actions/thunkFactories/putNoteFactory';
 
-describe('Reducer listOfNotes tests', () => {
+describe('Reducer listOfNotes ', () => {
   let initialState: OrderedMap<Guid, Note>;
 
   beforeEach(() => {
     initialState = prepareNotesInitialState();
   });
 
-  it('Reducer should return previous state if unknown action is dispatched', () => {
+  it('should working correctly with undefined state.', () => {
+    const loadAction = storeLoadedNotes(initialState);
+
+    const actualState = listOfNotes(undefined, loadAction);
+
+    expect(actualState).toEqual(initialState);
+  });
+
+  it('should return previous state if unknown action is dispatched.', () => {
     const unknownAction = {
       type: 'Test action',
     };
@@ -50,7 +58,7 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(initialState);
   });
 
-  it('action LOADING_NOTE_SUCCESS should add all loaded notes to state notes', () => {
+  it('should add all loaded notes to state notes when action LOADING_NOTE_SUCCESS is dispatched.', () => {
     const loadingSuccessAction = storeLoadedNotes(initialState);
     const expectedState = initialState;
 
@@ -59,7 +67,7 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action START_SENDING_NOTE_TO_SERVER should add new note to state notes', () => {
+  it('should add new note to state notes when action START_SENDING_NOTE_TO_SERVER is dispatched.', () => {
     const noteToAddText = 'Third local test note - added - isCommunicating';
     const noteToAddId = '3';
     const newNote = prepareLocalNote(noteToAddText, noteToAddId);
@@ -76,7 +84,7 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action START_RESENDING_NOTE_TO_SERVER should update isCommunicating and communicationError property of state note', () => {
+  it('should update isCommunicating and communicationError of state note when action START_RESENDING_NOTE_TO_SERVER is dispatched.', () => {
     const resendingAction = startReSendingNoteToServer('2');
     const expectedState = OrderedMap([
       ['1', prepareNote('First test note', '1', false)],
@@ -88,7 +96,7 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action SENDING_NOTE_TO_SERVER_SUCCESS should add new note to state notes', () => {
+  it('should add new note to state notes when action SENDING_NOTE_TO_SERVER_SUCCESS is dispatched.', () => {
     const noteToAddText = 'Third test note - added';
     const newNote = prepareNote(noteToAddText, '3', false);
     const addNoteAction = sendingNoteToServerSuccess(newNote, '2');
@@ -102,7 +110,7 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action UPDATING_NOTE_ON_SERVER_SUCCESS should update note with specific noteId', () => {
+  it('should update note with specific noteId when action UPDATING_NOTE_ON_SERVER_SUCCESS is dispatched.', () => {
     const idOfUpdatedNote = '1';
     const textChanges = 'Updated visibleText';
     const updateAction = updatingNoteOnServerSuccess(new Note({ visibleText: textChanges, id: idOfUpdatedNote }));
@@ -118,7 +126,7 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action UPDATING_NOTE_ON_SERVER_SUCCESS should not change visibleText of note if no changes are made', () => {
+  it('should not change visibleText of note if no changes are made when action UPDATING_NOTE_ON_SERVER_SUCCESS is dispatched.', () => {
     const idOfUpdatedNote = '1';
     const previousNote = initialState
       .get(idOfUpdatedNote);
@@ -133,7 +141,7 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action DELETING_NOTE_FROM_SERVER_SUCCESS should delete note from state notes', () => {
+  it('should delete note from state notes when action DELETING_NOTE_FROM_SERVER_SUCCESS is dispatched.', () => {
     const deleteAction = deletingNoteFromServerSuccess('1');
     const expectedState = OrderedMap(
       [
@@ -146,7 +154,7 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action START_EDITING_NOTE should start edit mode of defined note', () => {
+  it('should start edit mode of defined note when action START_EDITING_NOTE is dispatched.', () => {
     const idOfNote = '1';
     const startEditAction = startEditingNote(idOfNote);
     const expectedState = OrderedMap(
@@ -161,7 +169,7 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action CANCEL_EDITING_NOTE should cancel edit mode of defined note', () => {
+  it('should cancel edit mode of defined note when action CANCEL_EDITING_NOTE is dispatched.', () => {
     const idOfNote = '1';
     const startEditAction = cancelEditingNote(idOfNote);
     const expectedState = OrderedMap(
@@ -182,7 +190,7 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action START_DELETING_NOTE_FROM_SERVER should set property isCommunicating of note to true', () => {
+  it('should set property isCommunicating of note to true when action START_DELETING_NOTE_FROM_SERVER is dispatched.', () => {
     const startDeleteAction = startDeletingNoteFromServer('2');
     const expectedState = OrderedMap(
       [
@@ -196,7 +204,7 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action START_UPDATING_NOTE_ON_SERVER should set property isCommunicating of note to true', () => {
+  it('should set property isCommunicating of note to true when action START_UPDATING_NOTE_ON_SERVER is dispatched.', () => {
     const startDeleteAction = startUpdatingNoteOnServer('2', 'new test visibleText');
     const expectedState = OrderedMap(
       [
@@ -210,7 +218,7 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action DELETING_NOTE_FROM_SERVER_FAILURE should set property isCommunicating of note to false, communicationError and failedAction', () => {
+  it('should set property isCommunicating to false, communicationError and failedAction when action DELETING_NOTE_FROM_SERVER_FAILURE is dispatched.', () => {
     const deletingNoteFailureAction = deletingNoteFromServerFailed('1', 'Test error');
     const expectedState = OrderedMap(
       [
@@ -224,7 +232,7 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action SENDING_NOTE_TO_SERVER_FAILURE should set property isCommunicating of note to false, communicationError and failedAction', () => {
+  it('should set property isCommunicating to false, communicationError and failedAction when action SENDING_NOTE_TO_SERVER_FAILURE is dispatched.', () => {
     const sendingNoteFailureAction = sendingNoteToServerFailed('1', 'Test error');
     const expectedState = OrderedMap(
       [
@@ -239,7 +247,7 @@ describe('Reducer listOfNotes tests', () => {
   });
 
 
-  it('action UPDATING_NOTE_ON_SERVER_FAILURE should set property isCommunicating of note to false, communicationError and failedAction', () => {
+  it('should set property isCommunicating to false, communicationError and failedAction when action UPDATING_NOTE_ON_SERVER_FAILURE is dispatched.', () => {
     const sendingNoteFailureAction = updatingNoteOnServerFailed('1', 'Test error');
     const expectedState = OrderedMap(
       [
@@ -253,7 +261,7 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action CANCEL_FAILED_DELETE_ACTION should set property isCommunicating to false, communicationError and failedAction to empty', () => {
+  it('should set property isCommunicating to false, communicationError and failedAction to empty when action CANCEL_FAILED_DELETE_ACTION is dispatched.', () => {
     const cancelDeleteAction = cancelFailedDeleteAction('1');
     const initialErrorState = OrderedMap<string, Note>(
       [
@@ -273,7 +281,7 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action CANCEL_FAILED_UPDATE_ACTION should set property isCommunicating to false, communicationError and failedAction to empty', () => {
+  it('should set property isCommunicating to false, communicationError and failedAction to empty when action CANCEL_FAILED_UPDATE_ACTION is dispatched.', () => {
     const cancelUpdateAction = cancelFailedUpdateAction('1', 'First test note');
     const initialErrorState = OrderedMap<string, Note>(
       [
@@ -293,7 +301,7 @@ describe('Reducer listOfNotes tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action CANCEL_FAILED_ADD_ACTION should delete local note of failed addition', () => {
+  it('should delete local note of failed addition when action CANCEL_FAILED_ADD_ACTION is dispatched.', () => {
     const cancelAddAction = cancelFailedAddAction('1');
     const initialErrorState = OrderedMap<string, Note>(
       [
