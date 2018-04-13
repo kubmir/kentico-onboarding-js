@@ -1,6 +1,6 @@
 import { fetchFactory } from '../thunkFactories/fetchFactories';
 import { HttpMethods } from '../../enums/HttpMethods';
-import { IServerNote } from '../../models/IServerNote';
+import { IServerNote } from '../../models/Note';
 import { injectFetchWithApiPrefix } from './fetchInjection';
 import {
   postNoteFactory,

@@ -8,7 +8,7 @@ import {
   IAddNoteCallbacksProps,
   IAddNoteDataProps
 } from '../../components/addNote/AddNote';
-import { IStoreState } from '../../models/IStoreState';
+import { IStoreState } from '../../reducers/IStoreState';
 
 const mapStateToProps = ({ notes }: IStoreState): IAddNoteDataProps => ({
   isInputFocused: notes.isAddingNote,

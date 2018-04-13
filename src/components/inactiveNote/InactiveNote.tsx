@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { InactiveNoteViewer } from './InactiveNoteViewer';
 import { InactiveNoteError } from '../../containers-redux/inactiveNote/InactiveNoteError';
-import { NotePropType } from '../../@types/notePropType';
+import { NotePropType } from '../../utils/notePropType';
 import { FailedAction } from '../../enums/FailedAction';
 
 export interface IInactiveNoteDataProps {

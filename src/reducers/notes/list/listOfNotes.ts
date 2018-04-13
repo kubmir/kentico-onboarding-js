@@ -18,7 +18,7 @@ import {
   UPDATING_NOTE_ON_SERVER_FAILURE,
   UPDATING_NOTE_ON_SERVER_SUCCESS,
 } from '../../../constants/actionTypes';
-import { IAction } from '../../../models/IAction';
+import { IAction } from '../../../actions/IAction';
 import { FailedAction } from '../../../enums/FailedAction';
 
 const addNote = (state: OrderedMap<Guid, Note>, payload: { noteId: Guid, text: string, isCommunicating: boolean }): OrderedMap<Guid, Note> => {

@@ -5,7 +5,7 @@ import {
   CANCEL_FAILED_UPDATE_ACTION,
   START_EDITING_NOTE
 } from '../../constants/actionTypes';
-import { IAction } from '../../models/IAction';
+import { IAction } from '../IAction';
 
 export const startEditingNote = (noteId: Guid): IAction => ({
   type: START_EDITING_NOTE,

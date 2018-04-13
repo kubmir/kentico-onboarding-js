@@ -3,7 +3,7 @@ import {
   LOADING_NOTES_SUCCESS,
   START_LOADING_NOTES,
 } from '../../../constants/actionTypes';
-import { IAction } from '../../../models/IAction';
+import { IAction } from '../../../actions/IAction';
 
 const NO_ERROR_MESSAGE = '';
 

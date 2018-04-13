@@ -1,5 +1,5 @@
 import { application } from '../reducers/application';
-import { IStoreState } from '../models/IStoreState';
+import { IStoreState } from '../reducers/IStoreState';
 import {
   applyMiddleware,
   compose,

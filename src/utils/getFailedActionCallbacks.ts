@@ -7,7 +7,7 @@ import {
   retryAddNewNote,
   updateServerNote
 } from '../actions';
-import { IAction } from '../models/IAction';
+import { IAction } from '../actions/IAction';
 import {
   getFailedAddActionTooltipText,
   getFailedDeleteActionTooltipText,

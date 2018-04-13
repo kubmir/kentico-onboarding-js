@@ -13,7 +13,7 @@ import {
   INoteEditorDataProps
 } from '../../components/note/NoteEditor';
 import { getNoteById } from '../../selectors/notes/list/listOfNotes';
-import { IStoreState } from '../../models/IStoreState';
+import { IStoreState } from '../../reducers/IStoreState';
 
 interface INoteEditorOwnProps {
   readonly noteId: Guid;

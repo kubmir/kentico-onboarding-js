@@ -1,5 +1,5 @@
 import { OrderedMap } from 'immutable';
-import { Note } from './Note';
+import { Note } from '../models/Note';
 
 export interface IStoreState {
   readonly notes: INotesState;
