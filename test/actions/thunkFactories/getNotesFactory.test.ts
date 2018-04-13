@@ -10,12 +10,12 @@ import {
   START_LOADING_NOTES
 } from '../../../src/constants/actionTypes';
 
-describe('getNotesFactory tests', () => {
+describe('GetNotesFactory ', () => {
   const dispatch = jest.fn();
 
   beforeEach(() => dispatch.mockReset());
 
-  it('notes are correctly loaded from server', () => {
+  it('should correctly load notes from server.', () => {
     const sendRequest = () => Promise.resolve([mockServerNote('first', '1'), mockServerNote('second', '2')]);
     const configurationObject = { sendRequest };
 
@@ -27,7 +27,7 @@ describe('getNotesFactory tests', () => {
       });
   });
 
-  it('request to server is rejected', () => {
+  it('should fail while loading notes from server.', () => {
     const configurationObject = { sendRequest: () => Promise.reject({}) };
 
     return getNotesFactory(configurationObject)(dispatch, () => mockStoreState(), null)

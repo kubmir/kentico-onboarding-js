@@ -12,12 +12,12 @@ import {
 
 const NOTE_TO_DELETE_ID = '1';
 
-describe('deleteNoteFactory tests', () => {
+describe('DeleteNoteFactory ', () => {
   const dispatch = jest.fn();
 
   beforeEach(() => dispatch.mockReset());
 
-  it('note is correctly deleted from server', () => {
+  it('should correctly delete note from server.', () => {
     const sendRequest = () => Promise.resolve(mockServerNote('test', NOTE_TO_DELETE_ID));
     const configurationObject = { sendRequest };
 
@@ -29,7 +29,7 @@ describe('deleteNoteFactory tests', () => {
       });
   });
 
-  it('request to server is rejected', () => {
+  it('should fail while deleting note from server.', () => {
     const configurationObject = { sendRequest: () => Promise.reject({}) };
 
     return deleteNoteFactory(configurationObject)(NOTE_TO_DELETE_ID)(dispatch, () => mockStoreState(), null)

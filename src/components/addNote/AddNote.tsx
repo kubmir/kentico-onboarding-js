@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { AddNoteInput } from '../../containers-redux/addNote/AddNoteInput';
-import { isNoteValid } from '../../utils/isNoteValid';
+import { isValidNoteText } from '../../utils/isValidNoteText';
 import { IAction } from '../../actions/IAction';
 import { NoteErrorMessage } from '../note/NoteErrorMessage';
 
@@ -31,8 +31,8 @@ export class AddNote extends React.PureComponent<AddNoteProps> {
     this.props.onAddClick(this.props.text);
 
   render(): JSX.Element {
-    const isValid = isNoteValid(this.props.text);
-    const isError = !isValid && this.props.isInputFocused;
+    const isNoteTextValid = isValidNoteText(this.props.text);
+    const isError = !isNoteTextValid && this.props.isInputFocused;
 
     return (
       <div>
@@ -44,7 +44,7 @@ export class AddNote extends React.PureComponent<AddNoteProps> {
           <div className="input-group-btn">
             <button
               type="button"
-              disabled={!isValid}
+              disabled={!isNoteTextValid}
               className="btn btn-default"
               onClick={this._addInsertedText}
             >

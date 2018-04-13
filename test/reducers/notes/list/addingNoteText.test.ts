@@ -3,8 +3,25 @@ import { changeAddingNoteText } from '../../../../src/actions';
 
 const EMPTY_STATE = '';
 
-describe('addingNoteText reducer tests', () => {
-  it('action ADD_NOTE_TEXT_CHANGE should add text to state', () => {
+describe('Reducer addingNoteText ', () => {
+  it('should working correctly with undefined state.', () => {
+    const expectedState = 'Test';
+    const addTextAction = changeAddingNoteText(expectedState);
+
+    const actualState = addNoteText(undefined, addTextAction);
+
+    expect(actualState).toEqual(expectedState);
+  });
+
+  it('should not change text in the state when UNKNOWN_ACTION is dispatched.', () => {
+    const expectedState = EMPTY_STATE;
+
+    const actualState = addNoteText(EMPTY_STATE, { type: 'UNKNOWN_ACTION' });
+
+    expect(actualState).toEqual(expectedState);
+  });
+
+  it('should replace text in the state when action ADD_NOTE_TEXT_CHANGE is dispatched.', () => {
     const expectedState = 'Test';
     const addTextAction = changeAddingNoteText(expectedState);
 
@@ -13,16 +30,7 @@ describe('addingNoteText reducer tests', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('action ADD_NOTE_TEXT_CHANGE should remove text from state', () => {
-    const expectedState = 'Tes';
-    const addTextAction = changeAddingNoteText(expectedState);
-
-    const actualState = addNoteText(EMPTY_STATE, addTextAction);
-
-    expect(actualState).toEqual(expectedState);
-  });
-
-  it('action START_SENDING_NOTE_TO_SERVER should remove text from state', () => {
+  it('should remove text from the state when action ADD_NOTE_TEXT_CHANGE is dispatched.', () => {
     const expectedState = EMPTY_STATE;
     const addTextAction = changeAddingNoteText(expectedState);
 

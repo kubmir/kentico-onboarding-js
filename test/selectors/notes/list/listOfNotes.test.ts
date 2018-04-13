@@ -7,8 +7,8 @@ import {
   getNoteById,
 } from '../../../../src/selectors/notes/list/listOfNotes';
 
-describe('Selector listOfNotes tests', () => {
-  it('getNoteById test', () => {
+describe('Selector listOfNotes ', () => {
+  it('method getNoteById should return correct note by id.', () => {
     const notes = prepareNotesInitialState();
     const expectedNote = prepareNote('First test note', '1', false);
 
@@ -17,7 +17,7 @@ describe('Selector listOfNotes tests', () => {
     expect(actualNote).toEqual(expectedNote);
   });
 
-  it('getAllIds test', () => {
+  it('method getAllIds should return all IDs.', () => {
     const notes = prepareNotesInitialState();
     const expectedIds = ['1', '2'];
 
@@ -26,7 +26,7 @@ describe('Selector listOfNotes tests', () => {
     expect(actualIds).toEqual(expectedIds);
   });
 
-  it('getAllIds return same object if called multiple times', () => {
+  it('method getAllIds should return same object if called multiple times.', () => {
     const notes = prepareNotesInitialState();
 
     const firstActualIds = getAllIds(notes);

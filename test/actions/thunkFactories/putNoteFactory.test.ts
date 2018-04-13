@@ -19,7 +19,7 @@ describe('putNoteFactory tests', () => {
 
   beforeEach(() => dispatch.mockReset());
 
-  it('note is correctly updated on server', () => {
+  it('should correctly update note on server.', () => {
     const sendRequest = () => Promise.resolve(mockServerNote(BEFORE_UPDATE_TEXT, UPDATED_NOTE_ID));
     const configurationObject = { sendRequest };
 
@@ -31,7 +31,7 @@ describe('putNoteFactory tests', () => {
       });
   });
 
-  it('request to server is rejected', () => {
+  it('should fail while updating note to server.', () => {
     const configurationObject = { sendRequest: () => Promise.reject({}) };
 
     return putNoteFactory(configurationObject)({ text: UPDATED_TEXT, id: UPDATED_NOTE_ID })(dispatch, () => mockStoreState(), null)
