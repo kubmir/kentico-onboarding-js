@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { MdAutorenew } from 'react-icons/lib/md';
-import { NotePropType } from '../../@types/notePropType';
+import { NotePropType } from '../../utils/notePropType';
 import '../../styles/noteViewer.css';
 
 export interface InactiveNoteViewerDataProps {

@@ -1,8 +1,7 @@
 import { Dispatch } from 'redux';
-import { IStoreState } from '../../models/IStoreState';
-import { IAction } from '../../models/IAction';
-import { IServerNote } from '../../models/IServerNote';
-
+import { IServerNote } from '../../models/Note';
+import { IStoreState } from '../../reducers/IStoreState';
+import { IAction } from '../IAction';
 import {
   DELETING_NOTE_FROM_SERVER_FAILURE,
   DELETING_NOTE_FROM_SERVER_SUCCESS,

@@ -1,6 +1,6 @@
-import { IAction } from '../models/IAction';
+import { IAction } from '../actions/IAction';
 import { ThunkAction } from 'redux-thunk';
-import { IStoreState } from '../models/IStoreState';
+import { IStoreState } from '../reducers/IStoreState';
 
 declare global {
   type Guid = string;

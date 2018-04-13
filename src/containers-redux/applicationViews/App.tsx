@@ -1,4 +1,4 @@
-import { IStoreState } from '../../models/IStoreState';
+import { IStoreState } from '../../reducers/IStoreState';
 import {
   connect,
   Dispatch

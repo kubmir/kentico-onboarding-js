@@ -4,7 +4,7 @@ import {
   List as ListComponent
 } from '../../components/applicationViews/List';
 import { getAllIds } from '../../selectors/notes/list/listOfNotes';
-import { IStoreState } from '../../models/IStoreState';
+import { IStoreState } from '../../reducers/IStoreState';
 
 const mapStateToProps = ({ notes }: IStoreState): IListDataProps => ({
   notesIds: getAllIds(notes.listOfNotes),

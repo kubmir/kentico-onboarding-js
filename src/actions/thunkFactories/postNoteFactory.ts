@@ -1,10 +1,11 @@
 import { Dispatch } from 'redux';
-import { IAction } from '../../models/IAction';
-import { Note } from '../../models/Note';
-import { IServerNote } from '../../models/IServerNote';
-import { IStoreState } from '../../models/IStoreState';
 import { convertNote } from '../../utils/noteConverter';
-
+import { IAction } from '../IAction';
+import {
+  Note,
+  IServerNote
+} from '../../models/Note';
+import { IStoreState } from '../../reducers/IStoreState';
 import {
   SENDING_NOTE_TO_SERVER_FAILURE,
   SENDING_NOTE_TO_SERVER_SUCCESS,
@@ -28,7 +29,7 @@ export const startReSendingNoteToServer = (localNoteId: Guid) => ({
   }
 });
 
-export const startSendingNoteToServer  = (noteId: Guid, text: string): IAction => ({
+export const startSendingNoteToServer = (noteId: Guid, text: string): IAction => ({
   type: START_SENDING_NOTE_TO_SERVER,
   payload: {
     noteId,

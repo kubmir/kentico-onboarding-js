@@ -1,8 +1,10 @@
 import { Dispatch } from 'redux';
-import { IAction } from '../../models/IAction';
-import { IStoreState } from '../../models/IStoreState';
-import { Note } from '../../models/Note';
-import { IServerNote } from '../../models/IServerNote';
+import { IAction } from '../IAction';
+import { IStoreState } from '../../reducers/IStoreState';
+import {
+  Note,
+  IServerNote
+} from '../../models/Note';
 import { INoteDto } from './fetchFactories';
 
 import {

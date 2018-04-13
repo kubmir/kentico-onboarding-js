@@ -1,4 +1,4 @@
-import { IAction } from '../../../models/IAction';
+import { IAction } from '../../../actions/IAction';
 import {
   ADD_NOTE_TEXT_CHANGE,
   START_SENDING_NOTE_TO_SERVER,

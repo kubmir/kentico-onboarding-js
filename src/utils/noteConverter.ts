@@ -1,5 +1,7 @@
-import { IServerNote } from '../models/IServerNote';
-import { Note } from '../models/Note';
+import {
+  Note,
+  IServerNote
+} from '../models/Note';
 
 export const convertNote = ({ id, text }: IServerNote): Note => (
   new Note({

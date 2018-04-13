@@ -2,7 +2,7 @@ import {
   connect,
   Dispatch
 } from 'react-redux';
-import { IStoreState } from '../../models/IStoreState';
+import { IStoreState } from '../../reducers/IStoreState';
 import {
   InactiveNoteError as IInactiveNoteErrorComponent,
   IInactiveNoteErrorCallbackProps,

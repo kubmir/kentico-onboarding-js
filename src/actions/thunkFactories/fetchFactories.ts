@@ -1,5 +1,5 @@
 import { HttpMethods } from '../../enums/HttpMethods';
-import { IServerNote } from '../../models/IServerNote';
+import { IServerNote } from '../../models/Note';
 import { IPostNote } from './postNoteFactory';
 
 export interface IRequestInit {

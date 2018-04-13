@@ -5,7 +5,7 @@ import { IKeyMap } from '../../models/IKeyMap';
 import { Loader } from './Loader';
 import { MainPage } from '../../containers-redux/applicationViews/MainPage';
 import '../../sticky-footer.css';
-import { IAction } from '../../models/IAction';
+import { IAction } from '../../actions/IAction';
 
 const keyMap: IKeyMap = {
   cancelEditing: 'esc',

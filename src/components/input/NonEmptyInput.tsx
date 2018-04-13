@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import { FormEvent } from 'react';
-import { IAction } from '../../models/IAction';
+import { IAction } from '../../actions/IAction';
 
 export interface INonEmptyInputDataProps {
   readonly text: string;

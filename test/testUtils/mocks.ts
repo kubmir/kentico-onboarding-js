@@ -1,6 +1,6 @@
 import { OrderedMap } from 'immutable';
-import { IStoreState } from '../../src/models/IStoreState';
-import { IServerNote } from '../../src/models/IServerNote';
+import { IStoreState } from '../../src/reducers/IStoreState';
+import { IServerNote } from '../../src/models/Note';
 
 export const mockServerNote = (text: string, id: Guid): IServerNote => ({
   text,

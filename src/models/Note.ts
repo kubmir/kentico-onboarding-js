@@ -3,6 +3,13 @@ import { FailedAction } from '../enums/FailedAction';
 
 const EMPTY_TEXT = '';
 
+export interface IServerNote {
+  readonly text: string;
+  readonly id: Guid;
+  readonly creationDate: Date;
+  readonly lastModificationDate: Date;
+}
+
 interface INote {
   readonly visibleText: string;
   readonly id: Guid;

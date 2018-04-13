@@ -4,7 +4,7 @@ import {
   INoteDataProps
 } from '../../components/note/Note';
 import { getNoteById } from '../../selectors/notes/list/listOfNotes';
-import { IStoreState } from '../../models/IStoreState';
+import { IStoreState } from '../../reducers/IStoreState';
 
 interface INoteOwnProps {
   readonly noteId: Guid;

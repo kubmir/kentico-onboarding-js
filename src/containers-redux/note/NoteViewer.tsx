@@ -9,8 +9,8 @@ import {
   INoteViewerDataProps
 } from '../../components/note/NoteViewer';
 import { getNoteById } from '../../selectors/notes/list/listOfNotes';
-import { IStoreState } from '../../models/IStoreState';
-import { IAction } from '../../models/IAction';
+import { IStoreState } from '../../reducers/IStoreState';
+import { IAction } from '../../actions/IAction';
 
 interface IOwnProps {
   readonly noteId: Guid;

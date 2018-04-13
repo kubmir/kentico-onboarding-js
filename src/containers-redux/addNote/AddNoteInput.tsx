@@ -13,7 +13,7 @@ import {
   stopAddingNote,
   changeAddingNoteText,
 } from '../../actions';
-import { IStoreState } from '../../models/IStoreState';
+import { IStoreState } from '../../reducers/IStoreState';
 
 interface IOwnProps {
   readonly inputClassName: string;

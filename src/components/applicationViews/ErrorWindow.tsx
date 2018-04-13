@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { IAction } from '../../models/IAction';
+import { IAction } from '../../actions/IAction';
 import '../../styles/errorWindow.css';
 
 export interface IErrorWindowDataProps {

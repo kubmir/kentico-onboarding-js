@@ -3,7 +3,7 @@ import {
   ADD_NOTE_BLUR,
   ADD_NOTE_TEXT_CHANGE,
 } from '../../constants/actionTypes';
-import { IAction } from '../../models/IAction';
+import { IAction } from '../IAction';
 
 export const startAddingNote = (): IAction => ({
   type: ADD_NOTE_FOCUS,

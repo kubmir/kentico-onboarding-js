@@ -1,8 +1,10 @@
 import { Dispatch } from 'redux';
-import { Note } from '../../models/Note';
-import { IAction } from '../../models/IAction';
-import { IServerNote } from '../../models/IServerNote';
-import { IStoreState } from '../../models/IStoreState';
+import {
+  Note,
+  IServerNote
+} from '../../models/Note';
+import { IAction } from '../IAction';
+import { IStoreState } from '../../reducers/IStoreState';
 import {
   LOADING_NOTES_FAILURE,
   LOADING_NOTES_SUCCESS,
@@ -27,7 +29,7 @@ export const storeLoadedNotes = (notes: Iterable<[Guid, Note]>): IAction => ({
 
 export const displayError = (errorDescription: string): IAction => ({
   type: LOADING_NOTES_FAILURE,
-  payload : {
+  payload: {
     errorDescription,
   },
 });

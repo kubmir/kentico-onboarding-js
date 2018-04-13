@@ -5,8 +5,8 @@ import {
   MdRepeat,
   MdCancel,
 } from 'react-icons/lib/md';
-import { NotePropType } from '../../@types/notePropType';
-import { IAction } from '../../models/IAction';
+import { NotePropType } from '../../utils/notePropType';
+import { IAction } from '../../actions/IAction';
 import { FailedAction } from '../../enums/FailedAction';
 
 export interface IInactiveNoteErrorDataProps {
