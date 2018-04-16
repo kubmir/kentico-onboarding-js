@@ -1,3 +1,4 @@
+import * as fetch from 'isomorphic-fetch';
 import { fetchWithIdFactory } from '../thunkFactories/fetchFactories';
 import { HttpMethods } from '../../enums/HttpMethods';
 import { deleteNoteFactory } from '../thunkFactories/deleteNoteFactory';
