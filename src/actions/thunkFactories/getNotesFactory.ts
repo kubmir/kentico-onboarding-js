@@ -11,6 +11,7 @@ import {
   START_LOADING_NOTES
 } from '../../constants/actionTypes';
 import { convertNotes } from '../../utils/noteConverter';
+import { generateLocalId } from '../../utils/generateLocalId';
 
 export interface IGetNotesDependencies {
   sendRequest: () => Promise<IServerNote[]>;
@@ -27,12 +28,16 @@ export const storeLoadedNotes = (notes: Iterable<[Guid, Note]>): IAction => ({
   },
 });
 
-export const displayError = (errorDescription: string): IAction => ({
+const loadingFailedFactory = (generateErrorId: () => Guid) => (errorDescription: string): IAction => ({
   type: LOADING_NOTES_FAILURE,
   payload: {
     errorDescription,
+    errorId: generateErrorId(),
   },
 });
+
+export const displayError = (errorDescription: string) =>
+  loadingFailedFactory(generateLocalId)(errorDescription);
 
 export const getNotesFactory = (dependencies: IGetNotesDependencies): Thunk =>
   (dispatch: Dispatch<IStoreState>): Promise<IAction> => {

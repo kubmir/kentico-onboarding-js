@@ -3,14 +3,10 @@ import * as PropTypes from 'prop-types';
 import { MdAutorenew } from 'react-icons/lib/md';
 import { NotePropType } from '../../utils/notePropType';
 import '../../styles/noteViewer.css';
+import { Note } from '../../models/Note';
 
 export interface InactiveNoteViewerDataProps {
-  readonly note: {
-    readonly visibleText: string;
-    readonly isEditActive: boolean;
-    readonly isCommunicating: boolean;
-    readonly communicationError: string;
-  };
+  readonly note: Note;
   readonly number: number;
 }
 

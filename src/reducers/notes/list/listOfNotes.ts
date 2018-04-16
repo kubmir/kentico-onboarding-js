@@ -19,7 +19,6 @@ import {
   UPDATING_NOTE_ON_SERVER_SUCCESS,
 } from '../../../constants/actionTypes';
 import { IAction } from '../../../actions/IAction';
-import { FailedAction } from '../../../enums/FailedAction';
 
 const addNote = (state: OrderedMap<Guid, Note>, payload: { noteId: Guid, text: string, isCommunicating: boolean }): OrderedMap<Guid, Note> => {
   const { noteId, text, isCommunicating } = payload;
@@ -42,14 +41,13 @@ const updateNote = (state: OrderedMap<Guid, Note>, updatedNote: Partial<Note>, n
 const addLoadedNotes = (payload: { notes: Iterable<[Guid, Note]> }): OrderedMap<Guid, Note> =>
   OrderedMap(payload.notes);
 
-const updateNoteOnFailure = (state: OrderedMap<Guid, Note>, failedAction: FailedAction, payload: { errorDescription: string, noteId: Guid }) =>
+const updateNoteOnFailure = (state: OrderedMap<Guid, Note>, payload: { noteId: Guid, errorId: Guid }) =>
   updateNote(
     state,
     {
       isEditActive: false,
       isCommunicating: false,
-      communicationError: payload.errorDescription,
-      failedAction
+      errorId: payload.errorId,
     },
     payload.noteId
   );
@@ -77,10 +75,7 @@ export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): 
     case START_RESENDING_NOTE_TO_SERVER:
       return updateNote(
         state,
-        {
-          isCommunicating: true,
-          communicationError: ''
-        },
+        { isCommunicating: true },
         action.payload.localNoteId
       );
 
@@ -93,9 +88,8 @@ export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): 
         {
           serverSynchronizedText: action.payload.text,
           visibleText: action.payload.text,
+          errorId: undefined,
           isCommunicating: false,
-          failedAction: FailedAction.NO_FAILURE,
-          communicationError: ''
         },
         action.payload.noteId
       );
@@ -104,7 +98,7 @@ export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): 
       return updateNote(state, { isEditActive: true }, action.payload.noteId);
 
     case CANCEL_EDITING_NOTE:
-      return updateNote(state, { isEditActive: false }, action.payload.noteId);
+      return updateNote(state, { isEditActive: false, errorId: undefined }, action.payload.noteId);
 
     case START_UPDATING_NOTE_ON_SERVER:
       return updateNote(
@@ -128,13 +122,13 @@ export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): 
       );
 
     case DELETING_NOTE_FROM_SERVER_FAILURE:
-      return updateNoteOnFailure(state, FailedAction.DELETE, action.payload);
+      return updateNoteOnFailure(state, action.payload);
 
     case SENDING_NOTE_TO_SERVER_FAILURE:
-      return updateNoteOnFailure(state, FailedAction.ADD, action.payload);
+      return updateNoteOnFailure(state, action.payload);
 
     case UPDATING_NOTE_ON_SERVER_FAILURE:
-      return updateNoteOnFailure(state, FailedAction.UPDATE, action.payload);
+      return updateNoteOnFailure(state, action.payload);
 
     case DELETING_NOTE_FROM_SERVER_SUCCESS:
       return deleteNote(state, action.payload);
@@ -145,8 +139,7 @@ export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): 
         {
           isEditActive: false,
           isCommunicating: false,
-          communicationError: '',
-          failedAction: FailedAction.NO_FAILURE
+          errorId: undefined,
         },
         action.payload.noteId
       );
@@ -157,8 +150,7 @@ export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): 
         {
           isEditActive: false,
           isCommunicating: false,
-          communicationError: '',
-          failedAction: FailedAction.NO_FAILURE,
+          errorId: undefined,
           visibleText: action.payload.serverSynchronizedText
         },
         action.payload.noteId

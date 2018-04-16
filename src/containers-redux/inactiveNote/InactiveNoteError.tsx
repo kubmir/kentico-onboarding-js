@@ -6,31 +6,40 @@ import { IStoreState } from '../../reducers/IStoreState';
 import {
   InactiveNoteError as IInactiveNoteErrorComponent,
   IInactiveNoteErrorCallbackProps,
+  IInactiveNoteErrorDataProps,
 } from '../../components/inactiveNote/InactiveNoteError';
-import { Note } from '../../models/Note';
 import { getFailedActionCallbacks } from '../../utils/getFailedActionCallbacks';
+import { getErrorById } from '../../selectors/errors/getErrorById';
+import { FailedAction } from '../../enums/FailedAction';
+import { Note } from '../../models/Note';
 
 interface IInactiveNoteErrorOwnProps {
   readonly note: Note;
   readonly number: number;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<IStoreState>, ownProps: IInactiveNoteErrorOwnProps): IInactiveNoteErrorCallbackProps => {
-  const failedActionObject = getFailedActionCallbacks(ownProps.note.failedAction);
-
+const mapStateToProps = ({ listOfErrors }: IStoreState, ownProps: IInactiveNoteErrorOwnProps): IInactiveNoteErrorDataProps => {
   return {
-    retryFailedAction: () =>
-      dispatch(failedActionObject.retryFailedAction(ownProps.note.id, ownProps.note.visibleText)),
+    number: ownProps.number,
+    note: ownProps.note,
+    error: getErrorById(listOfErrors, ownProps.note.errorId)
+  };
+};
 
-    cancelFailedAction: () =>
-      dispatch(failedActionObject.cancelFailedAction(ownProps.note.id, ownProps.note.serverSynchronizedText)),
+const mapDispatchToProps = (dispatch: Dispatch<IStoreState>, ownProps: IInactiveNoteErrorOwnProps): IInactiveNoteErrorCallbackProps => {
+  return {
+    retryFailedAction: (failedAction: FailedAction) =>
+      dispatch(getFailedActionCallbacks(failedAction).retryFailedAction(ownProps.note.id, ownProps.note.visibleText)),
 
-    getFailedActionTooltipText: () =>
-      failedActionObject.getFailedActionTooltipText(),
+    cancelFailedAction: (failedAction: FailedAction, errorId: Guid) =>
+      dispatch(getFailedActionCallbacks(failedAction).cancelFailedAction(ownProps.note.id, errorId, ownProps.note.serverSynchronizedText)),
+
+    getFailedActionTooltipText: (failedAction: FailedAction) =>
+      getFailedActionCallbacks(failedAction).getFailedActionTooltipText(),
   };
 };
 
 export const InactiveNoteError = connect(
-  null,
-  mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps
 )(IInactiveNoteErrorComponent);

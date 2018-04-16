@@ -1,6 +1,6 @@
 export enum FailedAction {
-  DELETE,
-  UPDATE,
-  ADD,
-  NO_FAILURE
+  DELETE = 'DELETE',
+  UPDATE = 'UPDATE',
+  ADD = 'ADD',
+  NO_FAILURE = 'NO_FAILURE'
 }

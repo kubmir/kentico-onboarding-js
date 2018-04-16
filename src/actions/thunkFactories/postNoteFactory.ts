@@ -38,13 +38,17 @@ export const startSendingNoteToServer = (noteId: Guid, text: string): IAction =>
   }
 });
 
-export const sendingNoteToServerFailed = (noteId: Guid, errorDescription: string): IAction => ({
+export const sendingNoteFailedFactory = (generateErrorId: () => Guid) => (noteId: Guid, errorDescription: string): IAction => ({
   type: SENDING_NOTE_TO_SERVER_FAILURE,
   payload: {
     noteId,
     errorDescription,
+    errorId: generateErrorId(),
   }
 });
+
+export const sendingNoteToServerFailed = (noteId: Guid, errorDescription: string) =>
+  sendingNoteFailedFactory(generateLocalId)(noteId, errorDescription);
 
 export const sendingNoteToServerSuccess = (addedNote: Note, localNoteId: Guid): IAction => ({
   type: SENDING_NOTE_TO_SERVER_SUCCESS,

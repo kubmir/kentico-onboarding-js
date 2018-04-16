@@ -11,16 +11,23 @@ import {
 import { getNoteById } from '../../selectors/notes/list/listOfNotes';
 import { IStoreState } from '../../reducers/IStoreState';
 import { IAction } from '../../actions/IAction';
+import { getErrorById } from '../../selectors/errors/getErrorById';
+import { ApplicationError } from '../../models/ApplicationError';
 
 interface IOwnProps {
   readonly noteId: Guid;
   readonly number: number;
 }
 
-const mapStateToProps = ({ notes }: IStoreState, ownProps: IOwnProps): INoteViewerDataProps => ({
-  number: ownProps.number,
-  note: getNoteById(notes.listOfNotes, ownProps.noteId),
-});
+const mapStateToProps = ({ notes, listOfErrors }: IStoreState, ownProps: IOwnProps): INoteViewerDataProps => {
+  const note = getNoteById(notes.listOfNotes, ownProps.noteId);
+
+  return {
+    number: ownProps.number,
+    note,
+    error: note.errorId === undefined ? new ApplicationError() : getErrorById(listOfErrors, note.errorId)
+  };
+};
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IOwnProps): INoteViewerCallbacksProps => ({
   onTextClick: () =>
