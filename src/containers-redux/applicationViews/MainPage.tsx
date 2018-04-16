@@ -3,8 +3,8 @@ import { MainPage as MainPageComponent } from '../../components/applicationViews
 import { IStoreState } from '../../reducers/IStoreState';
 import { IMainPageDataProps } from '../../components/applicationViews/MainPage';
 
-const mapStateToProps = ({ notesLoader: { isLoadingFailed } }: IStoreState): IMainPageDataProps => ({
-  isLoadingFailed,
+const mapStateToProps = ({ notes }: IStoreState): IMainPageDataProps => ({
+  isLoadingFailed: notes.loader.isLoadingFailed,
 });
 
 export const MainPage = connect(

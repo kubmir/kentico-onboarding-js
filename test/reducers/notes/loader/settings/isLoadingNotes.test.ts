@@ -1,13 +1,13 @@
-import { isLoadingNotes } from '../../../../src/reducers/notesLoader/settings/isLoadingNotes';
+import { isLoadingNotes } from '../../../../../src/reducers/notes/loader/settings/isLoadingNotes';
 import {
   FALSE_INITIAL_STATE,
   TRUE_INITIAL_STATE
-} from '../../../testUtils/mocks';
+} from '../../../../testUtils/mocks';
 import {
   displayError,
   startLoadingNotes,
   storeLoadedNotes
-} from '../../../../src/actions/thunkFactories/getNotesFactory';
+} from '../../../../../src/actions/thunkFactories/getNotesFactory';
 
 describe('Reducer isLoadingNotes ', () => {
   it('should working correctly with undefined state.', () => {

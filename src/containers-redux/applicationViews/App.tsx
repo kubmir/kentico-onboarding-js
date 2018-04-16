@@ -10,8 +10,8 @@ import {
 } from '../../components/applicationViews/App';
 import { getAllNotes } from '../../actions';
 
-const mapStateToProps = ({ notesLoader: { isLoadingNotes } }: IStoreState): IAppDataProps => ({
-  isLoadingNotes,
+const mapStateToProps = ({ notes }: IStoreState): IAppDataProps => ({
+  isLoadingNotes: notes.loader.isLoadingNotes,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IStoreState>): IAppCallbacksProps => ({

@@ -2,8 +2,8 @@ import {
   LOADING_NOTES_FAILURE,
   LOADING_NOTES_SUCCESS,
   START_LOADING_NOTES,
-} from '../../../constants/actionTypes';
-import { IAction } from '../../../actions/IAction';
+} from '../../../../constants/actionTypes';
+import { IAction } from '../../../../actions/IAction';
 
 const NO_ERROR_MESSAGE = '';
 
