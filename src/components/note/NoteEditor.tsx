@@ -3,12 +3,10 @@ import * as PropTypes from 'prop-types';
 import { NonEmptyInput } from '../input/NonEmptyInput';
 import { NoteErrorMessage } from './NoteErrorMessage';
 import { isValidNoteText } from '../../utils/isValidNoteText';
+import { Note } from '../../models/Note';
 
 export interface INoteEditorDataProps {
-  readonly note: {
-    readonly visibleText: string;
-    readonly isEditActive: boolean;
-  };
+  readonly note: Note;
   readonly number: number;
 }
 
