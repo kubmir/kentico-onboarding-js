@@ -12,6 +12,7 @@ import {
   UPDATING_NOTE_ON_SERVER_FAILURE,
   UPDATING_NOTE_ON_SERVER_SUCCESS
 } from '../../constants/actionTypes';
+import { generateLocalId } from '../../utils/generateLocalId';
 
 export interface IPutNoteDependencies {
   sendRequest: (noteId: Guid, data: INoteDto) => Promise<IServerNote>;
@@ -25,13 +26,17 @@ export const startUpdatingNoteOnServer = (noteId: Guid, newText: string): IActio
   }
 });
 
-export const updatingNoteOnServerFailed = (noteId: Guid, errorDescription: string): IAction => ({
+export const updateFailedFactory = (generateErrorId: () => Guid) => (noteId: Guid, errorDescription: string): IAction => ({
   type: UPDATING_NOTE_ON_SERVER_FAILURE,
   payload: {
     noteId,
     errorDescription,
+    errorId: generateErrorId(),
   }
 });
+
+export const updatingNoteOnServerFailed = (noteId: Guid, errorDescription: string) =>
+  updateFailedFactory(generateLocalId)(noteId, errorDescription);
 
 export const updatingNoteOnServerSuccess = (updatedNote: Note): IAction => ({
   type: UPDATING_NOTE_ON_SERVER_SUCCESS,

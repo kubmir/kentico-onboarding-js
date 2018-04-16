@@ -2,16 +2,12 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { InactiveNote } from '../inactiveNote/InactiveNote';
 import { NotePropType } from '../../utils/notePropType';
-import { FailedAction } from '../../enums/FailedAction';
+import { ApplicationError } from '../../models/ApplicationError';
+import { Note } from '../../models/Note';
 
 export interface INoteViewerDataProps {
-  readonly note: {
-    readonly visibleText: string;
-    readonly isEditActive: boolean;
-    readonly isCommunicating: boolean;
-    readonly communicationError: string;
-    readonly failedAction: FailedAction;
-  };
+  readonly note: Note;
+  readonly error: ApplicationError;
   readonly number: number;
 }
 
@@ -22,8 +18,8 @@ export interface INoteViewerCallbacksProps {
 type NoteViewerProps = INoteViewerDataProps & INoteViewerCallbacksProps;
 
 const NoteViewer: React.StatelessComponent<NoteViewerProps> = (props: NoteViewerProps): JSX.Element => (
-  props.note.isCommunicating || props.note.communicationError !== ''
-    ? <InactiveNote note={props.note} number={props.number} />
+  props.note.isCommunicating || props.error.errorDescription !== ''
+    ? <InactiveNote note={props.note} number={props.number} error={props.error} />
     : <p onClick={props.onTextClick}>{props.number + '. ' + props.note.visibleText}</p>
 );
 

@@ -1,9 +1,11 @@
 import { OrderedMap } from 'immutable';
 import { Note } from '../models/Note';
+import { ApplicationError } from '../models/ApplicationError';
 
 export interface IStoreState {
   readonly notes: INotesState;
   readonly notesLoader: INotesLoaderState;
+  readonly listOfErrors: OrderedMap<Guid, ApplicationError>;
 }
 
 export interface INotesState {

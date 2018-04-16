@@ -14,23 +14,22 @@ import {
   cancelFailedUpdateAction,
 } from '../../../../src/actions';
 import {
-  sendingNoteToServerFailed,
   sendingNoteToServerSuccess,
   startReSendingNoteToServer,
-  startSendingNoteToServer
+  startSendingNoteToServer,
+  sendingNoteFailedFactory,
 } from '../../../../src/actions/thunkFactories/postNoteFactory';
 import { Note } from '../../../../src/models/Note';
-import { FailedAction } from '../../../../src/enums/FailedAction';
 import {
-  deletingNoteFromServerFailed,
   deletingNoteFromServerSuccess,
-  startDeletingNoteFromServer
+  startDeletingNoteFromServer,
+  deleteFailureFactory,
 } from '../../../../src/actions/thunkFactories/deleteNoteFactory';
 import { storeLoadedNotes } from '../../../../src/actions/thunkFactories/getNotesFactory';
 import {
   startUpdatingNoteOnServer,
-  updatingNoteOnServerFailed,
-  updatingNoteOnServerSuccess
+  updatingNoteOnServerSuccess,
+  updateFailedFactory,
 } from '../../../../src/actions/thunkFactories/putNoteFactory';
 
 describe('Reducer listOfNotes ', () => {
@@ -84,7 +83,7 @@ describe('Reducer listOfNotes ', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('should update isCommunicating and communicationError of state note when action START_RESENDING_NOTE_TO_SERVER is dispatched.', () => {
+  it('should update isCommunicating and errorDescription of state note when action START_RESENDING_NOTE_TO_SERVER is dispatched.', () => {
     const resendingAction = startReSendingNoteToServer('2');
     const expectedState = OrderedMap([
       ['1', prepareNote('First test note', '1', false)],
@@ -218,11 +217,11 @@ describe('Reducer listOfNotes ', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('should set property isCommunicating to false, communicationError and failedAction when action DELETING_NOTE_FROM_SERVER_FAILURE is dispatched.', () => {
-    const deletingNoteFailureAction = deletingNoteFromServerFailed('1', 'Test error');
+  it('should set property errorId of note when action DELETING_NOTE_FROM_SERVER_FAILURE is dispatched.', () => {
+    const deletingNoteFailureAction = deleteFailureFactory(() => 'error1')('1', 'Test error');
     const expectedState = OrderedMap(
       [
-        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', FailedAction.DELETE)],
+        ['1', prepareNoteWithCommunicationError('First test note', '1', 'error1')],
         ['2', prepareNote('Second test note', '2', false)],
       ],
     );
@@ -232,11 +231,11 @@ describe('Reducer listOfNotes ', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('should set property isCommunicating to false, communicationError and failedAction when action SENDING_NOTE_TO_SERVER_FAILURE is dispatched.', () => {
-    const sendingNoteFailureAction = sendingNoteToServerFailed('1', 'Test error');
+  it('should set property errorId of note when action SENDING_NOTE_TO_SERVER_FAILURE is dispatched.', () => {
+    const sendingNoteFailureAction = sendingNoteFailedFactory(() => 'error1')('1', 'Test error');
     const expectedState = OrderedMap(
       [
-        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', FailedAction.ADD)],
+        ['1', prepareNoteWithCommunicationError('First test note', '1', 'error1')],
         ['2', prepareNote('Second test note', '2', false)],
       ],
     );
@@ -247,11 +246,11 @@ describe('Reducer listOfNotes ', () => {
   });
 
 
-  it('should set property isCommunicating to false, communicationError and failedAction when action UPDATING_NOTE_ON_SERVER_FAILURE is dispatched.', () => {
-    const sendingNoteFailureAction = updatingNoteOnServerFailed('1', 'Test error');
+  it('should set property errorId of note when action UPDATING_NOTE_ON_SERVER_FAILURE is dispatched.', () => {
+    const sendingNoteFailureAction = updateFailedFactory(() => 'error1')('1', 'Test error');
     const expectedState = OrderedMap(
       [
-        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', FailedAction.UPDATE)],
+        ['1', prepareNoteWithCommunicationError('First test note', '1', 'error1')],
         ['2', prepareNote('Second test note', '2', false)],
       ],
     );
@@ -261,11 +260,11 @@ describe('Reducer listOfNotes ', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('should set property isCommunicating to false, communicationError and failedAction to empty when action CANCEL_FAILED_DELETE_ACTION is dispatched.', () => {
-    const cancelDeleteAction = cancelFailedDeleteAction('1');
+  it('should set property errorId to undefined when action CANCEL_FAILED_DELETE_ACTION is dispatched.', () => {
+    const cancelDeleteAction = cancelFailedDeleteAction('1', 'error1');
     const initialErrorState = OrderedMap<string, Note>(
       [
-        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', FailedAction.DELETE)],
+        ['1', prepareNoteWithCommunicationError('First test note', '1', 'error1')],
         ['2', prepareNote('Second test note', '2', false)],
       ],
     );
@@ -281,11 +280,11 @@ describe('Reducer listOfNotes ', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('should set property isCommunicating to false, communicationError and failedAction to empty when action CANCEL_FAILED_UPDATE_ACTION is dispatched.', () => {
-    const cancelUpdateAction = cancelFailedUpdateAction('1', 'First test note');
+  it('should set property errorId to undefined when action CANCEL_FAILED_UPDATE_ACTION is dispatched.', () => {
+    const cancelUpdateAction = cancelFailedUpdateAction('1', 'error1', 'First test note');
     const initialErrorState = OrderedMap<string, Note>(
       [
-        ['1', prepareNoteWithCommunicationError('First test note updated', '1', 'Test error', FailedAction.UPDATE)],
+        ['1', prepareNoteWithCommunicationError('First test note updated', '1', 'error1')],
         ['2', prepareNote('Second test note', '2', false)],
       ],
     );
@@ -302,10 +301,10 @@ describe('Reducer listOfNotes ', () => {
   });
 
   it('should delete local note of failed addition when action CANCEL_FAILED_ADD_ACTION is dispatched.', () => {
-    const cancelAddAction = cancelFailedAddAction('1');
+    const cancelAddAction = cancelFailedAddAction('1', 'error1');
     const initialErrorState = OrderedMap<string, Note>(
       [
-        ['1', prepareNoteWithCommunicationError('First test note', '1', 'Test error', FailedAction.UPDATE)],
+        ['1', prepareNoteWithCommunicationError('First test note', '1', 'error1')],
         ['2', prepareNote('Second test note', '2', false)],
       ],
     );

@@ -1,6 +1,5 @@
 import { OrderedMap } from 'immutable';
 import { Note } from '../../src/models/Note';
-import { FailedAction } from '../../src/enums/FailedAction';
 
 export const prepareNote = (text: string, id: Guid, isEditActive: boolean): Note =>
   new Note({
@@ -16,12 +15,11 @@ export const prepareLocalNote = (text: string, id: Guid): Note =>
     isCommunicating: true,
   });
 
-export const prepareNoteWithCommunicationError = (text: string, id: Guid, communicationError: string, failedAction: FailedAction): Note =>
+export const prepareNoteWithCommunicationError = (text: string, id: Guid, errorId: Guid): Note =>
   new Note({
     visibleText: text,
     id,
-    communicationError,
-    failedAction,
+    errorId,
   });
 
 export const prepareNotesInitialState = (): OrderedMap<Guid, Note> =>

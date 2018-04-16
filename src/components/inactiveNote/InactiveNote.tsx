@@ -3,23 +3,19 @@ import * as PropTypes from 'prop-types';
 import { InactiveNoteViewer } from './InactiveNoteViewer';
 import { InactiveNoteError } from '../../containers-redux/inactiveNote/InactiveNoteError';
 import { NotePropType } from '../../utils/notePropType';
-import { FailedAction } from '../../enums/FailedAction';
+import { ApplicationError } from '../../models/ApplicationError';
+import { Note } from '../../models/Note';
 
 export interface IInactiveNoteDataProps {
-  readonly note: {
-    readonly visibleText: string;
-    readonly isEditActive: boolean;
-    readonly isCommunicating: boolean;
-    readonly communicationError: string;
-    readonly failedAction: FailedAction;
-  };
+  readonly note: Note;
   readonly number: number;
+  readonly error: ApplicationError;
 }
 
 type InactiveNoteProps = IInactiveNoteDataProps;
 
 const InactiveNote: React.StatelessComponent<InactiveNoteProps> = (props: InactiveNoteProps): JSX.Element => {
-  const InactiveNoteComponent = props.note.communicationError === ''
+  const InactiveNoteComponent = props.error.errorDescription === ''
     ? InactiveNoteViewer
     : InactiveNoteError;
 

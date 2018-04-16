@@ -7,6 +7,7 @@ import {
   DELETING_NOTE_FROM_SERVER_SUCCESS,
   START_DELETING_NOTE_FROM_SERVER,
 } from '../../constants/actionTypes';
+import { generateLocalId } from '../../utils/generateLocalId';
 
 export interface IDeleteNoteDependencies {
   sendRequest: (id: Guid) => Promise<IServerNote>;
@@ -19,13 +20,17 @@ export const startDeletingNoteFromServer = (noteId: Guid): IAction => ({
   }
 });
 
-export const deletingNoteFromServerFailed = (noteId: Guid, errorDescription: string): IAction => ({
+export const deleteFailureFactory = (generateErrorId: () => Guid) => (noteId: Guid, errorDescription: string): IAction => ({
   type: DELETING_NOTE_FROM_SERVER_FAILURE,
   payload: {
     errorDescription,
     noteId,
+    errorId: generateErrorId(),
   }
 });
+
+export const deletingNoteFromServerFailed = (noteId: Guid, errorDescription: string) =>
+  deleteFailureFactory(generateLocalId)(noteId, errorDescription);
 
 export const deletingNoteFromServerSuccess = (noteId: Guid): IAction => ({
   type: DELETING_NOTE_FROM_SERVER_SUCCESS,

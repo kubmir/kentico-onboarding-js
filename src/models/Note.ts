@@ -1,5 +1,4 @@
 import { Record } from 'immutable';
-import { FailedAction } from '../enums/FailedAction';
 
 const EMPTY_TEXT = '';
 
@@ -15,9 +14,8 @@ interface INote {
   readonly id: Guid;
   readonly isEditActive: boolean;
   readonly isCommunicating: boolean;
-  readonly communicationError: string;
-  readonly failedAction: FailedAction;
   readonly serverSynchronizedText: string;
+  readonly errorId?: Guid;
 }
 
 const defaultNote: INote = {
@@ -25,9 +23,8 @@ const defaultNote: INote = {
   id: '00000000-0000-0000-0000-000000000000',
   isEditActive: false,
   isCommunicating: false,
-  communicationError: EMPTY_TEXT,
-  failedAction: FailedAction.NO_FAILURE,
   serverSynchronizedText: EMPTY_TEXT,
+  errorId: undefined,
 };
 
 export class Note extends Record(defaultNote) implements INote {
@@ -36,8 +33,7 @@ export class Note extends Record(defaultNote) implements INote {
   readonly id: Guid;
   readonly isEditActive: boolean;
   readonly isCommunicating: boolean;
-  readonly communicationError: string;
-  readonly failedAction: FailedAction;
+  readonly errorId?: Guid;
 
   constructor(params?: Partial<INote>) {
     params
@@ -45,7 +41,7 @@ export class Note extends Record(defaultNote) implements INote {
       : super();
   }
 
-  with(values: Partial<INote>) {
+  with(values: Partial<INote>): Note {
     return this.merge(values) as this;
   }
 }
