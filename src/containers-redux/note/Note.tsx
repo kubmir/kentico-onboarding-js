@@ -5,6 +5,7 @@ import {
 } from '../../components/note/Note';
 import { getNoteById } from '../../selectors/notes/list/listOfNotes';
 import { IStoreState } from '../../reducers/IStoreState';
+import { withRouter } from 'react-router';
 
 interface INoteOwnProps {
   readonly noteId: Guid;
@@ -16,6 +17,6 @@ const mapStateToProps = ({ notes }: IStoreState, ownProps: INoteOwnProps): INote
   ...ownProps,
 });
 
-export const Note = connect(
+export const Note = withRouter(connect(
   mapStateToProps,
-)(NoteComponent);
+)(NoteComponent));

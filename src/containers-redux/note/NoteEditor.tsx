@@ -34,9 +34,10 @@ const mapDispatchToProps = (dispatch: Dispatch<IStoreState>, ownProps: INoteEdit
     dispatch(updateServerNote(ownProps.noteId, currentNoteText)),
 });
 
-const mergeProps = (stateProps: INoteEditorDataProps, dispatchProps: INoteEditorCallbacksProps) => ({
+const mergeProps = (stateProps: INoteEditorDataProps, dispatchProps: INoteEditorCallbacksProps, {}: INoteEditorOwnProps) => ({
   ...stateProps,
   ...dispatchProps,
+
 });
 
 export const NoteEditor = connect(

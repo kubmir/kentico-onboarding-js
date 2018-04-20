@@ -20,7 +20,7 @@ interface INoteEditorState {
   readonly currentNoteText: string;
 }
 
-type NoteEditorProps = INoteEditorCallbacksProps & INoteEditorDataProps;
+type NoteEditorProps =  INoteEditorCallbacksProps & INoteEditorDataProps;
 
 export class NoteEditor extends React.PureComponent<NoteEditorProps, INoteEditorState> {
   static displayName = 'NoteEditor';
