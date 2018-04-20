@@ -1,5 +1,5 @@
-import { Record } from 'immutable';
 import { FailedAction } from '../enums/FailedAction';
+import { AbstractRecord } from './AbstractRecord';
 
 const EMPTY_TEXT = '';
 
@@ -15,18 +15,8 @@ const defaultError: IError = {
   failedAction: FailedAction.NO_FAILURE,
 };
 
-export class ApplicationError extends Record(defaultError) implements IError {
+export class ApplicationError extends AbstractRecord(defaultError) implements IError {
   readonly id: Guid;
   readonly errorDescription: string;
   readonly failedAction: FailedAction;
-
-  constructor(params?: Partial<IError>) {
-    params
-      ? super(params)
-      : super();
-  }
-
-  with(values: Partial<IError>): ApplicationError {
-    return this.merge(values) as this;
-  }
 }

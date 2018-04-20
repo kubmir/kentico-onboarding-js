@@ -1,4 +1,4 @@
-import { Record } from 'immutable';
+import { AbstractRecord } from './AbstractRecord';
 
 const EMPTY_TEXT = '';
 
@@ -27,21 +27,11 @@ const defaultNote: INote = {
   errorId: undefined,
 };
 
-export class Note extends Record(defaultNote) implements INote {
+export class Note extends AbstractRecord(defaultNote) implements INote {
   readonly serverSynchronizedText: string;
   readonly visibleText: string;
   readonly id: Guid;
   readonly isEditActive: boolean;
   readonly isCommunicating: boolean;
   readonly errorId?: Guid;
-
-  constructor(params?: Partial<INote>) {
-    params
-      ? super(params)
-      : super();
-  }
-
-  with(values: Partial<INote>): Note {
-    return this.merge(values) as this;
-  }
 }
