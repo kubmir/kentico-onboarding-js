@@ -12,6 +12,7 @@ import {
 } from '../../constants/actionTypes';
 import { convertNotes } from '../../utils/noteConverter';
 import { generateLocalId } from '../../utils/generateLocalId';
+import { SOMETHING_WENT_WRONG } from '../../constants/errorMessages';
 
 export interface IGetNotesDependencies {
   sendRequest: () => Promise<IServerNote[]>;
@@ -51,5 +52,5 @@ export const getNotesFactory = (dependencies: IGetNotesDependencies): Thunk =>
           return dispatch(storeLoadedNotes(applicationNotes));
         }
       )
-      .catch(error => dispatch(displayError(error.toString())));
+      .catch(() => dispatch(displayError(SOMETHING_WENT_WRONG)));
   };

@@ -13,6 +13,7 @@ import {
   START_SENDING_NOTE_TO_SERVER
 } from '../../constants/actionTypes';
 import { generateLocalId } from '../../utils/generateLocalId';
+import { SOMETHING_WENT_WRONG } from '../../constants/errorMessages';
 
 export interface IPostNote {
   text: string;
@@ -74,7 +75,7 @@ export const postNoteFactory = (dependencies: IPostNoteDependencies) =>
 
           return dispatch(sendingNoteToServerSuccess(applicationNote, localId));
         })
-        .catch(error => dispatch(sendingNoteToServerFailed(localId, error.toString())));
+        .catch(() => dispatch(sendingNoteToServerFailed(localId, SOMETHING_WENT_WRONG)));
     };
 
 export const repostNoteFactory = (dependencies: IPostNoteDependencies) =>
@@ -89,5 +90,5 @@ export const repostNoteFactory = (dependencies: IPostNoteDependencies) =>
 
           return dispatch(sendingNoteToServerSuccess(applicationNote, localId));
         })
-        .catch(error => dispatch(sendingNoteToServerFailed(localId, error.toString())));
+        .catch(() => dispatch(sendingNoteToServerFailed(localId, SOMETHING_WENT_WRONG)));
     };

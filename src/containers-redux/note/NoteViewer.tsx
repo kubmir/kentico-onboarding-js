@@ -19,13 +19,13 @@ interface IOwnProps {
   readonly number: number;
 }
 
-const mapStateToProps = ({ notes, listOfErrors }: IStoreState, ownProps: IOwnProps): INoteViewerDataProps => {
+const mapStateToProps = ({ notes, errors }: IStoreState, ownProps: IOwnProps): INoteViewerDataProps => {
   const note = getNoteById(notes.listOfNotes, ownProps.noteId);
 
   return {
     number: ownProps.number,
     note,
-    error: note.errorId === undefined ? new ApplicationError() : getErrorById(listOfErrors, note.errorId)
+    error: note.errorId === undefined ? new ApplicationError() : getErrorById(errors, note.errorId)
   };
 };
 

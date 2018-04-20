@@ -13,6 +13,7 @@ import {
   UPDATING_NOTE_ON_SERVER_SUCCESS
 } from '../../constants/actionTypes';
 import { generateLocalId } from '../../utils/generateLocalId';
+import { SOMETHING_WENT_WRONG } from '../../constants/errorMessages';
 
 export interface IPutNoteDependencies {
   sendRequest: (noteId: Guid, data: INoteDto) => Promise<IServerNote>;
@@ -68,5 +69,5 @@ export const putNoteFactory = (dependencies: IPutNoteDependencies) =>
 
           return dispatch(updatingNoteOnServerSuccess(applicationNote));
         })
-        .catch(error => dispatch(updatingNoteOnServerFailed(noteId, error.toString())));
+        .catch(() => dispatch(updatingNoteOnServerFailed(noteId, SOMETHING_WENT_WRONG)));
     };

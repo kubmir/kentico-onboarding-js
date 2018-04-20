@@ -18,11 +18,11 @@ interface IInactiveNoteErrorOwnProps {
   readonly number: number;
 }
 
-const mapStateToProps = ({ listOfErrors }: IStoreState, ownProps: IInactiveNoteErrorOwnProps): IInactiveNoteErrorDataProps => {
+const mapStateToProps = ({ errors }: IStoreState, ownProps: IInactiveNoteErrorOwnProps): IInactiveNoteErrorDataProps => {
   return {
     number: ownProps.number,
     note: ownProps.note,
-    error: getErrorById(listOfErrors, ownProps.note.errorId)
+    error: getErrorById(errors, ownProps.note.errorId)
   };
 };
 

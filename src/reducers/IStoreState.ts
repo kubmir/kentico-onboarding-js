@@ -4,7 +4,7 @@ import { ApplicationError } from '../models/ApplicationError';
 
 export interface IStoreState {
   readonly notes: INotesState;
-  readonly listOfErrors: OrderedMap<Guid, ApplicationError>;
+  readonly errors: OrderedMap<Guid, ApplicationError>;
 }
 
 export interface INotesState {

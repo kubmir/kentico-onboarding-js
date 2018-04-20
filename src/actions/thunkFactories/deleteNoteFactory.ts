@@ -8,6 +8,7 @@ import {
   START_DELETING_NOTE_FROM_SERVER,
 } from '../../constants/actionTypes';
 import { generateLocalId } from '../../utils/generateLocalId';
+import { SOMETHING_WENT_WRONG } from '../../constants/errorMessages';
 
 export interface IDeleteNoteDependencies {
   sendRequest: (id: Guid) => Promise<IServerNote>;
@@ -47,5 +48,5 @@ export const deleteNoteFactory = (dependencies: IDeleteNoteDependencies) =>
       return dependencies
         .sendRequest(noteId)
         .then(deletedNote => dispatch(deletingNoteFromServerSuccess(deletedNote.id)))
-        .catch(error => dispatch(deletingNoteFromServerFailed(noteId, error.toString())));
+        .catch(() => dispatch(deletingNoteFromServerFailed(noteId, SOMETHING_WENT_WRONG)));
     };

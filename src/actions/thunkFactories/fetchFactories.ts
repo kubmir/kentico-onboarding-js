@@ -1,6 +1,7 @@
 import { HttpMethods } from '../../enums/HttpMethods';
 import { IServerNote } from '../../models/Note';
 import { IPostNote } from './postNoteFactory';
+import { SOMETHING_WENT_WRONG } from '../../constants/errorMessages';
 
 export interface IRequestInit {
   readonly method: HttpMethods;
@@ -13,9 +14,19 @@ export interface INoteDto {
   readonly id: string;
 }
 
-const checkResponseStatus = (response: Response): Response => {
+const checkResponseStatus = async (response: Response): Promise<Response> => {
   if (!response.ok) {
-    throw Error('Server error. Error  ' + response.status + ' ' + response.statusText);
+    if (response.status === 500) {
+      throw Error('Server did not reply. Check you internet connection');
+    }
+
+    if (response.body !== null) {
+      const body = await response.json();
+      const errorMessage = body.modelState[Object.keys(body.modelState)[0]];
+      throw Error(errorMessage);
+    }
+
+    throw Error(SOMETHING_WENT_WRONG);
   } else {
     return response;
   }
