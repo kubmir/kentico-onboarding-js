@@ -4,7 +4,7 @@ import { putNoteFactory } from '../thunkFactories/putNoteFactory';
 import { HttpMethods } from '../../enums/HttpMethods';
 import { urlBuilder } from '../../utils/urlBuilder';
 
-const sendRequest = fetchWithIdFactory(fetch, urlBuilder, HttpMethods.DELETE);
+const sendRequest = fetchWithIdFactory(fetch, urlBuilder, HttpMethods.PUT);
 
 export const updateServerNote = (noteId: Guid, updatedNoteText: string) =>
   putNoteFactory({ sendRequest })({

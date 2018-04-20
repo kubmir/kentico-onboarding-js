@@ -18,8 +18,11 @@ export interface IGetNotesDependencies {
   sendRequest: () => Promise<IServerNote[]>;
 }
 
-export const startLoadingNotes = (): IAction => ({
-  type: START_LOADING_NOTES
+export const startLoadingNotes = (errorId?: Guid): IAction => ({
+  type: START_LOADING_NOTES,
+  payload: {
+    errorId,
+  }
 });
 
 export const storeLoadedNotes = (notes: Iterable<[Guid, Note]>): IAction => ({
@@ -29,7 +32,7 @@ export const storeLoadedNotes = (notes: Iterable<[Guid, Note]>): IAction => ({
   },
 });
 
-const loadingFailedFactory = (generateErrorId: () => Guid) => (errorDescription: string): IAction => ({
+export const loadingFailedFactory = (generateErrorId: () => Guid) => (errorDescription: string): IAction => ({
   type: LOADING_NOTES_FAILURE,
   payload: {
     errorDescription,
@@ -40,9 +43,9 @@ const loadingFailedFactory = (generateErrorId: () => Guid) => (errorDescription:
 export const displayError = (errorDescription: string) =>
   loadingFailedFactory(generateLocalId)(errorDescription);
 
-export const getNotesFactory = (dependencies: IGetNotesDependencies): Thunk =>
+export const getNotesFactory = (dependencies: IGetNotesDependencies) => (errorId?: Guid): Thunk =>
   (dispatch: Dispatch<IStoreState>): Promise<IAction> => {
-    dispatch(startLoadingNotes());
+    dispatch(startLoadingNotes(errorId));
 
     return dependencies
       .sendRequest()

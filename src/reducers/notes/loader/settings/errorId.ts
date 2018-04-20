@@ -1,18 +1,16 @@
 import {
   LOADING_NOTES_FAILURE,
-  LOADING_NOTES_SUCCESS,
-  START_LOADING_NOTES,
+  START_LOADING_NOTES
 } from '../../../../constants/actionTypes';
 import { IAction } from '../../../../actions/IAction';
 
-export const isLoadingFailed = (state = false, action: IAction): boolean => {
+export const errorId = (state: string | null = null, action: IAction): string | null => {
   switch (action.type) {
     case LOADING_NOTES_FAILURE:
-      return true;
+      return action.payload.errorId;
 
     case START_LOADING_NOTES:
-    case LOADING_NOTES_SUCCESS:
-      return false;
+      return null;
 
     default:
       return state;

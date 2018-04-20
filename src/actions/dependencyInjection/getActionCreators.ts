@@ -6,5 +6,5 @@ import { injectFetchWithApiPrefix } from './fetchInjection';
 
 const sendRequest = fetchFactory<IServerNote[]>(injectFetchWithApiPrefix, HttpMethods.GET);
 
-export const getAllNotes = () =>
-  getNotesFactory({ sendRequest });
+export const getAllNotes = (errorId?: Guid) =>
+  getNotesFactory({ sendRequest })(errorId);

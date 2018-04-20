@@ -10,6 +10,10 @@ import {
   cancelFailedDeleteAction,
   cancelFailedUpdateAction
 } from '../../../src/actions';
+import {
+  loadingFailedFactory,
+  startLoadingNotes
+} from '../../../src/actions/thunkFactories/getNotesFactory';
 
 describe('Reducer errors ', () => {
   let initialState: OrderedMap<Guid, ApplicationError>;
@@ -100,6 +104,24 @@ describe('Reducer errors ', () => {
     expect(actualState).toEqual(expectedState);
   });
 
+  it('should add error caused by GET when LOADING_NOTES_FAILURE is dispatched.', () => {
+    const loadingFailedAction = loadingFailedFactory(() => 'error1')('Test error');
+    const expectedState = OrderedMap<Guid, ApplicationError>([
+      [
+        'error1',
+        new ApplicationError({
+          id: 'error1',
+          failedAction: FailedAction.GET,
+          errorDescription: 'Test error'
+        })
+      ],
+    ]);
+
+    const actualState = errors(initialState, loadingFailedAction);
+
+    expect(actualState).toEqual(expectedState);
+  });
+
   it('should remove error with id from payload when CANCEL_FAILED_DELETE_ACTION is dispatched.', () => {
     const deleteNoteFailureCancelAction = cancelFailedDeleteAction('1', 'error1');
     initialState = OrderedMap<Guid, ApplicationError>([
@@ -155,6 +177,25 @@ describe('Reducer errors ', () => {
     const expectedState = OrderedMap<Guid, ApplicationError>();
 
     const actualState = errors(initialState, updateNoteFailureCancelAction);
+
+    expect(actualState).toEqual(expectedState);
+  });
+
+  it('should remove error with id from payload when START_LOADING_NOTES is dispatched.', () => {
+    const startLoadingAction = startLoadingNotes('error1');
+    initialState = OrderedMap<Guid, ApplicationError>([
+      [
+        'error1',
+        new ApplicationError({
+          id: 'error1',
+          failedAction: FailedAction.GET,
+          errorDescription: 'Test error'
+        })
+      ],
+    ]);
+    const expectedState = OrderedMap<Guid, ApplicationError>();
+
+    const actualState = errors(initialState, startLoadingAction);
 
     expect(actualState).toEqual(expectedState);
   });

@@ -19,7 +19,7 @@ describe('GetNotesFactory ', () => {
     const sendRequest = () => Promise.resolve([mockServerNote('first', '1'), mockServerNote('second', '2')]);
     const configurationObject = { sendRequest };
 
-    return getNotesFactory(configurationObject)(dispatch, () => mockStoreState(), null)
+    return getNotesFactory(configurationObject)()(dispatch, () => mockStoreState(), null)
       .then(() => {
         expect(dispatch.mock.calls.length).toEqual(2);
         expect(dispatch.mock.calls[0][0].type).toEqual(START_LOADING_NOTES);
@@ -30,7 +30,7 @@ describe('GetNotesFactory ', () => {
   it('should fail while loading notes from server.', () => {
     const configurationObject = { sendRequest: () => Promise.reject({}) };
 
-    return getNotesFactory(configurationObject)(dispatch, () => mockStoreState(), null)
+    return getNotesFactory(configurationObject)()(dispatch, () => mockStoreState(), null)
       .then(() => {
         expect(dispatch.mock.calls.length).toEqual(2);
         expect(dispatch.mock.calls[0][0].type).toEqual(START_LOADING_NOTES);

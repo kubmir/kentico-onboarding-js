@@ -4,7 +4,7 @@ import { IStoreState } from '../../reducers/IStoreState';
 import { IMainPageDataProps } from '../../components/applicationViews/MainPage';
 
 const mapStateToProps = ({ notes }: IStoreState): IMainPageDataProps => ({
-  isLoadingFailed: notes.loader.isLoadingFailed,
+  isLoadingFailed: notes.loader.errorId !== null,
 });
 
 export const MainPage = connect(

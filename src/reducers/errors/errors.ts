@@ -6,7 +6,9 @@ import {
   CANCEL_FAILED_DELETE_ACTION,
   CANCEL_FAILED_UPDATE_ACTION,
   DELETING_NOTE_FROM_SERVER_FAILURE,
+  LOADING_NOTES_FAILURE,
   SENDING_NOTE_TO_SERVER_FAILURE,
+  START_LOADING_NOTES,
   UPDATING_NOTE_ON_SERVER_FAILURE
 } from '../../constants/actionTypes';
 import { FailedAction } from '../../enums/FailedAction';
@@ -37,9 +39,13 @@ export const errors = (state = OrderedMap<Guid, ApplicationError>(), action: IAc
     case UPDATING_NOTE_ON_SERVER_FAILURE:
       return addError(state, action.payload, FailedAction.UPDATE);
 
+    case LOADING_NOTES_FAILURE:
+      return addError(state, action.payload, FailedAction.GET);
+
     case CANCEL_FAILED_DELETE_ACTION:
     case CANCEL_FAILED_ADD_ACTION:
     case CANCEL_FAILED_UPDATE_ACTION:
+    case START_LOADING_NOTES:
       return removeError(state, action.payload);
 
     default:

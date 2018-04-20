@@ -5,10 +5,11 @@ import '../../styles/errorWindow.css';
 
 export interface IErrorWindowDataProps {
   readonly errorMessage: string;
+  readonly errorId?: Guid;
 }
 
 export interface IErrorWindowCallbacksProps {
-  readonly onReloadClick: () => Promise<IAction>;
+  readonly onReloadClick: (errorId?: Guid) => Promise<IAction>;
 }
 
 type ErrorWindowProps = IErrorWindowDataProps & IErrorWindowCallbacksProps;
@@ -26,7 +27,7 @@ export class ErrorWindow extends React.PureComponent<ErrorWindowProps> {
   }
 
   _onReloadClick = (): Promise<IAction> =>
-    this.props.onReloadClick();
+    this.props.onReloadClick(this.props.errorId);
 
   render() {
     return (

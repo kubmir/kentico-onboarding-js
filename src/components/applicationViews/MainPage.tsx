@@ -3,7 +3,7 @@ import { List } from '../../containers-redux/applicationViews/List';
 import { ErrorWindow } from '../../containers-redux/applicationViews/ErrorWindow';
 
 export interface IMainPageDataProps {
-  readonly isLoadingFailed: boolean
+  readonly isLoadingFailed: boolean;
 }
 
 const MainPage: React.StatelessComponent<IMainPageDataProps> = (props: IMainPageDataProps): JSX.Element => (
