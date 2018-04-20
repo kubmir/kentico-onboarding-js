@@ -6,13 +6,13 @@ import {
   updateServerNote,
   cancelEditingNote,
   deleteServerNote,
-} from '../../actions';
+} from '../../../../actions/index';
 import {
   NoteEditor as NoteEditorComponent,
   INoteEditorCallbacksProps
-} from '../../components/note/NoteEditor';
-import { IStoreState } from '../../reducers/IStoreState';
-import { Note } from '../../models/Note';
+} from '../../../../components/notesApplication/note/activeNote/NoteEditor';
+import { IStoreState } from '../../../../reducers/IStoreState';
+import { Note } from '../../../../models/Note';
 
 interface INoteEditorOwnProps {
   readonly note: Note;

@@ -2,13 +2,13 @@ import {
   connect,
   Dispatch
 } from 'react-redux';
-import { addNewNote } from '../../actions';
+import { addNewNote } from '../../../actions/index';
 import {
   AddNote as AddNoteComponent,
   IAddNoteCallbacksProps,
   IAddNoteDataProps
-} from '../../components/addNote/AddNote';
-import { IStoreState } from '../../reducers/IStoreState';
+} from '../../../components/notesApplication/addNote/AddNote';
+import { IStoreState } from '../../../reducers/IStoreState';
 
 const mapStateToProps = ({ notes }: IStoreState): IAddNoteDataProps => ({
   isInputFocused: notes.isAddingNote,

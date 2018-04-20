@@ -2,17 +2,17 @@ import {
   connect,
   Dispatch
 } from 'react-redux';
-import { startEditingNote } from '../../actions';
+import { startEditingNote } from '../../../../actions/index';
 import {
   NoteViewer as NoteViewerComponent,
   INoteViewerCallbacksProps,
   INoteViewerDataProps
-} from '../../components/note/NoteViewer';
-import { IStoreState } from '../../reducers/IStoreState';
-import { IAction } from '../../actions/IAction';
-import { getErrorById } from '../../selectors/errors/getErrorById';
-import { ApplicationError } from '../../models/ApplicationError';
-import { Note } from '../../models/Note';
+} from '../../../../components/notesApplication/note/activeNote/NoteViewer';
+import { IStoreState } from '../../../../reducers/IStoreState';
+import { IAction } from '../../../../actions/IAction';
+import { getErrorById } from '../../../../selectors/errors/getErrorById';
+import { ApplicationError } from '../../../../models/ApplicationError';
+import { Note } from '../../../../models/Note';
 
 interface IOwnProps {
   readonly note: Note;

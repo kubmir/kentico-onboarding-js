@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { NotePropType } from '../../utils/notePropType';
-import { ApplicationError } from '../../models/ApplicationError';
-import { Note } from '../../models/Note';
+import { NotePropType } from '../../../../utils/notePropType';
+import { ApplicationError } from '../../../../models/ApplicationError';
+import { Note } from '../../../../models/Note';
 
 export interface INoteViewerDataProps {
   readonly note: Note;

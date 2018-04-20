@@ -5,11 +5,11 @@ import {
   MdRepeat,
   MdCancel,
 } from 'react-icons/lib/md';
-import { NotePropType } from '../../utils/notePropType';
-import { IAction } from '../../actions/IAction';
-import { FailedAction } from '../../enums/FailedAction';
-import { ApplicationError } from '../../models/ApplicationError';
-import { Note } from '../../models/Note';
+import { NotePropType } from '../../../../utils/notePropType';
+import { IAction } from '../../../../actions/IAction';
+import { FailedAction } from '../../../../enums/FailedAction';
+import { ApplicationError } from '../../../../models/ApplicationError';
+import { Note } from '../../../../models/Note';
 
 export interface IInactiveNoteErrorDataProps {
   readonly note: Note;

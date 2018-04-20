@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import {
   Note as NoteComponent,
   INoteDataProps
-} from '../../components/note/Note';
-import { getNoteById } from '../../selectors/notes/list/listOfNotes';
-import { IStoreState } from '../../reducers/IStoreState';
+} from '../../../components/notesApplication/note/Note';
+import { getNoteById } from '../../../selectors/notes/list/listOfNotes';
+import { IStoreState } from '../../../reducers/IStoreState';
 
 interface INoteOwnProps {
   readonly noteId: Guid;

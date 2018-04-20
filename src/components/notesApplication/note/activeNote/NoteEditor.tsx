@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { NonEmptyInput } from '../input/NonEmptyInput';
-import { NoteErrorMessage } from './NoteErrorMessage';
-import { isValidNoteText } from '../../utils/isValidNoteText';
-import { Note } from '../../models/Note';
-import { NoteState } from '../../enums/NoteState';
-import { NoteStatePropType } from '../../utils/notePropType';
+import { NonEmptyInput } from '../../../input/NonEmptyInput';
+import { NoteErrorMessage } from '../NoteErrorMessage';
+import { isValidNoteText } from '../../../../utils/isValidNoteText';
+import { Note } from '../../../../models/Note';
+import { NoteState } from '../../../../enums/NoteState';
+import { NoteStatePropType } from '../../../../utils/notePropType';
 
 export interface INoteEditorDataProps {
   readonly note: Note;

@@ -6,14 +6,14 @@ import {
   NonEmptyInput,
   INonEmptyInputCallbacksProps,
   INonEmptyInputDataProps
-} from '../../components/input/NonEmptyInput';
+} from '../../../components/input/NonEmptyInput';
 import {
   addNewNote,
   startAddingNote,
   stopAddingNote,
   changeAddingNoteText,
-} from '../../actions';
-import { IStoreState } from '../../reducers/IStoreState';
+} from '../../../actions/index';
+import { IStoreState } from '../../../reducers/IStoreState';
 
 interface IOwnProps {
   readonly inputClassName: string;

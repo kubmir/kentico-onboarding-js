@@ -1,19 +1,19 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { NoteEditor } from '../../containers-redux/note/NoteEditor';
-import { NoteViewer } from '../../containers-redux/note/NoteViewer';
-import { Note } from '../../models/Note';
-import { NotePropType } from '../../utils/notePropType';
-import { NoteState } from '../../enums/NoteState';
-import { InactiveNoteError } from '../../containers-redux/inactiveNote/InactiveNoteError';
-import { InactiveNoteViewer } from '../inactiveNote/InactiveNoteViewer';
+import { NoteEditor } from '../../../containers-redux/notesApplication/note/activeNote/NoteEditor';
+import { NoteViewer } from '../../../containers-redux/notesApplication/note/activeNote/NoteViewer';
+import { Note } from '../../../models/Note';
+import { NotePropType } from '../../../utils/notePropType';
+import { NoteState } from '../../../enums/NoteState';
+import { InactiveNoteError } from '../../../containers-redux/notesApplication/note/inactiveNote/InactiveNoteError';
+import { InactiveNoteViewer } from './inactiveNote/InactiveNoteViewer';
 
 export interface INoteDataProps {
   readonly note: Note;
   readonly number: number;
 }
 
-const NoteComponent: React.StatelessComponent<INoteDataProps> = (props: INoteDataProps): JSX.Element => {
+const NoteComponent: React.StatelessComponent<INoteDataProps> = (props: INoteDataProps): JSX.Element | null => {
   let ReturnComponent;
 
   switch (props.note.noteState) {
@@ -34,7 +34,7 @@ const NoteComponent: React.StatelessComponent<INoteDataProps> = (props: INoteDat
       break;
 
     default:
-      return <div />;
+      return null;
   }
 
   return <ReturnComponent

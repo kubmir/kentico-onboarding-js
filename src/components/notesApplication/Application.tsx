@@ -2,34 +2,33 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import { IKeyMap } from '../../models/IKeyMap';
-import { Loader } from './Loader';
-import { MainPage } from '../../containers-redux/applicationViews/MainPage';
 import '../../sticky-footer.css';
 import { IAction } from '../../actions/IAction';
+import { NotesMainPage } from '../../containers-redux/notesApplication/MainPage';
 
 const keyMap: IKeyMap = {
   cancelEditing: 'esc',
   saveChanges: 'enter',
 };
 
-export interface IAppDataProps {
+export interface IApplicationDataProps {
   readonly isLoadingNotes: boolean;
 }
 
-export interface IAppCallbacksProps {
+export interface IApplicationCallbacksProps {
   readonly loadNotesFromServer: () => Promise<IAction>;
 }
 
-type IAppProps = IAppDataProps & IAppCallbacksProps;
+type IApplicationProps = IApplicationDataProps & IApplicationCallbacksProps;
 
-export class App extends React.PureComponent<IAppProps> {
-  static displayName = 'App';
+export class Application extends React.PureComponent<IApplicationProps> {
+  static displayName = 'Application';
 
   static propTypes = {
     isLoadingNotes: PropTypes.bool.isRequired,
   };
 
-  constructor(props: IAppProps) {
+  constructor(props: IApplicationProps) {
     super(props);
   }
 
@@ -38,10 +37,6 @@ export class App extends React.PureComponent<IAppProps> {
   }
 
   render() {
-    const pageContent = this.props.isLoadingNotes
-      ? <Loader />
-      : <MainPage />;
-
     return (
       <div>
         <div className="container">
@@ -73,7 +68,7 @@ export class App extends React.PureComponent<IAppProps> {
               <HotKeys keyMap={keyMap}>
                 <div className="row">
                   <div className="col-sm-12 col-md-offset-1 col-md-10">
-                    {pageContent}
+                    <NotesMainPage />
                   </div>
                 </div>
               </HotKeys>

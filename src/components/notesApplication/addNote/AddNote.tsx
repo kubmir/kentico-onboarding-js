@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { AddNoteInput } from '../../containers-redux/addNote/AddNoteInput';
-import { isValidNoteText } from '../../utils/isValidNoteText';
-import { IAction } from '../../actions/IAction';
+import { AddNoteInput } from '../../../containers-redux/notesApplication/addNote/AddNoteInput';
+import { isValidNoteText } from '../../../utils/isValidNoteText';
+import { IAction } from '../../../actions/IAction';
 import { NoteErrorMessage } from '../note/NoteErrorMessage';
 
 export interface IAddNoteDataProps {

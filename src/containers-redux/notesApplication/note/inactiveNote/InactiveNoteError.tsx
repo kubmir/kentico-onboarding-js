@@ -2,16 +2,16 @@ import {
   connect,
   Dispatch
 } from 'react-redux';
-import { IStoreState } from '../../reducers/IStoreState';
+import { IStoreState } from '../../../../reducers/IStoreState';
 import {
   InactiveNoteError as IInactiveNoteErrorComponent,
   IInactiveNoteErrorCallbackProps,
   IInactiveNoteErrorDataProps,
-} from '../../components/inactiveNote/InactiveNoteError';
-import { getFailedActionCallbacks } from '../../utils/getFailedActionCallbacks';
-import { getErrorById } from '../../selectors/errors/getErrorById';
-import { FailedAction } from '../../enums/FailedAction';
-import { Note } from '../../models/Note';
+} from '../../../../components/notesApplication/note/inactiveNote/InactiveNoteError';
+import { getFailedActionCallbacks } from '../../../../utils/getFailedActionCallbacks';
+import { getErrorById } from '../../../../selectors/errors/getErrorById';
+import { FailedAction } from '../../../../enums/FailedAction';
+import { Note } from '../../../../models/Note';
 
 interface IInactiveNoteErrorOwnProps {
   readonly note: Note;
