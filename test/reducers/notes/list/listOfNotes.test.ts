@@ -31,6 +31,7 @@ import {
   updatingNoteOnServerSuccess,
   updateFailedFactory,
 } from '../../../../src/actions/thunkFactories/putNoteFactory';
+import { NoteState } from '../../../../src/enums/NoteState';
 
 describe('Reducer listOfNotes ', () => {
   let initialState: OrderedMap<Guid, Note>;
@@ -69,11 +70,11 @@ describe('Reducer listOfNotes ', () => {
   it('should add new note to state notes when action START_SENDING_NOTE_TO_SERVER is dispatched.', () => {
     const noteToAddText = 'Third local test note - added - isCommunicating';
     const noteToAddId = '3';
-    const newNote = prepareLocalNote(noteToAddText, noteToAddId);
+    const newNote = prepareLocalNote(noteToAddText, noteToAddId, NoteState.COMMUNICATING);
     const addNoteAction = startSendingNoteToServer(noteToAddId, noteToAddText);
     const expectedState = OrderedMap([
-        ['1', prepareNote('First test note', '1', false)],
-        ['2', prepareNote('Second test note', '2', false)],
+        ['1', prepareNote('First test note', '1')],
+        ['2', prepareNote('Second test note', '2')],
         ['3', newNote],
       ],
     );
@@ -83,11 +84,11 @@ describe('Reducer listOfNotes ', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('should update isCommunicating and errorDescription of state note when action START_RESENDING_NOTE_TO_SERVER is dispatched.', () => {
+  it('should update noteState to COMMUNICATING note when action START_RESENDING_NOTE_TO_SERVER is dispatched.', () => {
     const resendingAction = startReSendingNoteToServer('2');
     const expectedState = OrderedMap([
-      ['1', prepareNote('First test note', '1', false)],
-      ['2', prepareLocalNote('Second test note', '2')],
+      ['1', prepareNote('First test note', '1', NoteState.ACTIVE)],
+      ['2', prepareLocalNote('Second test note', '2', NoteState.COMMUNICATING)],
     ]);
 
     const actualState = listOfNotes(initialState, resendingAction);
@@ -97,10 +98,10 @@ describe('Reducer listOfNotes ', () => {
 
   it('should add new note to state notes when action SENDING_NOTE_TO_SERVER_SUCCESS is dispatched.', () => {
     const noteToAddText = 'Third test note - added';
-    const newNote = prepareNote(noteToAddText, '3', false);
+    const newNote = prepareNote(noteToAddText, '3');
     const addNoteAction = sendingNoteToServerSuccess(newNote, '2');
     const expectedState = OrderedMap([
-        ['1', prepareNote('First test note', '1', false)],
+        ['1', prepareNote('First test note', '1')],
         ['3', newNote.with({ serverSynchronizedText: noteToAddText })],
     ]);
 
@@ -115,8 +116,8 @@ describe('Reducer listOfNotes ', () => {
     const updateAction = updatingNoteOnServerSuccess(new Note({ visibleText: textChanges, id: idOfUpdatedNote }));
     const expectedState = OrderedMap(
       [
-        ['1', prepareNote(textChanges, idOfUpdatedNote, false).with({ serverSynchronizedText: textChanges })],
-        ['2', prepareNote('Second test note', '2', false)],
+        ['1', prepareNote(textChanges, idOfUpdatedNote, NoteState.ACTIVE).with({ serverSynchronizedText: textChanges })],
+        ['2', prepareNote('Second test note', '2')],
       ],
     );
 
@@ -130,8 +131,8 @@ describe('Reducer listOfNotes ', () => {
     const previousNote = initialState
       .get(idOfUpdatedNote);
     const expectedState =   OrderedMap([
-        ['1', prepareNote('First test note', idOfUpdatedNote, false).with( { serverSynchronizedText: 'First test note' })],
-        ['2', prepareNote('Second test note', '2', false)],
+        ['1', prepareNote('First test note', idOfUpdatedNote, NoteState.ACTIVE).with( { serverSynchronizedText: 'First test note' })],
+        ['2', prepareNote('Second test note', '2',  NoteState.ACTIVE)],
     ]);
     const updateAction = updatingNoteOnServerSuccess(new Note({ visibleText: previousNote.visibleText, id: idOfUpdatedNote }));
 
@@ -144,7 +145,7 @@ describe('Reducer listOfNotes ', () => {
     const deleteAction = deletingNoteFromServerSuccess('1');
     const expectedState = OrderedMap(
       [
-        ['2', prepareNote('Second test note', '2', false)],
+        ['2', prepareNote('Second test note', '2',  NoteState.ACTIVE)],
       ],
     );
 
@@ -158,8 +159,8 @@ describe('Reducer listOfNotes ', () => {
     const startEditAction = startEditingNote(idOfNote);
     const expectedState = OrderedMap(
       [
-        ['1', prepareNote('First test note', '1', true)],
-        ['2', prepareNote('Second test note', '2', false)],
+        ['1', prepareNote('First test note', '1',  NoteState.EDITOR)],
+        ['2', prepareNote('Second test note', '2',  NoteState.ACTIVE)],
       ],
     );
 
@@ -173,14 +174,14 @@ describe('Reducer listOfNotes ', () => {
     const startEditAction = cancelEditingNote(idOfNote);
     const expectedState = OrderedMap(
       [
-        ['1', prepareNote('First test note', '1', false)],
-        ['2', prepareNote('Second test note', '2', true)],
+        ['1', prepareNote('First test note', '1',  NoteState.ACTIVE)],
+        ['2', prepareNote('Second test note', '2', NoteState.EDITOR)],
       ],
     );
     initialState = OrderedMap(
       [
-        ['1', prepareNote('First test note', '1', true)],
-        ['2', prepareNote('Second test note', '2', true)],
+        ['1', prepareNote('First test note', '1', NoteState.EDITOR)],
+        ['2', prepareNote('Second test note', '2', NoteState.EDITOR)],
       ],
     );
 
@@ -189,12 +190,12 @@ describe('Reducer listOfNotes ', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('should set property isCommunicating of note to true when action START_DELETING_NOTE_FROM_SERVER is dispatched.', () => {
+  it('should set property noteState to COMMUNICATING when action START_DELETING_NOTE_FROM_SERVER is dispatched.', () => {
     const startDeleteAction = startDeletingNoteFromServer('2');
     const expectedState = OrderedMap(
       [
-        ['1', prepareNote('First test note', '1', false)],
-        ['2', prepareLocalNote('Second test note', '2')],
+        ['1', prepareNote('First test note', '1', NoteState.ACTIVE)],
+        ['2', prepareLocalNote('Second test note', '2', NoteState.COMMUNICATING)],
       ],
     );
 
@@ -203,12 +204,12 @@ describe('Reducer listOfNotes ', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('should set property isCommunicating of note to true when action START_UPDATING_NOTE_ON_SERVER is dispatched.', () => {
+  it('should set property noteState to COMMUNICATING when action START_UPDATING_NOTE_ON_SERVER is dispatched.', () => {
     const startDeleteAction = startUpdatingNoteOnServer('2', 'new test visibleText');
     const expectedState = OrderedMap(
       [
-        ['1', prepareNote('First test note', '1', false)],
-        ['2', prepareLocalNote('new test visibleText', '2')],
+        ['1', prepareNote('First test note', '1', NoteState.ACTIVE)],
+        ['2', prepareLocalNote('new test visibleText', '2', NoteState.COMMUNICATING)],
       ],
     );
 
@@ -222,7 +223,7 @@ describe('Reducer listOfNotes ', () => {
     const expectedState = OrderedMap(
       [
         ['1', prepareNoteWithCommunicationError('First test note', '1', 'error1')],
-        ['2', prepareNote('Second test note', '2', false)],
+        ['2', prepareNote('Second test note', '2', NoteState.ACTIVE)],
       ],
     );
 
@@ -236,7 +237,7 @@ describe('Reducer listOfNotes ', () => {
     const expectedState = OrderedMap(
       [
         ['1', prepareNoteWithCommunicationError('First test note', '1', 'error1')],
-        ['2', prepareNote('Second test note', '2', false)],
+        ['2', prepareNote('Second test note', '2', NoteState.ACTIVE)],
       ],
     );
 
@@ -251,7 +252,7 @@ describe('Reducer listOfNotes ', () => {
     const expectedState = OrderedMap(
       [
         ['1', prepareNoteWithCommunicationError('First test note', '1', 'error1')],
-        ['2', prepareNote('Second test note', '2', false)],
+        ['2', prepareNote('Second test note', '2', NoteState.ACTIVE)],
       ],
     );
 
@@ -265,13 +266,13 @@ describe('Reducer listOfNotes ', () => {
     const initialErrorState = OrderedMap<string, Note>(
       [
         ['1', prepareNoteWithCommunicationError('First test note', '1', 'error1')],
-        ['2', prepareNote('Second test note', '2', false)],
+        ['2', prepareNote('Second test note', '2', NoteState.ACTIVE)],
       ],
     );
     const expectedState = OrderedMap(
       [
-        ['1', prepareNote('First test note', '1', false)],
-        ['2', prepareNote('Second test note', '2', false)],
+        ['1', prepareNote('First test note', '1', NoteState.ACTIVE)],
+        ['2', prepareNote('Second test note', '2', NoteState.ACTIVE)],
       ],
     );
 
@@ -285,13 +286,13 @@ describe('Reducer listOfNotes ', () => {
     const initialErrorState = OrderedMap<string, Note>(
       [
         ['1', prepareNoteWithCommunicationError('First test note updated', '1', 'error1')],
-        ['2', prepareNote('Second test note', '2', false)],
+        ['2', prepareNote('Second test note', '2', NoteState.ACTIVE)],
       ],
     );
     const expectedState = OrderedMap(
       [
-        ['1', prepareNote('First test note', '1', false)],
-        ['2', prepareNote('Second test note', '2', false)],
+        ['1', prepareNote('First test note', '1', NoteState.ACTIVE)],
+        ['2', prepareNote('Second test note', '2', NoteState.ACTIVE)],
       ],
     );
 
@@ -305,12 +306,12 @@ describe('Reducer listOfNotes ', () => {
     const initialErrorState = OrderedMap<string, Note>(
       [
         ['1', prepareNoteWithCommunicationError('First test note', '1', 'error1')],
-        ['2', prepareNote('Second test note', '2', false)],
+        ['2', prepareNote('Second test note', '2', NoteState.ACTIVE)],
       ],
     );
     const expectedState = OrderedMap(
       [
-        ['2', prepareNote('Second test note', '2', false)],
+        ['2', prepareNote('Second test note', '2', NoteState.ACTIVE)],
       ],
     );
 

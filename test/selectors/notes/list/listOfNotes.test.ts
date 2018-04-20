@@ -6,11 +6,12 @@ import {
   getAllIds,
   getNoteById,
 } from '../../../../src/selectors/notes/list/listOfNotes';
+import { NoteState } from '../../../../src/enums/NoteState';
 
 describe('Selector listOfNotes ', () => {
   it('method getNoteById should return correct note by id.', () => {
     const notes = prepareNotesInitialState();
-    const expectedNote = prepareNote('First test note', '1', false);
+    const expectedNote = prepareNote('First test note', '1', NoteState.ACTIVE);
 
     const actualNote = getNoteById(notes, '1');
 

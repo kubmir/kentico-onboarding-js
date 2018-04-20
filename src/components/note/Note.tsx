@@ -2,30 +2,52 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { NoteEditor } from '../../containers-redux/note/NoteEditor';
 import { NoteViewer } from '../../containers-redux/note/NoteViewer';
+import { Note } from '../../models/Note';
+import { NotePropType } from '../../utils/notePropType';
+import { NoteState } from '../../enums/NoteState';
+import { InactiveNoteError } from '../../containers-redux/inactiveNote/InactiveNoteError';
+import { InactiveNoteViewer } from '../inactiveNote/InactiveNoteViewer';
 
 export interface INoteDataProps {
-  readonly noteIsEditActive: boolean;
-  readonly noteId: Guid;
+  readonly note: Note;
   readonly number: number;
 }
 
-const Note: React.StatelessComponent<INoteDataProps> = (props: INoteDataProps): JSX.Element => {
-  const NoteComponent = props.noteIsEditActive
-    ? NoteEditor
-    : NoteViewer;
+const NoteComponent: React.StatelessComponent<INoteDataProps> = (props: INoteDataProps): JSX.Element => {
+  let ReturnComponent;
 
-  return <NoteComponent
-    noteId={props.noteId}
+  switch (props.note.noteState) {
+    case NoteState.COMMUNICATING:
+      ReturnComponent = InactiveNoteViewer;
+      break;
+
+    case NoteState.INACTIVE_ERROR:
+      ReturnComponent = InactiveNoteError;
+      break;
+
+    case NoteState.EDITOR:
+      ReturnComponent = NoteEditor;
+      break;
+
+    case NoteState.ACTIVE:
+      ReturnComponent = NoteViewer;
+      break;
+
+    default:
+      return <div />;
+  }
+
+  return <ReturnComponent
+    note={props.note}
     number={props.number}
   />;
 };
 
-Note.displayName = 'Note';
+NoteComponent.displayName = 'Note';
 
-Note.propTypes = {
-  noteIsEditActive: PropTypes.bool.isRequired,
-  noteId: PropTypes.string.isRequired,
+NoteComponent.propTypes = {
+  note: NotePropType,
   number: PropTypes.number.isRequired,
 };
 
-export { Note };
+export { NoteComponent as Note };

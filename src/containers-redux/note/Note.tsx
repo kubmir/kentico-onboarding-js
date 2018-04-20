@@ -12,8 +12,8 @@ interface INoteOwnProps {
 }
 
 const mapStateToProps = ({ notes }: IStoreState, ownProps: INoteOwnProps): INoteDataProps => ({
-  noteIsEditActive: getNoteById(notes.listOfNotes, ownProps.noteId).isEditActive,
-  ...ownProps,
+  note: getNoteById(notes.listOfNotes, ownProps.noteId),
+  number: ownProps.number,
 });
 
 export const Note = connect(

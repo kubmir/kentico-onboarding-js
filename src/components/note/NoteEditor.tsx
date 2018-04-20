@@ -4,6 +4,8 @@ import { NonEmptyInput } from '../input/NonEmptyInput';
 import { NoteErrorMessage } from './NoteErrorMessage';
 import { isValidNoteText } from '../../utils/isValidNoteText';
 import { Note } from '../../models/Note';
+import { NoteState } from '../../enums/NoteState';
+import { NoteStatePropType } from '../../utils/notePropType';
 
 export interface INoteEditorDataProps {
   readonly note: Note;
@@ -28,7 +30,7 @@ export class NoteEditor extends React.PureComponent<NoteEditorProps, INoteEditor
   static propTypes = {
     note: PropTypes.shape({
       visibleText: PropTypes.string.isRequired,
-      isEditActive: PropTypes.bool.isRequired,
+      noteState: NoteStatePropType,
     }).isRequired,
     number: PropTypes.number.isRequired,
     onDeleteClick: PropTypes.func.isRequired,
@@ -55,7 +57,7 @@ export class NoteEditor extends React.PureComponent<NoteEditorProps, INoteEditor
 
   render(): JSX.Element {
     const isNoteTextValid = isValidNoteText(this.state.currentNoteText);
-    const isError = !isNoteTextValid && this.props.note.isEditActive;
+    const isError = !isNoteTextValid && this.props.note.noteState === NoteState.EDITOR;
 
     return (
       <div>

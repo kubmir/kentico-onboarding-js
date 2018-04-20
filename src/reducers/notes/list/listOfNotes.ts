@@ -19,13 +19,14 @@ import {
   UPDATING_NOTE_ON_SERVER_SUCCESS,
 } from '../../../constants/actionTypes';
 import { IAction } from '../../../actions/IAction';
+import { NoteState } from '../../../enums/NoteState';
 
-const addNote = (state: OrderedMap<Guid, Note>, payload: { noteId: Guid, text: string, isCommunicating: boolean }): OrderedMap<Guid, Note> => {
-  const { noteId, text, isCommunicating } = payload;
+const addNote = (state: OrderedMap<Guid, Note>, payload: { noteId: Guid, text: string }): OrderedMap<Guid, Note> => {
+  const { noteId, text } = payload;
   const noteToAdd = new Note({
     id: noteId,
     visibleText: text,
-    isCommunicating,
+    noteState: NoteState.COMMUNICATING,
   });
 
   return state
@@ -45,8 +46,7 @@ const updateNoteOnFailure = (state: OrderedMap<Guid, Note>, payload: { noteId: G
   updateNote(
     state,
     {
-      isEditActive: false,
-      isCommunicating: false,
+      noteState: NoteState.INACTIVE_ERROR,
       errorId: payload.errorId,
     },
     payload.noteId
@@ -75,7 +75,7 @@ export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): 
     case START_RESENDING_NOTE_TO_SERVER:
       return updateNote(
         state,
-        { isCommunicating: true },
+        { noteState: NoteState.COMMUNICATING },
         action.payload.localNoteId
       );
 
@@ -89,23 +89,22 @@ export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): 
           serverSynchronizedText: action.payload.text,
           visibleText: action.payload.text,
           errorId: undefined,
-          isCommunicating: false,
+          noteState: NoteState.ACTIVE,
         },
         action.payload.noteId
       );
 
     case START_EDITING_NOTE:
-      return updateNote(state, { isEditActive: true }, action.payload.noteId);
+      return updateNote(state, { noteState: NoteState.EDITOR }, action.payload.noteId);
 
     case CANCEL_EDITING_NOTE:
-      return updateNote(state, { isEditActive: false, errorId: undefined }, action.payload.noteId);
+      return updateNote(state, { noteState: NoteState.ACTIVE, errorId: undefined }, action.payload.noteId);
 
     case START_UPDATING_NOTE_ON_SERVER:
       return updateNote(
         state,
         {
-          isEditActive: false,
-          isCommunicating: true,
+          noteState: NoteState.COMMUNICATING,
           visibleText: action.payload.newText
         },
         action.payload.noteId
@@ -115,8 +114,7 @@ export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): 
       return updateNote(
         state,
         {
-          isEditActive: false,
-          isCommunicating: true
+          noteState: NoteState.COMMUNICATING,
         },
         action.payload.noteId
       );
@@ -137,8 +135,7 @@ export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): 
       return updateNote(
         state,
         {
-          isEditActive: false,
-          isCommunicating: false,
+          noteState: NoteState.ACTIVE,
           errorId: undefined,
         },
         action.payload.noteId
@@ -148,8 +145,7 @@ export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): 
       return updateNote(
         state,
         {
-          isEditActive: false,
-          isCommunicating: false,
+          noteState: NoteState.ACTIVE,
           errorId: undefined,
           visibleText: action.payload.serverSynchronizedText
         },

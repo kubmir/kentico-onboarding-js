@@ -8,30 +8,27 @@ import {
   INoteViewerCallbacksProps,
   INoteViewerDataProps
 } from '../../components/note/NoteViewer';
-import { getNoteById } from '../../selectors/notes/list/listOfNotes';
 import { IStoreState } from '../../reducers/IStoreState';
 import { IAction } from '../../actions/IAction';
 import { getErrorById } from '../../selectors/errors/getErrorById';
 import { ApplicationError } from '../../models/ApplicationError';
+import { Note } from '../../models/Note';
 
 interface IOwnProps {
-  readonly noteId: Guid;
+  readonly note: Note;
   readonly number: number;
 }
 
-const mapStateToProps = ({ notes, errors }: IStoreState, ownProps: IOwnProps): INoteViewerDataProps => {
-  const note = getNoteById(notes.listOfNotes, ownProps.noteId);
-
+const mapStateToProps = ({ errors }: IStoreState, ownProps: IOwnProps): INoteViewerDataProps => {
   return {
-    number: ownProps.number,
-    note,
-    error: note.errorId === undefined ? new ApplicationError() : getErrorById(errors, note.errorId)
+    ...ownProps,
+    error: ownProps.note.errorId === undefined ? new ApplicationError() : getErrorById(errors, ownProps.note.errorId)
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IOwnProps): INoteViewerCallbacksProps => ({
   onTextClick: () =>
-    dispatch(startEditingNote(ownProps.noteId)),
+    dispatch(startEditingNote(ownProps.note.id)),
 });
 
 export const NoteViewer = connect(

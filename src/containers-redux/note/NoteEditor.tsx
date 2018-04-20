@@ -9,38 +9,26 @@ import {
 } from '../../actions';
 import {
   NoteEditor as NoteEditorComponent,
-  INoteEditorCallbacksProps,
-  INoteEditorDataProps
+  INoteEditorCallbacksProps
 } from '../../components/note/NoteEditor';
-import { getNoteById } from '../../selectors/notes/list/listOfNotes';
 import { IStoreState } from '../../reducers/IStoreState';
+import { Note } from '../../models/Note';
 
 interface INoteEditorOwnProps {
-  readonly noteId: Guid;
+  readonly note: Note;
   readonly number: number;
 }
 
-const mapStateToProps = ({ notes }: IStoreState, ownProps: INoteEditorOwnProps): INoteEditorDataProps => ({
-  number: ownProps.number,
-  note: getNoteById(notes.listOfNotes, ownProps.noteId),
-});
-
 const mapDispatchToProps = (dispatch: Dispatch<IStoreState>, ownProps: INoteEditorOwnProps): INoteEditorCallbacksProps => ({
   onDeleteClick: () =>
-    dispatch(deleteServerNote(ownProps.noteId)),
+    dispatch(deleteServerNote(ownProps.note.id)),
   onCancelEditor: () =>
-    dispatch(cancelEditingNote(ownProps.noteId)),
+    dispatch(cancelEditingNote(ownProps.note.id)),
   onSaveClick: (currentNoteText: string) =>
-    dispatch(updateServerNote(ownProps.noteId, currentNoteText)),
-});
-
-const mergeProps = (stateProps: INoteEditorDataProps, dispatchProps: INoteEditorCallbacksProps) => ({
-  ...stateProps,
-  ...dispatchProps,
+    dispatch(updateServerNote(ownProps.note.id, currentNoteText)),
 });
 
 export const NoteEditor = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  mergeProps
+  null,
+  mapDispatchToProps
 )(NoteEditorComponent);

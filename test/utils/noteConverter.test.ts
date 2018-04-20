@@ -13,7 +13,6 @@ describe('NoteConverter ', () => {
       visibleText: text,
       serverSynchronizedText: text,
       id,
-      isEditActive: false,
     });
     const serverNote = {
       text,
