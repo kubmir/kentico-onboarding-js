@@ -19,141 +19,54 @@ import {
   UPDATING_NOTE_ON_SERVER_SUCCESS,
 } from '../../../constants/actionTypes';
 import { IAction } from '../../../actions/IAction';
-import { NoteState } from '../../../enums/NoteState';
+import { note } from './note/note';
 
-const addNote = (state: OrderedMap<Guid, Note>, payload: { noteId: Guid, text: string }): OrderedMap<Guid, Note> => {
-  const { noteId, text } = payload;
-  const noteToAdd = new Note({
-    id: noteId,
-    visibleText: text,
-    noteState: NoteState.COMMUNICATING,
-  });
+const updateNote = (state: OrderedMap<Guid, Note>, action: IAction): OrderedMap<Guid, Note> => {
+  const updatedNote = note(state.get(action.payload.noteId), action);
 
-  return state
-    .set(noteId, noteToAdd);
-};
-
-const deleteNote = (state: OrderedMap<Guid, Note>, payload: { noteId: Guid }): OrderedMap<Guid, Note> =>
-  state.delete(payload.noteId);
-
-const updateNote = (state: OrderedMap<Guid, Note>, updatedNote: Partial<Note>, noteId: Guid): OrderedMap<Guid, Note> =>
-  state.update(noteId, note => note.with(updatedNote));
-
-const addLoadedNotes = (payload: { notes: Iterable<[Guid, Note]> }): OrderedMap<Guid, Note> =>
-  OrderedMap(payload.notes);
-
-const updateNoteOnFailure = (state: OrderedMap<Guid, Note>, payload: { noteId: Guid, errorId: Guid }) =>
-  updateNote(
-    state,
-    {
-      noteState: NoteState.INACTIVE_ERROR,
-      errorId: payload.errorId,
-    },
-    payload.noteId
-  );
-
-const addServerSynchronizedNote = (state: OrderedMap<Guid, Note>, payload: { noteId: Guid, text: string, isCommunicating: boolean, localNoteId: Guid }) => {
-  const deletedNoteState = deleteNote(state, { noteId: payload.localNoteId });
-  const noteToAdd = new Note({
-    id: payload.noteId,
-    visibleText: payload.text,
-    serverSynchronizedText: payload.text,
-  });
-
-  return deletedNoteState
-    .set(payload.noteId, noteToAdd);
+  return state.update(action.payload.noteId, note => note.with(updatedNote));
 };
 
 export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): OrderedMap<Guid, Note> => {
   switch (action.type) {
     case LOADING_NOTES_SUCCESS:
-      return addLoadedNotes(action.payload);
+      return OrderedMap(action.payload.notes);
 
-    case START_SENDING_NOTE_TO_SERVER:
-      return addNote(state, action.payload);
+    case START_SENDING_NOTE_TO_SERVER: {
+      const noteToAdd = note(undefined, action);
 
-    case START_RESENDING_NOTE_TO_SERVER:
-      return updateNote(
-        state,
-        { noteState: NoteState.COMMUNICATING },
-        action.payload.localNoteId
-      );
+      return state.set(action.payload.noteId, noteToAdd);
+    }
 
-    case SENDING_NOTE_TO_SERVER_SUCCESS:
-      return addServerSynchronizedNote(state, action.payload);
+    case START_RESENDING_NOTE_TO_SERVER: {
+      const updatedNote = note(state.get(action.payload.localNoteId), action);
+
+      return state.update(action.payload.localNoteId, note => note.with(updatedNote));
+    }
+
+    case SENDING_NOTE_TO_SERVER_SUCCESS: {
+      const deletedNoteState = state.delete(action.payload.localNoteId);
+      const noteToAdd = note(undefined, action);
+
+      return deletedNoteState
+        .set(action.payload.noteId, noteToAdd);
+    }
 
     case UPDATING_NOTE_ON_SERVER_SUCCESS:
-      return updateNote(
-        state,
-        {
-          serverSynchronizedText: action.payload.text,
-          visibleText: action.payload.text,
-          errorId: undefined,
-          noteState: NoteState.ACTIVE,
-        },
-        action.payload.noteId
-      );
-
     case START_EDITING_NOTE:
-      return updateNote(state, { noteState: NoteState.EDITOR }, action.payload.noteId);
-
     case CANCEL_EDITING_NOTE:
-      return updateNote(state, { noteState: NoteState.ACTIVE, errorId: undefined }, action.payload.noteId);
-
     case START_UPDATING_NOTE_ON_SERVER:
-      return updateNote(
-        state,
-        {
-          noteState: NoteState.COMMUNICATING,
-          visibleText: action.payload.newText
-        },
-        action.payload.noteId
-      );
-
     case START_DELETING_NOTE_FROM_SERVER:
-      return updateNote(
-        state,
-        {
-          noteState: NoteState.COMMUNICATING,
-        },
-        action.payload.noteId
-      );
-
     case DELETING_NOTE_FROM_SERVER_FAILURE:
-      return updateNoteOnFailure(state, action.payload);
-
     case SENDING_NOTE_TO_SERVER_FAILURE:
-      return updateNoteOnFailure(state, action.payload);
-
     case UPDATING_NOTE_ON_SERVER_FAILURE:
-      return updateNoteOnFailure(state, action.payload);
+    case CANCEL_FAILED_DELETE_ACTION:
+    case CANCEL_FAILED_UPDATE_ACTION:
+      return updateNote(state, action);
 
     case DELETING_NOTE_FROM_SERVER_SUCCESS:
-      return deleteNote(state, action.payload);
-
-    case CANCEL_FAILED_DELETE_ACTION:
-      return updateNote(
-        state,
-        {
-          noteState: NoteState.ACTIVE,
-          errorId: undefined,
-        },
-        action.payload.noteId
-      );
-
-    case CANCEL_FAILED_UPDATE_ACTION:
-      return updateNote(
-        state,
-        {
-          noteState: NoteState.ACTIVE,
-          errorId: undefined,
-          visibleText: action.payload.serverSynchronizedText
-        },
-        action.payload.noteId
-      );
-
     case CANCEL_FAILED_ADD_ACTION :
-      return deleteNote(state, action.payload);
+      return state.delete(action.payload.noteId);
 
     default:
       return state;
