@@ -2,8 +2,9 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import { FormEvent } from 'react';
-import { IAction } from '../../actions/IAction';
 import * as classNames from 'classnames';
+import { IAction } from '../../actions/IAction';
+import { IKeyMap } from '../../models/IKeyMap';
 
 export interface INonEmptyInputDataProps {
   readonly text: string;
@@ -21,6 +22,10 @@ export interface INonEmptyInputCallbacksProps {
 }
 
 type NonEmptyInputProps = INonEmptyInputDataProps & INonEmptyInputCallbacksProps;
+
+type KeyMapHandlers = {
+  [P in keyof IKeyMap]: Function
+};
 
 export class NonEmptyInput extends React.PureComponent<NonEmptyInputProps> {
   static displayName = 'NonEmptyInput';
@@ -78,7 +83,7 @@ export class NonEmptyInput extends React.PureComponent<NonEmptyInputProps> {
   };
 
   render(): JSX.Element {
-    const handlers = {
+    const handlers: KeyMapHandlers = {
       'cancelEditing': () => this._onCancelFocusOfInput(),
       'saveChanges': () => this._onSaveChanges(),
     };

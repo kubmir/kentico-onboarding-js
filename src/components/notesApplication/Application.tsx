@@ -1,15 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
-import { IKeyMap } from '../../models/IKeyMap';
-import '../../sticky-footer.css';
 import { IAction } from '../../actions/IAction';
 import { NotesMainPage } from '../../containers-redux/notesApplication/MainPage';
-
-const keyMap: IKeyMap = {
-  cancelEditing: 'esc',
-  saveChanges: 'enter',
-};
+import { keyMap } from '../../constants/keyMap';
+import '../../sticky-footer.css';
 
 export interface IApplicationDataProps {
   readonly isLoadingNotes: boolean;
