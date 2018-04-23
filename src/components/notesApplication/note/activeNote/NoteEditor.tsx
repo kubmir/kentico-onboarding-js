@@ -67,7 +67,7 @@ export class NoteEditor extends React.PureComponent<NoteEditorProps, INoteEditor
           </div>
           <NonEmptyInput
             text={this.state.currentNoteText}
-            addInsertedText={this._onSaveClick}
+            onAddClick={this._onSaveClick}
             updateInsertedText={this._onNoteEditing}
             isError={isError}
             inputClassName="form-control"

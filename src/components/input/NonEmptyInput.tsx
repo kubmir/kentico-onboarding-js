@@ -13,7 +13,7 @@ export interface INonEmptyInputDataProps {
 
 export interface INonEmptyInputCallbacksProps {
   readonly updateInsertedText: (insertedText: string) => void;
-  readonly addInsertedText: (newText?: string) => void;
+  readonly onAddClick: (newText?: string) => void;
   readonly onInputFocus?: () => IAction;
   readonly onInputBlur?: () => IAction;
   readonly onCancelEditing?: () => void;
@@ -27,7 +27,7 @@ export class NonEmptyInput extends React.PureComponent<NonEmptyInputProps> {
   static propTypes = {
     text: PropTypes.string.isRequired,
     updateInsertedText: PropTypes.func.isRequired,
-    addInsertedText: PropTypes.func.isRequired,
+    onAddClick: PropTypes.func.isRequired,
     isError: PropTypes.bool.isRequired,
     inputClassName: PropTypes.string.isRequired,
     enableAutoFocus: PropTypes.bool.isRequired,
@@ -72,7 +72,7 @@ export class NonEmptyInput extends React.PureComponent<NonEmptyInputProps> {
   _onSaveChanges = (): void => {
     if (!this.props.isError) {
       this.textInput.blur();
-      this.props.addInsertedText(this.props.text);
+      this.props.onAddClick(this.props.text);
     }
   };
 
